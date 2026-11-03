@@ -1,0 +1,1381 @@
+TAHOT Gen-Deu - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt
+TAHOT Jos-Est - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt
+TAHOT Job-Sng - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt
+TAHOT Isa-Mal - Translators Amalgamated Hebrew OT - STEPBible.org CC BY.txt
+(This is saved as 4  files because a single file too large for Github)																
+=================================================																
+																
+	==============================================================															
+	Data created by www.STEPBible.org based on work at Tyndale House Cambridge (CC BY 4.0)															
+	==============================================================												
+	This licence allows you to:												
+	* Include any part of this data in software or publications and send it to AI servers  without requesting permission 												
+	* Download the data and reformat it for your application												
+	* Send any proposed corrections to STEPBible@Gmail.com to be verified 												
+	  (You MAY make changes yourself, but you should include a note of changes that can be viewed by those who use your new data)												
+	* Attribute the data to Tyndale House and STEPBible.org, and include a link to STEPBible.github.io/STEPBible-Data as the source of this data. 												
+	 Please do not post copies of this data file elsewhere, so that this remains the single up-to-date source"												
+	* We'd love to hear about your project and add it to our Partners Page when you make it available. Email us at STEPBible@Gmail.com.												
+	==============================================================												
+																
+Translators Amalgamated Hebrew OT tagged with disambiguated Strongs extended for BDB including tags for prefixes & suffixes, with ETCBC morphology																
+This data is based on the exact Leningrad codex. Divergences from other important Hebrew manuscripts are recorded as variants. (see the list of abbreviaitons below). Each verse is displayed as word-per-line and also in  interlinear format. 
+This data aims to represents the text actually used by Bible translators, which is occasionally is different to that found in the Leningrad codex. Therefore this text deviates from Leningrad when it 1) follows the Qere, 2) Restores missing text and 3) Adds words preserved in the LXX if they are used by translators.  																
+1) The Qere ('spoken') is the scribal marginal corrections which are generally followed by the KJV and all subsequent translators. The Ketiv (ie the text that  the Qere replaces) is recorded as a variant.  These are recorded as "Q" & "K", with "L" recording the actual text of Leningrad which consists of the letters of K with the pointing of Q																
+The Qere recorded here are all those in the Leningrad condex plus some from others manuscripts that are listed in the BHS apparatus (ie Gen.9.21#07; Gen.12.8#08; Gen.33.4#07; Gen.35.21#04; Exo.32.17#06; Exo.35.11#12; Lev.23.13#11; Num.3.51#05; Deu.27.10#07; Jdg.19.13#03; Jdg.19.21#03; 1Sa.18.14#04; 1Sa.18.22#04; 2Sa.13.33#15; 1Ki.17.15; 2Ki.19.23#21; 2Ki.20.13#08; 2Ch.35.4#01; 2Ch.36.14#07; Ezr.4.11#10; Est.4.4#01; Psa.21.2#07; Psa.123.4#08; Pro.6.13#02; Pro.6.13#04; Pro.23.3#02; Isa.58.14#07; Jer.2.3#05; Jer.15.8#03; Jer.22.18#24; Jer.27.20; Lam.3.25#03; Ezk.3.20#18; Ezk.31.18#25; Ezk.32.32#15; Ezk.39.11#24; Ezk.40.31#01; Ezk.43.11#12; Ezk.43.15#04; Ezk.44.3#07; Dan.2.29#01; Dan.2.31#01; Dan.2.37#01; Dan.2.38#14; Dan.4.22#21; Dan.4.22#27; Dan.4.29#22; Dan.6.1#02; Hab.3.4#09; Zec.2.8#02)
+2) Restoration of text is necessary at Jos.21.36-37 & Neh.7.67b because these are missing in the Leningrad codex. They are restored from the text of 1Ch.6.63-64 and Ezr.2.66. They are marked as "R". 
+3) Additional words or phrases preserved in the LXX are converted back to Hebrew as in the apparatus of BHS & BHK. These are marked as "X". They occur at Gen.4.8; Num.26.40; Deu.30.16; Jdg.16.13,14; 1Sa.10.1; 13.1; 13.15; 1Sa.14.41; 2Sa.12.16; 13.34; 2Sa.15.8; 23.33; 2Sa.24.17; 2Ki.25.3; 1Ch.4.13; 6.27; 1Ch.6.28,59; 1Ch.6.60,77; 1Ch.7.25; 8.29; 1Ch.8.30; 9.41; 1Ch.21.17; 25.9; 2Ch.15.8; Ezr.8.5,10; Est.3.7; Psa.25.21; 56.7; Psa.145.13; Ecc.9.2;    																
+									
+																
+FIELD DESCRIPTIONS:																
+==============																
+Ref: Eng (+Heb)#Heb.words	Bible reference in English Bibles, as defined by the NRSV (with Heb refs in brackets when they are different). Word numbers of the Hebrew Ketiv text, dividing words by spaces and metheg. [Exception: at Gen.014.017#09 the name Kedorlaomer is uncharacteristically divided as Kedorlaomer ( כְּדָרְ\־לָעֹ֔מֶר ) except in Aleppo, so this is counted as one word despite the metheg.]
+	English verses occasionally start a verse on a different word - i.e. Num.26.1; 1Sa.21.1; 1Ki.18.33; 20.3; 22.22; 22.43; 1Ch.12.4; Isa.64.1; and Psalm Titles (v.0).															
+Text type: 	L=Leningrad text; Q=Qere scribal corrections; K=original text; R=Restored text (ie Jos.21.36-37; Neh.7.67b); X=extra text from LXX as reconstructed in BHS or BHK. Other letters are used for variants - see the list below. Brackets indicate a variant  which is in lower case if it might not affect the translation.  
+	Translators normally follow L, and when this presents a choice between Q and K they follow Q, so K is presented as a variant. If there is more than one variant they are separated by "+" - eg:Neh.2.13#17=Q(K+B) indicates that this Hebrew word follows the Qere and has two variants: the Ketiv (which in this case is upper case "K" to indicate it is different enough to affect the translation), and the BHS which records the Leningrad text differently than Tyndale scholars, and this affects the translation.  If two sources record the same variant they simply follow each other - eg "=LA(HC+b) indicates the text follows Leningrad which is identical to Aleppo while there is a significant variant that is found in both Ben Haim and Cairensis and a different variant in BHS that is non-significant - ie it isn't sufficiently different to change the meaning so it is recorded in lower case. 
+Hebrew	Full Hebrew including pointing, cantillation and punctuation  with forward slash ( / ) separating prefixes and suffixes from the root word and backward slash ( \ ) separating punctuation. 															
+	This Hebrew was derived from Westminster Leningrad text WLC 4.20 via OpenScriptures, checked against the Stugartensia electronic text, then occasionally corrections towards the Leningrad Codex by BHS or by Tyndale scholars. It is, essentially, a corrected version of BHS. 															
+English translation:  	Forward slash ( / ) separates the translation to mirror the prefixes, root and suffixes in Hebrew. This means the order of English words follows the order within the Hebrew word.  															
+	Words in <angle brackets> are in the Hebrew but are best not  included in a translation. Words in [square brackets] aren't in the Hebrew but are implied and are best included in a translation. 															
+dStrongs	Lexical tags for each element of the Hebrew words, including prefixes and suffixes, with the Root in {curly brackets}. A "+" indicates the same tag also covers the next Hebrew word. These disambiguated Strong numbers (dStrong)  are defined at TinyURL.com/STEP-Disambiguated. 
+Grammar	Morphology is from ETCBC, with Ketiv forms parsed by Tyndale scholars - see e.g. Deu.33.2-15.   For the source of ETCBC and conversion method by Tyndale House, see https://goo.gl/yKaXQq#HebMorph2															
+	Morphology codes follow the form defined by OpenScriptures at http://openscriptures.github.io/morphhb/parsing/HebrewMorphologyCodes.html#vt with some adaptations - see TinyURL.com/HebMorph															
+Meaning variant	These are significant variants that are adopted by standard Bible translations which can result in a different translation.  															
+	The difference may not be reflected in translations. For example, Ruth 3.14 has Ketiv "his foot" replaced by Qere "his feet" (because single 'foot' is a euphamism for penis). This verse also has "before" spelled as בִּ/טְרוֹם in Ketiv and בְּ/טֶ֛רֶם in Qere. Both are recorded in detail even though they make little or no difference in most translations.  															
+Spelling variants	These spelling differences have no effect on the meaning, and are not recorded in the Interlinear layout. 															
+sStrong+Instance	Simple Strongs (sStrongs) are the original Strong numbers in 4-digits, without the appended "A", "B" etc for by which OpenScripture.org mirrored the BDB lexicon, and without the "A", "B" etc of disambiguation.  
+	They are appended with Instance markerss (eg  "_A" etc) to allow these to be upgraded to disambiguated tags with full morphology - see the methodology at www.TinyURL.com/UpgradingTags															
+Alt Strongs	Alternate ways to tag the same word using Strongs tags. Differences are usually due to different interpretations of the Hebrew root. The purpose of this and the sStrong+Instance is to help line up this data with other tagged Bibles.  														
+Conjoin word	Not yet implemented															
+Expanded Strong tags 	A copy of the dStrong tags with additional tags for punctuation elements. Each tag is accompanied by the lexical form in Heberew, an English gloss, and its sub-meaning after " » " where appropriate. 															
+	People and place names have unique IDs such as "Abram»Abraham@Gen.11.26-1Pe" which means: in this location the name given is Abram but the most common name is Abraham. This individual occurs first at Gen.11.26 and last in 1Peter. The ID and the accompanying dStrong number belongs to only one individual who is distinct from anyone else who shares any of their names. 															
+
+Abbreviations for sources of each word: 																
+=========================																
+L= Leningrad manuscript																
+R= restored text based on Leningrad parallels - ie Jos.21.36-37 from 1Ch.6.63-64 and Neh.7.67b from Ezr.2.66																
+X= "based on Greek sources" - ie extra words based on LXX, expressed in Hebrew as in the apparatus of BHS pr BHK - eg 1Sa.13.1 Saul was שְׁלֹשִׁים שָׁנָ֖ה ('a thirty year-old') not שָׁנָ֖ה ('a year-old') 																
+Q= "a Scribal corrections" ie the Qere ('spoken') corrections by scribes. This is made up of the letters in the margin and the pointing in the text.																
+    K= "the uncorrected text" - ie the Ketiv  ('written') is noted as a variant. This is made up of the letters in the text, pointed by Tyndale scholars. 																
+    L - the letters of K with pointing of Q, as found in Leningrad is recorded as a spelling variant. 																
+ - eg Gen.27.3 L= צָיִדה, K= צֵידָה ('food'), Q= צָיִד ('wild game')																
+																
+Abbreviations for other variants - in brackets after the source. If the variant doesn't change the meaning, it is noted in lower case, eg L(a) means this is the form found in Leningrad, where Aleppo is different but still has the same meaning. 																
+====================																
+A= "in the Aleppo manuscript" - eg Isa.27.2 חֶ֖מֶר ('wine') for חֶ֖מֶד ('delight')																
+B= "in the Biblia Hebraica Stuttgartensia" - ie BHS edition when it deviates from MT - eg Num.7.59 פְּדָה־צֽוּר (Pedah-zur') for פְּדָהצֽוּר ('Pedahzur')																
+C= "in the Cairensis manuscript" - eg 2Sa.11.1 הַמְּלָכִ֗ים ('kings') for הַמַּלְאֿכִ֗ים ('messengers')																
+D= "in a Dead Sea or Judean Desert manuscript"  - eg Psa.22.16(17) כָּ֝אֲרוּ ('they dug') for כָּ֝אֲרִ֗י ('like a lion')																
+E=  "an emendation of ancient sources" - ie a scholarly guess at the original when the Hebrew looks garbled  - eg Gen.37.36 וְהַמִדְיָנִים (and the Midianites) for וְהַמְּדָנִים ('and the Medanites)																
+F= "formatting the text differently" - ie changing  pointing or word divisions without changing any letters - eg 1Ch.24.26,27 בְנוֹ ('his son') for בְנוֹ ('Beno')																
+H= "in the Ben Chaim edtion" - ie the Second Rabbinic Bible - eg Gen.25.15 חֲדַ֣ר ('Hadar') for חֲדַ֣ד ('Hadad')																
+P= "with alternate punctuation" - as marked in major manuscripts  - eg in Gen.35.22  "Israel heard of it; and Jacob had 12 son" for "the concubine of his father; and Israel heard of it. And Jacob had 12 sons. 																
+S= "in Scribal traditions" - ie  in Itture Sopherim, Tiqqune Sopherim, Masora etc based on On the correction of the text of the Hebrew Scriptures by Heimann Jolowicz at https://www.google.co.uk/books/edition/On_the_Correction_of_the_Text_of_the_Heb/fmfE-R0b2UgC - eg Gen.18.22 "Yahweh.. before Abraham" for "Abraham... before Yahweh". 																
+V = "a variant in some manuscripts" - ie variants in Hebrew manuscripts other than those above - eg Zep.3.15 תִרְאִי ('you will see') for תִירְאִי ('you will fear')																
+(Most of these variants are yet to be added. )																
+																
+																
+# Jos.1.1	vay.Hi (וַיְהִ֗י)	'a.cha.Rei (אַחֲרֵ֛י)	Mot (מ֥וֹת)	mo.Sheh (מֹשֶׁ֖ה)	'E.ved (עֶ֣בֶד)	Yah.weh (יְהוָ֑ה)	vai.Yo.mer (וַיֹּ֤אמֶר)	Yah.weh (יְהוָה֙)	'el- (אֶל־)	ye.ho.Shu.a' (יְהוֹשֻׁ֣עַ)						
+#_Translation	and/ it was	after	[the] death of	Moses	[the] servant of	Yahweh	and/ he said	Yahweh	to	Joshua						
+#_Word+Grammar	H9001/H1961=Hc/Vqw3ms	H0310A=HAcmpc	H4194=HNcmsc	H4872=HNpm	H5650=HNcmsc	H3068G=HNpt	H9001/H0559=Hc/Vqw3ms	H3068G=HNpt	H0413=HR	H3091G=HNpm						
+#_Significant variant																
+#_Jos.1.1	bin- (בִּן־)	Nun (נ֔וּן)	me.sha.Ret (מְשָׁרֵ֥ת)	mo.Sheh (מֹשֶׁ֖ה)	le.Mor (לֵאמֹֽר׃)											
+#_Translation	[the] son of	Nun	[the] servant of	Moses	<to>/ saying											
+#_Word+Grammar	H1121A=HNcmsc	H5126=HNpm	H8334=HVprmsc	H4872=HNpm	H9005/H0559=HR/Vqcc											
+#_Significant variant																
+																
+Eng (Heb) Ref & Type	Hebrew	Transliteration	Translation	dStrongs	Grammar	Meaning Variants	Spelling Variants	Root dStrong+Instance	Alternative Strongs+Instance	Conjoin word	Expanded Strong tags					
+Rut.1.1#01=L	וַ/יְהִ֗י	va/y.Hi	and/ it was	H9001/{H1961}	Hc/Vqw3ms			H1961_A			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.1.1#02=L	בִּ/ימֵי֙	bi./Mei	in/ [the] days of	H9003/{H3117G}	HR/Ncmpc			H3117G			H9003=ב=in/{H3117G=יוֹם=: day»day;_when:1_day;_when;_period}					
+Rut.1.1#03=L	שְׁפֹ֣ט	she.Fot	[the] judging of	{H8199}	HVqcc			H8199_A			{H8199=שָׁפַט=to judge}					
+Rut.1.1#04=L	הַ/שֹּׁפְטִ֔ים	ha./sho.fe.Tim	the/ judges	H9009/{H8199}	HTd/Vqrmpa			H8199_B			H9009=ה=the/{H8199=שָׁפַט=to judge}					
+Rut.1.1#05=L	וַ/יְהִ֥י	va/y.Hi	and/ it was	H9001/{H1961}	Hc/Vqw3ms			H1961_B			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.1.1#06=L	רָעָ֖ב	ra.'Av	a famine	{H7458}	HNcmsa			H7458			{H7458=רָעָב=famine}					
+Rut.1.1#07=L	בָּ/אָ֑רֶץ	ba./'A.retz	in the/ land	H9003/{H0776G}	HRd/Ncfsa			H0776G			H9003=ב=in/{H0776G=אֶ֫רֶץ=: country;_planet»land:2_country;_planet}					
+Rut.1.1#08=L	וַ/יֵּ֨לֶךְ	va/i.Ye.lekh	and/ he went	H9001/{H1980G}	Hc/Vqw3ms			H1980G	H3212		H9001=ו=&/{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.1#09=L	אִ֜ישׁ	'ish	a man	{H0376G}	HNcmsa			H0376G			{H0376G=אִישׁ=: man»man:1_man}					
+Rut.1.1#10=L	מִ/בֵּ֧ית	mi./Beit	from/ Beth-	H9006/{H1035G}+	HR/Npl			H1035G_A			H9006=מ=from/{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.1.1#11=L	לֶ֣חֶם	Le.chem	-lehem	{H1035G}	HNpl			H1035G_b			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}					
+Rut.1.1#12=L	יְהוּדָ֗ה	ye.hu.Dah	Judah	{H3063G}	HNpl			H3063G			{H3063G=יְהוּדָה=Judah»Judah@Gen.29.35-Rev}					
+Rut.1.1#13=L	לָ/גוּר֙	la./Gur	to/ sojourn	H9005/{H1481A}	HR/Vqcc			H1481A			H9005=ל=to/{H1481A=גּוּר=to sojourn}					
+Rut.1.1#14=L	בִּ/שְׂדֵ֣י	bi/s.Dei	in/ [the] region<s> of	H9003/{H7704G}	HR/Ncmpc			H7704G			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.1.1#15=L	מוֹאָ֔ב	mo.'Av	Moab	{H4124G}	HNpl			H4124G			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.1#16=L	ה֥וּא	hu'	he	{H1931}	HPp3ms			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.1.1#17=L	וְ/אִשְׁתּ֖/וֹ	ve./'ish.T/o	and/ wife/ his	H9002/{H0802H}/H9023	HC/Ncfsc/Sp3ms			H0802H			H9002=ו=and/{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}/H9023=Ps3m=his					
+Rut.1.1#18=L	וּ/שְׁנֵ֥י	u./she.Nei	and/ [the] two	H9002/{H8147}	HC/Ncbdc			H8147			H9002=ו=and/{H8147=שְׁנַ֫יִם=two}					
+Rut.1.1#19=L	בָנָֽי/ו\׃	va.Na/v	sons/ his	{H1121A}/H9023\H9016	HNcmpc/Sp3ms			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}/H9023=Ps3m=his\H9016=׃=verseEnd					
+Rut.1.2#01=L	וְ/שֵׁ֣ם	ve./Shem	and/ [the] name of	H9002/{H8034}	HC/Ncmsc			H8034_A			H9002=ו=and/{H8034=שֵׁם=name}					
+Rut.1.2#02=L	הָ/אִ֣ישׁ	ha./'Ish	the/ man	H9009/{H0376G}	HTd/Ncmsa			H0376G			H9009=ה=the/{H0376G=אִישׁ=: man»man:1_man}					
+Rut.1.2#03=L	אֱֽלִימֶ֡לֶךְ	'eli.Me.lekh	[was] Elimelech	{H0458}	HNpm			H0458			{H0458=אֱלִימֶ֫לֶךְ=Elimelech»Elimelech@Rut.1.2-}					
+Rut.1.2#04=L	וְ/שֵׁם֩	ve./Shem	and/ [the] name of	H9002/{H8034}	HC/Ncmsc			H8034_B			H9002=ו=and/{H8034=שֵׁם=name}					
+Rut.1.2#05=L	אִשְׁתּ֨/וֹ	'ish.T/o	wife/ his	{H0802H}/H9023	HNcfsc/Sp3ms			H0802H			{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}/H9023=Ps3m=his					
+Rut.1.2#06=L	נָעֳמִ֜י	no.'o.Mi	[was] Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.2#07=L	וְ/שֵׁ֥ם	ve./Shem	and/ [the] name of	H9002/{H8034}	HC/Ncmsc			H8034_C			H9002=ו=and/{H8034=שֵׁם=name}					
+Rut.1.2#08=L	שְׁנֵֽי\־	she.nei-	[the] two	{H8147}\H9014	HNcbdc			H8147			{H8147=שְׁנַ֫יִם=two}\H9014=־=link					
+Rut.1.2#09=L	בָנָ֣י/ו\׀	va.Na/v	sons/ his	{H1121A}/H9023\H9015	HNcmpc/Sp3ms			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}/H9023=Ps3m=his\H9015=׀=separate					
+Rut.1.2#10=L	מַחְל֤וֹן	mach.Lon	[was] Mahlon	{H4248}	HNpm			H4248			{H4248=מַחְלוֹן=Mahlon»Mahlon@Rut.1.2-}					
+Rut.1.2#11=L	וְ/כִלְיוֹן֙	ve./khil.yOn	and/ Kilion	H9002/{H3630}	HC/Npm			H3630			H9002=ו=and/{H3630=כִּלְיוֹן=Chilion»Chilion@Rut.1.2-}					
+Rut.1.2#12=L	אֶפְרָתִ֔ים	'ef.ra.Tim	Ephrathites	{H0673H}	HNgmpa			H0673H			{H0673H=אֶפְרָתִי=Ephrathite»Ephrathah@1Ch.2.19-1Ch}					
+Rut.1.2#13=L	מִ/בֵּ֥ית	mi./Beit	from/ Beth-	H9006/{H1035G}+	HR/Npl			H1035G_A			H9006=מ=from/{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.1.2#14=L	לֶ֖חֶם	Le.chem	-lehem	{H1035G}	HNpl			H1035G_b			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}					
+Rut.1.2#15=L	יְהוּדָ֑ה	ye.hu.Dah	Judah	{H3063G}	HNpl			H3063G			{H3063G=יְהוּדָה=Judah»Judah@Gen.29.35-Rev}					
+Rut.1.2#16=L	וַ/יָּבֹ֥אוּ	va/i.ya.Vo.'u	and/ they came	H9001/{H0935G}	Hc/Vqw3mp			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.1.2#17=L	שְׂדֵי\־	se.dei-	[the] region<s> of	{H7704G}\H9014	HNcmpc			H7704G			{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}\H9014=־=link					
+Rut.1.2#18=L	מוֹאָ֖ב	mo.'Av	Moab	{H4124G}	HNpl			H4124G			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.2#19=L	וַ/יִּֽהְיוּ\־	va/i.yih.yu-	and/ they were	H9001/{H1961}\H9014	Hc/Vqw3mp			H1961			H9001=ו=&/{H1961=הָיָה=to be}\H9014=־=link					
+Rut.1.2#20=L	שָֽׁם\׃	Sham	there	{H8033G}\H9016	HD			H8033G			{H8033G=שָׁם=there}\H9016=׃=verseEnd					
+Rut.1.3#01=L	וַ/יָּ֥מָת	va/i.Ya.mot	and/ he died	H9001/{H4191}	Hc/Vqw3ms			H4191			H9001=ו=&/{H4191=מוּת=to die}					
+Rut.1.3#02=L	אֱלִימֶ֖לֶךְ	'e.li.Me.lekh	Elimelech	{H0458}	HNpm			H0458			{H0458=אֱלִימֶ֫לֶךְ=Elimelech»Elimelech@Rut.1.2-}					
+Rut.1.3#03=L	אִ֣ישׁ	'ish	[the] husband of	{H0376H}	HNcmsc			H0376H			{H0376H=אִישׁ=: husband»man:2_husband}					
+Rut.1.3#04=L	נָעֳמִ֑י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.3#05=L	וַ/תִּשָּׁאֵ֥ר	va./ti.sha.'Er	and/ she was left	H9001/{H7604}	Hc/VNw3fs			H7604			H9001=ו=&/{H7604=שָׁאַר=to remain}					
+Rut.1.3#06=L	הִ֖יא	hi'	she	{H1931}	HPp3fs			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.1.3#07=L	וּ/שְׁנֵ֥י	u./she.Nei	and/ [the] two	H9002/{H8147}	HC/Ncbdc			H8147			H9002=ו=and/{H8147=שְׁנַ֫יִם=two}					
+Rut.1.3#08=L	בָנֶֽי/הָ\׃	va.Nei./ha	sons/ her	{H1121A}/H9024\H9016	HNcmpc/Sp3fs			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}/H9024=Ps3f=her\H9016=׃=verseEnd					
+Rut.1.4#01=L	וַ/יִּשְׂא֣וּ	va/i.yis.'U	and/ they took	H9001/{H5375U}	Hc/Vqw3mp			H5375U			H9001=ו=&/{H5375U=נָשָׂא=: marry»to lift:15_marry;_take(wife)}					
+Rut.1.4#02=L	לָ/הֶ֗ם	la./Hem	for <the>/ themselves	H9005/{H9038}	HRd/Sp3mp			H9038			H9005=ל=to/{H9038=Op3m=them}					
+Rut.1.4#03=L	נָשִׁים֙	na.Shim	wives	{H0802H}	HNcmpa			H0802H			{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}					
+Rut.1.4#04=L	מֹֽאֲבִיּ֔וֹת	mo.'a.vi.Yot	Moabite	{H4125}	HNgfpa			H4125			{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.4#05=L	שֵׁ֤ם	shem	[the] name of	{H8034}	HNcmsc			H8034_A			{H8034=שֵׁם=name}					
+Rut.1.4#06=L	הָֽ/אַחַת֙	ha./'a.Chat	the/ one	H9009/{H0259}	HTd/Ncfsa			H0259			H9009=ה=the/{H0259=אֶחָד=one}					
+Rut.1.4#07=L	עָרְפָּ֔ה	'a.re.Pah	[was] Orpah	{H6204}	HNpf			H6204			{H6204=עׇרְפָּה=Orpah»Orpah@Rut.1.4-}					
+Rut.1.4#08=L	וְ/שֵׁ֥ם	ve./Shem	and/ [the] name of	H9002/{H8034}	HC/Ncmsc			H8034_B			H9002=ו=and/{H8034=שֵׁם=name}					
+Rut.1.4#09=L	הַ/שֵּׁנִ֖ית	ha./she.Nit	the/ second	H9009/{H8145}	HTd/Aofsa			H8145			H9009=ה=the/{H8145=שֵׁנִי=second}					
+Rut.1.4#10=L	ר֑וּת	Rut	[was] Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.1.4#11=L	וַ/יֵּ֥שְׁבוּ	va/i.Ye.she.vu	and/ they dwelt	H9001/{H3427}	Hc/Vqw3mp			H3427			H9001=ו=&/{H3427=יָשַׁב=to dwell}					
+Rut.1.4#12=L	שָׁ֖ם	sham	there	{H8033G}	HD			H8033G			{H8033G=שָׁם=there}					
+Rut.1.4#13=L	כְּ/עֶ֥שֶׂר	ke./'E.ser	about/ ten	H9004/{H6235}	HR/Ncmsc			H6235			H9004=כ=like/{H6235=עֶשֶׂר=ten}					
+Rut.1.4#14=L	שָׁנִֽים\׃	sha.Nim	years	{H8141}\H9016	HNcmpa			H8141			{H8141=שָׁנָה=year}\H9016=׃=verseEnd					
+Rut.1.5#01=L	וַ/יָּמ֥וּתוּ	va/i.ya.Mu.tu	and/ they died	H9001/{H4191}	Hc/Vqw3mp			H4191			H9001=ו=&/{H4191=מוּת=to die}					
+Rut.1.5#02=L	גַם\־	gam-	also	{H1571}\H9014	HD			H1571			{H1571=גַּם=also}\H9014=־=link					
+Rut.1.5#03=L	שְׁנֵי/הֶ֖ם	she.nei./Hem	both of/ them	{H8147}/H9028	HNcbdc/Sp3mp			H8147_A			{H8147=שְׁנַ֫יִם=two}/H9028=Pp3m=their					
+Rut.1.5#04=L	מַחְל֣וֹן	mach.Lon	Mahlon	{H4248}	HNpm			H4248			{H4248=מַחְלוֹן=Mahlon»Mahlon@Rut.1.2-}					
+Rut.1.5#05=L	וְ/כִלְי֑וֹן	ve./khil.Yon	and/ Kilion	H9002/{H3630}	HC/Npm			H3630			H9002=ו=and/{H3630=כִּלְיוֹן=Chilion»Chilion@Rut.1.2-}					
+Rut.1.5#06=L	וַ/תִּשָּׁאֵר֙	va./ti.sha.'Er	and/ she was left	H9001/{H7604}	Hc/VNw3fs			H7604			H9001=ו=&/{H7604=שָׁאַר=to remain}					
+Rut.1.5#07=L	הָֽ/אִשָּׁ֔ה	ha./'i.Shah	the/ woman	H9009/{H0802G}	HTd/Ncfsa			H0802G			H9009=ה=the/{H0802G=אִשָּׁה=: woman»woman:1_woman}					
+Rut.1.5#08=L	מִ/שְּׁנֵ֥י	mi./she.Nei	from/ both	H9006/{H8147}	HR/Ncbdc			H8147_B			H9006=מ=from/{H8147=שְׁנַ֫יִם=two}					
+Rut.1.5#09=L	יְלָדֶ֖י/הָ	ye.la.Dei./ha	children/ her	{H3206}/H9024	HNcmpc/Sp3fs			H3206			{H3206=יֶ֫לֶד=youth}/H9024=Ps3f=her					
+Rut.1.5#10=L	וּ/מֵ/אִישָֽׁ/הּ\׃	u./me./'i.Sha/h	and/ from/ husband/ her	H9002/H9006/{H0376H}/H9024\H9016	HC/R/Ncmsc/Sp3fs			H0376H			H9002=ו=and/H9006=מ=from/{H0376H=אִישׁ=: husband»man:2_husband}/H9024=Ps3f=her\H9016=׃=verseEnd					
+Rut.1.6#01=L	וַ/תָּ֤קָם	va./Ta.kom	and/ she arose	H9001/{H6965B}	Hc/Vqw3fs			H6965B			H9001=ו=&/{H6965B=קוּם=: rise»to arise:1_rise;_get_going}					
+Rut.1.6#02=L	הִיא֙	hi'	she	{H1931}	HPp3fs			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.1.6#03=L	וְ/כַלֹּתֶ֔י/הָ	ve./kha.lo.Tei./ha	and/ daughters-in-law/ her	H9002/{H3618H}/H9024	HC/Ncfpc/Sp3fs			H3618H			H9002=ו=and/{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9024=Ps3f=her					
+Rut.1.6#04=L	וַ/תָּ֖שָׁב	va./Ta.shov	and/ she returned	H9001/{H7725G}	Hc/Vqw3fs			H7725G			H9001=ו=&/{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.6#05=L	מִ/שְּׂדֵ֣י	mi./se.Dei	from/ [the] region<s> of	H9006/{H7704G}	HR/Ncmpc			H7704G_A			H9006=מ=from/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.1.6#06=L	מוֹאָ֑ב	mo.'Av	Moab	{H4124G}	HNpl			H4124G_A			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.6#07=L	כִּ֤י	ki	if	{H3588A}	HTc			H3588A_A			{H3588A=כִּי=for}					
+Rut.1.6#08=L	שָֽׁמְעָה֙	sha.me.'Ah	she had heard	{H8085G}	HVqp3fs			H8085G			{H8085G=שָׁמַע=: hear»to hear:1_hear}					
+Rut.1.6#09=L	בִּ/שְׂדֵ֣ה	bi/s.Deh	in/ [the] region of	H9003/{H7704G}	HR/Ncmsc			H7704G_B			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.1.6#10=L	מוֹאָ֔ב	mo.'Av	Moab	{H4124G}	HNpl			H4124G_B			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.6#11=L	כִּֽי\־	ki-	that	{H3588A}\H9014	HTc			H3588A_B			{H3588A=כִּי=for}\H9014=־=link					
+Rut.1.6#12=L	פָקַ֤ד	fa.Kad	he had visited	{H6485I}	HVqp3ms			H6485I			{H6485I=פָּקַד=: visit»to reckon:3_visit;_inspect}					
+Rut.1.6#13=L	יְהוָה֙	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.1.6#14=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.1.6#15=L	עַמּ֔/וֹ	a.M/o	people/ his	{H5971A}/H9023	HNcmsc/Sp3ms			H5971A			{H5971A=עַם=: people»people:1_people;_nation}/H9023=Ps3m=his					
+Rut.1.6#16=L	לָ/תֵ֥ת	la./Tet	by/ giving	H9005/{H5414G}	HR/Vqcc			H5414G			H9005=ל=to/{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}					
+Rut.1.6#17=L	לָ/הֶ֖ם	la./Hem	to <the>/ them	H9005/{H9038}	HRd/Sp3mp			H9038			H9005=ל=to/{H9038=Op3m=them}					
+Rut.1.6#18=L	לָֽחֶם\׃	La.chem	food	{H3899G}\H9016	HNcmsa			H3899G			{H3899G=לֶ֫חֶם=: food(eating)»food:1_food(eating)}\H9016=׃=verseEnd					
+Rut.1.7#01=L	וַ/תֵּצֵ֗א	va./te.Tze'	and/ she went out	H9001/{H3318G}	Hc/Vqw3fs			H3318G			H9001=ו=&/{H3318G=יָצָא=: come»to come out:1_come;_go_out;_escape}					
+Rut.1.7#02=L	מִן\־	min-	from	{H4480A}\H9014	HR			H4480A			{H4480A=מִן־=from}\H9014=־=link					
+Rut.1.7#03=L	הַ/מָּקוֹם֙	ha./ma.kOm	the/ place	H9009/{H4725}	HTd/Ncmsa			H4725			H9009=ה=the/{H4725=מָקוֹם=standing place}					
+Rut.1.7#04=L	אֲשֶׁ֣ר	'a.Sher	where	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.1.7#05=L	הָיְתָה\־	ha.ye.tah-	she had been	{H1961}\H9014	HVqp3fs			H1961			{H1961=הָיָה=to be}\H9014=־=link					
+Rut.1.7#06=L	שָׁ֔מָּ/ה	Sha.ma/h	there/ <towards>	{H8033G}/H9011	HD/Sd			H8033G			{H8033G=שָׁם=there}/H9011=ה=to					
+Rut.1.7#07=L	וּ/שְׁתֵּ֥י	u./she.Tei	and/ [the] two	H9002/{H8147}	HC/Ncfdc			H8147			H9002=ו=and/{H8147=שְׁנַ֫יִם=two}					
+Rut.1.7#08=L	כַלֹּתֶ֖י/הָ	kha.lo.Tei./ha	daughters-in-law/ her	{H3618H}/H9024	HNcfpc/Sp3fs			H3618H			{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9024=Ps3f=her					
+Rut.1.7#09=L	עִמָּ֑/הּ	'i.Ma/h	[were] with/ her	{H5973A}/H9034	HRd/Sp3fs			H5973A			{H5973A=עִם=with}/H9034=Os3f=her					
+Rut.1.7#10=L	וַ/תֵּלַ֣כְנָה	va./te.Lakh.nah	and/ they went	H9001/{H1980G}	Hc/Vqw3fp			H1980G	H3212		H9001=ו=&/{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.7#11=L	בַ/דֶּ֔רֶךְ	va./De.rekh	on the/ way	H9003/{H1870L}	HRd/Ncbsa			H1870L			H9003=ב=in/{H1870L=דֶּ֫רֶךְ=: journey»way:2_journey}					
+Rut.1.7#12=L	לָ/שׁ֖וּב	la./Shuv	to/ return	H9005/{H7725G}	HR/Vqcc			H7725G			H9005=ל=to/{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.7#13=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.1.7#14=L	אֶ֥רֶץ	'E.retz	[the] land of	{H0776G}	HNcfsc			H0776G			{H0776G=אֶ֫רֶץ=: country;_planet»land:2_country;_planet}					
+Rut.1.7#15=L	יְהוּדָֽה\׃	ye.hu.Dah	Judah	{H3063G}\H9016	HNpl			H3063G			{H3063G=יְהוּדָה=Judah»Judah@Gen.29.35-Rev}\H9016=׃=verseEnd					
+Rut.1.8#01=L	וַ/תֹּ֤אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.1.8#02=L	נָעֳמִי֙	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.8#03=L	לִ/שְׁתֵּ֣י	li/sh.Tei	to/ [the] two	H9005/{H8147}	HR/Ncfdc			H8147			H9005=ל=to/{H8147=שְׁנַ֫יִם=two}					
+Rut.1.8#04=L	כַלֹּתֶ֔י/הָ	kha.lo.Tei./ha	daughters-in-law/ her	{H3618H}/H9024	HNcfpc/Sp3fs			H3618H			{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9024=Ps3f=her					
+Rut.1.8#05=L	לֵ֣כְנָה	Le.khe.nah	go	{H1980G}	HVqv2fp			H1980G	H3212		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.8#06=L	שֹּׁ֔בְנָה	Shoe.nah	return	{H7725G}	HVqv2fp			H7725G			{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.8#07=L	אִשָּׁ֖ה	'i.Shah	[each] woman	{H0802I}	HNcfsa			H0802I			{H0802I=אִשָּׁה=: another»woman:3_another}					
+Rut.1.8#08=L	לְ/בֵ֣ית	le./Veit	to/ [the] house of	H9005/{H1004M}	HR/Ncmsc			H1004M			H9005=ל=to/{H1004M=בַּ֫יִת=: home»house:2_household}					
+Rut.1.8#09=L	אִמָּ֑/הּ	'i.Ma/h	mother/ her	{H0517}/H9024	HNcfsc/Sp3fs			H0517			{H0517=אֵם=mother}/H9024=Ps3f=her					
+Rut.1.8#10=Q(K)	יַ֣עַשׂ	ya.'a.seh	may he deal	{H6213A}	HVqj3ms	K= ya.'a.seh (יַעֲשֶׂה) "he will deal" (H6213A=HVqi3ms)	L= יַ֣עַשׂה ¦ ;	H6213A_A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.1.8#11=L	יְהוָ֤ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.1.8#12=L	עִמָּ/כֶם֙	'i.ma./Khem	with/ you	{H5973A}/H9036	HRd/Sp2mp			H5973A_A			{H5973A=עִם=with}/H9036=Op2m=you					
+Rut.1.8#13=L	חֶ֔סֶד	Che.sed	covenant loyalty	{H2617A}	HNcmsa			H2617A			{H2617A=חֶ֫סֶד=kindness}					
+Rut.1.8#14=L	כַּ/אֲשֶׁ֧ר	ka./'a.Sher	just/ as	H9004/{H0834D}	HR/Tr			H0834D			H9004=כ=like/{H0834D=כַּאֲשֶׁר=as which}					
+Rut.1.8#15=L	עֲשִׂיתֶ֛ם	'a.si.Tem	you have dealt	{H6213A}	HVqp2mp			H6213A_B			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.1.8#16=L	עִם\־	'im-	with	{H5973A}\H9014	HR			H5973A_B			{H5973A=עִם=with}\H9014=־=link					
+Rut.1.8#17=L	הַ/מֵּתִ֖ים	ha./me.Tim	the/ dead	H9009/{H4191}	HTd/Vqrmpa			H4191			H9009=ה=the/{H4191=מוּת=to die}					
+Rut.1.8#18=L	וְ/עִמָּדִֽ/י\׃	ve./'i.ma.D/i	and/ with/ me	H9002/{H5973A}/H9030\H9016	HC/R/Sp1bs			H5973A_c	H5978		H9002=ו=and/{H5973A=עִם=with}/H9030=Os1c=me\H9016=׃=verseEnd					
+Rut.1.9#01=L	יִתֵּ֤ן	yi.Ten	may he give	{H5414G}	HVqi3ms			H5414G			{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}					
+Rut.1.9#02=L	יְהוָה֙	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.1.9#03=L	לָ/כֶ֔ם	la./Khem	to <the>/ you	H9005/{H9036}	HRd/Sp2mp			H9036			H9005=ל=to/{H9036=Op2m=you}					
+Rut.1.9#04=L	וּ/מְצֶ֣אןָ	u./me.Tze.na	and/ find	H9002/{H4672}	HC/Vqv2fp			H4672			H9002=ו=and/{H4672=מָצָא=to find}					
+Rut.1.9#05=L	מְנוּחָ֔ה	me.nu.Chah	rest	{H4496H}	HNcfsa			H4496H			{H4496H=מְנוּחָה=resting}					
+Rut.1.9#06=L	אִשָּׁ֖ה	'i.Shah	[each] woman	{H0802I}	HNcfsa			H0802I			{H0802I=אִשָּׁה=: another»woman:3_another}					
+Rut.1.9#07=L	בֵּ֣ית	beit	[the] house of	{H1004M}	HNcmsc			H1004M			{H1004M=בַּ֫יִת=: home»house:2_household}					
+Rut.1.9#08=L	אִישָׁ֑/הּ	'i.Sha/h	husband/ her	{H0376H}/H9024	HNcmsc/Sp3fs			H0376H			{H0376H=אִישׁ=: husband»man:2_husband}/H9024=Ps3f=her					
+Rut.1.9#09=L	וַ/תִּשַּׁ֣ק	va./ti.Shak	and/ she kissed	H9001/{H5401A}	Hc/Vqw3fs			H5401A			H9001=ו=&/{H5401A=נָשַׁק=to kiss}					
+Rut.1.9#10=L	לָ/הֶ֔ן	la./Hen	<to> <the>/ them	H9005/{H9039}	HRd/Sp3fp			H9039			H9005=ל=to/{H9039=Op3f=them}					
+Rut.1.9#11=L	וַ/תִּשֶּׂ֥אנָה	va./ti.Se.nah	and/ they raised	H9001/{H5375N}	Hc/Vqw3fp			H5375N			H9001=ו=&/{H5375N=נָשָׂא=: loud»to lift:8_loud;_declare;_lift(voice;_speech)}					
+Rut.1.9#12=L	קוֹלָ֖/ן	ko.La/n	voice/ their	{H6963A}/H9029	HNcmsc/Sp3fp			H6963A			{H6963A=קוֹל=: voice»voice:2_voice;_shout;_loud}/H9029=Pp3f=their					
+Rut.1.9#13=L	וַ/תִּבְכֶּֽינָה\׃	va./tiv.Kei.nah	and/ they wept	H9001/{H1058}\H9016	Hc/Vqw3fp			H1058			H9001=ו=&/{H1058=בָּכָה=to weep}\H9016=׃=verseEnd					
+Rut.1.10#01=L	וַ/תֹּאמַ֖רְנָה\־	va./to.Mar.nah-	and/ they said	H9001/{H0559}\H9014	Hc/Vqw3fp			H0559			H9001=ו=&/{H0559=אָמַר=to say}\H9014=־=link					
+Rut.1.10#02=L	לָּ֑/הּ	La/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.1.10#03=L	כִּי\־	ki-	that	{H3588A}\H9014	HTc			H3588A			{H3588A=כִּי=for}\H9014=־=link					
+Rut.1.10#04=L	אִתָּ֥/ךְ	'i.Ta/kh	with/ you	{H0854}/H9032	HRd/Sp2fs			H0854			{H0854=אֵת=with}/H9032=Os2f=you					
+Rut.1.10#05=L	נָשׁ֖וּב	na.Shuv	we will return	{H7725G}	HVqi1cp			H7725G			{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.10#06=L	לְ/עַמֵּֽ/ךְ\׃	le./'a.Me/kh	to/ people/ your	H9005/{H5971A}/H9022\H9016	HR/Ncmsc/Sp2fs			H5971A			H9005=ל=to/{H5971A=עַם=: people»people:1_people;_nation}/H9022=Ps2f=your\H9016=׃=verseEnd					
+Rut.1.11#01=L	וַ/תֹּ֤אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.1.11#02=L	נָעֳמִי֙	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.11#03=L	שֹׁ֣בְנָה	Shoe.nah	go back	{H7725G}	HVqv2fp			H7725G			{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.11#04=L	בְנֹתַ֔/י	ve.no.Ta/i	O daughters/ my	{H1323G}/H9020	HNcfpc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.1.11#05=L	לָ֥/מָּה	La./mah	<to>/ why?	H9005/{H4100}	HR/Pi			H4100			H9005=ל=to/{H4100=מָה=what?}					
+Rut.1.11#06=L	תֵלַ֖כְנָה	te.Lakh.nah	will you go	{H1980G}	HVqi2fp			H1980G	H3212		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.11#07=L	עִמִּ֑/י	'i.M/i	with/ me	{H5973A}/H9030	HRd/Sp1bs			H5973A			{H5973A=עִם=with}/H9030=Os1c=me					
+Rut.1.11#08=L	הַֽ/עֽוֹד\־	ha./'od-	¿/ still	H9008/{H5750}\H9014	HTi/Acmsa			H5750			H9008=ה=¿/{H5750=עוֹד=still}\H9014=־=link					
+Rut.1.11#09=L	לִ֤/י	l/i	[belong] to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.11#10=L	בָנִים֙	va.Nim	[do] sons	{H1121A}	HNcmpa			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}					
+Rut.1.11#11=L	בְּֽ/מֵעַ֔/י	be./me.'A/i	in/ inward parts/ my	H9003/{H4578}/H9020	HR/Ncmpc/Sp1bs			H4578			H9003=ב=in/{H4578=מֵעֶה=belly}/H9020=Ps1c=my					
+Rut.1.11#12=L	וְ/הָי֥וּ	ve./ha.Yu	and/ they will become	H9001/{H1961}	Hc/Vqq3cp			H1961			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.1.11#13=L	לָ/כֶ֖ם	la./Khem	of/ you	H9005/{H9036}	HRd/Sp2mp			H9036			H9005=ל=to/{H9036=Op2m=you}					
+Rut.1.11#14=L	לַ/אֲנָשִֽׁים\׃	la./'a.na.Shim	<into>/ husbands	H9005/{H0582}\H9016	HR/Ncmpa			H0582	H0376		H9005=ל=to/{H0582=אֱנוֹשׁ=human}\H9016=׃=verseEnd					
+Rut.1.12#01=L	שֹׁ֤בְנָה	Shoe.nah	go back	{H7725G}	HVqv2fp			H7725G			{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.12#02=L	בְנֹתַ/י֙	ve.no.Ta/i	O daughters/ my	{H1323G}/H9020	HNcfpc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.1.12#03=L	לֵ֔כְןָ	Le.khe.na	go	{H1980G}	HVqv2fp			H1980G	H3212		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.12#04=L	כִּ֥י	ki	for	{H3588A}	HTc			H3588A_A			{H3588A=כִּי=for}					
+Rut.1.12#05=L	זָקַ֖נְתִּי	za.Kan.ti	I am [too] old	{H2204}	HVqp1cs			H2204			{H2204=זָקֵן=be old}					
+Rut.1.12#06=L	מִ/הְי֣וֹת	mi/h.Yot	for/ belonging	H9006/{H1961}	HR/Vqcc			H1961_A			H9006=מ=from/{H1961=הָיָה=to be}					
+Rut.1.12#07=L	לְ/אִ֑ישׁ	le./'Ish	to/ a husband	H9005/{H0376H}	HR/Ncmsa			H0376H_A			H9005=ל=to/{H0376H=אִישׁ=: husband»man:2_husband}					
+Rut.1.12#08=L	כִּ֤י	ki	if	{H3588A}	HTc			H3588A_B			{H3588A=כִּי=for}					
+Rut.1.12#09=L	אָמַ֙רְתִּי֙	'a.Mar.ti	I said	{H0559}	HVqp1cs			H0559			{H0559=אָמַר=to say}					
+Rut.1.12#10=L	יֶשׁ\־	yesh-	there	{H3426}\H9014	HAcbsa			H3426			{H3426=יֵשׁ=there}\H9014=־=link					
+Rut.1.12#11=L	לִ֣/י	l/i	for <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.12#12=L	תִקְוָ֔ה	tik.Vah	[is] hope	{H8615B}	HNcfsa			H8615B			{H8615B=תִּקְוָה=hope}					
+Rut.1.12#13=L	גַּ֣ם	gam	also	{H1571}	HD			H1571_A			{H1571=גַּם=also}					
+Rut.1.12#14=L	הָיִ֤יתִי	ha.Yi.ti	I belonged	{H1961}	HVqp1cs			H1961_B			{H1961=הָיָה=to be}					
+Rut.1.12#15=L	הַ/לַּ֙יְלָה֙	ha./Lay.lah	this/ night	H9009/{H3915}	HTd/Ncmsa			H3915			H9009=ה=the/{H3915=לַ֫יְלָה=night}					
+Rut.1.12#16=L	לְ/אִ֔ישׁ	le./'Ish	to/ a husband	H9005/{H0376H}	HR/Ncmsa			H0376H_B			H9005=ל=to/{H0376H=אִישׁ=: husband»man:2_husband}					
+Rut.1.12#17=L	וְ/גַ֖ם	ve./Gam	and/ also	H9002/{H1571}	HC/D			H1571_B			H9002=ו=and/{H1571=גַּם=also}					
+Rut.1.12#18=L	יָלַ֥דְתִּי	ya.Lad.ti	I bore	{H3205}	HVqp1cs			H3205			{H3205=יָלַד=to beget}					
+Rut.1.12#19=L	בָנִֽים\׃	va.Nim	sons	{H1121A}\H9016	HNcmpa			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}\H9016=׃=verseEnd					
+Rut.1.13#01=L	הֲ/לָהֵ֣ן\׀	ha./la.Hen	¿/ therefore	H9008/{H3860}\H9015	HTi/C			H3860_A			H9008=ה=¿/{H3860=לָהֵן=therefore}\H9015=׀=separate					
+Rut.1.13#02=L	תְּשַׂבֵּ֗רְנָה	te.sa.Be.re.nah	will you wait	{H7663B}	HVpi2fp			H7663B			{H7663B=שָׂבַר=to await}					
+Rut.1.13#03=L	עַ֚ד	'ad	until	{H5704}	HR			H5704			{H5704=עַד=till}					
+Rut.1.13#04=L	אֲשֶׁ֣ר	'a.Sher	that	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.1.13#05=L	יִגְדָּ֔לוּ	yig.Da.lu	they will grow up	{H1431}	HVqi3mp			H1431			{H1431=גָּדַל=to magnify}					
+Rut.1.13#06=L	הֲ/לָהֵן֙	ha./la.Hen	¿/ therefore	H9008/{H3860}	HTi/C			H3860_B			H9008=ה=¿/{H3860=לָהֵן=therefore}					
+Rut.1.13#07=L	תֵּֽעָגֵ֔נָה	te.'a.Ge.nah	will you shut yourselves off	{H5702}	HVNi2fp			H5702			{H5702=עָגַן=to refrain}					
+Rut.1.13#08=L	לְ/בִלְתִּ֖י	le./vil.Ti	to/ not	H9005/{H1115}	HR/Ncbsa			H1115			H9005=ל=to/{H1115=בִּלְתִּי=lest}					
+Rut.1.13#09=L	הֱי֣וֹת	he.Yot	to belong	{H1961}	HVqcc			H1961			{H1961=הָיָה=to be}					
+Rut.1.13#10=L	לְ/אִ֑ישׁ	le./'Ish	to/ a husband	H9005/{H0376H}	HR/Ncmsa			H0376H			H9005=ל=to/{H0376H=אִישׁ=: husband»man:2_husband}					
+Rut.1.13#11=L	אַ֣ל	'al	may not [it be]	{H0408}	HTn			H0408			{H0408=אַל=not}					
+Rut.1.13#12=L	בְּנֹתַ֗/י	be.no.Ta/i	O daughters/ my	{H1323G}/H9020	HNcfpc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.1.13#13=L	כִּֽי\־	ki-	for	{H3588A}\H9014	HTc			H3588A_A			{H3588A=כִּי=for}\H9014=־=link					
+Rut.1.13#14=L	מַר\־	mar-	it is bitter	{H4843}\H9014	HVqp3ms			H4843			{H4843=מָרַר=to provoke}\H9014=־=link					
+Rut.1.13#15=L	לִ֤/י	l/i	to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030_A			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.13#16=L	מְאֹד֙	me.'Od	very	{H3966}	HAcmsa			H3966			{H3966=מְאֹד=much}					
+Rut.1.13#17=L	מִ/כֶּ֔ם	mi./Kem	more than/ you	H9006/{H9036}	HRd/Sp2mp			H9036			H9006=מ=from/{H9036=Op2m=you}					
+Rut.1.13#18=L	כִּֽי\־	ki-	that	{H3588A}\H9014	HTc			H3588A_B			{H3588A=כִּי=for}\H9014=־=link					
+Rut.1.13#19=L	יָצְאָ֥ה	ya.tze.'Ah	it has gone forth	{H3318G}	HVqp3fs			H3318G			{H3318G=יָצָא=: come»to come out:1_come;_go_out;_escape}					
+Rut.1.13#20=L	בִ֖/י	v/i	on <the>/ me	H9003/{H9030}	HRd/Sp1bs			H9030_B			H9003=ב=in/{H9030=Os1c=me}					
+Rut.1.13#21=L	יַד\־	yad-	[the] hand of	{H3027G}\H9014	HNcbsc			H3027G			{H3027G=יָד=: hand»hand:1_hand;_arm[anatomy]}\H9014=־=link					
+Rut.1.13#22=L	יְהוָֽה\׃	Yah.weh	Yahweh	{H3068G}\H9016	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}\H9016=׃=verseEnd					
+Rut.1.14#01=L	וַ/תִּשֶּׂ֣נָה	va./ti.Se.nah	and/ they raised	H9001/{H5375N}	Hc/Vqw3fp			H5375N			H9001=ו=&/{H5375N=נָשָׂא=: loud»to lift:8_loud;_declare;_lift(voice;_speech)}					
+Rut.1.14#02=L	קוֹלָ֔/ן	ko.La/n	voice/ their	{H6963A}/H9029	HNcmsc/Sp3fp			H6963A			{H6963A=קוֹל=: voice»voice:2_voice;_shout;_loud}/H9029=Pp3f=their					
+Rut.1.14#03=L	וַ/תִּבְכֶּ֖ינָה	va./tiv.Kei.nah	and/ they wept	H9001/{H1058}	Hc/Vqw3fp			H1058			H9001=ו=&/{H1058=בָּכָה=to weep}					
+Rut.1.14#04=L	ע֑וֹד	od	again	{H5750}	HAcmsa			H5750			{H5750=עוֹד=still}					
+Rut.1.14#05=L	וַ/תִּשַּׁ֤ק	va./ti.Shak	and/ she kissed	H9001/{H5401A}	Hc/Vqw3fs			H5401A			H9001=ו=&/{H5401A=נָשַׁק=to kiss}					
+Rut.1.14#06=L	עָרְפָּה֙	'a.re.Pah	Orpah	{H6204}	HNpf			H6204			{H6204=עׇרְפָּה=Orpah»Orpah@Rut.1.4-}					
+Rut.1.14#07=L	לַ/חֲמוֹתָ֔/הּ	la./cha.mo.Ta/h	<to>/ mother-in-law/ her	H9005/{H2545}/H9024	HR/Ncfsc/Sp3fs			H2545			H9005=ל=to/{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her					
+Rut.1.14#08=L	וְ/ר֖וּת	ve./Rut	and/ Ruth	H9002/{H7327}	HC/Npf			H7327			H9002=ו=and/{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.1.14#09=L	דָּ֥בְקָה	Da.ve.kah	she clung	{H1692}	HVqp3fs			H1692			{H1692=דָּבַק=to cleave}					
+Rut.1.14#10=L	בָּֽ/הּ\׃	Ba/h	to/ her	H9003/{H9034}\H9016	HRd/Sp3fs			H9034			H9003=ב=in/{H9034=Os3f=her}\H9016=׃=verseEnd					
+Rut.1.15#01=L	וַ/תֹּ֗אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.1.15#02=L	הִנֵּה֙	hi.Neh	there!	{H2009}	HTj			H2009			{H2009=הִנֵּה=behold}					
+Rut.1.15#03=L	שָׁ֣בָה	Sha.vah	she has returned	{H7725G}	HVqp3fs			H7725G_A			{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.15#04=L	יְבִמְתֵּ֔/ךְ	ye.vim.Te/kh	sister-in-law/ your	{H2994}/H9022	HNcfsc/Sp2fs			H2994_A			{H2994=יְבֵ֫מֶת=sister-in-law}/H9022=Ps2f=your					
+Rut.1.15#05=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413_A			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.1.15#06=L	עַמָּ֖/הּ	'a.Ma/h	people/ her	{H5971A}/H9024	HNcmsc/Sp3fs			H5971A			{H5971A=עַם=: people»people:1_people;_nation}/H9024=Ps3f=her					
+Rut.1.15#07=L	וְ/אֶל\־	ve./'el-	and/ to	H9002/{H0413}\H9014	HC/R			H0413_B			H9002=ו=and/{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.1.15#08=L	אֱלֹהֶ֑י/הָ	'e.lo.Hei./ha	gods/ her	{H0430J}/H9024	HNcmpc/Sp3fs			H0430J			{H0430J=אֱלֹהִים=gods}/H9024=Ps3f=her					
+Rut.1.15#09=L	שׁ֖וּבִי	Shu.vi	go back	{H7725G}	HVqv2fs			H7725G_B			{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.15#10=L	אַחֲרֵ֥י	'a.cha.Rei	after	{H0310A}	HAcmpc			H0310A			{H0310A=אַחַר=after}					
+Rut.1.15#11=L	יְבִמְתֵּֽ/ךְ\׃	ye.vim.Te/kh	sister-in-law/ your	{H2994}/H9022\H9016	HNcfsc/Sp2fs			H2994_B			{H2994=יְבֵ֫מֶת=sister-in-law}/H9022=Ps2f=your\H9016=׃=verseEnd					
+Rut.1.16#01=L	וַ/תֹּ֤אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.1.16#02=L	רוּת֙	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.1.16#03=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.1.16#04=L	תִּפְגְּעִי\־	tif.ge.'i-	you entreat	{H6293}\H9014	HVqj2fs			H6293			{H6293=פָּגַע=to fall on}\H9014=־=link					
+Rut.1.16#05=L	בִ֔/י	V/i	<on> <the>/ me	H9003/{H9030}	HRd/Sp1bs			H9030			H9003=ב=in/{H9030=Os1c=me}					
+Rut.1.16#06=L	לְ/עָזְבֵ֖/ךְ	le./'a.ze.Ve/kh	to/ abandon/ you	H9005/{H5800A}/H9032	HR/Vqcc/Sp2fs			H5800A			H9005=ל=to/{H5800A=עָזַב=: forsake»to leave:1_forsake}/H9032=Os2f=you					
+Rut.1.16#07=L	לָ/שׁ֣וּב	la./Shuv	to/ turn back	H9005/{H7725I}	HR/Vqcc			H7725I			H9005=ל=to/{H7725I=שׁוּב=: turn_back»to return:3_turn_back;_backslide}					
+Rut.1.16#08=L	מֵ/אַחֲרָ֑יִ/ךְ	me./'a.cha.Ra.yi/kh	from/ after/ you	H9006/{H0310A}/H9032	HR/Acmpc/Sp2fs			H0310A			H9006=מ=from/{H0310A=אַחַר=after}/H9032=Os2f=you					
+Rut.1.16#09=L	כִּ֠י	ki	for	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.1.16#10=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.1.16#11=L	אֲשֶׁ֨ר	'a.Sher	where	{H0834A}	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}					
+Rut.1.16#12=L	תֵּלְכִ֜י	te.le.Khi	you will go	{H1980G}	HVqi2fs			H1980G_a	H3212_a		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.16#13=L	אֵלֵ֗ךְ	'e.Lekh	I will go	{H1980G}	HVqi1cs			H1980G_b	H3212_b		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.16#14=L	וּ/בַ/אֲשֶׁ֤ר	u./va./'a.Sher	and/ at/ where	H9002/H9003/{H0834B}	HC/R/Tr			H0834B_B			H9002=ו=and/H9003=ב=in/{H0834B=בַאֲשֶׁר=in which}					
+Rut.1.16#15=L	תָּלִ֙ינִי֙	ta.Li.ni	you will lodge	{H3885A}	HVqi2fs			H3885A_A			{H3885A=לוּן=to lodge}					
+Rut.1.16#16=L	אָלִ֔ין	'a.Lin	I will lodge	{H3885A}	HVqi1cs			H3885A_B			{H3885A=לוּן=to lodge}					
+Rut.1.16#17=L	עַמֵּ֣/ךְ	'a.Me/kh	people/ your	{H5971A}/H9022	HNcmsc/Sp2fs			H5971A_A			{H5971A=עַם=: people»people:1_people;_nation}/H9022=Ps2f=your					
+Rut.1.16#18=L	עַמִּ֔/י	'a.M/i	[will be] people/ my	{H5971A}/H9020	HNcmsc/Sp1bs			H5971A_B			{H5971A=עַם=: people»people:1_people;_nation}/H9020=Ps1c=my					
+Rut.1.16#19=L	וֵ/אלֹהַ֖יִ/ךְ	ve./lo.Ha.yi/kh	and/ God/ your	H9002/{H0430G}/H9022	HC/Ncmpc/Sp2fs			H0430G_A			H9002=ו=and/{H0430G=אֱלֹהִים=God»LORD@Gen.1.1-Heb}/H9022=Ps2f=your					
+Rut.1.16#20=L	אֱלֹהָֽ/י\׃	'e.lo.Ha/i	[will be] God/ my	{H0430G}/H9020\H9016	HNcmpc/Sp1bs			H0430G_B			{H0430G=אֱלֹהִים=God»LORD@Gen.1.1-Heb}/H9020=Ps1c=my\H9016=׃=verseEnd					
+Rut.1.17#01=L	בַּ/אֲשֶׁ֤ר	ba./'a.Sher	at/ where	H9003/{H0834B}	HR/Tr			H0834B			H9003=ב=in/{H0834B=בַאֲשֶׁר=in which}					
+Rut.1.17#02=L	תָּמ֙וּתִי֙	ta.Mu.ti	you will die	{H4191}	HVqi2fs			H4191_A			{H4191=מוּת=to die}					
+Rut.1.17#03=L	אָמ֔וּת	'a.Mut	I will die	{H4191}	HVqi1cs			H4191_B			{H4191=מוּת=to die}					
+Rut.1.17#04=L	וְ/שָׁ֖ם	ve./Sham	and/ there	H9002/{H8033G}	HC/D			H8033G			H9002=ו=and/{H8033G=שָׁם=there}					
+Rut.1.17#05=L	אֶקָּבֵ֑ר	'e.ka.Ver	I will be buried	{H6912}	HVNi1cs			H6912			{H6912=קָבַר=to bury}					
+Rut.1.17#06=L	כֹּה֩	koh	thus	{H3541}	HD			H3541_A			{H3541=כֹּה=thus}					
+Rut.1.17#07=L	יַעֲשֶׂ֨ה	ya.'a.Seh	may he do	{H6213A}	HVqi3ms			H6213A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.1.17#08=L	יְהוָ֥ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.1.17#09=L	לִ/י֙	l/i	to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.17#10=L	וְ/כֹ֣ה	ve./Khoh	and/ thus	H9002/{H3541}	HC/D			H3541_B			H9002=ו=and/{H3541=כֹּה=thus}					
+Rut.1.17#11=L	יֹסִ֔יף	yo.Sif	may he add	{H3254H}	HVhi3ms			H3254H			{H3254H=יָסַף=: add»to add:1_add;_more[amount]}					
+Rut.1.17#12=L	כִּ֣י	ki	if	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.1.17#13=L	הַ/מָּ֔וֶת	ha./Ma.vet	<the>/ death	H9009/{H4194}	HTd/Ncmsa			H4194			H9009=ה=the/{H4194=מָ֫וֶת=death}					
+Rut.1.17#14=L	יַפְרִ֖יד	yaf.Rid	it will separate	{H6504}	HVhi3ms			H6504			{H6504=פָּרַד=to separate}					
+Rut.1.17#15=L	בֵּינִ֥/י	bei./Ni	between/ me	{H0996G}/H9030	HAcmsc/Sp1bs			H0996G_A			{H0996G=בַּ֫יִן=: between»between:1_between}/H9030=Os1c=me					
+Rut.1.17#16=L	וּ/בֵינֵֽ/ךְ\׃	u./vei.Ne/kh	and/ between/ you	H9002/{H0996G}/H9032\H9016	HC/Acmsc/Sp2fs			H0996G_B			H9002=ו=and/{H0996G=בַּ֫יִן=: between»between:1_between}/H9032=Os2f=you\H9016=׃=verseEnd					
+Rut.1.18#01=L	וַ/תֵּ֕רֶא	va./Te.re'	and/ she saw	H9001/{H7200G}	Hc/Vqw3fs			H7200G			H9001=ו=&/{H7200G=רָאָה=: see»to see:1_see;_show}					
+Rut.1.18#02=L	כִּֽי\־	ki-	that	{H3588A}\H9014	HTc			H3588A			{H3588A=כִּי=for}\H9014=־=link					
+Rut.1.18#03=L	מִתְאַמֶּ֥צֶת	mit.'a.Me.tzet	[was] determined	{H0553}	HVtrfsa			H0553			{H0553=אָמֵץ=to strengthen}					
+Rut.1.18#04=L	הִ֖יא	hi'	she	{H1931}	HPp3fs			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.1.18#05=L	לָ/לֶ֣כֶת	la./Le.khet	to/ go	H9005/{H1980G}	HR/Vqcc			H1980G	H3212		H9005=ל=to/{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.18#06=L	אִתָּ֑/הּ	'i.Ta/h	with/ her	{H0854}/H9034	HRd/Sp3fs			H0854			{H0854=אֵת=with}/H9034=Os3f=her					
+Rut.1.18#07=L	וַ/תֶּחְדַּ֖ל	va./tech.Dal	and/ she ceased	H9001/{H2308}	Hc/Vqw3fs			H2308			H9001=ו=&/{H2308=חָדַל=to cease}					
+Rut.1.18#08=L	לְ/דַבֵּ֥ר	le./da.Ber	to/ speak	H9005/{H1696G}	HR/Vpcc			H1696G			H9005=ל=to/{H1696G=דָבַר=: speak»to speak:1_speak;_tell;_command}					
+Rut.1.18#09=L	אֵלֶֽי/הָ\׃	'e.Lei./ha	to/ her	{H0413}/H9034\H9016	HRd/Sp3fs			H0413			{H0413=אֶל=to(wards)}/H9034=Os3f=her\H9016=׃=verseEnd					
+Rut.1.19#01=L	וַ/תֵּלַ֣כְנָה	va./te.Lakh.nah	and/ they went	H9001/{H1980G}	Hc/Vqw3fp			H1980G	H3212		H9001=ו=&/{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.19#02=L	שְׁתֵּי/הֶ֔ם	she.tei./Hem	[the] two of/ them	{H8147}/H9028	HNcfdc/Sp3mp			H8147			{H8147=שְׁנַ֫יִם=two}/H9028=Pp3m=their					
+Rut.1.19#03=L	עַד\־	'ad-	until	{H5704}\H9014	HR			H5704			{H5704=עַד=till}\H9014=־=link					
+Rut.1.19#04=L	בֹּאָ֖/נָה	bo.'A./nah	came/ they	{H0935G}/H9049	HVqcc/Sp3fp			H0935G_A			{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}/H9049=Sp3f=they					
+Rut.1.19#05=L	בֵּ֣ית	beit	Beth-	{H1035G}+	HNpl			H1035G_A			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.1.19#06=L	לָ֑חֶם	La.chem	-lehem	{H1035G}	HNpl			H1035G_b			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}					
+Rut.1.19#07=L	וַ/יְהִ֗י	va/y.Hi	and/ it was	H9001/{H1961}	Hc/Vqw3ms			H1961			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.1.19#08=L	כְּ/בֹאָ֙/נָה֙	ke./vo.'A./nah	when/ came/ they	H9004/{H0935G}/H9049	HR/Vqcc/Sp3fp			H0935G_B			H9004=כ=like/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}/H9049=Sp3f=they					
+Rut.1.19#09=L	בֵּ֣ית	beit	Beth-	{H1035G}+	HNpl			H1035G_C			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.1.19#10=L	לֶ֔חֶם	Le.chem	-lehem	{H1035G}	HNpl			H1035G_d			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}					
+Rut.1.19#11=L	וַ/תֵּהֹ֤ם	va./te.Hom	and/ it was excited	H9001/{H1949}	Hc/VNw3fs			H1949			H9001=ו=&/{H1949=הוּם=to make noise}					
+Rut.1.19#12=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsc			H3605			{H3605=כֹּל=all}\H9014=־=link					
+Rut.1.19#13=L	הָ/עִיר֙	ha./'Ir	the/ city	H9009/{H5892B}	HTd/Ncfsa			H5892B			H9009=ה=the/{H5892B=עִיר=city}					
+Rut.1.19#14=L	עֲלֵי/הֶ֔ן	'a.lei./Hen	on/ them	{H5921A}/H9039	HRd/Sp3fp			H5921A			{H5921A=עַל=upon}/H9039=Op3f=them					
+Rut.1.19#15=L	וַ/תֹּאמַ֖רְנָה	va./to.Mar.nah	and/ they [fem] said	H9001/{H0559}	Hc/Vqw3fp			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.1.19#16=L	הֲ/זֹ֥את	ha./Zot	¿/ [is] this	H9008/{H2063}	HTi/Tm			H2063			H9008=ה=¿/{H2063=זֹאת=this}					
+Rut.1.19#17=L	נָעֳמִֽי\׃	no.'o.Mi	Naomi	{H5281}\H9016	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}\H9016=׃=verseEnd					
+Rut.1.20#01=L	וַ/תֹּ֣אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.1.20#02=L	אֲלֵי/הֶ֔ן	'a.lei./Hen	to/ them	{H0413}/H9039	HRd/Sp3fp			H0413			{H0413=אֶל=to(wards)}/H9039=Op3f=them					
+Rut.1.20#03=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.1.20#04=L	תִּקְרֶ֥אנָה	tik.Re.nah	you call	{H7121H}	HVqj2fp			H7121H_A			{H7121H=קָרָא=: call_by»to call:2_call_by;_name}					
+Rut.1.20#05=L	לִ֖/י	l/i	<to> <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030_A			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.20#06=L	נָעֳמִ֑י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.20#07=L	קְרֶ֤אןָ	ke.Re.na	call	{H7121H}	HVqv2fp			H7121H_B			{H7121H=קָרָא=: call_by»to call:2_call_by;_name}					
+Rut.1.20#08=L	לִ/י֙	l/i	<to> <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030_B			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.20#09=L	מָרָ֔א	ma.Ra'	Mara	{H4755}	HAafsa			H4755			{H4755=מָרָא=Mara»Naomi@Rut.1.2-}					
+Rut.1.20#10=L	כִּי\־	ki-	for	{H3588A}\H9014	HTc			H3588A			{H3588A=כִּי=for}\H9014=־=link					
+Rut.1.20#11=L	הֵמַ֥ר	he.Mar	he has caused bitterness	{H4843}	HVhp3ms			H4843			{H4843=מָרַר=to provoke}					
+Rut.1.20#12=L	שַׁדַּ֛י	sha.Dai	[the] Almighty	{H7706}	HNpt			H7706			{H7706=שַׁדַּי=Almighty»LORD@Gen.1.1-Heb}					
+Rut.1.20#13=L	לִ֖/י	l/i	to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030_C			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.20#14=L	מְאֹֽד\׃	me.'Od	exceedingly	{H3966}\H9016	HAcmsa			H3966			{H3966=מְאֹד=much}\H9016=׃=verseEnd					
+Rut.1.21#01=L	אֲנִי֙	'a.Ni	I	{H0589}	HPp1bs			H0589			{H0589=אֲנִי, אָֽנֹכִ֫י=I}					
+Rut.1.21#02=L	מְלֵאָ֣ה	me.le.'Ah	full	{H4392}	HAafsa			H4392			{H4392=מָלֵא=full}					
+Rut.1.21#03=L	הָלַ֔כְתִּי	ha.Lakh.ti	I went	{H1980G}	HVqp1cs			H1980G	H3212		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.1.21#04=L	וְ/רֵיקָ֖ם	ve./rei.Kam	and/ empty	H9002/{H7387}	HC/D			H7387			H9002=ו=and/{H7387=רֵיקָם=emptily}					
+Rut.1.21#05=L	הֱשִׁיבַ֣/נִי	he.shi.Va./ni	he has brought back/ me	{H7725G}/H9030	HVhp3ms/Sp1bs			H7725G			{H7725G=שׁוּב=: return»to return:1_return}/H9030=Os1c=me					
+Rut.1.21#06=L	יְהוָ֑ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G_A			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.1.21#07=L	לָ֣/מָּה	La./mah	<to>/ why?	H9005/{H4100}	HR/Pi			H4100			H9005=ל=to/{H4100=מָה=what?}					
+Rut.1.21#08=L	תִקְרֶ֤אנָה	tik.Re.nah	do you call	{H7121H}	HVqi2fp			H7121H			{H7121H=קָרָא=: call_by»to call:2_call_by;_name}					
+Rut.1.21#09=L	לִ/י֙	l/i	<to> <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030_A			H9005=ל=to/{H9030=Os1c=me}					
+Rut.1.21#10=L	נָעֳמִ֔י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.21#11=L	וַֽ/יהוָה֙	va./Yah.weh	and/ Yahweh	H9002/{H3068G}	HC/Npt			H3068G_B			H9002=ו=and/{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.1.21#12=L	עָ֣נָה	'A.nah	he has testified	{H6030B}	HVqp3ms			H6030B			{H6030B=עָנָה=to answer}					
+Rut.1.21#13=L	בִ֔/י	V/i	against <the>/ me	H9003/{H9030}	HRd/Sp1bs			H9030_B			H9003=ב=in/{H9030=Os1c=me}					
+Rut.1.21#14=L	וְ/שַׁדַּ֖י	ve./sha.Dai	and/ [the] Almighty	H9002/{H7706}	HC/Npt			H7706			H9002=ו=and/{H7706=שַׁדַּי=Almighty»LORD@Gen.1.1-Heb}					
+Rut.1.21#15=L	הֵ֥רַֽע	He.ra'	he has done harm	{H7489A}	HVhp3ms			H7489A			{H7489A=רָעַע=be evil}					
+Rut.1.21#16=L	לִֽ/י\׃	L/i	to <the>/ me	H9005/{H9030}\H9016	HRd/Sp1bs			H9030_C			H9005=ל=to/{H9030=Os1c=me}\H9016=׃=verseEnd					
+Rut.1.22#01=L	וַ/תָּ֣שָׁב	va./Ta.shov	and/ she returned	H9001/{H7725G}	Hc/Vqw3fs			H7725G_A			H9001=ו=&/{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.22#02=L	נָעֳמִ֗י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.1.22#03=L	וְ/ר֨וּת	ve./Rut	and/ Ruth	H9002/{H7327}	HC/Npf			H7327			H9002=ו=and/{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.1.22#04=L	הַ/מּוֹאֲבִיָּ֤ה	ha./mo.'a.vi.Yah	the/ Moabite [woman]	H9009/{H4125}	HTd/Ngfsa			H4125			H9009=ה=the/{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.22#05=L	כַלָּתָ/הּ֙	kha.la.Ta/h	daughter-in-law/ her	{H3618H}/H9024	HNcfsc/Sp3fs			H3618H			{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9024=Ps3f=her					
+Rut.1.22#06=L	עִמָּ֔/הּ	'i.Ma/h	[was] with/ her	{H5973A}/H9034	HRd/Sp3fs			H5973A			{H5973A=עִם=with}/H9034=Os3f=her					
+Rut.1.22#07=L	הַ/שָּׁ֖בָה	ha./Sha.vah	who/ returned	H9009/{H7725G}	HTd/Vqp3fs			H7725G_B			H9009=ה=the/{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.1.22#08=L	מִ/שְּׂדֵ֣י	mi./se.Dei	from/ [the] region<s> of	H9006/{H7704G}	HR/Ncmpc			H7704G			H9006=מ=from/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.1.22#09=L	מוֹאָ֑ב	mo.'Av	Moab	{H4124G}	HNpl			H4124G			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}					
+Rut.1.22#10=L	וְ/הֵ֗מָּה	ve./He.mah	and/ they	H9002/{H1992}	HC/Pp3mp			H1992			H9002=ו=and/{H1992=הֵ֫מָּה=they(masc.)}					
+Rut.1.22#11=L	בָּ֚אוּ	Ba.'u	they came	{H0935G}	HVqp3cp			H0935G			{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.1.22#12=L	בֵּ֣ית	beit	Beth-	{H1035G}+	HNpl			H1035G_A			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.1.22#13=L	לֶ֔חֶם	Le.chem	-lehem	{H1035G}	HNpl			H1035G_b			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}					
+Rut.1.22#14=L	בִּ/תְחִלַּ֖ת	bi/t.chi.Lat	at/ [the] beginning of	H9003/{H8462}	HR/Ncfsc			H8462			H9003=ב=in/{H8462=תְּחִלָּה=beginning}					
+Rut.1.22#15=L	קְצִ֥יר	ke.Tzir	[the] harvest of	{H7105A}	HNcmsc			H7105A			{H7105A=קָצִיר=harvest}					
+Rut.1.22#16=L	שְׂעֹרִֽים\׃	se.'o.Rim	barley<s>	{H8184}\H9016	HNcmpa			H8184			{H8184=שְׂעֹרָה=barley}\H9016=׃=verseEnd					
+Rut.2.1#01=L	וּֽ/לְ/נָעֳמִ֞י	u./le./no.'o.Mi	and/ [belonged] to/ Naomi	H9002/H9005/{H5281}	HC/R/Npf			H5281			H9002=ו=and/H9005=ל=to/{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.2.1#02=Q(K)	מוֹדַ֣ע	me.yu.da'	a relative	{H4129}	HNcmsa	K= me.yu.da' (מְיֻדָּע) "an acquaintance" (H3045=HVprmsa)	L= מֹידַ֣ע ¦ ;	H4129	H3045		{H4129=מוֹדַע=kinsman}					
+Rut.2.1#03=L	לְ/אִישָׁ֗/הּ	le./'i.Sha/h	of/ husband/ her	H9005/{H0376H}/H9024	HR/Ncmsc/Sp3fs			H0376H_A			H9005=ל=to/{H0376H=אִישׁ=: husband»man:2_husband}/H9024=Ps3f=her					
+Rut.2.1#04=L	אִ֚ישׁ	'ish	a man	{H0376G}	HNcmsa			H0376G_B			{H0376G=אִישׁ=: man»man:1_man}					
+Rut.2.1#05=L	גִּבּ֣וֹר	gi.Bor	mighty of	{H1368}	HNcmsc			H1368			{H1368=גִּבּוֹר=mighty}					
+Rut.2.1#06=L	חַ֔יִל	Cha.yil	wealth	{H2428G}	HNcmsa			H2428G			{H2428G=חַ֫יִל=: strong»strength:1_strong}					
+Rut.2.1#07=L	מִ/מִּשְׁפַּ֖חַת	mi./mish.Pa.chat	from/ [the] clan of	H9006/{H4940}	HR/Ncfsc			H4940			H9006=מ=from/{H4940=מִשְׁפָּחָה=family}					
+Rut.2.1#08=L	אֱלִימֶ֑לֶךְ	'e.li.Me.lekh	Elimelech	{H0458}	HNpm			H0458			{H0458=אֱלִימֶ֫לֶךְ=Elimelech»Elimelech@Rut.1.2-}					
+Rut.2.1#09=L	וּ/שְׁמ֖/וֹ	u./she.M/o	and/ name/ his	H9002/{H8034}/H9023	HC/Ncmsc/Sp3ms			H8034			H9002=ו=and/{H8034=שֵׁם=name}/H9023=Ps3m=his					
+Rut.2.1#10=L	בֹּֽעַז\׃	Bo.'az	[was] Boaz	{H1162G}\H9016	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}\H9016=׃=verseEnd					
+Rut.2.2#01=L	וַ/תֹּאמֶר֩	va./to.Mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.2#02=L	ר֨וּת	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.2.2#03=L	הַ/מּוֹאֲבִיָּ֜ה	ha./mo.'a.vi.Yah	the/ Moabite [woman]	H9009/{H4125}	HTd/Ngfsa			H4125			H9009=ה=the/{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.2.2#04=L	אֶֽל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.2.2#05=L	נָעֳמִ֗י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.2.2#06=L	אֵֽלְכָה\־	'e.le.khah-	let me go	{H1980G}\H9014	HVqc1cs			H1980G_a	H3212_a		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}\H9014=־=link					
+Rut.2.2#07=L	נָּ֤א	na'	please	{H4994}	HTj			H4994			{H4994=נָא=please}					
+Rut.2.2#08=L	הַ/שָּׂדֶה֙	ha./sa.Deh	the/ field	H9009/{H7704G}	HTd/Ncmsa			H7704G			H9009=ה=the/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.2#09=L(ah+b)	וַ/אֲלַקֳטָּ֣ה	va./'a.la.ko.Tah	so/ I may glean	H9002/{H3950}	HC/Vpc1cs		AH= וַ/אֲלַקֳּטָ֣ה ¦ B= וַ/אֲלַקֳטָ֣ה	H3950			H9002=ו=and/{H3950=לָקַט=to gather}					
+Rut.2.2#10=L(abh)	בַ/שִׁבֳּלִ֔ים	va./shi.bo.Lim	among the/ ears of grain	H9003/{H7641B}	HRd/Ncmpa		ABH= בַ/שִּׁבֳּלִ֔ים	H7641B			H9003=ב=in/{H7641B=שִׁבֹּ֫לֶת=ear}					
+Rut.2.2#11=L	אַחַ֕ר	'a.Char	behind	{H0310A}	HAcmsc			H0310A			{H0310A=אַחַר=after}					
+Rut.2.2#12=L	אֲשֶׁ֥ר	'a.Sher	[the one] whom	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.2.2#13=L	אֶמְצָא\־	'em.tza'-	I will find	{H4672}\H9014	HVqi1cs			H4672			{H4672=מָצָא=to find}\H9014=־=link					
+Rut.2.2#14=L	חֵ֖ן	chen	favor	{H2580}	HNcmsa			H2580			{H2580=חֵן=favor}					
+Rut.2.2#15=L	בְּ/עֵינָ֑י/ו	be./'ei.Na/v	in/ view/ his	H9003/{H5869H}/H9023	HR/Ncfdc/Sp3ms			H5869H			H9003=ב=in/{H5869H=עַ֫יִן=: seeing»eye:2_seeing}/H9023=Ps3m=his					
+Rut.2.2#16=L	וַ/תֹּ֥אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_B			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.2#17=L	לָ֖/הּ	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.2#18=L	לְכִ֥י	le.Khi	go	{H1980G}	HVqv2fs			H1980G_b	H3212_b		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.2.2#19=L	בִתִּֽ/י\׃	vi.T/i	O daughter/ my	{H1323G}/H9020\H9016	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my\H9016=׃=verseEnd					
+Rut.2.3#01=L	וַ/תֵּ֤לֶךְ	va./Te.lekh	and/ she went	H9001/{H1980G}	Hc/Vqw3fs			H1980G	H3212		H9001=ו=&/{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.2.3#02=L	וַ/תָּבוֹא֙	va./ta.Vo'	and/ she came	H9001/{H0935G}	Hc/Vqw3fs			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.2.3#03=L	וַ/תְּלַקֵּ֣ט	va./te.la.Ket	and/ she gleaned	H9001/{H3950}	Hc/Vpw3fs			H3950			H9001=ו=&/{H3950=לָקַט=to gather}					
+Rut.2.3#04=L	בַּ/שָּׂדֶ֔ה	ba./sa.Deh	in the/ field	H9003/{H7704G}	HRd/Ncmsa			H7704G_A			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.3#05=L	אַחֲרֵ֖י	'a.cha.Rei	behind	{H0310A}	HAcmpc			H0310A			{H0310A=אַחַר=after}					
+Rut.2.3#06=L	הַ/קֹּצְרִ֑ים	ha./ko.tze.Rim	the/ harvesters	H9009/{H7114B}	HTd/Vqrmpa			H7114B			H9009=ה=the/{H7114B=קָצַר=to reap}					
+Rut.2.3#07=L	וַ/יִּ֣קֶר	va/i.Yi.ker	and/ it chanced on	H9001/{H7136A}	Hc/Vqw3ms			H7136A			H9001=ו=&/{H7136A=קָרָה=to meet}					
+Rut.2.3#08=L	מִקְרֶ֔/הָ	mik.Re./ha	chance/ her	{H4745}/H9024	HNcmsc/Sp3fs			H4745			{H4745=מִקְרֶה=accident}/H9024=Ps3f=her					
+Rut.2.3#09=L	חֶלְקַ֤ת	chel.Kat	[the] portion of	{H2513A}	HNcfsc			H2513A			{H2513A=חֶלְקָה=portion}					
+Rut.2.3#10=L	הַ/שָּׂדֶה֙	ha./sa.Deh	the/ field	H9009/{H7704G}	HTd/Ncmsa			H7704G_B			H9009=ה=the/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.3#11=L	לְ/בֹ֔עַז	le./Vo.'az	of/ Boaz	H9005/{H1162G}	HR/Npm			H1162G			H9005=ל=to/{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.3#12=L	אֲשֶׁ֖ר	'a.Sher	who	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.2.3#13=L	מִ/מִּשְׁפַּ֥חַת	mi./mish.Pa.chat	[was] from/ [the] clan of	H9006/{H4940}	HR/Ncfsc			H4940			H9006=מ=from/{H4940=מִשְׁפָּחָה=family}					
+Rut.2.3#14=L	אֱלִימֶֽלֶךְ\׃	'e.li.Me.lekh	Elimelech	{H0458}\H9016	HNpm			H0458			{H0458=אֱלִימֶ֫לֶךְ=Elimelech»Elimelech@Rut.1.2-}\H9016=׃=verseEnd					
+Rut.2.4#01=L	וְ/הִנֵּה\־	ve./hi.neh-	and/ there!	H9002/{H2009}\H9014	HC/Tj			H2009			H9002=ו=and/{H2009=הִנֵּה=behold}\H9014=־=link					
+Rut.2.4#02=L	בֹ֗עַז	Vo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.4#03=L	בָּ֚א	ba'	[was] coming	{H0935G}	HVqp3ms			H0935G			{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.2.4#04=L	מִ/בֵּ֣ית	mi./Beit	from/ Beth-	H9006/{H1035G}+	HR/Npl			H1035G_A			H9006=מ=from/{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.2.4#05=L	לֶ֔חֶם	Le.chem	-lehem	{H1035G}	HNpl			H1035G_b			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}					
+Rut.2.4#06=L	וַ/יֹּ֥אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.4#07=L	לַ/קּוֹצְרִ֖ים	la./kotz.Rim	to the/ harvesters	H9005/{H7114B}	HRd/Vqrmpa			H7114B			H9005=ל=to/{H7114B=קָצַר=to reap}					
+Rut.2.4#08=L	יְהוָ֣ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G_A			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.2.4#09=L	עִמָּ/כֶ֑ם	'i.ma./Khem	[be] with/ you	{H5973A}/H9036	HRd/Sp2mp			H5973A			{H5973A=עִם=with}/H9036=Op2m=you					
+Rut.2.4#10=L	וַ/יֹּ֥אמְרוּ	va/i.Yo.me.ru	and/ they said	H9001/{H0559}	Hc/Vqw3mp			H0559_B			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.4#11=L	ל֖/וֹ	l/o	to <the>/ him	H9005/{H9033}	HRd/Sp3ms			H9033			H9005=ל=to/{H9033=Os3m=him}					
+Rut.2.4#12=L	יְבָרֶכְ/ךָ֥	ye.va.rekh./Kha	may he bless/ you	{H1288}/H9031	HVpi3ms/Sp2ms			H1288			{H1288=בָּרַךְ=to bless}/H9031=Os2m=you					
+Rut.2.4#13=L	יְהוָֽה\׃	Yah.weh	Yahweh	{H3068G}\H9016	HNpt			H3068G_B			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}\H9016=׃=verseEnd					
+Rut.2.5#01=L	וַ/יֹּ֤אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.5#02=L	בֹּ֙עַז֙	bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.5#03=L	לְ/נַעֲר֔/וֹ	le./na.'a.R/o	to/ servant/ his	H9005/{H5288}/H9023	HR/Ncmsc/Sp3ms			H5288			H9005=ל=to/{H5288=נַ֫עַר=youth}/H9023=Ps3m=his					
+Rut.2.5#04=L	הַ/נִּצָּ֖ב	ha./ni.Tzav	who/ was appointed	H9009/{H5324}	HTd/VNrmsa			H5324			H9009=ה=the/{H5324=נָצַב=to stand}					
+Rut.2.5#05=L	עַל\־	'al-	over	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.2.5#06=L	הַ/קּֽוֹצְרִ֑ים	ha./kotz.Rim	the/ harvesters	H9009/{H7114B}	HTd/Vqrmpa			H7114B			H9009=ה=the/{H7114B=קָצַר=to reap}					
+Rut.2.5#07=L	לְ/מִ֖י	le./Mi	[belongs] to/ whom?	H9005/{H4310}	HR/Pi			H4310			H9005=ל=to/{H4310=מִי=who?}					
+Rut.2.5#08=L	הַ/נַּעֲרָ֥ה	ha./na.'a.Rah	the/ young woman	H9009/{H5291}	HTd/Ncfsa			H5291			H9009=ה=the/{H5291=נַעֲרָה=maiden}					
+Rut.2.5#09=L	הַ/זֹּֽאת\׃	ha./Zot	<the>/ this	H9009/{H2063}\H9016	HTd/Tm			H2063			H9009=ה=the/{H2063=זֹאת=this}\H9016=׃=verseEnd					
+Rut.2.6#01=L	וַ/יַּ֗עַן	va/i.Ya.'an	and/ he answered	H9001/{H6030B}	Hc/Vqw3ms			H6030B			H9001=ו=&/{H6030B=עָנָה=to answer}					
+Rut.2.6#02=L	הַ/נַּ֛עַר	ha./Na.'ar	the/ servant	H9009/{H5288}	HTd/Ncmsa			H5288			H9009=ה=the/{H5288=נַ֫עַר=youth}					
+Rut.2.6#03=L	הַ/נִּצָּ֥ב	ha./ni.Tzav	who/ was appointed	H9009/{H5324}	HTd/VNrmsa			H5324			H9009=ה=the/{H5324=נָצַב=to stand}					
+Rut.2.6#04=L	עַל\־	'al-	over	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.2.6#05=L	הַ/קּוֹצְרִ֖ים	ha./kotz.Rim	the/ harvesters	H9009/{H7114B}	HTd/Vqrmpa			H7114B			H9009=ה=the/{H7114B=קָצַר=to reap}					
+Rut.2.6#06=L	וַ/יֹּאמַ֑ר	va/i.yo.Mar	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.6#07=L	נַעֲרָ֤ה	na.'a.Rah	[is] a young woman	{H5291}	HNcfsa			H5291			{H5291=נַעֲרָה=maiden}					
+Rut.2.6#08=L	מֽוֹאֲבִיָּה֙	mo.'a.vi.Yah	Moabite	{H4125}	HNgfsa			H4125			{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.2.6#09=L	הִ֔יא	Hi'	she	{H1931}	HPp3fs			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.2.6#10=L	הַ/שָּׁ֥בָה	ha./Sha.vah	who/ <she> returned	H9009/{H7725G}	HTd/Vqp3fs			H7725G			H9009=ה=the/{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.2.6#11=L	עִֽם\־	'im-	with	{H5973A}\H9014	HR			H5973A			{H5973A=עִם=with}\H9014=־=link					
+Rut.2.6#12=L	נָעֳמִ֖י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.2.6#13=L	מִ/שְּׂדֵ֥ה	mi./se.Deh	from/ [the] region of	H9006/{H7704G}	HR/Ncmsc			H7704G			H9006=מ=from/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.6#14=L	מוֹאָֽב\׃	mo.'Av	Moab	{H4124G}\H9016	HNpl			H4124G			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}\H9016=׃=verseEnd					
+Rut.2.7#01=L	וַ/תֹּ֗אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.7#02=L	אֲלַקֳטָה\־	'a.la.ko.tah-	let me glean	{H3950}\H9014	HVpc1cs			H3950			{H3950=לָקַט=to gather}\H9014=־=link					
+Rut.2.7#03=L	נָּא֙	na'	please	{H4994}	HTj			H4994			{H4994=נָא=please}					
+Rut.2.7#04=L	וְ/אָסַפְתִּ֣י	ve./'a.saf.Ti	and/ I will gather	H9001/{H0622}	Hc/Vqq1cs			H0622			H9001=ו=&/{H0622=אָסַף=to gather}					
+Rut.2.7#05=L	בָֽ/עֳמָרִ֔ים	vo./'o.ma.Rim	among the/ sheaves	H9003/{H6016A}	HRd/Ncmpa			H6016A			H9003=ב=in/{H6016A=עֹ֫מֶר=sheaf}					
+Rut.2.7#06=L	אַחֲרֵ֖י	'a.cha.Rei	behind	{H0310A}	HAcmpc			H0310A			{H0310A=אַחַר=after}					
+Rut.2.7#07=L	הַ/קּוֹצְרִ֑ים	ha./kotz.Rim	the/ harvesters	H9009/{H7114B}	HTd/Vqrmpa			H7114B			H9009=ה=the/{H7114B=קָצַר=to reap}					
+Rut.2.7#08=L	וַ/תָּב֣וֹא	va./ta.Vo'	and/ she came	H9001/{H0935G}	Hc/Vqw3fs			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.2.7#09=L	וַֽ/תַּעֲמ֗וֹד	va./ta.'a.Mod	and/ she has stayed	H9001/{H5975G}	Hc/Vqw3fs			H5975G			H9001=ו=&/{H5975G=עָמַד=: stand»to stand:1_stand;_stop;_establish}					
+Rut.2.7#10=L	מֵ/אָ֤ז	me./'Az	from/ then	H9006/{H0227B}	HR/D			H0227B			H9006=מ=from/{H0227B=מֵאָז=the past}					
+Rut.2.7#11=L	הַ/בֹּ֙קֶר֙	ha./Bo.ker	this/ morning	H9009/{H1242}	HTd/Ncmsa			H1242			H9009=ה=the/{H1242=בֹּ֫קֶר=morning}					
+Rut.2.7#12=L	וְ/עַד\־	ve./'ad-	and/ until	H9002/{H5704}\H9014	HC/R			H5704			H9002=ו=and/{H5704=עַד=till}\H9014=־=link					
+Rut.2.7#13=L	עַ֔תָּה	'A.tah	now	{H6258}	HD			H6258			{H6258=עַתָּ֫ה=now}					
+Rut.2.7#14=L	זֶ֛ה	zeh	this	{H2088}	HTm			H2088			{H2088=זֶה=this}					
+Rut.2.7#15=L	שִׁבְתָּ֥/הּ	shiv.Ta/h	sitting/ she	{H3427}/H9044	HVqcc/Sp3fs			H3427			{H3427=יָשַׁב=to dwell}/H9044=Ss3f=she					
+Rut.2.7#16=L	הַ/בַּ֖יִת	ha./Ba.yit	the/ house	H9009/{H1004B}	HTd/Ncmsa			H1004B			H9009=ה=the/{H1004B=בַּ֫יִת=: home»house:1_home}					
+Rut.2.7#17=L	מְעָֽט\׃	me.'At	little	{H4592}\H9016	HNcmsa			H4592			{H4592=מְעַט=little}\H9016=׃=verseEnd					
+Rut.2.8#01=L	וַ/יֹּאמֶר֩	va/i.yo.Mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.8#02=L	בֹּ֨עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.8#03=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.2.8#04=L	ר֜וּת	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.2.8#05=L	הֲ/ל֧וֹא	ha./Lo'	¿/ not	H9008/{H3808}	HTi/Tn			H3808_A			H9008=ה=¿/{H3808=לֹא=not}					
+Rut.2.8#06=L	שָׁמַ֣עַתְּ	sha.Ma.'at	have you heard	{H8085G}	HVqp2fs			H8085G			{H8085G=שָׁמַע=: hear»to hear:1_hear}					
+Rut.2.8#07=L	בִּתִּ֗/י	bi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.2.8#08=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.2.8#09=L	תֵּלְכִי֙	te.le.Khi	you go	{H1980G}	HVqj2fs			H1980G	H3212		{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.2.8#10=L	לִ/לְקֹט֙	li/l.Kot	to/ glean	H9005/{H3950}	HR/Vqcc			H3950			H9005=ל=to/{H3950=לָקַט=to gather}					
+Rut.2.8#11=L	בְּ/שָׂדֶ֣ה	be./sa.Deh	in/ a field	H9003/{H7704G}	HR/Ncmsa			H7704G			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.8#12=L	אַחֵ֔ר	'a.Cher	another	{H0312}	HAamsa			H0312			{H0312=אַחֵר=another}					
+Rut.2.8#13=L	וְ/גַ֛ם	ve./Gam	and/ also	H9002/{H1571}	HC/D			H1571			H9002=ו=and/{H1571=גַּם=also}					
+Rut.2.8#14=L	לֹ֥א	lo'	not	{H3808}	HTn			H3808_B			{H3808=לֹא=not}					
+Rut.2.8#15=L	תַעֲבוּרִ֖י	ta.'a.vu.Ri	you must pass on	{H5674A}	HVqi2fs			H5674A			{H5674A=עָבַר=: pass»to pass:1_pass}					
+Rut.2.8#16=L	מִ/זֶּ֑ה	mi./Zeh	from/ this [field]	H9006/{H2088}	HR/Tm			H2088			H9006=מ=from/{H2088=זֶה=this}					
+Rut.2.8#17=L	וְ/כֹ֥ה	ve./Khoh	and/ thus	H9002/{H3541}	HC/D			H3541			H9002=ו=and/{H3541=כֹּה=thus}					
+Rut.2.8#18=L	תִדְבָּקִ֖י/ן	tid.ba.Ki/n	you will stay/ !	{H1692}/H9013	HVqi2fs/Sn			H1692			{H1692=דָּבַק=to cleave}/H9013=נ=emph.					
+Rut.2.8#19=L	עִם\־	'im-	with	{H5973A}\H9014	HR			H5973A			{H5973A=עִם=with}\H9014=־=link					
+Rut.2.8#20=L	נַעֲרֹתָֽ/י\׃	na.'a.ro.Ta/i	female servants/ my	{H5291}/H9020\H9016	HNcfpc/Sp1bs			H5291			{H5291=נַעֲרָה=maiden}/H9020=Ps1c=my\H9016=׃=verseEnd					
+Rut.2.9#01=L	עֵינַ֜יִ/ךְ	'ei.Na.yi/kh	eyes/ your	{H5869A}/H9022	HNcfdc/Sp2fs			H5869A			{H5869A=עַ֫יִן=: eye»eye:1_eye}/H9022=Ps2f=your					
+Rut.2.9#02=L	בַּ/שָּׂדֶ֤ה	ba./sa.Deh	[be] on the/ field	H9003/{H7704G}	HRd/Ncmsa			H7704G			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.9#03=L	אֲשֶׁר\־	'a.Sher-	which	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.9#04=L	יִקְצֹרוּ/ן֙	yik.tzo.Ru/n	they are harvesting/ !	{H7114B}/H9013	HVqi3mp/Sn			H7114B			{H7114B=קָצַר=to reap}/H9013=נ=emph.					
+Rut.2.9#05=L(abh)	וְ/הָלַ֣כְתִּ	ve./ha.Lakht	and/ you will go	H9001/{H1980N}	Hc/Vqq2fs		ABH= וְ/הָלַ֣כְתְּ	H1980N_a	, H3212_a		H9001=ו=&/{H1980N=הָלַךְ=: follow»to go:8_follow;_behind;_go[after]}					
+Rut.2.9#06=L	אַחֲרֵי/הֶ֔ן	'a.cha.rei./Hen	behind/ them	{H0310A}/H9039	HAcmpc/Sp3fp			H0310A			{H0310A=אַחַר=after}/H9039=Op3f=them					
+Rut.2.9#07=L	הֲ/ל֥וֹא	ha./Lo'	¿/ not	H9008/{H3808}	HTi/Tn			H3808			H9008=ה=¿/{H3808=לֹא=not}					
+Rut.2.9#08=L	צִוִּ֛יתִי	tzi.Vi.ti	have I commanded	{H6680}	HVpp1cs			H6680			{H6680=צָוָה=to command}					
+Rut.2.9#09=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.2.9#10=L	הַ/נְּעָרִ֖ים	ha./ne.'a.Rim	the/ young men	H9009/{H5288}	HTd/Ncmpa			H5288_A			H9009=ה=the/{H5288=נַ֫עַר=youth}					
+Rut.2.9#11=L	לְ/בִלְתִּ֣י	le./vil.Ti	to/ not	H9005/{H1115}	HR/Ncbsc			H1115			H9005=ל=to/{H1115=בִּלְתִּי=lest}					
+Rut.2.9#12=L	נָגְעֵ֑/ךְ	na.ge.'E/kh	to touch/ you	{H5060}/H9032	HVqcc/Sp2fs			H5060			{H5060=נָגַע=to touch}/H9032=Os2f=you					
+Rut.2.9#13=L	וְ/צָמִ֗ת	ve./tza.Mit	and/ you will be thirsty	H9001/{H6770}	Hc/Vqq2fs			H6770			H9001=ו=&/{H6770=צָמֵא=to thirst}					
+Rut.2.9#14=L	וְ/הָלַכְתְּ֙	ve./ha.lakhT	and/ you will go	H9001/{H1980G}	Hc/Vqq2fs			H1980G_b	H3212_b		H9001=ו=&/{H1980G=הָלַךְ=: went»to go:3_went;_go[away]}					
+Rut.2.9#15=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.2.9#16=L	הַ/כֵּלִ֔ים	ha./ke.Lim	the/ vessels	H9009/{H3627}	HTd/Ncmpa			H3627			H9009=ה=the/{H3627=כְּלִי=article|utensil}					
+Rut.2.9#17=L	וְ/שָׁתִ֕ית	ve./sha.Tit	and/ you will drink	H9001/{H8354}	Hc/Vqq2fs			H8354			H9001=ו=&/{H8354=שָׁתָה=to drink}					
+Rut.2.9#18=L	מֵ/אֲשֶׁ֥ר	me./'a.Sher	some of/ [that] which	H9006/{H0834C}	HR/Tr			H0834C_B			H9006=מ=from/{H0834C=מֵאֲשֶׁר=from which}					
+Rut.2.9#19=L	יִשְׁאֲב֖וּ/ן	yish.'a.Vu/n	they will draw/ !	{H7579}/H9013	HVqi3mp/Sn			H7579			{H7579=שָׁאַב=to draw}/H9013=נ=emph.					
+Rut.2.9#20=L	הַ/נְּעָרִֽים\׃	ha./ne.'a.Rim	the/ young men	H9009/{H5288}\H9016	HTd/Ncmpa			H5288_B			H9009=ה=the/{H5288=נַ֫עַר=youth}\H9016=׃=verseEnd					
+Rut.2.10#01=L	וַ/תִּפֹּל֙	va./ti.Pol	and/ she fell	H9001/{H5307G}	Hc/Vqw3fs			H5307G			H9001=ו=&/{H5307G=נָפַל=: fall»to fall:1_fall;_drop;_fail}					
+Rut.2.10#02=L	עַל\־	'al-	on	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.2.10#03=L	פָּנֶ֔י/הָ	pa.Nei./ha	face/ her	{H6440H}/H9024	HNcmpc/Sp3fs			H6440H			{H6440H=פָּנֶה=: face»face:1_face}/H9024=Ps3f=her					
+Rut.2.10#04=L	וַ/תִּשְׁתַּ֖חוּ	va./tish.Ta.chu	and/ she bowed down	H9001/{H7812}	Hc/Vvw3fs			H7812			H9001=ו=&/{H7812=שָׁחָה=to bow}					
+Rut.2.10#05=L	אָ֑רְצָ/ה	'A.re.tza/h	[the] ground/ towards	{H0776H}/H9011	HNcfsa/Sd			H0776H			{H0776H=אֶ֫רֶץ=: soil»land:1_soil;_ground}/H9011=ה=to					
+Rut.2.10#06=L	וַ/תֹּ֣אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.10#07=L	אֵלָ֗י/ו	'e.La/v	to/ him	{H0413}/H9033	HRd/Sp3ms			H0413			{H0413=אֶל=to(wards)}/H9033=Os3m=him					
+Rut.2.10#08=L	מַדּוּעַ֩	ma.du.a'	why?	{H4069}	HTi			H4069			{H4069=מַדּוּעַ=why?}					
+Rut.2.10#09=L	מָצָ֨אתִי	ma.Tza.ti	have I found	{H4672}	HVqp1cs			H4672			{H4672=מָצָא=to find}					
+Rut.2.10#10=L	חֵ֤ן	chen	favor	{H2580}	HNcmsa			H2580			{H2580=חֵן=favor}					
+Rut.2.10#11=L	בְּ/עֵינֶ֙י/ךָ֙	be./'ei.Nei./kha	in/ view/ your	H9003/{H5869A}/H9021	HR/Ncfdc/Sp2ms			H5869A			H9003=ב=in/{H5869A=עַ֫יִן=: eye»eye:1_eye}/H9021=Ps2m=your					
+Rut.2.10#12=L	לְ/הַכִּירֵ֔/נִי	le./ha.ki.Re./ni	to/ pay regard to/ me	H9005/{H5234A}/H9030	HR/Vhcc/Sp1bs			H5234A			H9005=ל=to/{H5234A=נָכַר=to recognize}/H9030=Os1c=me					
+Rut.2.10#13=L(abh)	וְ/אָּנֹכִ֖י	ve./'a.no.Khi	and/ I	H9002/{H0595}	HC/Pp1bs		ABH= וְ/אָנֹכִ֖י	H0595			H9002=ו=and/{H0595=אָֽנֹכִ֫י=I}					
+Rut.2.10#14=L	נָכְרִיָּֽה\׃	na.khe.ri.Yah	[am] a foreigner	{H5237}\H9016	HAafsa			H5237			{H5237=נׇכְרִי=foreign}\H9016=׃=verseEnd					
+Rut.2.11#01=L	וַ/יַּ֤עַן	va/i.Ya.'an	and/ he answered	H9001/{H6030B}	Hc/Vqw3ms			H6030B			H9001=ו=&/{H6030B=עָנָה=to answer}					
+Rut.2.11#02=L	בֹּ֙עַז֙	bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.11#03=L	וַ/יֹּ֣אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.11#04=L	לָ֔/הּ	La/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.11#05=L	הֻגֵּ֨ד	hu.Ged	certainly <to be told>	{H5046}	HVHaa			H5046_A			{H5046=נָגַד=to tell}					
+Rut.2.11#06=L	הֻגַּ֜ד	hu.Gad	it has been told	{H5046}	HVHp3ms			H5046_B			{H5046=נָגַד=to tell}					
+Rut.2.11#07=L	לִ֗/י	L/i	to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.2.11#08=L	כֹּ֤ל	kol	all	{H3605}	HNcmsa			H3605			{H3605=כֹּל=all}					
+Rut.2.11#09=L	אֲשֶׁר\־	'a.Sher-	that	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.11#10=L	עָשִׂית֙	'a.Sit	you have done	{H6213A}	HVqp2fs			H6213A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.2.11#11=L	אֶת\־	'et-	with	{H0854}\H9014	HR			H0854			{H0854=אֵת=with}\H9014=־=link					
+Rut.2.11#12=L	חֲמוֹתֵ֔/ךְ	cha.mo.Te/kh	mother-in-law/ your	{H2545}/H9022	HNcfsc/Sp2fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9022=Ps2f=your					
+Rut.2.11#13=L	אַחֲרֵ֖י	'a.cha.Rei	after	{H0310A}	HAcmpc			H0310A			{H0310A=אַחַר=after}					
+Rut.2.11#14=L	מ֣וֹת	Mot	[the] death of	{H4194}	HNcmsc			H4194			{H4194=מָ֫וֶת=death}					
+Rut.2.11#15=L	אִישֵׁ֑/ךְ	'i.She/kh	husband/ your	{H0376H}/H9022	HNcmsc/Sp2fs			H0376H			{H0376H=אִישׁ=: husband»man:2_husband}/H9022=Ps2f=your					
+Rut.2.11#16=L	וַ/תַּֽעַזְבִ֞י	va./ta.'az.Vi	and/ you left	H9001/{H5800A}	Hc/Vqw2fs			H5800A			H9001=ו=&/{H5800A=עָזַב=: forsake»to leave:1_forsake}					
+Rut.2.11#17=L(abh)	אָּבִ֣י/ךְ	'a.Vi/kh	father/ your	{H0001G}/H9022	HNcmsc/Sp2fs		ABH= אָבִ֣י/ךְ	H0001G			{H0001G=אָב=father}/H9022=Ps2f=your					
+Rut.2.11#18=L	וְ/אִמֵּ֗/ךְ	ve./'i.Me/kh	and/ mother/ your	H9002/{H0517}/H9022	HC/Ncfsc/Sp2fs			H0517			H9002=ו=and/{H0517=אֵם=mother}/H9022=Ps2f=your					
+Rut.2.11#19=L	וְ/אֶ֙רֶץ֙	ve./'E.retz	and/ [the] land of	H9002/{H0776G}	HC/Ncfsc			H0776G			H9002=ו=and/{H0776G=אֶ֫רֶץ=: country;_planet»land:2_country;_planet}					
+Rut.2.11#20=L	מֽוֹלַדְתֵּ֔/ךְ	mo.lad.Te/kh	kindred/ your	{H4138}/H9022	HNcfsc/Sp2fs			H4138			{H4138=מוֹלֶ֫דֶת=relatives}/H9022=Ps2f=your					
+Rut.2.11#21=L	וַ/תֵּ֣לְכִ֔י	va./Te.le.Khi	and/ you came	H9001/{H1980H}	Hc/Vqw2fs			H1980H	H3212		H9001=ו=&/{H1980H=הָלַךְ=: come[nearer]»to go:2_come[nearer]}					
+Rut.2.11#22=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.2.11#23=L	עַ֕ם	'am	a people	{H5971A}	HNcmsa			H5971A			{H5971A=עַם=: people»people:1_people;_nation}					
+Rut.2.11#24=L	אֲשֶׁ֥ר	'a.Sher	which	{H0834A}	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}					
+Rut.2.11#25=L	לֹא\־	lo'-	not	{H3808}\H9014	HTn			H3808			{H3808=לֹא=not}\H9014=־=link					
+Rut.2.11#26=L	יָדַ֖עַתְּ	ya.Da.'at	you knew	{H3045}	HVqp2fs			H3045			{H3045=יָדַע=to know}					
+Rut.2.11#27=L	תְּמ֥וֹל	te.Mol	yesterday	{H8543}	HNcmsa			H8543			{H8543=תְּמוֹל=yesterday}					
+Rut.2.11#28=L	שִׁלְשֽׁוֹם\׃	shil.Shom	three days ago	{H8032}\H9016	HNcmsa			H8032			{H8032=שִׁלְשֹׁם=before}\H9016=׃=verseEnd					
+Rut.2.12#01=L	יְשַׁלֵּ֥ם	ye.sha.Lem	may he reward	{H7999A}	HVpi3ms			H7999A			{H7999A=שָׁלֵם=to complete}					
+Rut.2.12#02=L	יְהוָ֖ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G_A			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.2.12#03=L	פָּעֳלֵ֑/ךְ	po.'o.Le/kh	deed[s]/ your	{H6467}/H9022	HNcmsc/Sp2fs			H6467			{H6467=פֹּ֫עַל=work}/H9022=Ps2f=your					
+Rut.2.12#04=L	וּ/תְהִ֨י	u./te.Hi	and/ may it be	H9002/{H1961}	HC/Vqj3fs			H1961			H9002=ו=and/{H1961=הָיָה=to be}					
+Rut.2.12#05=L	מַשְׂכֻּרְתֵּ֜/ךְ	mas.kur.Te/kh	wage[s]/ your	{H4909}/H9022	HNcfsc/Sp2fs			H4909			{H4909=מַשְׂכֹּ֫רֶת=wage}/H9022=Ps2f=your					
+Rut.2.12#06=L	שְׁלֵמָ֗ה	she.le.Mah	complete	{H8003}	HAafsa			H8003			{H8003=שָׁלֵם=complete}					
+Rut.2.12#07=L	מֵ/עִ֤ם	me./'Im	from/ with	H9006/{H5973B}	HR/R			H5973B			H9006=מ=from/{H5973B=מֵעִם=from with}					
+Rut.2.12#08=L	יְהוָה֙	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G_B			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.2.12#09=L	אֱלֹהֵ֣י	'e.lo.Hei	[the] God of	{H0430G}	HNcmpc			H0430G			{H0430G=אֱלֹהִים=God»LORD@Gen.1.1-Heb}					
+Rut.2.12#10=L	יִשְׂרָאֵ֔ל	Yis.ra.'El	Israel	{H3478}	HNpl			H3478			{H3478=יִשְׂרָאֵל=Israel»Israel@Gen.25.26-Rev}					
+Rut.2.12#11=L	אֲשֶׁר\־	'a.Sher-	whom	{H0834A}\H9014	HTr			H0834A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.12#12=L	בָּ֖את	bat	you have come	{H0935G}	HVqp2fs			H0935G			{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.2.12#13=L	לַ/חֲס֥וֹת	la./cha.Sot	to/ take refuge	H9005/{H2620}	HR/Vqcc			H2620			H9005=ל=to/{H2620=חָסָה=to seek refuge}					
+Rut.2.12#14=L	תַּֽחַת\־	ta.chat-	under	{H8478G}\H9014	HNcmsc			H8478G			{H8478G=תַּחַת=: under»underneath:1_under;_below}\H9014=־=link					
+Rut.2.12#15=L	כְּנָפָֽי/ו\׃	ke.na.Fa/v	wings/ his	{H3671}/H9023\H9016	HNcfdc/Sp3ms			H3671			{H3671=כָּנָף=wing}/H9023=Ps3m=his\H9016=׃=verseEnd					
+Rut.2.13#01=L	וַ֠/תֹּאמֶר	Va./to.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.13#02=L	אֶמְצָא\־	'em.tza'-	I am finding	{H4672}\H9014	HVqi1cs			H4672			{H4672=מָצָא=to find}\H9014=־=link					
+Rut.2.13#03=L	חֵ֨ן	chen	favor	{H2580}	HNcmsa			H2580			{H2580=חֵן=favor}					
+Rut.2.13#04=L	בְּ/עֵינֶ֤י/ךָ	be./'ei.Nei./kha	in/ view/ your	H9003/{H5869A}/H9021	HR/Ncfdc/Sp2ms			H5869A			H9003=ב=in/{H5869A=עַ֫יִן=: eye»eye:1_eye}/H9021=Ps2m=your					
+Rut.2.13#05=L	אֲדֹנִ/י֙	'a.do.N/i	O lord/ my	{H0113}/H9020	HNcmsc/Sp1bs			H0113			{H0113=אָדוֹן=lord}/H9020=Ps1c=my					
+Rut.2.13#06=L	כִּ֣י	ki	for	{H3588A}	HTc			H3588A_A			{H3588A=כִּי=for}					
+Rut.2.13#07=L	נִֽחַמְתָּ֔/נִי	ni.cham.Ta./ni	you have comforted/ me	{H5162G}/H9030	HVpp2ms/Sp1bs			H5162G			{H5162G=נָחַם=: comfort»to be sorry:1_comfort}/H9030=Os1c=me					
+Rut.2.13#08=L	וְ/כִ֥י	ve./Khi	and/ for	H9002/{H3588A}	HC/Tc			H3588A_B			H9002=ו=and/{H3588A=כִּי=for}					
+Rut.2.13#09=L	דִבַּ֖רְתָּ	di.Bar.ta	you have spoken	{H1696G}	HVpp2ms			H1696G			{H1696G=דָבַר=: speak»to speak:1_speak;_tell;_command}					
+Rut.2.13#10=L	עַל\־	'al-	to	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.2.13#11=L	לֵ֣ב	lev	[the] heart of	{H3820A}	HNcmsc			H3820A			{H3820A=לֵב=heart}					
+Rut.2.13#12=L	שִׁפְחָתֶ֑/ךָ	shif.cha.Te./kha	maidservant/ your	{H8198}/H9021	HNcfsc/Sp2ms			H8198_A			{H8198=שִׁפְחָה=maidservant}/H9021=Ps2m=your					
+Rut.2.13#13=L	וְ/אָנֹכִי֙	ve./'a.no.Khi	and/ I	H9002/{H0595}	HC/Pp1bs			H0595			H9002=ו=and/{H0595=אָֽנֹכִ֫י=I}					
+Rut.2.13#14=L	לֹ֣א	lo'	not	{H3808}	HTn			H3808			{H3808=לֹא=not}					
+Rut.2.13#15=L	אֶֽהְיֶ֔ה	'eh.Yeh	I am	{H1961}	HVqi1cs			H1961			{H1961=הָיָה=to be}					
+Rut.2.13#16=L	כְּ/אַחַ֖ת	ke./'a.Chat	like/ one of	H9004/{H0259}	HR/Ncfsc			H0259			H9004=כ=like/{H0259=אֶחָד=one}					
+Rut.2.13#17=L	שִׁפְחֹתֶֽי/ךָ\׃	shif.cho.Tei./kha	maidservants/ your	{H8198}/H9021\H9016	HNcfpc/Sp2ms			H8198_B			{H8198=שִׁפְחָה=maidservant}/H9021=Ps2m=your\H9016=׃=verseEnd					
+Rut.2.14#01=L	וַ/יֹּאמֶר֩	va/i.yo.Mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.14#02=L	לָ֨/ה	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034_A			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.14#03=L	בֹ֜עַז	Vo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.14#04=L	לְ/עֵ֣ת	le./'Et	to/ [the] time of	H9005/{H6256}	HR/Ncbsc			H6256			H9005=ל=to/{H6256=עֵת=time}					
+Rut.2.14#05=L	הָ/אֹ֗כֶל	ha./'O.khel	the/ meal	H9009/{H0400}	HTd/Ncmsa			H0400			H9009=ה=the/{H0400=אֹ֫כֶל=food}					
+Rut.2.14#06=L	גֹּ֤שִֽׁי	Go.shi	approach	{H5066G}	HVqv2fs			H5066G			{H5066G=נָגַשׁ=: approach»to approach:1_approach}					
+Rut.2.14#07=L	הֲלֹם֙	ha.Lom	here	{H1988}	HD			H1988			{H1988=הֲלֹם=here}					
+Rut.2.14#08=L	וְ/אָכַ֣לְתְּ	ve./'a.Khalt	and/ you will eat	H9001/{H0398}	Hc/Vqq2fs			H0398_A			H9001=ו=&/{H0398=אָכַל=to eat}					
+Rut.2.14#09=L	מִן\־	min-	some of	{H4480A}\H9014	HR			H4480A			{H4480A=מִן־=from}\H9014=־=link					
+Rut.2.14#10=L	הַ/לֶּ֔חֶם	ha./Le.chem	the/ food	H9009/{H3899H}	HTd/Ncmsa			H3899H			H9009=ה=the/{H3899H=לֶ֫חֶם=: bread»food:2_bread;_loaf}					
+Rut.2.14#11=L	וְ/טָבַ֥לְתְּ	ve./ta.Valt	and/ you will dip	H9001/{H2881}	Hc/Vqq2fs			H2881			H9001=ו=&/{H2881=טָבַל=to dip}					
+Rut.2.14#12=L	פִּתֵּ֖/ךְ	pi.Te/kh	portion/ your	{H6595A}/H9022	HNcfsc/Sp2fs			H6595A			{H6595A=פַּת=morsel}/H9022=Ps2f=your					
+Rut.2.14#13=L	בַּ/חֹ֑מֶץ	ba./Cho.metz	in the/ vinegar	H9003/{H2558}	HRd/Ncmsa			H2558			H9003=ב=in/{H2558=חֹ֫מֶץ=vinegar}					
+Rut.2.14#14=L	וַ/תֵּ֙שֶׁב֙	va./Te.shev	and/ she sat down	H9001/{H3427}	Hc/Vqw3fs			H3427			H9001=ו=&/{H3427=יָשַׁב=to dwell}					
+Rut.2.14#15=L	מִ/צַּ֣ד	mi./Tzad	from/ [the] side of	H9006/{H6654}	HR/Ncmsc			H6654			H9006=מ=from/{H6654=צַד=side}					
+Rut.2.14#16=L	הַ/קּֽוֹצְרִ֔ים	ha./kotz.Rim	the/ harvesters	H9009/{H7114B}	HTd/Vqrmpa			H7114B			H9009=ה=the/{H7114B=קָצַר=to reap}					
+Rut.2.14#17=L	וַ/יִּצְבָּט\־	va/i.yitz.bot-	and/ he held out	H9001/{H6642}\H9014	Hc/Vqw3ms			H6642			H9001=ו=&/{H6642=צָבַט=to serve}\H9014=־=link					
+Rut.2.14#18=L	לָ֣/הּ	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034_B			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.14#19=L	קָלִ֔י	ka.Li	roasted grain	{H7039}	HNcmsa			H7039			{H7039=קָלִי=roasted}					
+Rut.2.14#20=L	וַ/תֹּ֥אכַל	va./To.khal	and/ she ate	H9001/{H0398}	Hc/Vqw3fs			H0398_B			H9001=ו=&/{H0398=אָכַל=to eat}					
+Rut.2.14#21=L	וַ/תִּשְׂבַּ֖ע	va./tis.Ba'	and/ she was satisfied	H9001/{H7646}	Hc/Vqw3fs			H7646			H9001=ו=&/{H7646=שָׂבֵעַ=to satisfy}					
+Rut.2.14#22=L	וַ/תֹּתַֽר\׃	va./to.Tar	and/ she had excess	H9001/{H3498}\H9016	Hc/Vhw3fs			H3498			H9001=ו=&/{H3498=יָתַר=to remain}\H9016=׃=verseEnd					
+Rut.2.15#01=L	וַ/תָּ֖קָם	va./Ta.kom	and/ she arose	H9001/{H6965B}	Hc/Vqw3fs			H6965B			H9001=ו=&/{H6965B=קוּם=: rise»to arise:1_rise;_get_going}					
+Rut.2.15#02=L	לְ/לַקֵּ֑ט	le./la.Ket	to/ glean	H9005/{H3950}	HR/Vpcc			H3950_A			H9005=ל=to/{H3950=לָקַט=to gather}					
+Rut.2.15#03=L	וַ/יְצַו֩	va/y.Tzav	and/ he commanded	H9001/{H6680}	Hc/Vpw3ms			H6680			H9001=ו=&/{H6680=צָוָה=to command}					
+Rut.2.15#04=L	בֹּ֨עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.15#05=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.2.15#06=L	נְעָרָ֜י/ו	ne.'a.Ra/v	servants/ his	{H5288}/H9023	HNcmpc/Sp3ms			H5288			{H5288=נַ֫עַר=youth}/H9023=Ps3m=his					
+Rut.2.15#07=L	לֵ/אמֹ֗ר	le./Mor	<to>/ saying	H9005/{H0559}	HR/Vqcc			H0559			H9005=ל=to/{H0559=אָמַר=to say}					
+Rut.2.15#08=L	גַּ֣ם	gam	also	{H1571}	HD			H1571			{H1571=גַּם=also}					
+Rut.2.15#09=L	בֵּ֧ין	bein	between	{H0996G}	HAcmsc			H0996G			{H0996G=בַּ֫יִן=: between»between:1_between}					
+Rut.2.15#10=L	הָֽ/עֳמָרִ֛ים	ho./'o.ma.Rim	the/ sheaves	H9009/{H6016A}	HTd/Ncmpa			H6016A			H9009=ה=the/{H6016A=עֹ֫מֶר=sheaf}					
+Rut.2.15#11=L	תְּלַקֵּ֖ט	te.la.Ket	she will glean	{H3950}	HVpi3fs			H3950_B			{H3950=לָקַט=to gather}					
+Rut.2.15#12=L	וְ/לֹ֥א	ve./Lo'	and/ not	H9002/{H3808}	HC/Tn			H3808			H9002=ו=and/{H3808=לֹא=not}					
+Rut.2.15#13=L	תַכְלִימֽוּ/הָ\׃	takh.li.Mu./ha	you must humiliate/ her	{H3637}/H9034\H9016	HVhi2mp/Sp3fs			H3637			{H3637=כָּלַם=be humiliated}/H9034=Os3f=her\H9016=׃=verseEnd					
+Rut.2.16#01=L	וְ/גַ֛ם	ve./Gam	and/ also	H9002/{H1571}	HC/D			H1571			H9002=ו=and/{H1571=גַּם=also}					
+Rut.2.16#02=L	שֹׁל\־	shol-	indeed <pull out>	{H7997A}\H9014	HVqcc			H7997A_A			{H7997A=שָׁלַל=to take}\H9014=־=link					
+Rut.2.16#03=L	תָּשֹׁ֥לּוּ	ta.Sho.lu	you will pull out	{H7997A}	HVqi2mp			H7997A_B			{H7997A=שָׁלַל=to take}					
+Rut.2.16#04=L	לָ֖/הּ	la/h	for <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034_A			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.16#05=L	מִן\־	min-	some of	{H4480A}\H9014	HR			H4480A			{H4480A=מִן־=from}\H9014=־=link					
+Rut.2.16#06=L	הַ/צְּבָתִ֑ים	ha./tze.va.Tim	the/ bundles of grain	H9009/{H6653}	HTd/Ncmpa			H6653			H9009=ה=the/{H6653=צְבָתִים=bundle}					
+Rut.2.16#07=L	וַ/עֲזַבְתֶּ֥ם	va./'a.zav.Tem	and/ you will leave [them]	H9001/{H5800A}	Hc/Vqq2mp			H5800A			H9001=ו=&/{H5800A=עָזַב=: forsake»to leave:1_forsake}					
+Rut.2.16#08=L	וְ/לִקְּטָ֖ה	ve./li.ke.Tah	and/ she will glean	H9001/{H3950}	Hc/Vpq3fs			H3950			H9001=ו=&/{H3950=לָקַט=to gather}					
+Rut.2.16#09=L	וְ/לֹ֥א	ve./Lo'	and/ not	H9002/{H3808}	HC/Tn			H3808			H9002=ו=and/{H3808=לֹא=not}					
+Rut.2.16#10=L	תִגְעֲרוּ\־	tig.'a.ru-	you must rebuke	{H1605}\H9014	HVqi2mp			H1605			{H1605=גָּעַר=to rebuke}\H9014=־=link					
+Rut.2.16#11=L	בָֽ/הּ\׃	Va/h	<in> <the>/ her	H9003/{H9034}\H9016	HRd/Sp3fs			H9034_B			H9003=ב=in/{H9034=Os3f=her}\H9016=׃=verseEnd					
+Rut.2.17#01=L	וַ/תְּלַקֵּ֥ט	va./te.la.Ket	and/ she gleaned	H9001/{H3950}	Hc/Vpw3fs			H3950_A			H9001=ו=&/{H3950=לָקַט=to gather}					
+Rut.2.17#02=L	בַּ/שָּׂדֶ֖ה	ba./sa.Deh	in the/ field	H9003/{H7704G}	HRd/Ncmsa			H7704G			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.17#03=L	עַד\־	'ad-	until	{H5704}\H9014	HR			H5704			{H5704=עַד=till}\H9014=־=link					
+Rut.2.17#04=L	הָ/עָ֑רֶב	ha./'A.rev	the/ evening	H9009/{H6153}	HTd/Ncmsa			H6153			H9009=ה=the/{H6153=עֶ֫רֶב=evening}					
+Rut.2.17#05=L	וַ/תַּחְבֹּט֙	va./tach.Bot	and/ she beat out	H9001/{H2251}	Hc/Vqw3fs			H2251			H9001=ו=&/{H2251=חָבַט=to beat}					
+Rut.2.17#06=L	אֵ֣ת	'et	<obj.>	{H0853}	HTo			H0853			{H0853=אֵת=[Obj.]}					
+Rut.2.17#07=L	אֲשֶׁר\־	'a.Sher-	[that] which	{H0834A}\H9014	HTr			H0834A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.17#08=L	לִקֵּ֔טָה	li.Ke.tah	she had gleaned	{H3950}	HVpp3fs			H3950_B			{H3950=לָקַט=to gather}					
+Rut.2.17#09=L	וַ/יְהִ֖י	va/y.Hi	and/ it was	H9001/{H1961}	Hc/Vqw3ms			H1961			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.2.17#10=L	כְּ/אֵיפָ֥ה	ke./'ei.Fah	about/ an ephah	H9004/{H0374}	HR/Ncfsa			H0374			H9004=כ=like/{H0374=אֵיפָה=ephah}					
+Rut.2.17#11=L	שְׂעֹרִֽים\׃	se.'o.Rim	barley<s>	{H8184}\H9016	HNcmpa			H8184			{H8184=שְׂעֹרָה=barley}\H9016=׃=verseEnd					
+Rut.2.18#01=L	וַ/תִּשָּׂא֙	va./ti.Sa'	and/ she lifted [it] up	H9001/{H5375H}	Hc/Vqw3fs			H5375H			H9001=ו=&/{H5375H=נָשָׂא=: bear»to lift:2_bear;_carry}					
+Rut.2.18#02=L	וַ/תָּב֣וֹא	va./ta.Vo'	and/ she went	H9001/{H0935G}	Hc/Vqw3fs			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.2.18#03=L	הָ/עִ֔יר	ha./'Ir	the/ city	H9009/{H5892B}	HTd/Ncfsa			H5892B			H9009=ה=the/{H5892B=עִיר=city}					
+Rut.2.18#04=L	וַ/תֵּ֥רֶא	va./Te.re'	and/ she saw	H9001/{H7200G}	Hc/Vqw3fs			H7200G			H9001=ו=&/{H7200G=רָאָה=: see»to see:1_see;_show}					
+Rut.2.18#05=L	חֲמוֹתָ֖/הּ	cha.mo.Ta/h	mother-in-law/ her	{H2545}/H9024	HNcfsc/Sp3fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her					
+Rut.2.18#06=L	אֵ֣ת	'et	<obj.>	{H0853}	HTo			H0853_A			{H0853=אֵת=[Obj.]}					
+Rut.2.18#07=L	אֲשֶׁר\־	'a.Sher-	[that] which	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.18#08=L	לִקֵּ֑טָה	li.Ke.tah	she had gleaned	{H3950}	HVpp3fs			H3950			{H3950=לָקַט=to gather}					
+Rut.2.18#09=L	וַ/תּוֹצֵא֙	va./to.Tze'	and/ she took [it] out	H9001/{H3318H}	Hc/Vhw3fs			H3318H			H9001=ו=&/{H3318H=יָצָא=: send»to come out:2_send;_take_out;_release}					
+Rut.2.18#10=L	וַ/תִּתֶּן\־	va./ti.ten-	and/ she gave	H9001/{H5414G}\H9014	Hc/Vqw3fs			H5414G			H9001=ו=&/{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}\H9014=־=link					
+Rut.2.18#11=L	לָ֔/הּ	La/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.18#12=L	אֵ֥ת	'et	<obj.>	{H0853}	HTo			H0853_B			{H0853=אֵת=[Obj.]}					
+Rut.2.18#13=L	אֲשֶׁר\־	'a.Sher-	[that] which	{H0834A}\H9014	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.18#14=L	הוֹתִ֖רָה	ho.Ti.rah	she had left over	{H3498}	HVhp3fs			H3498			{H3498=יָתַר=to remain}					
+Rut.2.18#15=L	מִ/שָּׂבְעָֽ/הּ\׃	mi./sa.ve.'A/h	from/ abundance/ her	H9006/{H7648}/H9024\H9016	HR/Ncmsc/Sp3fs			H7648			H9006=מ=from/{H7648=שֹׂ֫בַע=satiety}/H9024=Ps3f=her\H9016=׃=verseEnd					
+Rut.2.19#01=L	וַ/תֹּאמֶר֩	va./to.Mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.19#02=L	לָ֨/הּ	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.19#03=L	חֲמוֹתָ֜/הּ	cha.mo.Ta/h	mother-in-law/ her	{H2545}/H9024	HNcfsc/Sp3fs			H2545_A			{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her					
+Rut.2.19#04=L	אֵיפֹ֨ה	'ei.Foh	where?	{H0375}	HTi			H0375			{H0375=אֵיפֹה=where?}					
+Rut.2.19#05=L	לִקַּ֤טְתְּ	li.Katt	did you glean	{H3950}	HVpp2fs			H3950			{H3950=לָקַט=to gather}					
+Rut.2.19#06=L	הַ/יּוֹם֙	hai./yOm	this/ day	H9009/{H3117G}	HTd/Ncmsa			H3117G_A			H9009=ה=the/{H3117G=יוֹם=: day»day;_when:1_day;_when;_period}					
+Rut.2.19#07=L	וְ/אָ֣נָה	ve./'A.nah	and/ where?	H9002/{H0575}	HC/Ti			H0575			H9002=ו=and/{H0575=אָן=where?}					
+Rut.2.19#08=L	עָשִׂ֔ית	'a.Sit	did you work	{H6213A}	HVqp2fs			H6213A_A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.2.19#09=L	יְהִ֥י	ye.Hi	may he be	{H1961}	HVqj3ms			H1961			{H1961=הָיָה=to be}					
+Rut.2.19#10=L	מַכִּירֵ֖/ךְ	ma.ki.Re/kh	[the one who] paid regard to/ you	{H5234A}/H9032	HVhrmsc/Sp2fs			H5234A			{H5234A=נָכַר=to recognize}/H9032=Os2f=you					
+Rut.2.19#11=L	בָּר֑וּךְ	ba.Rukh	blessed	{H1288}	HVqsmsa			H1288			{H1288=בָּרַךְ=to bless}					
+Rut.2.19#12=L	וַ/תַּגֵּ֣ד	va./ta.Ged	and/ she told	H9001/{H5046}	Hc/Vhw3fs			H5046			H9001=ו=&/{H5046=נָגַד=to tell}					
+Rut.2.19#13=L	לַ/חֲמוֹתָ֗/הּ	la./cha.mo.Ta/h	to/ mother-in-law/ her	H9005/{H2545}/H9024	HR/Ncfsc/Sp3fs			H2545_B			H9005=ל=to/{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her					
+Rut.2.19#14=L	אֵ֤ת	'et	<obj.>	{H0853}	HTo			H0853			{H0853=אֵת=[Obj.]}					
+Rut.2.19#15=L	אֲשֶׁר\־	'a.Sher-	whom	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.19#16=L	עָשְׂתָה֙	'a.se.Tah	she had worked	{H6213A}	HVqp3fs			H6213A_B			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.2.19#17=L	עִמּ֔/וֹ	i.M/o	with/ him	{H5973A}/H9033	HRd/Sp3ms			H5973A_A			{H5973A=עִם=with}/H9033=Os3m=him					
+Rut.2.19#18=L	וַ/תֹּ֗אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_B			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.19#19=L	שֵׁ֤ם	shem	[the] name of	{H8034}	HNcmsc			H8034			{H8034=שֵׁם=name}					
+Rut.2.19#20=L	הָ/אִישׁ֙	ha./'Ish	the/ man	H9009/{H0376G}	HTd/Ncmsa			H0376G			H9009=ה=the/{H0376G=אִישׁ=: man»man:1_man}					
+Rut.2.19#21=L	אֲשֶׁ֨ר	'a.Sher	whom	{H0834A}	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}					
+Rut.2.19#22=L	עָשִׂ֧יתִי	'a.Si.ti	I worked	{H6213A}	HVqp1cs			H6213A_C			{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.2.19#23=L	עִמּ֛/וֹ	i.M/o	with/ him	{H5973A}/H9033	HRd/Sp3ms			H5973A_B			{H5973A=עִם=with}/H9033=Os3m=him					
+Rut.2.19#24=L	הַ/יּ֖וֹם	hai./Yom	this/ day	H9009/{H3117G}	HTd/Ncmsa			H3117G_B			H9009=ה=the/{H3117G=יוֹם=: day»day;_when:1_day;_when;_period}					
+Rut.2.19#25=L	בֹּֽעַז\׃	Bo.'az	[is] Boaz	{H1162G}\H9016	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}\H9016=׃=verseEnd					
+Rut.2.20#01=L	וַ/תֹּ֨אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.20#02=L	נָעֳמִ֜י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281_A			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.2.20#03=L	לְ/כַלָּתָ֗/הּ	le./kha.la.Ta/h	to/ daughter-in-law/ her	H9005/{H3618H}/H9024	HR/Ncfsc/Sp3fs			H3618H			H9005=ל=to/{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9024=Ps3f=her					
+Rut.2.20#04=L	בָּר֥וּךְ	ba.Rukh	[be] blessed	{H1288}	HVqsmsa			H1288			{H1288=בָּרַךְ=to bless}					
+Rut.2.20#05=L	הוּא֙	hu'	he	{H1931}	HPp3ms			H1931_A			{H1931=הוּא=he;_she;_it}					
+Rut.2.20#06=L	לַ/יהוָ֔ה	la./Yah.weh	by/ Yahweh	H9005/{H3068G}	HR/Npt			H3068G			H9005=ל=to/{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.2.20#07=L	אֲשֶׁר֙	'a.Sher	who	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.2.20#08=L	לֹא\־	lo'-	not	{H3808}\H9014	HTn			H3808			{H3808=לֹא=not}\H9014=־=link					
+Rut.2.20#09=L	עָזַ֣ב	'a.Zav	he has forsaken	{H5800A}	HVqp3ms			H5800A			{H5800A=עָזַב=: forsake»to leave:1_forsake}					
+Rut.2.20#10=L	חַסְדּ֔/וֹ	chas.D/o	covenant loyalty/ his	{H2617A}/H9023	HNcmsc/Sp3ms			H2617A			{H2617A=חֶ֫סֶד=kindness}/H9023=Ps3m=his					
+Rut.2.20#11=L	אֶת\־	'et-	with	{H0854}\H9014	HR			H0854_A			{H0854=אֵת=with}\H9014=־=link					
+Rut.2.20#12=L	הַ/חַיִּ֖ים	ha./chai.Yim	the/ living	H9009/{H2416A}	HTd/Aampa			H2416A			H9009=ה=the/{H2416A=חַי=alive}					
+Rut.2.20#13=L	וְ/אֶת\־	ve./'Et	and/ with	H9002/{H0854}\H9014	HC/R			H0854_B			H9002=ו=and/{H0854=אֵת=with}\H9014=־=link					
+Rut.2.20#14=L	הַ/מֵּתִ֑ים	ha./me.Tim	the/ dead	H9009/{H4191}	HTd/Vqrmpa			H4191			H9009=ה=the/{H4191=מוּת=to die}					
+Rut.2.20#15=L	וַ/תֹּ֧אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_B			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.20#16=L	לָ֣/הּ	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.2.20#17=L	נָעֳמִ֗י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281_B			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.2.20#18=L	קָר֥וֹב	ka.Rov	[is] near	{H7138}	HAamsa			H7138			{H7138=קָרֹב=near}					
+Rut.2.20#19=L	לָ֙/נוּ֙	la./nu	to <the>/ us	H9005/{H9035}	HRd/Sp1bp			H9035			H9005=ל=to/{H9035=Op1c=us}					
+Rut.2.20#20=L	הָ/אִ֔ישׁ	ha./'Ish	the/ man	H9009/{H0376G}	HTd/Ncmsa			H0376G			H9009=ה=the/{H0376G=אִישׁ=: man»man:1_man}					
+Rut.2.20#21=L	מִֽ/גֹּאֲלֵ֖/נוּ	mi./go.'a.Le./nu	[is] one of/ kinsman-redeemer[s]/ our	H9006/{H1350A}/H9025	HR/Vqrmpc/Sp1bp			H1350A			H9006=מ=from/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}/H9025=Pp1c=our					
+Rut.2.20#22=L	הֽוּא\׃	Hu'	he	{H1931}\H9016	HPp3ms			H1931_B			{H1931=הוּא=he;_she;_it}\H9016=׃=verseEnd					
+Rut.2.21#01=L	וַ/תֹּ֖אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.21#02=L	ר֣וּת	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.2.21#03=L	הַ/מּוֹאֲבִיָּ֑ה	ha./mo.'a.vi.Yah	the/ Moabite [woman]	H9009/{H4125}	HTd/Ngfsa			H4125			H9009=ה=the/{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.2.21#04=L	גַּ֣ם\׀	gam	also	{H1571}\H9015	HD			H1571			{H1571=גַּם=also}\H9015=׀=separate					
+Rut.2.21#05=L	כִּי\־	ki-	that	{H3588A}\H9014	HTc			H3588A			{H3588A=כִּי=for}\H9014=־=link					
+Rut.2.21#06=L	אָמַ֣ר	'a.Mar	he said	{H0559}	HVqp3ms			H0559_B			{H0559=אָמַר=to say}					
+Rut.2.21#07=L	אֵלַ֗/י	'e.La/i	to/ me	{H0413}/H9030	HRd/Sp1bs			H0413			{H0413=אֶל=to(wards)}/H9030=Os1c=me					
+Rut.2.21#08=L	עִם\־	'im-	with	{H5973A}\H9014	HR			H5973A			{H5973A=עִם=with}\H9014=־=link					
+Rut.2.21#09=L	הַ/נְּעָרִ֤ים	ha./ne.'a.Rim	the/ servants	H9009/{H5288}	HTd/Ncmpa			H5288			H9009=ה=the/{H5288=נַ֫עַר=youth}					
+Rut.2.21#10=L	אֲשֶׁר\־	'a.Sher-	who	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.21#11=L	לִ/י֙	l/i	[belong] to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030_A			H9005=ל=to/{H9030=Os1c=me}					
+Rut.2.21#12=L	תִּדְבָּקִ֔י/ן	tid.ba.Ki/n	you will stay/ !	{H1692}/H9013	HVqi2fs/Sn			H1692			{H1692=דָּבַק=to cleave}/H9013=נ=emph.					
+Rut.2.21#13=L	עַ֣ד	'ad	until	{H5704}	HR			H5704			{H5704=עַד=till}					
+Rut.2.21#14=L	אִם\־	'im-	<if>	{H0518J}\H9014	HTc			H0518J			{H0518J=אִם=: until»if:4_until;_except}\H9014=־=link					
+Rut.2.21#15=L	כִּלּ֔וּ	ki.Lu	they have completed	{H3615G}	HVpp3cp			H3615G			{H3615G=כָּלָה=: finish»to end:1_finish}					
+Rut.2.21#16=L	אֵ֥ת	'et	<obj.>	{H0853}	HTo			H0853			{H0853=אֵת=[Obj.]}					
+Rut.2.21#17=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsc			H3605			{H3605=כֹּל=all}\H9014=־=link					
+Rut.2.21#18=L	הַ/קָּצִ֖יר	ha./ka.Tzir	the/ harvest	H9009/{H7105A}	HTd/Ncmsa			H7105A			H9009=ה=the/{H7105A=קָצִיר=harvest}					
+Rut.2.21#19=L	אֲשֶׁר\־	'a.Sher-	which	{H0834A}\H9014	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.2.21#20=L	לִֽ/י\׃	L/i	[belongs] to <the>/ me	H9005/{H9030}\H9016	HRd/Sp1bs			H9030_B			H9005=ל=to/{H9030=Os1c=me}\H9016=׃=verseEnd					
+Rut.2.22#01=L	וַ/תֹּ֥אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.2.22#02=L	נָעֳמִ֖י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.2.22#03=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.2.22#04=L	ר֣וּת	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.2.22#05=L	כַּלָּתָ֑/הּ	ka.la.Ta/h	daughter-in-law/ her	{H3618H}/H9024	HNcfsc/Sp3fs			H3618H			{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9024=Ps3f=her					
+Rut.2.22#06=L	ט֣וֹב	Tov	[is] good	{H2896A}	HAamsa			H2896A			{H2896A=טוֹב=pleasant}					
+Rut.2.22#07=L	בִּתִּ֗/י	bi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.2.22#08=L	כִּ֤י	ki	that	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.2.22#09=L	תֵֽצְאִי֙	te.tze.'I	you will go out	{H3318G}	HVqi2fs			H3318G			{H3318G=יָצָא=: come»to come out:1_come;_go_out;_escape}					
+Rut.2.22#10=L	עִם\־	'im-	with	{H5973A}\H9014	HR			H5973A			{H5973A=עִם=with}\H9014=־=link					
+Rut.2.22#11=L	נַ֣עֲרוֹתָ֔י/ו	na.'a.ro.Ta/v	female servants/ his	{H5291}/H9023	HNcfpc/Sp3ms			H5291			{H5291=נַעֲרָה=maiden}/H9023=Ps3m=his					
+Rut.2.22#12=L	וְ/לֹ֥א	ve./Lo'	and/ not	H9002/{H3808}	HC/Tn			H3808			H9002=ו=and/{H3808=לֹא=not}					
+Rut.2.22#13=L	יִפְגְּעוּ\־	yif.ge.'u-	people will molest	{H6293}\H9014	HVqi3mp			H6293			{H6293=פָּגַע=to fall on}\H9014=־=link					
+Rut.2.22#14=L	בָ֖/ךְ	va/kh	<in> <the>/ you	H9003/{H9032}	HRd/Sp2fs			H9032			H9003=ב=in/{H9032=Os2f=you}					
+Rut.2.22#15=L	בְּ/שָׂדֶ֥ה	be./sa.Deh	in/ a field	H9003/{H7704G}	HR/Ncmsa			H7704G			H9003=ב=in/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.2.22#16=L	אַחֵֽר\׃	'a.Cher	another	{H0312}\H9016	HAamsa			H0312			{H0312=אַחֵר=another}\H9016=׃=verseEnd					
+Rut.2.23#01=L	וַ/תִּדְבַּ֞ק	va./tid.Bak	and/ she stayed	H9001/{H1692}	Hc/Vqw3fs			H1692			H9001=ו=&/{H1692=דָּבַק=to cleave}					
+Rut.2.23#02=L	בְּ/נַעֲר֥וֹת	be./na.'a.Rot	with/ [the] female servants of	H9003/{H5291}	HR/Ncfpc			H5291			H9003=ב=in/{H5291=נַעֲרָה=maiden}					
+Rut.2.23#03=L	בֹּ֙עַז֙	bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.2.23#04=L	לְ/לַקֵּ֔ט	le./la.Ket	to/ glean	H9005/{H3950}	HR/Vpcc			H3950			H9005=ל=to/{H3950=לָקַט=to gather}					
+Rut.2.23#05=L	עַד\־	'ad-	until	{H5704}\H9014	HR			H5704			{H5704=עַד=till}\H9014=־=link					
+Rut.2.23#06=L	כְּל֥וֹת	ke.Lot	was complete	{H3615G}	HVqcc			H3615G			{H3615G=כָּלָה=: finish»to end:1_finish}					
+Rut.2.23#07=L	קְצִֽיר\־	ke.tzir-	[the] harvest of	{H7105A}\H9014	HNcmsc			H7105A_A			{H7105A=קָצִיר=harvest}\H9014=־=link					
+Rut.2.23#08=L	הַ/שְּׂעֹרִ֖ים	ha./se.'o.Rim	the/ barley<s>	H9009/{H8184}	HTd/Ncmpa			H8184			H9009=ה=the/{H8184=שְׂעֹרָה=barley}					
+Rut.2.23#09=L	וּ/קְצִ֣יר	u./ke.Tzir	and/ [the] harvest of	H9002/{H7105A}	HC/Ncmsc			H7105A_B			H9002=ו=and/{H7105A=קָצִיר=harvest}					
+Rut.2.23#10=L	הַֽ/חִטִּ֑ים	ha./chi.Tim	the/ wheat<s>	H9009/{H2406}	HTd/Ncmpa			H2406			H9009=ה=the/{H2406=חִטָּה=wheat}					
+Rut.2.23#11=L	וַ/תֵּ֖שֶׁב	va./Te.shev	and/ she dwelt	H9001/{H3427}	Hc/Vqw3fs			H3427			H9001=ו=&/{H3427=יָשַׁב=to dwell}					
+Rut.2.23#12=L	אֶת\־	'et-	with	{H0854}\H9014	HR			H0854			{H0854=אֵת=with}\H9014=־=link					
+Rut.2.23#13=L	חֲמוֹתָֽ/הּ\׃	cha.mo.Ta/h	mother-in-law/ her	{H2545}/H9024\H9016	HNcfsc/Sp3fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her\H9016=׃=verseEnd					
+Rut.3.1#01=L	וַ/תֹּ֥אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.1#02=L	לָ֖/הּ	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.3.1#03=L	נָעֳמִ֣י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.3.1#04=L	חֲמוֹתָ֑/הּ	cha.mo.Ta/h	mother-in-law/ her	{H2545}/H9024	HNcfsc/Sp3fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her					
+Rut.3.1#05=L	בִּתִּ֞/י	bi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.3.1#06=L	הֲ/לֹ֧א	ha./Lo'	¿/ not	H9008/{H3808}	HTi/Tn			H3808			H9008=ה=¿/{H3808=לֹא=not}					
+Rut.3.1#07=L	אֲבַקֶּשׁ\־	'a.va.kesh-	will I seek	{H1245}\H9014	HVpi1cs			H1245			{H1245=בָּקַשׁ=to seek}\H9014=־=link					
+Rut.3.1#08=L	לָ֛/ךְ	la/kh	for <the>/ you	H9005/{H9032}	HRd/Sp2fs			H9032_A			H9005=ל=to/{H9032=Os2f=you}					
+Rut.3.1#09=L	מָנ֖וֹחַ	ma.No.ach	a resting place	{H4494}	HNcmsa			H4494			{H4494=מָנוֹחַ=resting}					
+Rut.3.1#10=L	אֲשֶׁ֥ר	'a.Sher	that	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.3.1#11=L	יִֽיטַב\־	yi.tav-	it will go well	{H3190}\H9014	HVqi3ms			H3190			{H3190=יָטַב=be good}\H9014=־=link					
+Rut.3.1#12=L	לָֽ/ךְ\׃	La/kh	for <the>/ you	H9005/{H9032}\H9016	HRd/Sp2fs			H9032_B			H9005=ל=to/{H9032=Os2f=you}\H9016=׃=verseEnd					
+Rut.3.2#01=L	וְ/עַתָּ֗ה	ve./'a.Tah	and/ therefore	H9002/{H6258}	HC/D			H6258			H9002=ו=and/{H6258=עַתָּ֫ה=now}					
+Rut.3.2#02=L	הֲ/לֹ֥א	ha./Lo'	¿/ not	H9008/{H3808}	HTi/Tn			H3808			H9008=ה=¿/{H3808=לֹא=not}					
+Rut.3.2#03=L	בֹ֙עַז֙	vo.'az	[is] Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.3.2#04=L	מֹֽדַעְתָּ֔/נוּ	mo.da'.Ta./nu	relative/ our	{H4130}/H9025	HNcfsc/Sp1bp			H4130			{H4130=מֹדַ֫עַת=kinsman}/H9025=Pp1c=our					
+Rut.3.2#05=L	אֲשֶׁ֥ר	'a.Sher	whom	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.3.2#06=L	הָיִ֖ית	ha.Yit	you were	{H1961}	HVqp2fs			H1961			{H1961=הָיָה=to be}					
+Rut.3.2#07=L	אֶת\־	'et-	with	{H0854}\H9014	HR			H0854			{H0854=אֵת=with}\H9014=־=link					
+Rut.3.2#08=L	נַעֲרוֹתָ֑י/ו	na.'a.ro.Ta/v	female servants/ his	{H5291}/H9023	HNcfpc/Sp3ms			H5291			{H5291=נַעֲרָה=maiden}/H9023=Ps3m=his					
+Rut.3.2#09=L	הִנֵּה\־	hi.neh-	there!	{H2009}\H9014	HTj			H2009			{H2009=הִנֵּה=behold}\H9014=־=link					
+Rut.3.2#10=L	ה֗וּא	Hu'	he	{H1931}	HPp3ms			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.3.2#11=L	זֹרֶ֛ה	zo.Reh	[will be] winnowing	{H2219}	HVqrmsa			H2219			{H2219=זָרָה=to scatter}					
+Rut.3.2#12=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.3.2#13=L	גֹּ֥רֶן	Go.ren	[the] threshing floor of	{H1637}	HNcfsc			H1637			{H1637=גֹּ֫רֶן=threshing floor}					
+Rut.3.2#14=L	הַ/שְּׂעֹרִ֖ים	ha./se.'o.Rim	the/ barley<s>	H9009/{H8184}	HTd/Ncmpa			H8184			H9009=ה=the/{H8184=שְׂעֹרָה=barley}					
+Rut.3.2#15=L	הַ/לָּֽיְלָה\׃	ha./La.ye.lah	this/ night	H9009/{H3915}\H9016	HTd/Ncmsa			H3915			H9009=ה=the/{H3915=לַ֫יְלָה=night}\H9016=׃=verseEnd					
+Rut.3.3#01=L	וְ/רָחַ֣צְתְּ\׀	ve./ra.Chatzt	and/ you will wash	H9001/{H7364}\H9015	Hc/Vqq2fs			H7364			H9001=ו=&/{H7364=רָחַץ=: wash»to wash:1_wash}\H9015=׀=separate					
+Rut.3.3#02=L	וָ/סַ֗כְתְּ	va./Sakht	and/ you will anoint yourself	H9001/{H5480}	Hc/Vqq2fs			H5480			H9001=ו=&/{H5480=סוּךְ=to anoint}					
+Rut.3.3#03=L	וְ/שַׂ֧מְתְּ	ve./Samt	and/ you will put	H9001/{H7760H}	Hc/Vqq2fs			H7760H			H9001=ו=&/{H7760H=שׂוּם=: put»to set:2_put;_give}					
+Rut.3.3#04=Q(K)	שִׂמְלֹתַ֛יִ/ךְ	sim.lo.te/kh	garments/ your	{H8071}/H9022	HNcfpc/Sp2fs	K= sim.lo.te/kh (שִׂמְלֹתֵ/ךְ) "garment/ your" (H8071/H9022=HNcfsc/Sp2fs)	L= שִׂמְלֹתִַ֛/ךְ ¦ ;	H8071			{H8071=שִׂמְלָה=mantle}/H9022=Ps2f=your					
+Rut.3.3#05=L	עָלַ֖יִ/ךְ	'a.La.yi/kh	on/ yourself	{H5921A}/H9032	HRd/Sp2fs			H5921A			{H5921A=עַל=upon}/H9032=Os2f=you					
+Rut.3.3#06=Q(K)	וְ/יָרַ֣דְתְּ	ve./ya.rad.ti	and/ you will go down	H9001/{H3381}	Hc/Vqq2fs	K= ve./ya.rad.ti (וְ/יָרַדְתִּי) "and/ I will go down" (H9001/H3381=Hc/Vqq1cs)	L= וְ/יָרַ֣דְתְּי ¦ ;	H3381			H9001=ו=&/{H3381=יָרַד=to go down}					
+Rut.3.3#07=L	הַ/גֹּ֑רֶן	ha./Go.ren	the/ threshing floor	H9009/{H1637}	HTd/Ncfsa			H1637			H9009=ה=the/{H1637=גֹּ֫רֶן=threshing floor}					
+Rut.3.3#08=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.3.3#09=L	תִּוָּדְעִ֣י	ti.va.de.'I	you make yourself known	{H3045}	HVNj2fs			H3045			{H3045=יָדַע=to know}					
+Rut.3.3#10=L	לָ/אִ֔ישׁ	la./'Ish	to the/ man	H9005/{H0376G}	HRd/Ncmsa			H0376G			H9005=ל=to/{H0376G=אִישׁ=: man»man:1_man}					
+Rut.3.3#11=L	עַ֥ד	'ad	until	{H5704}	HR			H5704			{H5704=עַד=till}					
+Rut.3.3#12=L	כַּלֹּת֖/וֹ	ka.lo.T/o	finishes/ he	{H3615G}/H9043	HVpcc/Sp3ms			H3615G			{H3615G=כָּלָה=: finish»to end:1_finish}/H9043=Ss3m=he					
+Rut.3.3#13=L	לֶ/אֱכֹ֥ל	le./'e.Khol	to/ eat	H9005/{H0398}	HR/Vqcc			H0398			H9005=ל=to/{H0398=אָכַל=to eat}					
+Rut.3.3#14=L	וְ/לִ/שְׁתּֽוֹת\׃	ve./li/sh.Tot	and/ to/ drink	H9002/H9005/{H8354}\H9016	HC/R/Vqcc			H8354			H9002=ו=and/H9005=ל=to/{H8354=שָׁתָה=to drink}\H9016=׃=verseEnd					
+Rut.3.4#01=L	וִ/יהִ֣י	vi./Hi	and/ let it be	H9002/{H1961}	HC/Vqj3ms			H1961			H9002=ו=and/{H1961=הָיָה=to be}					
+Rut.3.4#02=L	בְ/שָׁכְב֗/וֹ	ve./sha.khe.V/o	when/ lies down/ he	H9003/{H7901G}/H9043	HR/Vqcc/Sp3ms			H7901G_A			H9003=ב=in/{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}/H9043=Ss3m=he					
+Rut.3.4#03=L	וְ/יָדַ֙עַתְּ֙	ve./ya.Da.'at	and/ you will take note of	H9001/{H3045}	Hc/Vqq2fs			H3045			H9001=ו=&/{H3045=יָדַע=to know}					
+Rut.3.4#04=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.3.4#05=L	הַ/מָּקוֹם֙	ha./ma.kOm	the/ place	H9009/{H4725}	HTd/Ncmsa			H4725			H9009=ה=the/{H4725=מָקוֹם=standing place}					
+Rut.3.4#06=L	אֲשֶׁ֣ר	'a.Sher	where	{H0834A}	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}					
+Rut.3.4#07=L	יִשְׁכַּב\־	yish.kav-	he will lie down	{H7901G}\H9014	HVqi3ms			H7901G_B			{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}\H9014=־=link					
+Rut.3.4#08=L	שָׁ֔ם	Sham	there	{H8033G}	HD			H8033G			{H8033G=שָׁם=there}					
+Rut.3.4#09=L	וּ/בָ֛את	u./Vat	and/ you will go	H9001/{H0935G}	Hc/Vqq2fs			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.4#10=L	וְ/גִלִּ֥ית	ve./gi.Lit	and/ you will uncover	H9001/{H1540I}	Hc/Vpq2fs			H1540I			H9001=ו=&/{H1540I=גָּלָה=: uncover[things]»to reveal:3_uncover[things]}					
+Rut.3.4#11=L	מַרְגְּלֹתָ֖י/ו	mar.ge.lo.Ta/v	feet/ his	{H4772}/H9023	HNcfpc/Sp3ms			H4772			{H4772=מַרְגְּלוֹת=feet}/H9023=Ps3m=his					
+Rut.3.4#12=Q(k)	וְ/שָׁכָ֑בְתְּ	ve./sha.kha.ve.ti	and/ you will lie down	H9001/{H7901G}	Hc/Vqq2fs		L= וְ/שָׁכָ֑בְתְּי ¦ ;K= וְ/שָׁכָבְתִּי	H7901G_C			H9001=ו=&/{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}					
+Rut.3.4#13=L	וְ/הוּא֙	ve./Hu'	and/ he	H9002/{H1931}	HC/Pp3ms			H1931			H9002=ו=and/{H1931=הוּא=he;_she;_it}					
+Rut.3.4#14=L	יַגִּ֣יד	ya.Gid	he will tell	{H5046}	HVhi3ms			H5046			{H5046=נָגַד=to tell}					
+Rut.3.4#15=L	לָ֔/ךְ	La/kh	to <the>/ you	H9005/{H9032}	HRd/Sp2fs			H9032			H9005=ל=to/{H9032=Os2f=you}					
+Rut.3.4#16=L	אֵ֖ת	'et	<obj.>	{H0853}	HTo			H0853_B			{H0853=אֵת=[Obj.]}					
+Rut.3.4#17=L	אֲשֶׁ֥ר	'a.Sher	[that] which	{H0834A}	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}					
+Rut.3.4#18=L(abh)	תַּעַשִֽׂי/ן\׃	ta.'a.Si/n	you will do/ !	{H6213A}/H9013\H9016	HVqi2fs/Sn		ABH= תַּעֲשִֽׂי/ן\׃	H6213A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}/H9013=נ=emph.\H9016=׃=verseEnd					
+Rut.3.5#01=L	וַ/תֹּ֖אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.5#02=L	אֵלֶ֑י/הָ	'e.Lei./ha	to/ her	{H0413}/H9034	HRd/Sp3fs			H0413_A			{H0413=אֶל=to(wards)}/H9034=Os3f=her					
+Rut.3.5#03=L	כֹּ֛ל	kol	all	{H3605}	HNcmsa			H3605			{H3605=כֹּל=all}					
+Rut.3.5#04=L	אֲשֶׁר\־	'a.Sher-	that	{H0834A}\H9014	HTr			H0834A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.3.5#05=Q(K)	תֹּאמְרִ֥י/ /אֵלַ֖/י	tom.Ri/ /e.La/i	you are saying/ /to/ me	{H0559}/ /{H0413}/H9030	HVqi2fs//Rd/Sp1bs	K= tom.Ri (תֹּאמְרִ֥י) "you are saying" (H0559=HVqi2fs)	L= תֹּאמְרִ֥יֵַ֖ ¦ ;	H0559_b, H0413_b			{H0559=אָמַר=to say}/ /{H0413=אֶל=to(wards)}/H9030=Os1c=me					
+Rut.3.5#06=L	אֶֽעֱשֶֽׂה\׃	'E.'e.Seh	I will do	{H6213A}\H9016	HVqi1cs			H6213A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}\H9016=׃=verseEnd					
+Rut.3.6#01=L	וַ/תֵּ֖רֶד	va./Te.red	and/ she went down	H9001/{H3381}	Hc/Vqw3fs			H3381			H9001=ו=&/{H3381=יָרַד=to go down}					
+Rut.3.6#02=L	הַ/גֹּ֑רֶן	ha./Go.ren	the/ threshing floor	H9009/{H1637}	HTd/Ncfsa			H1637			H9009=ה=the/{H1637=גֹּ֫רֶן=threshing floor}					
+Rut.3.6#03=L	וַ/תַּ֕עַשׂ	va./Ta.'as	and/ she did	H9001/{H6213A}	Hc/Vqw3fs			H6213A			H9001=ו=&/{H6213A=עָשָׂה=: do»to make:2_do;_perform}					
+Rut.3.6#04=L	כְּ/כֹ֥ל	ke./Khol	according to/ all	H9004/{H3605}	HR/Ncmsa			H3605			H9004=כ=like/{H3605=כֹּל=all}					
+Rut.3.6#05=L	אֲשֶׁר\־	'a.Sher-	that	{H0834A}\H9014	HTr			H0834A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.3.6#06=L	צִוַּ֖תָּ/ה	tzi.Va.ta/h	she had commanded/ her	{H6680}/H9034	HVpp3fs/Sp3fs			H6680			{H6680=צָוָה=to command}/H9034=Os3f=her					
+Rut.3.6#07=L	חֲמוֹתָֽ/הּ\׃	cha.mo.Ta/h	mother-in-law/ her	{H2545}/H9024\H9016	HNcfsc/Sp3fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her\H9016=׃=verseEnd					
+Rut.3.7#01=L	וַ/יֹּ֨אכַל	va/i.Yo.khal	and/ he ate	H9001/{H0398}	Hc/Vqw3ms			H0398			H9001=ו=&/{H0398=אָכַל=to eat}					
+Rut.3.7#02=L	בֹּ֤עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.3.7#03=L	וַ/יֵּשְׁתְּ֙	va/i.ye.sheT	and/ he drank	H9001/{H8354}	Hc/Vqw3ms			H8354			H9001=ו=&/{H8354=שָׁתָה=to drink}					
+Rut.3.7#04=L	וַ/יִּיטַ֣ב	va/i.yi.Tav	and/ it was good	H9001/{H3190}	Hc/Vqw3ms			H3190			H9001=ו=&/{H3190=יָטַב=be good}					
+Rut.3.7#05=L	לִבּ֔/וֹ	li.B/o	heart/ his	{H3820A}/H9023	HNcmsc/Sp3ms			H3820A			{H3820A=לֵב=heart}/H9023=Ps3m=his					
+Rut.3.7#06=L	וַ/יָּבֹ֕א	va/i.ya.Vo'	and/ he went	H9001/{H0935G}	Hc/Vqw3ms			H0935G_A			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.7#07=L	לִ/שְׁכַּ֖ב	li/sh.Kav	to/ lie down	H9005/{H7901G}	HR/Vqcc			H7901G_A			H9005=ל=to/{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}					
+Rut.3.7#08=L	בִּ/קְצֵ֣ה	bi/k.Tzeh	at/ [the] end of	H9003/{H7097A}	HR/Ncmsc			H7097A			H9003=ב=in/{H7097A=קָצֶה=end}					
+Rut.3.7#09=L	הָ/עֲרֵמָ֑ה	ha./'a.re.Mah	the/ heap	H9009/{H6194}	HTd/Ncfsa			H6194			H9009=ה=the/{H6194=עֲרֵמָה=heap}					
+Rut.3.7#10=L	וַ/תָּבֹ֣א	va./ta.Vo'	and/ she came	H9001/{H0935G}	Hc/Vqw3fs			H0935G_B			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.7#11=L	בַ/לָּ֔ט	va./Lat	in <the>/ secrecy	H9003/{H3909}	HRd/Ncmsa			H3909			H9003=ב=in/{H3909=לָט=secrecy}					
+Rut.3.7#12=L	וַ/תְּגַ֥ל	va./te.Gal	and/ she uncovered	H9001/{H1540I}	Hc/Vpw3fs			H1540I			H9001=ו=&/{H1540I=גָּלָה=: uncover[things]»to reveal:3_uncover[things]}					
+Rut.3.7#13=L	מַרְגְּלֹתָ֖י/ו	mar.ge.lo.Ta/v	feet/ his	{H4772}/H9023	HNcfpc/Sp3ms			H4772			{H4772=מַרְגְּלוֹת=feet}/H9023=Ps3m=his					
+Rut.3.7#14=L	וַ/תִּשְׁכָּֽב\׃	va./tish.Kav	and/ she lay down	H9001/{H7901G}\H9016	Hc/Vqw3fs			H7901G_B			H9001=ו=&/{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}\H9016=׃=verseEnd					
+Rut.3.8#01=L	וַ/יְהִי֙	va/y.Hi	and/ it was	H9001/{H1961}	Hc/Vqw3ms			H1961			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.3.8#02=L	בַּ/חֲצִ֣י	ba./cha.Tzi	in/ [the] middle of	H9003/{H2677}	HR/Ncmsc			H2677			H9003=ב=in/{H2677=חֲצִי=half}					
+Rut.3.8#03=L	הַ/לַּ֔יְלָה	ha./Lay.lah	the/ night	H9009/{H3915}	HTd/Ncmsa			H3915			H9009=ה=the/{H3915=לַ֫יְלָה=night}					
+Rut.3.8#04=L	וַ/יֶּחֱרַ֥ד	va/i.ye.che.Rad	and/ he trembled	H9001/{H2729}	Hc/Vqw3ms			H2729			H9001=ו=&/{H2729=חָרַד=to tremble}					
+Rut.3.8#05=L	הָ/אִ֖ישׁ	ha./'Ish	the/ man	H9009/{H0376G}	HTd/Ncmsa			H0376G			H9009=ה=the/{H0376G=אִישׁ=: man»man:1_man}					
+Rut.3.8#06=L	וַ/יִּלָּפֵ֑ת	va/i.yi.la.Fet	and/ he twisted	H9001/{H3943}	Hc/VNw3ms			H3943			H9001=ו=&/{H3943=לָפַת=to twist}					
+Rut.3.8#07=L	וְ/הִנֵּ֣ה	ve./hi.Neh	and/ there!	H9002/{H2009}	HC/Tj			H2009			H9002=ו=and/{H2009=הִנֵּה=behold}					
+Rut.3.8#08=L	אִשָּׁ֔ה	'i.Shah	a woman	{H0802G}	HNcfsa			H0802G			{H0802G=אִשָּׁה=: woman»woman:1_woman}					
+Rut.3.8#09=L	שֹׁכֶ֖בֶת	sho.Khe.vet	[was] lying down	{H7901G}	HVqrfsa			H7901G			{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}					
+Rut.3.8#10=L	מַרְגְּלֹתָֽי/ו\׃	mar.ge.lo.Ta/v	feet/ his	{H4772}/H9023\H9016	HNcfpc/Sp3ms			H4772			{H4772=מַרְגְּלוֹת=feet}/H9023=Ps3m=his\H9016=׃=verseEnd					
+Rut.3.9#01=L	וַ/יֹּ֖אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.9#02=L	מִי\־	mi-	who?	{H4310}\H9014	HPi			H4310			{H4310=מִי=who?}\H9014=־=link					
+Rut.3.9#03=L	אָ֑תּ	'At	[are] you	{H0859C}	HPp2fs			H0859C_A			{H0859C=אַתְּ=you(f.s.)}					
+Rut.3.9#04=L	וַ/תֹּ֗אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_B			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.9#05=L	אָנֹכִי֙	'a.no.Khi	I	{H0595}	HPp1bs			H0595			{H0595=אָֽנֹכִ֫י=I}					
+Rut.3.9#06=L	ר֣וּת	rut	[am] Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.3.9#07=L	אֲמָתֶ֔/ךָ	'a.ma.Te./kha	maidservant/ your	{H0519}/H9021	HNcfsc/Sp2ms			H0519_A			{H0519=אָמָה=maidservant}/H9021=Ps2m=your					
+Rut.3.9#08=L	וּ/פָרַשְׂתָּ֤	u./fa.ras.Ta	and/ you will spread out	H9001/{H6566}	Hc/Vqq2ms			H6566			H9001=ו=&/{H6566=פָּרַשׂ=to spread}					
+Rut.3.9#09=L	כְנָפֶ֙/ךָ֙	khe.na.Fe./kha	skirt/ your	{H3671}/H9021	HNcfsc/Sp2ms			H3671			{H3671=כָּנָף=wing}/H9021=Ps2m=your					
+Rut.3.9#10=L	עַל\־	'al-	over	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.3.9#11=L	אֲמָ֣תְ/ךָ֔	'a.Ma.te./kha	maidservant/ your	{H0519}/H9021	HNcfsc/Sp2ms			H0519_B			{H0519=אָמָה=maidservant}/H9021=Ps2m=your					
+Rut.3.9#12=L	כִּ֥י	ki	for	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.3.9#13=L	גֹאֵ֖ל	go.'El	[are] a kinsman-redeemer	{H1350A}	HVqrmsa			H1350A			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.3.9#14=L	אָֽתָּה\׃	'A.tah	you	{H0859A}\H9016	HPp2ms			H0859A_B			{H0859A=אַתָּ֫ה=you(m.s.)}\H9016=׃=verseEnd					
+Rut.3.10#01=L	וַ/יֹּ֗אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.10#02=L	בְּרוּכָ֨ה	be.ru.Khah	[be] blessed	{H1288}	HVqsfsa			H1288			{H1288=בָּרַךְ=to bless}					
+Rut.3.10#03=L	אַ֤תְּ	'at	you	{H0859C}	HPp2fs			H0859C			{H0859C=אַתְּ=you(f.s.)}					
+Rut.3.10#04=L	לַֽ/יהוָה֙	la./Yah.weh	by/ Yahweh	H9005/{H3068G}	HR/Npt			H3068G			H9005=ל=to/{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.3.10#05=L	בִּתִּ֔/י	bi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.3.10#06=L	הֵיטַ֛בְתְּ	hei.Tavt	you have made good	{H3190}	HVhp2fs			H3190			{H3190=יָטַב=be good}					
+Rut.3.10#07=L	חַסְדֵּ֥/ךְ	chas.De/kh	loyalty/ your	{H2617A}/H9022	HNcmsc/Sp2fs			H2617A			{H2617A=חֶ֫סֶד=kindness}/H9022=Ps2f=your					
+Rut.3.10#08=L	הָ/אַחֲר֖וֹן	ha./'a.cha.Ron	<the>/ latter	H9009/{H0314}	HTd/Aamsa			H0314			H9009=ה=the/{H0314=אַחֲרוֹן=last}					
+Rut.3.10#09=L	מִן\־	min-	more than	{H4480A}\H9014	HR			H4480A			{H4480A=מִן־=from}\H9014=־=link					
+Rut.3.10#10=L	הָ/רִאשׁ֑וֹן	ha./ri.Shon	<the>/ former	H9009/{H7223G}	HTd/Aomsa			H7223G			H9009=ה=the/{H7223G=רִאשׁוֹן=: first»first:1_first}					
+Rut.3.10#11=L	לְ/בִלְתִּי\־	le./vil.ti-	to/ not	H9005/{H1115}\H9014	HR/Ncbsa			H1115			H9005=ל=to/{H1115=בִּלְתִּי=lest}\H9014=־=link					
+Rut.3.10#12=L	לֶ֗כֶת	Le.khet	to go	{H1980N}	HVqcc			H1980N	H3212		{H1980N=הָלַךְ=: follow»to go:8_follow;_behind;_go[after]}					
+Rut.3.10#13=L	אַחֲרֵי֙	'a.cha.Rei	after	{H0310A}	HAcmpc			H0310A			{H0310A=אַחַר=after}					
+Rut.3.10#14=L	הַ/בַּ֣חוּרִ֔ים	ha./Ba.chu.Rim	the/ young men	H9009/{H0970}	HTd/Ncmpa			H0970			H9009=ה=the/{H0970=בָּחוּר=youth}					
+Rut.3.10#15=L	אִם\־	'im-	whether	{H0518A}\H9014	HTc			H0518A_A			{H0518A=אִם=: if»if:1_if;_whether_or;_though}\H9014=־=link					
+Rut.3.10#16=L	דַּ֖ל	dal	poor	{H1800}	HAamsa			H1800			{H1800=דַּל=poor}					
+Rut.3.10#17=L	וְ/אִם\־	ve./'im-	and/ or	H9002/{H0518A}\H9014	HC/Tc			H0518A_B			H9002=ו=and/{H0518A=אִם=: if»if:1_if;_whether_or;_though}\H9014=־=link					
+Rut.3.10#18=L	עָשִֽׁיר\׃	'a.Shir	rich	{H6223}\H9016	HAamsa			H6223			{H6223=עָשִׁיר=rich}\H9016=׃=verseEnd					
+Rut.3.11#01=L	וְ/עַתָּ֗ה	ve./'a.Tah	and/ therefore	H9002/{H6258}	HC/D			H6258			H9002=ו=and/{H6258=עַתָּ֫ה=now}					
+Rut.3.11#02=L	בִּתִּ/י֙	bi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.3.11#03=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.3.11#04=L	תִּ֣ירְאִ֔י	tir.'I	you fear	{H3372G}	HVqj2fs			H3372G			{H3372G=יָרֵא=: frightening(DANGER)»to fear:1_fear}					
+Rut.3.11#05=L	כֹּ֥ל	kol	all	{H3605}	HNcmsa			H3605_A			{H3605=כֹּל=all}					
+Rut.3.11#06=L	אֲשֶׁר\־	'a.Sher-	that	{H0834A}\H9014	HTr			H0834A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.3.11#07=L	תֹּאמְרִ֖י	tom.Ri	you are saying	{H0559}	HVqi2fs			H0559			{H0559=אָמַר=to say}					
+Rut.3.11#08=L	אֶֽעֱשֶׂה\־	'e.'e.seh-	I will do	{H6213A}\H9014	HVqi1cs			H6213A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}\H9014=־=link					
+Rut.3.11#09=L	לָּ֑/ךְ	La/kh	for <the>/ you	H9005/{H9032}	HRd/Sp2fs			H9032			H9005=ל=to/{H9032=Os2f=you}					
+Rut.3.11#10=L	כִּ֤י	ki	for	{H3588A}	HTc			H3588A_A			{H3588A=כִּי=for}					
+Rut.3.11#11=L	יוֹדֵ֙עַ֙	yo.De.a'	[is] knowing	{H3045}	HVqrmsa			H3045			{H3045=יָדַע=to know}					
+Rut.3.11#12=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsc			H3605_B			{H3605=כֹּל=all}\H9014=־=link					
+Rut.3.11#13=L	שַׁ֣עַר	Sha.'ar	[the] gate of	{H8179H}	HNcmsc			H8179H			{H8179H=שַׁ֫עַר=: town»gate:2_town}					
+Rut.3.11#14=L	עַמִּ֔/י	'a.M/i	people/ my	{H5971A}/H9020	HNcmsc/Sp1bs			H5971A			{H5971A=עַם=: people»people:1_people;_nation}/H9020=Ps1c=my					
+Rut.3.11#15=L	כִּ֛י	ki	that	{H3588A}	HTc			H3588A_B			{H3588A=כִּי=for}					
+Rut.3.11#16=L	אֵ֥שֶׁת	'E.shet	[are] a woman of	{H0802G}	HNcfsc			H0802G			{H0802G=אִשָּׁה=: woman»woman:1_woman}					
+Rut.3.11#17=L	חַ֖יִל	Cha.yil	ability	{H2428I}	HNcmsa			H2428I			{H2428I=חַ֫יִל=: worthy»strength:4_worthy}					
+Rut.3.11#18=L	אָֽתְּ\׃	'At	you	{H0859C}\H9016	HPp2fs			H0859C			{H0859C=אַתְּ=you(f.s.)}\H9016=׃=verseEnd					
+Rut.3.12#01=L	וְ/עַתָּה֙	ve./'a.Tah	and/ therefore	H9002/{H6258}	HC/D			H6258			H9002=ו=and/{H6258=עַתָּ֫ה=now}					
+Rut.3.12#02=L	כִּ֣י	ki	for	{H3588A}	HTc			H3588A_A			{H3588A=כִּי=for}					
+Rut.3.12#03=L	אָמְנָ֔ם	'a.me.Nam	truly	{H0551}	HD			H0551			{H0551=אׇמְנָם=truly}					
+Rut.3.12#04=L	כִּ֥י	ki	that	{H3588A}	HTc			H3588A_B			{H3588A=כִּי=for}					
+Rut.3.12#05=Q(K)		[ ]	[ ]			K= 'im (אִם) "if" (H0518B=HTc)	L= אם ¦ ;		H0518B, H3588B_c							
+Rut.3.12#06=L	גֹאֵ֖ל	go.'El	[am] a kinsman-redeemer	{H1350A}	HVqrmsa			H1350A_A			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.3.12#07=L	אָנֹ֑כִי	'a.No.khi	I	{H0595}	HPp1bs			H0595			{H0595=אָֽנֹכִ֫י=I}					
+Rut.3.12#08=L	וְ/גַ֛ם	ve./Gam	and/ also	H9002/{H1571}	HC/D			H1571			H9002=ו=and/{H1571=גַּם=also}					
+Rut.3.12#09=L	יֵ֥שׁ	yesh	there	{H3426}	HAcbsa			H3426			{H3426=יֵשׁ=there}					
+Rut.3.12#10=L	גֹּאֵ֖ל	go.'El	[is] a kinsman-redeemer	{H1350A}	HVqrmsa			H1350A_B			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.3.12#11=L	קָר֥וֹב	ka.Rov	near	{H7138}	HAamsa			H7138			{H7138=קָרֹב=near}					
+Rut.3.12#12=L	מִמֶּֽ/נִּי\׃	mi.Me./ni	more than/ I	{H4480A}/H9030\H9016	HRd/Sp1bs			H4480A			{H4480A=מִן־=from}/H9030=Os1c=me\H9016=׃=verseEnd					
+Rut.3.13#01=L	לִ֣ינִי\׀	Li.ni	stay	{H3885A}\H9015	HVqv2fs			H3885A			{H3885A=לוּן=to lodge}\H9015=׀=separate					
+Rut.3.13#02=L	הַ/לַּ֗יְלָה	ha./Lay.lah	this/ night	H9009/{H3915}	HTd/Ncmsa			H3915			H9009=ה=the/{H3915=לַ֫יְלָה=night}					
+Rut.3.13#03=L	וְ/הָיָ֤ה	ve./ha.Yah	and/ it will be	H9001/{H1961}	Hc/Vqq3ms			H1961			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.3.13#04=L	בַ/בֹּ֙קֶר֙	va./Bo.ker	in the/ morning	H9003/{H1242}	HRd/Ncmsa			H1242_A			H9003=ב=in/{H1242=בֹּ֫קֶר=morning}					
+Rut.3.13#05=L	אִם\־	'im-	if	{H0518A}\H9014	HTc			H0518A_A			{H0518A=אִם=: if»if:1_if;_whether_or;_though}\H9014=־=link					
+Rut.3.13#06=L	יִגְאָלֵ֥/ךְ	yig.'a.Le/kh	he will redeem/ you	{H1350A}/H9032	HVqi3ms/Sp2fs			H1350A_A			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}/H9032=Os2f=you					
+Rut.3.13#07=L	טוֹב֙	tOv	good	{H2896A}	HAamsa			H2896A			{H2896A=טוֹב=pleasant}					
+Rut.3.13#08=L	יִגְאָ֔ל	yig.'Al	let him redeem	{H1350A}	HVqi3ms			H1350A_B			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.3.13#09=L	וְ/אִם\־	ve./'im-	and/ if	H9002/{H0518A}\H9014	HC/Tc			H0518A_B			H9002=ו=and/{H0518A=אִם=: if»if:1_if;_whether_or;_though}\H9014=־=link					
+Rut.3.13#10=L	לֹ֨א	lo'	not	{H3808}	HTn			H3808			{H3808=לֹא=not}					
+Rut.3.13#11=L	יַחְפֹּ֧ץ	yach.Potz	he will be willing	{H2654A}	HVqi3ms			H2654A			{H2654A=חָפֵץ=to delight in}					
+Rut.3.13#12=L	לְ/גָֽאֳלֵ֛/ךְ	le./go.'o.Le/kh	to/ redeem/ you	H9005/{H1350A}/H9032	HR/Vqcc/Sp2fs			H1350A_C			H9005=ל=to/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}/H9032=Os2f=you					
+Rut.3.13#13=L	וּ/גְאַלְתִּ֥י/ךְ	u./ge.'al.Ti/kh	and/ I will redeem/ you	H9001/{H1350A}/H9032	Hc/Vqq1cs/Sp2fs			H1350A_D			H9001=ו=&/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}/H9032=Os2f=you					
+Rut.3.13#14=L	אָנֹ֖כִי	'a.No.khi	I	{H0595}	HPp1bs			H0595			{H0595=אָֽנֹכִ֫י=I}					
+Rut.3.13#15=L	חַי\־	chai-	[by] [the] life	{H2416A}\H9014	HAamsa			H2416A			{H2416A=חַי=alive}\H9014=־=link					
+Rut.3.13#16=L	יְהוָ֑ה	Yah.weh	of Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.3.13#17=L	שִׁכְבִ֖י	shikh.Vi	lie down	{H7901G}	HVqv2fs			H7901G			{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}					
+Rut.3.13#18=L	עַד\־	'ad-	until	{H5704}\H9014	HR			H5704			{H5704=עַד=till}\H9014=־=link					
+Rut.3.13#19=L	הַ/בֹּֽקֶר\׃	ha./Bo.ker	the/ morning	H9009/{H1242}\H9016	HTd/Ncmsa			H1242_B			H9009=ה=the/{H1242=בֹּ֫קֶר=morning}\H9016=׃=verseEnd					
+Rut.3.14#01=L	וַ/תִּשְׁכַּ֤ב	va./tish.Kav	and/ she lay down	H9001/{H7901G}	Hc/Vqw3fs			H7901G			H9001=ו=&/{H7901G=שָׁכַב=: lay_down»to lie down:1_lay_down;_lie_with}					
+Rut.3.14#02=Q(K)	מַרְגְּלוֹתָי/ו֙	mar.ge.la.ta/v	feet/ his	{H4772}/H9023	HNcfpc/Sp3ms	K= mar.ge.la.ta/v (מַרְגְּלֹת/וֹ) "foot/ his" (H4772/H9023=HNcfsc/Sp3ms)	L= מַרְגְּלוֹתָ/ו֙ ¦ ;	H4772			{H4772=מַרְגְּלוֹת=feet}/H9023=Ps3m=his					
+Rut.3.14#03=L	עַד\־	'ad-	until	{H5704}\H9014	HR			H5704			{H5704=עַד=till}\H9014=־=link					
+Rut.3.14#04=L	הַ/בֹּ֔קֶר	ha./Bo.ker	the/ morning	H9009/{H1242}	HTd/Ncmsa			H1242			H9009=ה=the/{H1242=בֹּ֫קֶר=morning}					
+Rut.3.14#05=L	וַ/תָּ֕קָם	va./Ta.kom	and/ she arose	H9001/{H6965B}	Hc/Vqw3fs			H6965B			H9001=ו=&/{H6965B=קוּם=: rise»to arise:1_rise;_get_going}					
+Rut.3.14#06=Q(K)	בְּ/טֶ֛רֶם	bi/t.rom	<in>/ before	H9003/{H2962}	HR/Acbsa	K= bi/t.rom (בִּ/טְרוֹם) "<in>/ before" (H9003/H2958=HR/Ncbsa)	L= בְּ/טֶ֛רֶום ¦ ;	H2962	H2958		H9003=ב=in/{H2962=טֶ֫רֶם=before}					
+Rut.3.14#07=L	יַכִּ֥יר	ya.Kir	he recognized	{H5234A}	HVhi3ms			H5234A			{H5234A=נָכַר=to recognize}					
+Rut.3.14#08=L	אִ֖ישׁ	'ish	anyone	{H0376I}	HNcmsa			H0376I			{H0376I=אִישׁ=: anyone»man:3_anyone;_someone}					
+Rut.3.14#09=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.3.14#10=L	רֵעֵ֑/הוּ	re.'E./hu	neighbor/ his	{H7453}/H9023	HNcmsc/Sp3ms			H7453			{H7453=רֵעַ=neighbor}/H9023=Ps3m=his					
+Rut.3.14#11=L	וַ/יֹּ֙אמֶר֙	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.14#12=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.3.14#13=L	יִוָּדַ֔ע	yi.va.Da'	it be known	{H3045}	HVNj3ms			H3045			{H3045=יָדַע=to know}					
+Rut.3.14#14=L	כִּי\־	ki-	that	{H3588A}\H9014	HTc			H3588A			{H3588A=כִּי=for}\H9014=־=link					
+Rut.3.14#15=L	בָ֥אָה	Va.'ah	she came	{H0935G}	HVqp3fs			H0935G			{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.14#16=L	הָ/אִשָּׁ֖ה	ha./'i.Shah	the/ woman	H9009/{H0802G}	HTd/Ncfsa			H0802G			H9009=ה=the/{H0802G=אִשָּׁה=: woman»woman:1_woman}					
+Rut.3.14#17=L	הַ/גֹּֽרֶן\׃	ha./Go.ren	the/ threshing floor	H9009/{H1637}\H9016	HTd/Ncfsa			H1637			H9009=ה=the/{H1637=גֹּ֫רֶן=threshing floor}\H9016=׃=verseEnd					
+Rut.3.15#01=L	וַ/יֹּ֗אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.15#02=L	הָ֠בִי	Ha.vi	give	{H3051}	HVqv2fs			H3051			{H3051=יָהַב=to give}					
+Rut.3.15#03=L	הַ/מִּטְפַּ֧חַת	ha./mit.Pa.chat	the/ shawl	H9009/{H4304}	HTd/Ncfsa			H4304			H9009=ה=the/{H4304=מִטְפַּ֫חַת=cloak}					
+Rut.3.15#04=L	אֲשֶׁר\־	'a.Sher-	which	{H0834A}\H9014	HTr			H0834A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.3.15#05=L	עָלַ֛יִ/ךְ	'a.La.yi/kh	[is] on/ you	{H5921A}/H9032	HRd/Sp2fs			H5921A_A			{H5921A=עַל=upon}/H9032=Os2f=you					
+Rut.3.15#06=L	וְ/אֶֽחֳזִי\־	ve./'e.cho.zi-	and/ take hold	H9002/{H0270}\H9014	HC/Vqv2fs			H0270_A			H9002=ו=and/{H0270=אָחַז=to grasp}\H9014=־=link					
+Rut.3.15#07=L	בָ֖/הּ	va/h	on <the>/ it	H9003/{H9034}	HRd/Sp3fs			H9034_A			H9003=ב=in/{H9034=Os3f=her}					
+Rut.3.15#08=L	וַ/תֹּ֣אחֶז	va./To.chez	and/ she took hold	H9001/{H0270}	Hc/Vqw3fs			H0270_B			H9001=ו=&/{H0270=אָחַז=to grasp}					
+Rut.3.15#09=L	בָּ֑/הּ	Ba/h	on <the>/ it	H9003/{H9034}	HRd/Sp3fs			H9034_B			H9003=ב=in/{H9034=Os3f=her}					
+Rut.3.15#10=L	וַ/יָּ֤מָד	va/i.Ya.mod	and/ he measured out	H9001/{H4058}	Hc/Vqw3ms			H4058			H9001=ו=&/{H4058=מָדַד=to measure}					
+Rut.3.15#11=L	שֵׁשׁ\־	shesh-	six	{H8337}\H9014	HNcbsc			H8337			{H8337=שֵׁשׁ=six}\H9014=־=link					
+Rut.3.15#12=L	שְׂעֹרִים֙	se.'o.Rim	barley<s>	{H8184}	HNcmpa			H8184			{H8184=שְׂעֹרָה=barley}					
+Rut.3.15#13=L	וַ/יָּ֣שֶׁת	va/i.Ya.shet	and/ he put [it]	H9001/{H7896H}	Hc/Vqw3ms			H7896H			H9001=ו=&/{H7896H=שִׁית=: put»to set:2_put;_bring}					
+Rut.3.15#14=L	עָלֶ֔י/הָ	'a.Lei./ha	on/ her	{H5921A}/H9034	HRd/Sp3fs			H5921A_B			{H5921A=עַל=upon}/H9034=Os3f=her					
+Rut.3.15#15=L	וַ/יָּבֹ֖א	va/i.ya.Vo'	and/ he came	H9001/{H0935G}	Hc/Vqw3ms			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.15#16=L	הָ/עִֽיר\׃	ha./'Ir	the/ city	H9009/{H5892B}\H9016	HTd/Ncfsa			H5892B			H9009=ה=the/{H5892B=עִיר=city}\H9016=׃=verseEnd					
+Rut.3.16#01=L	וַ/תָּבוֹא֙	va./ta.Vo'	and/ she came	H9001/{H0935G}	Hc/Vqw3fs			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.16#02=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.3.16#03=L	חֲמוֹתָ֔/הּ	cha.mo.Ta/h	mother-in-law/ her	{H2545}/H9024	HNcfsc/Sp3fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9024=Ps3f=her					
+Rut.3.16#04=L	וַ/תֹּ֖אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.16#05=L	מִי\־	mi-	who?	{H4310}\H9014	HPi			H4310			{H4310=מִי=who?}\H9014=־=link					
+Rut.3.16#06=L	אַ֣תְּ	'at	[are] you	{H0859C}	HPp2fs			H0859C			{H0859C=אַתְּ=you(f.s.)}					
+Rut.3.16#07=L	בִּתִּ֑/י	bi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.3.16#08=L	וַ/תַּ֨גֶּד\־	va./Ta.ged-	and/ she told	H9001/{H5046}\H9014	Hc/Vhw3fs			H5046			H9001=ו=&/{H5046=נָגַד=to tell}\H9014=־=link					
+Rut.3.16#09=L	לָ֔/הּ	La/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034_A			H9005=ל=to/{H9034=Os3f=her}					
+Rut.3.16#10=L	אֵ֛ת	'et	<obj.>	{H0853}	HTo			H0853			{H0853=אֵת=[Obj.]}					
+Rut.3.16#11=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsa			H3605			{H3605=כֹּל=all}\H9014=־=link					
+Rut.3.16#12=L	אֲשֶׁ֥ר	'a.Sher	that	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.3.16#13=L	עָֽשָׂה\־	'a.sah-	he had done	{H6213A}\H9014	HVqp3ms			H6213A			{H6213A=עָשָׂה=: do»to make:2_do;_perform}\H9014=־=link					
+Rut.3.16#14=L	לָ֖/הּ	la/h	for <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034_B			H9005=ל=to/{H9034=Os3f=her}					
+Rut.3.16#15=L	הָ/אִֽישׁ\׃	ha./'Ish	the/ man	H9009/{H0376G}\H9016	HTd/Ncmsa			H0376G			H9009=ה=the/{H0376G=אִישׁ=: man»man:1_man}\H9016=׃=verseEnd					
+Rut.3.17#01=L	וַ/תֹּ֕אמֶר	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559_A			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.17#02=L	שֵׁשׁ\־	shesh-	[the] six	{H8337}\H9014	HNcbsc			H8337			{H8337=שֵׁשׁ=six}\H9014=־=link					
+Rut.3.17#03=L	הַ/שְּׂעֹרִ֥ים	ha./se.'o.Rim	the/ barley<s>	H9009/{H8184}	HTd/Ncmpa			H8184			H9009=ה=the/{H8184=שְׂעֹרָה=barley}					
+Rut.3.17#04=L	הָ/אֵ֖לֶּה	ha./'E.leh	<the>/ these	H9009/{H0428}	HTd/Tm			H0428			H9009=ה=the/{H0428=אֵ֫לֶּה=these}					
+Rut.3.17#05=L	נָ֣תַן	Na.tan	he gave	{H5414G}	HVqp3ms			H5414G			{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}					
+Rut.3.17#06=L	לִ֑/י	L/i	to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.3.17#07=L	כִּ֚י	ki	for	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.3.17#08=Q(K)	אָמַ֣ר/ /אֵלַ֔/י	'a.Mar/ /'al./i	he said/ /to/ me	{H0559}/ /{H0413}/H9030	HVqp3ms//Rd/Sp1bs	K= 'a.Mar (אָמַ֣ר) "he said" (H0559=HVqp3ms)	L= אָמַ֣רֵַ֔ ¦ ;	H0559_B, H0413_A			{H0559=אָמַר=to say}/ /{H0413=אֶל=to(wards)}/H9030=Os1c=me					
+Rut.3.17#09=L	אַל\־	'al-	may not	{H0408}\H9014	HTn			H0408			{H0408=אַל=not}\H9014=־=link					
+Rut.3.17#10=L	תָּב֥וֹאִי	ta.Vo.'i	you go	{H0935G}	HVqj2fs			H0935G			{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.3.17#11=L	רֵיקָ֖ם	rei.Kam	empty	{H7387}	HD			H7387			{H7387=רֵיקָם=emptily}					
+Rut.3.17#12=L	אֶל\־	'el-	to	{H0413}\H9014	HR			H0413_B			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.3.17#13=L	חֲמוֹתֵֽ/ךְ\׃	cha.mo.Te/kh	mother-in-law/ your	{H2545}/H9022\H9016	HNcfsc/Sp2fs			H2545			{H2545=חֲמוֹת=mother-in-law}/H9022=Ps2f=your\H9016=׃=verseEnd					
+Rut.3.18#01=L	וַ/תֹּ֙אמֶר֙	va./To.mer	and/ she said	H9001/{H0559}	Hc/Vqw3fs			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.3.18#02=L	שְׁבִ֣י	she.Vi	sit down	{H3427}	HVqv2fs			H3427			{H3427=יָשַׁב=to dwell}					
+Rut.3.18#03=L	בִתִּ֔/י	vi.T/i	O daughter/ my	{H1323G}/H9020	HNcfsc/Sp1bs			H1323G			{H1323G=בַּת=: daughter»daughter:1_daughter}/H9020=Ps1c=my					
+Rut.3.18#04=L	עַ֚ד	'ad	until	{H5704}	HR			H5704			{H5704=עַד=till}					
+Rut.3.18#05=L	אֲשֶׁ֣ר	'a.Sher	that	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.3.18#06=L	תֵּֽדְעִ֔י/ן	te.de.'I/n	you will know/ !	{H3045}/H9013	HVqi2fs/Sn			H3045			{H3045=יָדַע=to know}/H9013=נ=emph.					
+Rut.3.18#07=L	אֵ֖יךְ	'eikh	how?	{H0349A}	HTi			H0349A			{H0349A=אֵיךְ=how?}					
+Rut.3.18#08=L	יִפֹּ֣ל	yi.Pol	will it fall out	{H5307G}	HVqi3ms			H5307G			{H5307G=נָפַל=: fall»to fall:1_fall;_drop;_fail}					
+Rut.3.18#09=L	דָּבָ֑ר	da.Var	a matter	{H1697I}	HNcmsa			H1697I_A			{H1697I=דָּבָר=: thing»word:3_thing;_matter}					
+Rut.3.18#10=L	כִּ֣י	ki	for	{H3588A}	HTc			H3588A_A			{H3588A=כִּי=for}					
+Rut.3.18#11=L	לֹ֤א	lo'	not	{H3808}	HTn			H3808			{H3808=לֹא=not}					
+Rut.3.18#12=L	יִשְׁקֹט֙	yish.Kot	he will be at peace	{H8252}	HVqi3ms			H8252			{H8252=שָׁקַט=to quiet}					
+Rut.3.18#13=L	הָ/אִ֔ישׁ	ha./'Ish	the/ man	H9009/{H0376G}	HTd/Ncmsa			H0376G			H9009=ה=the/{H0376G=אִישׁ=: man»man:1_man}					
+Rut.3.18#14=L	כִּֽי\־	ki-	that	{H3588A}\H9014	HTc			H3588A_b	H3588B_B+		{H3588A=כִּי=for}\H9014=־=link					
+Rut.3.18#15=L	אִם\־	'im-	except	{H0518B}\H9014	HTc			H0518B	H3588B_c		{H0518B=[כִּי] אם=:except»if:5_except}\H9014=־=link					
+Rut.3.18#16=L	כִּלָּ֥ה	ki.Lah	he has finished	{H3615G}	HVpp3ms			H3615G			{H3615G=כָּלָה=: finish»to end:1_finish}					
+Rut.3.18#17=L	הַ/דָּבָ֖ר	ha./da.Var	the/ matter	H9009/{H1697I}	HTd/Ncmsa			H1697I_B			H9009=ה=the/{H1697I=דָּבָר=: thing»word:3_thing;_matter}					
+Rut.3.18#18=L	הַ/יּֽוֹם\׃	hai./Yom	this/ day	H9009/{H3117G}\H9016	HTd/Ncmsa			H3117G			H9009=ה=the/{H3117G=יוֹם=: day»day;_when:1_day;_when;_period}\H9016=׃=verseEnd					
+Rut.4.1#01=L	וּ/בֹ֨עַז	u./Vo.'az	and/ Boaz	H9002/{H1162G}	HC/Npm			H1162G_A			H9002=ו=and/{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.1#02=L	עָלָ֣ה	'a.Lah	he went up	{H5927G}	HVqp3ms			H5927G			{H5927G=עָלָה=: rise»to ascend:1_rise;_go}					
+Rut.4.1#03=L	הַ/שַּׁעַר֮	ha./sha.'Ar	the/ gate	H9009/{H8179G}	HTd/Ncmsa			H8179G			H9009=ה=the/{H8179G=שַׁ֫עַר=: gate»gate:1_gate}					
+Rut.4.1#04=L	וַ/יֵּ֣שֶׁב	va/i.Ye.shev	and/ he sat down	H9001/{H3427}	Hc/Vqw3ms			H3427_A			H9001=ו=&/{H3427=יָשַׁב=to dwell}					
+Rut.4.1#05=L	שָׁם֒	sham	there	{H8033G}	HD			H8033G			{H8033G=שָׁם=there}					
+Rut.4.1#06=L	וְ/הִנֵּ֨ה	ve./hi.Neh	and/ there!	H9002/{H2009}	HC/Tj			H2009			H9002=ו=and/{H2009=הִנֵּה=behold}					
+Rut.4.1#07=L	הַ/גֹּאֵ֤ל	ha./go.'El	the/ kinsman-redeemer	H9009/{H1350A}	HTd/Vqrmsa			H1350A			H9009=ה=the/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.1#08=L	עֹבֵר֙	'o.Ver	[was] passing by	{H5674A}	HVqrmsa			H5674A			{H5674A=עָבַר=: pass»to pass:1_pass}					
+Rut.4.1#09=L	אֲשֶׁ֣ר	'a.Sher	whom	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.4.1#10=L	דִּבֶּר\־	di.ber-	he had spoken	{H1696G}\H9014	HVpp3ms			H1696G			{H1696G=דָבַר=: speak»to speak:1_speak;_tell;_command}\H9014=־=link					
+Rut.4.1#11=L	בֹּ֔עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G_B			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.1#12=L	וַ/יֹּ֛אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.1#13=L	ס֥וּרָ/ה	Su.ra/h	turn aside/ !	{H5493I}/H9012	HVqv2ms/Sh			H5493I_A			{H5493I=סוּר=: turn_aside»to turn aside:3_turn_aside;_deflect}/H9012=ה=emph.					
+Rut.4.1#14=L	שְׁבָ/ה\־	she.va/h-	sit/ !	{H3427}/H9012\H9014	HVqv2ms/Sh			H3427_B			{H3427=יָשַׁב=to dwell}/H9012=ה=emph.\H9014=־=link					
+Rut.4.1#15=L	פֹּ֖ה	poh	here	{H6311}	HD			H6311			{H6311=פֹּה=here}					
+Rut.4.1#16=L	פְּלֹנִ֣י	pe.lo.Ni	a certain one	{H6423}	HNcmsc			H6423			{H6423=פְּלֹנִי=someone}					
+Rut.4.1#17=L	אַלְמֹנִ֑י	'al.mo.Ni	a certain one	{H0492}	HNcmsa			H0492			{H0492=אַלְמֹנִי=someone}					
+Rut.4.1#18=L	וַ/יָּ֖סַר	va/i.Ya.sar	and/ he turned aside	H9001/{H5493I}	Hc/Vqw3ms			H5493I_B			H9001=ו=&/{H5493I=סוּר=: turn_aside»to turn aside:3_turn_aside;_deflect}					
+Rut.4.1#19=L	וַ/יֵּשֵֽׁב\׃	va/i.ye.Shev	and/ he sat down	H9001/{H3427}\H9016	Hc/Vqw3ms			H3427_C			H9001=ו=&/{H3427=יָשַׁב=to dwell}\H9016=׃=verseEnd					
+Rut.4.2#01=L	וַ/יִּקַּ֞ח	va/i.yi.Kach	and/ he took	H9001/{H3947G}	Hc/Vqw3ms			H3947G			H9001=ו=&/{H3947G=לָקַח=: take»to take:1_take}					
+Rut.4.2#02=L	עֲשָׂרָ֧ה	'a.sa.Rah	ten	{H6235}	HNcfsa			H6235			{H6235=עֶשֶׂר=ten}					
+Rut.4.2#03=L	אֲנָשִׁ֛ים	'a.na.Shim	men	{H0582}	HNcmpa			H0582	H0376		{H0582=אֱנוֹשׁ=human}					
+Rut.4.2#04=L	מִ/זִּקְנֵ֥י	mi./zik.Nei	from/ [the] elders of	H9006/{H2205G}	HR/Aampc			H2205G			H9006=מ=from/{H2205G=זָקֵן=: elder»old:2_elder;_leader}					
+Rut.4.2#05=L	הָ/עִ֖יר	ha./'Ir	the/ city	H9009/{H5892B}	HTd/Ncfsa			H5892B			H9009=ה=the/{H5892B=עִיר=city}					
+Rut.4.2#06=L	וַ/יֹּ֣אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.2#07=L	שְׁבוּ\־	she.vu-	sit	{H3427}\H9014	HVqv2mp			H3427_A			{H3427=יָשַׁב=to dwell}\H9014=־=link					
+Rut.4.2#08=L	פֹ֑ה	Foh	here	{H6311}	HD			H6311			{H6311=פֹּה=here}					
+Rut.4.2#09=L	וַ/יֵּשֵֽׁבוּ\׃	va/i.ye.She.vu	and/ they sat down	H9001/{H3427}\H9016	Hc/Vqw3mp			H3427_B			H9001=ו=&/{H3427=יָשַׁב=to dwell}\H9016=׃=verseEnd					
+Rut.4.3#01=L	וַ/יֹּ֙אמֶר֙	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.3#02=L	לַ/גֹּאֵ֔ל	la./go.'El	to the/ kinsman redeemer	H9005/{H1350A}	HRd/Vqrmsa			H1350A			H9005=ל=to/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.3#03=L	חֶלְקַת֙	chel.Kat	[the] portion of	{H2513A}	HNcfsc			H2513A			{H2513A=חֶלְקָה=portion}					
+Rut.4.3#04=L	הַ/שָּׂדֶ֔ה	ha./sa.Deh	the/ field	H9009/{H7704G}	HTd/Ncmsa			H7704G_A			H9009=ה=the/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.4.3#05=L	אֲשֶׁ֥ר	'a.Sher	which	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.4.3#06=L	לְ/אָחִ֖י/נוּ	le./'a.Chi./nu	[belonged] to/ brother/ our	H9005/{H0251H}/H9025	HR/Ncmsc/Sp1bp			H0251H			H9005=ל=to/{H0251H=אָח=: male-relative»brother:2_male-relative}/H9025=Pp1c=our					
+Rut.4.3#07=L	לֶ/אֱלִימֶ֑לֶךְ	le./'e.li.Me.lekh	to/ Elimelech	H9005/{H0458}	HR/Npm			H0458			H9005=ל=to/{H0458=אֱלִימֶ֫לֶךְ=Elimelech»Elimelech@Rut.1.2-}					
+Rut.4.3#08=L	מָכְרָ֣ה	ma.khe.Rah	she has sold	{H4376}	HVqp3fs			H4376			{H4376=מָכַר=to sell}					
+Rut.4.3#09=L	נָעֳמִ֔י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.4.3#10=L	הַ/שָּׁ֖בָה	ha./Sha.vah	who/ <she> returned	H9009/{H7725G}	HTd/Vqp3fs			H7725G			H9009=ה=the/{H7725G=שׁוּב=: return»to return:1_return}					
+Rut.4.3#11=L	מִ/שְּׂדֵ֥ה	mi./se.Deh	from/ [the] region of	H9006/{H7704G}	HR/Ncmsc			H7704G_B			H9006=מ=from/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.4.3#12=L	מוֹאָֽב\׃	mo.'Av	Moab	{H4124G}\H9016	HNpl			H4124G			{H4124G=מוֹאָב=Moab»Moab@Gen.19.37b-Zep}\H9016=׃=verseEnd					
+Rut.4.4#01=L	וַ/אֲנִ֨י	va./'a.Ni	and/ I	H9002/{H0589}	HC/Pp1bs			H0589			H9002=ו=and/{H0589=אֲנִי, אָֽנֹכִ֫י=I}					
+Rut.4.4#02=L	אָמַ֜רְתִּי	'a.Mar.ti	I said	{H0559}	HVqp1cs			H0559_A			{H0559=אָמַר=to say}					
+Rut.4.4#03=L	אֶגְלֶ֧ה	'eg.Leh	I will uncover	{H1540H}	HVqi1cs			H1540H			{H1540H=גָּלָה=: reveal[information]»to reveal:1_reveal[information]}					
+Rut.4.4#04=L	אָזְנְ/ךָ֣	'a.ze.ne./Kha	ear/ your	{H0241I}/H9021	HNcfsc/Sp2ms			H0241I			{H0241I=אֹ֫זֶן=: to[ears_of](PERSON)»ear:3_to[ears_of](PERSON)}/H9021=Ps2m=your					
+Rut.4.4#05=L	לֵ/אמֹ֗ר	le./Mor	<to>/ saying	H9005/{H0559}	HR/Vqcc			H0559_B			H9005=ל=to/{H0559=אָמַר=to say}					
+Rut.4.4#06=L	קְ֠נֵה	Ke.neh	acquire [it]	{H7069}	HVqv2ms			H7069			{H7069=קָנָה=to buy}					
+Rut.4.4#07=L	נֶ֥גֶד	Ne.ged	before	{H5048}	HAcmsc			H5048_A			{H5048=נֶ֫גֶד=before}					
+Rut.4.4#08=L	הַֽ/יֹּשְׁבִים֮	hai./yo.she.Vim	the/ [ones] sitting	H9009/{H3427}	HTd/Vqrmpa			H3427			H9009=ה=the/{H3427=יָשַׁב=to dwell}					
+Rut.4.4#09=L	וְ/נֶ֣גֶד	ve./Ne.ged	and/ before	H9002/{H5048}	HC/Acmsc			H5048_B			H9002=ו=and/{H5048=נֶ֫גֶד=before}					
+Rut.4.4#10=L	זִקְנֵ֣י	zik.Nei	[the] elders of	{H2205G}	HAampc			H2205G			{H2205G=זָקֵן=: elder»old:2_elder;_leader}					
+Rut.4.4#11=L	עַמִּ/י֒	'a.M/i	people/ my	{H5971A}/H9020	HNcmsc/Sp1bs			H5971A			{H5971A=עַם=: people»people:1_people;_nation}/H9020=Ps1c=my					
+Rut.4.4#12=L	אִם\־	'im-	if	{H0518A}\H9014	HTc			H0518A_A			{H0518A=אִם=: if»if:1_if;_whether_or;_though}\H9014=־=link					
+Rut.4.4#13=L	תִּגְאַל֙	tig.'Al	you will redeem	{H1350A}	HVqi2ms			H1350A_A			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.4#14=L	גְּאָ֔ל	ge.'Al	redeem	{H1350A}	HVqv2ms			H1350A_B			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.4#15=L	וְ/אִם\־	ve./'im-	and/ if	H9002/{H0518A}\H9014	HC/Tc			H0518A_B			H9002=ו=and/{H0518A=אִם=: if»if:1_if;_whether_or;_though}\H9014=־=link					
+Rut.4.4#16=L	לֹ֨א	lo'	not	{H3808}	HTn			H3808			{H3808=לֹא=not}					
+Rut.4.4#17=L	יִגְאַ֜ל	yig.'Al	he will redeem	{H1350A}	HVqi3ms			H1350A_C			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.4#18=L	הַגִּ֣ידָ/ה	ha.Gi.da/h	tell/ !	{H5046}/H9012	HVhv2ms/Sh			H5046			{H5046=נָגַד=to tell}/H9012=ה=emph.					
+Rut.4.4#19=L	לִּ֗/י	L/i	to <the>/ me	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.4.4#20=Q(K)	וְ/אֵֽדְעָה֙	ve./'e.da'	so/ let me know	H9002/{H3045}	HC/Vqc1cs	K= ve./'e.da' (וְ/אֵדַע) "so/ I may know" (H9002/H3045=HC/Vqu1cs)	L= וְ/אֵֽדְעָ֙ ¦ ;	H3045			H9002=ו=and/{H3045=יָדַע=to know}					
+Rut.4.4#21=L	כִּ֣י	ki	that	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.4.4#22=L	אֵ֤ין	'ein	there not	{H0369}	HNcmsc			H0369			{H0369=אַ֫יִן=nothing}					
+Rut.4.4#23=L	זוּלָֽתְ/ךָ֙	zu.la.te./Kha	except/ you	{H2108}/H9031	HNcfsc/Sp2ms			H2108			{H2108=זוּלָה=exception}/H9031=Os2m=you					
+Rut.4.4#24=L	לִ/גְא֔וֹל	li/g.'ol	[is] to/ redeem	H9005/{H1350A}	HR/Vqcc			H1350A_D			H9005=ל=to/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.4#25=L	וְ/אָנֹכִ֖י	ve./'a.no.Khi	and/ I	H9002/{H0595}	HC/Pp1bs			H0595_A			H9002=ו=and/{H0595=אָֽנֹכִ֫י=I}					
+Rut.4.4#26=L	אַחֲרֶ֑י/ךָ	'a.cha.Rei./kha	[am] after/ you	{H0310A}/H9031	HAcmpc/Sp2ms			H0310A			{H0310A=אַחַר=after}/H9031=Os2m=you					
+Rut.4.4#27=L	וַ/יֹּ֖אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559_C			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.4#28=L	אָנֹכִ֥י	'a.no.Khi	I	{H0595}	HPp1bs			H0595_B			{H0595=אָֽנֹכִ֫י=I}					
+Rut.4.4#29=L	אֶגְאָֽל\׃	'eg.'Al	I will redeem	{H1350A}\H9016	HVqi1cs			H1350A_E			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}\H9016=׃=verseEnd					
+Rut.4.5#01=L	וַ/יֹּ֣אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.5#02=L	בֹּ֔עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.5#03=L	בְּ/יוֹם\־	be./yom-	on/ [the] day	H9003/{H3117G}\H9014	HR/Ncmsc			H3117G			H9003=ב=in/{H3117G=יוֹם=: day»day;_when:1_day;_when;_period}\H9014=־=link					
+Rut.4.5#04=L	קְנוֹתְ/ךָ֥	ke.not./Cha	acquiring/ you	{H7069}/H9041	HVqcc/Sp2ms			H7069_A			{H7069=קָנָה=to buy}/H9041=Ss2m=you					
+Rut.4.5#05=L	הַ/שָּׂדֶ֖ה	ha./sa.Deh	the/ field	H9009/{H7704G}	HTd/Ncmsa			H7704G			H9009=ה=the/{H7704G=שָׂדֶה=: country;_planet»land:2_country;_planet}					
+Rut.4.5#06=L	מִ/יַּ֣ד	mi./Yad	from/ [the] hand of	H9006/{H3027G}	HR/Ncbsc			H3027G			H9006=מ=from/{H3027G=יָד=: hand»hand:1_hand;_arm[anatomy]}					
+Rut.4.5#07=L	נָעֳמִ֑י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.4.5#08=L	וּ֠/מֵ/אֵת	U./me./'et	and/ from/ with	H9002/H9006/{H0854}	HC/R/R			H0854			H9002=ו=and/H9006=מ=from/{H0854=אֵת=with}					
+Rut.4.5#09=L	ר֣וּת	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.4.5#10=L	הַ/מּוֹאֲבִיָּ֤ה	ha./mo.'a.vi.Yah	the/ Moabite [woman]	H9009/{H4125}	HTd/Ngfsa			H4125			H9009=ה=the/{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.4.5#11=L	אֵֽשֶׁת\־	'e.shet-	[the] wife of	{H0802H}\H9014	HNcfsc			H0802H			{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}\H9014=־=link					
+Rut.4.5#12=L	הַ/מֵּת֙	ha./Met	the/ dead [man]	H9009/{H4191}	HTd/Vqrmsa			H4191_A			H9009=ה=the/{H4191=מוּת=to die}					
+Rut.4.5#13=Q(K)	קָנִ֔יתָה	ka.ni.ti	you have acquired	{H7069}	HVqp2ms	K= ka.ni.ti (קָנִיתִי) "I have acquired" (H7069=HVqp1cs)	L= קָנִ֔יתָי ¦ ;	H7069_B			{H7069=קָנָה=to buy}					
+Rut.4.5#14=L	לְ/הָקִ֥ים	le./ha.Kim	to/ raise up	H9005/{H6965I}	HR/Vhcc			H6965I			H9005=ל=to/{H6965I=קוּם=: establish»to arise:3_establish;_stand_firm;_confirm;_fulfill;_fix}					
+Rut.4.5#15=L	שֵׁם\־	shem-	[the] name of	{H8034}\H9014	HNcmsc			H8034			{H8034=שֵׁם=name}\H9014=־=link					
+Rut.4.5#16=L	הַ/מֵּ֖ת	ha./Met	the/ dead [man]	H9009/{H4191}	HTd/Vqrmsa			H4191_B			H9009=ה=the/{H4191=מוּת=to die}					
+Rut.4.5#17=L	עַל\־	'al-	over	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.4.5#18=L	נַחֲלָתֽ/וֹ\׃	na.cha.la.T/o	inheritance/ his	{H5159}/H9023\H9016	HNcfsc/Sp3ms			H5159			{H5159=נַחֲלָה=inheritance}/H9023=Ps3m=his\H9016=׃=verseEnd					
+Rut.4.6#01=L	וַ/יֹּ֣אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.6#02=L	הַ/גֹּאֵ֗ל	ha./go.'El	the/ kinsman-redeemer	H9009/{H1350A}	HTd/Vqrmsa			H1350A_A			H9009=ה=the/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.6#03=L	לֹ֤א	lo'	not	{H3808}	HTn			H3808_A			{H3808=לֹא=not}					
+Rut.4.6#04=L	אוּכַל֙	'u.Khal	I am able	{H3201}	HVqi1cs			H3201_A			{H3201=יָכֹל=be able}					
+Rut.4.6#05=Q(k)	לִ/גְאָל	li/g.'ol-	to/ redeem [it]	H9005/{H1350A}	HR/Vqcc		L= לִ/גְאָול\־ ¦ ;K= לִ/גְאוֹל	H1350A_B			H9005=ל=to/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.6#06=L	לִ֔/י	l/i	for <the>/ myself	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.4.6#07=L	פֶּן\־	pen-	lest	{H6435}\H9014	HTc			H6435			{H6435=פֶּן־=lest}\H9014=־=link					
+Rut.4.6#08=L	אַשְׁחִ֖ית	'ash.Chit	I should ruin	{H7843}	HVhi1cs			H7843			{H7843=שָׁחַת=to ruin}					
+Rut.4.6#09=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.6#10=L	נַחֲלָתִ֑/י	na.cha.la.T/i	own inheritance/ my	{H5159}/H9020	HNcfsc/Sp1bs			H5159			{H5159=נַחֲלָה=inheritance}/H9020=Ps1c=my					
+Rut.4.6#11=L	גְּאַל\־	ge.'al-	redeem	{H1350A}\H9014	HVqv2ms			H1350A_C			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}\H9014=־=link					
+Rut.4.6#12=L	לְ/ךָ֤	le./Kha	for <the>/ yourself	H9005/{H9031}	HRd/Sp2ms			H9031			H9005=ל=to/{H9031=Os2m=you}					
+Rut.4.6#13=L	אַתָּה֙	'a.Tah	you	{H0859A}	HPp2ms			H0859A			{H0859A=אַתָּ֫ה=you(m.s.)}					
+Rut.4.6#14=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_B			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.6#15=L	גְּאֻלָּתִ֔/י	ge.'u.la.T/i	right of redemption/ my	{H1353}/H9020	HNcfsc/Sp1bs			H1353			{H1353=גְּאֻלָּה=redemption}/H9020=Ps1c=my					
+Rut.4.6#16=L	כִּ֥י	ki	for	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.4.6#17=L	לֹא\־	lo'-	not	{H3808}\H9014	HTn			H3808_B			{H3808=לֹא=not}\H9014=־=link					
+Rut.4.6#18=L	אוּכַ֖ל	'u.Khal	I am able	{H3201}	HVqi1cs			H3201_B			{H3201=יָכֹל=be able}					
+Rut.4.6#19=L	לִ/גְאֹֽל\׃	li/g.'Ol	to/ redeem [it]	H9005/{H1350A}\H9016	HR/Vqcc			H1350A_D			H9005=ל=to/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}\H9016=׃=verseEnd					
+Rut.4.7#01=L	וְ/זֹאת֩	ve./zoT	and/ this	H9002/{H2063}	HC/Tm			H2063_A			H9002=ו=and/{H2063=זֹאת=this}					
+Rut.4.7#02=L	לְ/פָנִ֨ים	le./fa.Nim	<to>/ before	H9005/{H6440G}	HR/Ncmpa			H6440G			H9005=ל=to/{H6440G=פָּנֶה=: before»face:2_before;_to;_front}					
+Rut.4.7#03=L	בְּ/יִשְׂרָאֵ֜ל	be./Yis.ra.'El	[was] in/ Israel	H9003/{H3478}	HR/Npl			H3478_A			H9003=ב=in/{H3478=יִשְׂרָאֵל=Israel»Israel@Gen.25.26-Rev}					
+Rut.4.7#04=L	עַל\־	'al-	on	{H5921A}\H9014	HR			H5921A_A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.4.7#05=L	הַ/גְּאוּלָּ֤ה	ha./ge.'u.Lah	the/ redemption	H9009/{H1353}	HTd/Ncfsa			H1353			H9009=ה=the/{H1353=גְּאֻלָּה=redemption}					
+Rut.4.7#06=L	וְ/עַל\־	ve./'al-	and/ on	H9002/{H5921A}\H9014	HC/R			H5921A_B			H9002=ו=and/{H5921A=עַל=upon}\H9014=־=link					
+Rut.4.7#07=L	הַ/תְּמוּרָה֙	ha./te.mu.Rah	the/ exchange	H9009/{H8545}	HTd/Ncfsa			H8545			H9009=ה=the/{H8545=תְּמוּרָה=exchange}					
+Rut.4.7#08=L	לְ/קַיֵּ֣ם	le./kai.Yem	to/ confirm	H9005/{H6965I}	HR/Vpcc			H6965I			H9005=ל=to/{H6965I=קוּם=: establish»to arise:3_establish;_stand_firm;_confirm;_fulfill;_fix}					
+Rut.4.7#09=L	כָּל\־	kol-	every	{H3605}\H9014	HNcmsc			H3605			{H3605=כֹּל=all}\H9014=־=link					
+Rut.4.7#10=L	דָּבָ֔ר	da.Var	matter	{H1697L}	HNcmsa			H1697L			{H1697L=דָּבָר=: case»word:6_case}					
+Rut.4.7#11=L	שָׁלַ֥ף	sha.Laf	he took off	{H8025}	HVqp3ms			H8025			{H8025=שָׁלַף=to draw}					
+Rut.4.7#12=L	אִ֛ישׁ	'ish	anyone	{H0376I}	HNcmsa			H0376I			{H0376I=אִישׁ=: anyone»man:3_anyone;_someone}					
+Rut.4.7#13=L	נַעֲל֖/וֹ	na.'a.L/o	sandal/ his	{H5275}/H9023	HNcfsc/Sp3ms			H5275			{H5275=נַ֫עַל=sandal}/H9023=Ps3m=his					
+Rut.4.7#14=L	וְ/נָתַ֣ן	ve./na.Tan	and/ he gave [it]	H9001/{H5414G}	Hc/Vqq3ms			H5414G			H9001=ו=&/{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}					
+Rut.4.7#15=L	לְ/רֵעֵ֑/הוּ	le./re.'E./hu	to/ neighbor/ his	H9005/{H7453}/H9023	HR/Ncmsc/Sp3ms			H7453			H9005=ל=to/{H7453=רֵעַ=neighbor}/H9023=Ps3m=his					
+Rut.4.7#16=L	וְ/זֹ֥את	ve./Zot	and/ this	H9002/{H2063}	HC/Tm			H2063_B			H9002=ו=and/{H2063=זֹאת=this}					
+Rut.4.7#17=L	הַ/תְּעוּדָ֖ה	ha./te.'u.Dah	[was] the/ attestation	H9009/{H8584}	HTd/Ncfsa			H8584			H9009=ה=the/{H8584=תְּעוּדָה=testimony}					
+Rut.4.7#18=L	בְּ/יִשְׂרָאֵֽל\׃	be./Yis.ra.'El	in/ Israel	H9003/{H3478}\H9016	HR/Npl			H3478_B			H9003=ב=in/{H3478=יִשְׂרָאֵל=Israel»Israel@Gen.25.26-Rev}\H9016=׃=verseEnd					
+Rut.4.8#01=L	וַ/יֹּ֧אמֶר	va/i.Yo.mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.8#02=L	הַ/גֹּאֵ֛ל	ha./go.'El	the/ kinsman-redeemer	H9009/{H1350A}	HTd/Vqrmsa			H1350A			H9009=ה=the/{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.8#03=L	לְ/בֹ֖עַז	le./Vo.'az	to/ Boaz	H9005/{H1162G}	HR/Npm			H1162G			H9005=ל=to/{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.8#04=L	קְנֵה\־	ke.neh-	acquire [it]	{H7069}\H9014	HVqv2ms			H7069			{H7069=קָנָה=to buy}\H9014=־=link					
+Rut.4.8#05=L	לָ֑/ךְ	La/kh	for <the>/ yourself	H9005/{H9032}	HRd/Sp2ms			H9032			H9005=ל=to/{H9032=Os2f=you}					
+Rut.4.8#06=L	וַ/יִּשְׁלֹ֖ף	va/i.yish.Lof	and/ he took off	H9001/{H8025}	Hc/Vqw3ms			H8025			H9001=ו=&/{H8025=שָׁלַף=to draw}					
+Rut.4.8#07=L	נַעֲלֽ/וֹ\׃	na.'a.L/o	sandal/ his	{H5275}/H9023\H9016	HNcfsc/Sp3ms			H5275			{H5275=נַ֫עַל=sandal}/H9023=Ps3m=his\H9016=׃=verseEnd					
+Rut.4.9#01=L	וַ/יֹּאמֶר֩	va/i.yo.Mer	and/ he said	H9001/{H0559}	Hc/Vqw3ms			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.9#02=L	בֹּ֨עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.9#03=L	לַ/זְּקֵנִ֜ים	la./ze.ke.Nim	to the/ elders	H9005/{H2205G}	HRd/Aampa			H2205G			H9005=ל=to/{H2205G=זָקֵן=: elder»old:2_elder;_leader}					
+Rut.4.9#04=L	וְ/כָל\־	ve./khol	and/ all	H9002/{H3605}\H9014	HC/Ncmsc			H3605_A			H9002=ו=and/{H3605=כֹּל=all}\H9014=־=link					
+Rut.4.9#05=L	הָ/עָ֗ם	ha./'Am	the/ people	H9009/{H5971A}	HTd/Ncmsa			H5971A			H9009=ה=the/{H5971A=עַם=: people»people:1_people;_nation}					
+Rut.4.9#06=L	עֵדִ֤ים	'e.Dim	[are] witnesses	{H5707}	HNcmpa			H5707			{H5707=עֵד=witness}					
+Rut.4.9#07=L	אַתֶּם֙	'a.Tem	you	{H0859D}	HPp2mp			H0859D			{H0859D=אַתֶּם=you(m.p.)}					
+Rut.4.9#08=L	הַ/יּ֔וֹם	hai./Yom	this/ day	H9009/{H3117L}	HTd/Ncmsa			H3117L			H9009=ה=the/{H3117L=יוֹם=: today»day:6_today;_now}					
+Rut.4.9#09=L	כִּ֤י	ki	that	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.4.9#10=L	קָנִ֙יתִי֙	ka.Ni.ti	I acquire	{H7069}	HVqp1cs			H7069			{H7069=קָנָה=to buy}					
+Rut.4.9#11=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.9#12=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsa			H3605_B			{H3605=כֹּל=all}\H9014=־=link					
+Rut.4.9#13=L	אֲשֶׁ֣ר	'a.Sher	that	{H0834A}	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}					
+Rut.4.9#14=L	לֶֽ/אֱלִימֶ֔לֶךְ	le./'e.li.Me.lekh	[belonged] to/ Elimelech	H9005/{H0458}	HR/Npm			H0458			H9005=ל=to/{H0458=אֱלִימֶ֫לֶךְ=Elimelech»Elimelech@Rut.1.2-}					
+Rut.4.9#15=L	וְ/אֵ֛ת	ve./'Et	and/ <obj.>	H9002/{H0853}	HC/To			H0853_B			H9002=ו=and/{H0853=אֵת=[Obj.]}					
+Rut.4.9#16=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsa			H3605_C			{H3605=כֹּל=all}\H9014=־=link					
+Rut.4.9#17=L	אֲשֶׁ֥ר	'a.Sher	that	{H0834A}	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}					
+Rut.4.9#18=L	לְ/כִלְי֖וֹן	le./khil.Yon	[belonged] to/ Kilion	H9005/{H3630}	HR/Npm			H3630			H9005=ל=to/{H3630=כִּלְיוֹן=Chilion»Chilion@Rut.1.2-}					
+Rut.4.9#19=L	וּ/מַחְל֑וֹן	u./mach.Lon	and/ Mahlon	H9002/{H4248}	HC/Npm			H4248			H9002=ו=and/{H4248=מַחְלוֹן=Mahlon»Mahlon@Rut.1.2-}					
+Rut.4.9#20=L	מִ/יַּ֖ד	mi./Yad	from/ [the] hand of	H9006/{H3027G}	HR/Ncbsc			H3027G			H9006=מ=from/{H3027G=יָד=: hand»hand:1_hand;_arm[anatomy]}					
+Rut.4.9#21=L	נָעֳמִֽי\׃	no.'o.Mi	Naomi	{H5281}\H9016	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}\H9016=׃=verseEnd					
+Rut.4.10#01=L	וְ/גַ֣ם	ve./Gam	and/ also	H9002/{H1571}	HC/D			H1571			H9002=ו=and/{H1571=גַּם=also}					
+Rut.4.10#02=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.10#03=L	ר֣וּת	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.4.10#04=L	הַ/מֹּאֲבִיָּה֩	ha./mo.'a.vi.Yah	the/ Moabite [woman]	H9009/{H4125}	HTd/Ngfsa			H4125			H9009=ה=the/{H4125=מוֹאָבִי=Moab»Moab@Gen.19.37b-Zep}					
+Rut.4.10#05=L	אֵ֨שֶׁת	'E.shet	[the] wife of	{H0802H}	HNcfsc			H0802H_A			{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}					
+Rut.4.10#06=L	מַחְל֜וֹן	mach.Lon	Mahlon	{H4248}	HNpm			H4248			{H4248=מַחְלוֹן=Mahlon»Mahlon@Rut.1.2-}					
+Rut.4.10#07=L	קָנִ֧יתִי	ka.Ni.ti	I acquire	{H7069}	HVqp1cs			H7069			{H7069=קָנָה=to buy}					
+Rut.4.10#08=L	לִ֣/י	l/i	for <the>/ myself	H9005/{H9030}	HRd/Sp1bs			H9030			H9005=ל=to/{H9030=Os1c=me}					
+Rut.4.10#09=L	לְ/אִשָּׁ֗ה	le./'i.Shah	to/ a wife	H9005/{H0802H}	HR/Ncfsa			H0802H_B			H9005=ל=to/{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}					
+Rut.4.10#10=L	לְ/הָקִ֤ים	le./ha.Kim	to/ raise up	H9005/{H6965I}	HR/Vhcc			H6965I			H9005=ל=to/{H6965I=קוּם=: establish»to arise:3_establish;_stand_firm;_confirm;_fulfill;_fix}					
+Rut.4.10#11=L	שֵׁם\־	shem-	[the] name of	{H8034}\H9014	HNcmsc			H8034_A			{H8034=שֵׁם=name}\H9014=־=link					
+Rut.4.10#12=L	הַ/מֵּת֙	ha./Met	the/ dead [man]	H9009/{H4191}	HTd/Vqrmsa			H4191_A			H9009=ה=the/{H4191=מוּת=to die}					
+Rut.4.10#13=L	עַל\־	'al-	over	{H5921A}\H9014	HR			H5921A			{H5921A=עַל=upon}\H9014=־=link					
+Rut.4.10#14=L	נַ֣חֲלָת֔/וֹ	na.cha.la.T/o	inheritance/ his	{H5159}/H9023	HNcfsc/Sp3ms			H5159			{H5159=נַחֲלָה=inheritance}/H9023=Ps3m=his					
+Rut.4.10#15=L	וְ/לֹא\־	ve./lo'-	and/ not	H9002/{H3808}\H9014	HC/Tn			H3808			H9002=ו=and/{H3808=לֹא=not}\H9014=־=link					
+Rut.4.10#16=L	יִכָּרֵ֧ת	yi.ka.Ret	it will be cut off	{H3772I}	HVNi3ms			H3772I			{H3772I=כָּרַת=: eliminate»to cut:3_eliminate;_destroy}					
+Rut.4.10#17=L	שֵׁם\־	shem-	[the] name of	{H8034}\H9014	HNcmsc			H8034_B			{H8034=שֵׁם=name}\H9014=־=link					
+Rut.4.10#18=L	הַ/מֵּ֛ת	ha./Met	the/ dead [man]	H9009/{H4191}	HTd/Vqrmsa			H4191_B			H9009=ה=the/{H4191=מוּת=to die}					
+Rut.4.10#19=L	מֵ/עִ֥ם	me./'Im	from/ with	H9006/{H5973B}	HR/R			H5973B			H9006=מ=from/{H5973B=מֵעִם=from with}					
+Rut.4.10#20=L	אֶחָ֖י/ו	'e.Cha/v	brothers/ his	{H0251H}/H9023	HNcmpc/Sp3ms			H0251H			{H0251H=אָח=: male-relative»brother:2_male-relative}/H9023=Ps3m=his					
+Rut.4.10#21=L	וּ/מִ/שַּׁ֣עַר	u./mi./Sha.'ar	and/ from/ [the] gate of	H9002/H9006/{H8179G}	HC/R/Ncmsc			H8179G			H9002=ו=and/H9006=מ=from/{H8179G=שַׁ֫עַר=: gate»gate:1_gate}					
+Rut.4.10#22=L	מְקוֹמ֑/וֹ	me.ko.M/o	place/ his	{H4725}/H9023	HNcmsc/Sp3ms			H4725			{H4725=מָקוֹם=standing place}/H9023=Ps3m=his					
+Rut.4.10#23=L	עֵדִ֥ים	'e.Dim	[are] witnesses	{H5707}	HNcmpa			H5707			{H5707=עֵד=witness}					
+Rut.4.10#24=L	אַתֶּ֖ם	'a.Tem	you	{H0859D}	HPp2mp			H0859D			{H0859D=אַתֶּם=you(m.p.)}					
+Rut.4.10#25=L	הַ/יּֽוֹם\׃	hai./Yom	this/ day	H9009/{H3117L}\H9016	HTd/Ncmsa			H3117L			H9009=ה=the/{H3117L=יוֹם=: today»day:6_today;_now}\H9016=׃=verseEnd					
+Rut.4.11#01=L	וַ/יֹּ֨אמְר֜וּ	va/i.Yo.me.Ru	and/ they said	H9001/{H0559}	Hc/Vqw3mp			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.11#02=L	כָּל\־	kol-	all	{H3605}\H9014	HNcmsc			H3605			{H3605=כֹּל=all}\H9014=־=link					
+Rut.4.11#03=L	הָ/עָ֧ם	ha./'Am	the/ people	H9009/{H5971A}	HTd/Ncmsa			H5971A			H9009=ה=the/{H5971A=עַם=: people»people:1_people;_nation}					
+Rut.4.11#04=L	אֲשֶׁר\־	'a.Sher-	which	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.4.11#05=L	בַּ/שַּׁ֛עַר	ba./Sha.'ar	[was] at the/ gate	H9003/{H8179G}	HRd/Ncmsa			H8179G			H9003=ב=in/{H8179G=שַׁ֫עַר=: gate»gate:1_gate}					
+Rut.4.11#06=L	וְ/הַ/זְּקֵנִ֖ים	ve./ha./ze.ke.Nim	and/ the/ elders	H9002/H9009/{H2205G}	HC/Td/Aampa			H2205G			H9002=ו=and/H9009=ה=the/{H2205G=זָקֵן=: elder»old:2_elder;_leader}					
+Rut.4.11#07=L	עֵדִ֑ים	'e.Dim	[we are] witnesses	{H5707}	HNcmpa			H5707			{H5707=עֵד=witness}					
+Rut.4.11#08=L	יִתֵּן֩	yi.Ten	may he make	{H5414I}	HVqi3ms			H5414I			{H5414I=נָתַן=: make»to give:3_make}					
+Rut.4.11#09=L	יְהוָ֨ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.4.11#10=L	אֶֽת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.11#11=L	הָ/אִשָּׁ֜ה	ha./'i.Shah	the/ woman	H9009/{H0802G}	HTd/Ncfsa			H0802G			H9009=ה=the/{H0802G=אִשָּׁה=: woman»woman:1_woman}					
+Rut.4.11#12=L	הַ/בָּאָ֣ה	ha./ba.'Ah	who/ is about to come	H9009/{H0935G}	HTd/Vqrfsa			H0935G			H9009=ה=the/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.4.11#13=L	אֶל\־	'el-	into	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.4.11#14=L	בֵּיתֶ֗/ךָ	bei.Te./kha	house/ your	{H1004M}/H9021	HNcmsc/Sp2ms			H1004M_A			{H1004M=בַּ֫יִת=: home»house:2_household}/H9021=Ps2m=your					
+Rut.4.11#15=L	כְּ/רָחֵ֤ל\׀	ke./ra.Chel	like/ Rachel	H9004/{H7354}\H9015	HR/Npf			H7354			H9004=כ=like/{H7354=רָחֵל=Rachel»Rachel@Gen.29.6-Mat}\H9015=׀=separate					
+Rut.4.11#16=L	וּ/כְ/לֵאָה֙	u./khe./le.'Ah	and/ like/ Leah	H9002/H9004/{H3812}	HC/R/Npf			H3812			H9002=ו=and/H9004=כ=like/{H3812=לֵאָה=Leah»Leah@Gen.29.16-Rut}					
+Rut.4.11#17=L	אֲשֶׁ֨ר	'a.Sher	who	{H0834A}	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}					
+Rut.4.11#18=L	בָּנ֤וּ	ba.Nu	they built	{H1129}	HVqp3cp			H1129			{H1129=בָּנָה=to build}					
+Rut.4.11#19=L	שְׁתֵּי/הֶם֙	she.tei./Hem	[the] two of/ them	{H8147}/H9028	HNcfdc/Sp3mp			H8147			{H8147=שְׁנַ֫יִם=two}/H9028=Pp3m=their					
+Rut.4.11#20=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_B			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.11#21=L	בֵּ֣ית	beit	[the] house of	{H1004M}	HNcmsc			H1004M_B			{H1004M=בַּ֫יִת=: home»house:2_household}					
+Rut.4.11#22=L	יִשְׂרָאֵ֔ל	Yis.ra.'El	Israel	{H3478}	HNpl			H3478			{H3478=יִשְׂרָאֵל=Israel»Israel@Gen.25.26-Rev}					
+Rut.4.11#23=L	וַ/עֲשֵׂה\־	va./'a.seh-	and/ make	H9002/{H6213A}\H9014	HC/Vqv2ms			H6213A			H9002=ו=and/{H6213A=עָשָׂה=: do»to make:2_do;_perform}\H9014=־=link					
+Rut.4.11#24=L	חַ֣יִל	Cha.yil	wealth	{H2428I}	HNcmsa			H2428I			{H2428I=חַ֫יִל=: worthy»strength:4_worthy}					
+Rut.4.11#25=L	בְּ/אֶפְרָ֔תָה	be./'ef.Ra.tah	in/ Ephrathah	H9003/{H0672H}	HR/Npf			H0672H			H9003=ב=in/{H0672H=אֶפְרָ֫תָה=Ephrath»Bethlehem@Gen.35.16-Jhn}					
+Rut.4.11#26=L	וּ/קְרָא\־	u./ke.ra'-	and/ proclaim	H9002/{H7121H}\H9014	HC/Vqv2ms			H7121H			H9002=ו=and/{H7121H=קָרָא=: call_by»to call:2_call_by;_name}\H9014=־=link					
+Rut.4.11#27=L	שֵׁ֖ם	shem	a name	{H8034}	HNcmsa			H8034			{H8034=שֵׁם=name}					
+Rut.4.11#28=L	בְּ/בֵ֥ית	be./Veit	in/ Beth-	H9003/{H1035G}+	HR/Npl			H1035G_A			H9003=ב=in/{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}+					
+Rut.4.11#29=L	לָֽחֶם\׃	La.chem	-lehem	{H1035G}\H9016	HNpl			H1035G_b			{H1035G=בֵּית לֶ֫חֶם=Bethlehem»Bethlehem@Gen.35.16-Jhn}\H9016=׃=verseEnd					
+Rut.4.12#01=L	וִ/יהִ֤י	vi./Hi	so/ may it be	H9002/{H1961}	HC/Vqj3ms			H1961			H9002=ו=and/{H1961=הָיָה=to be}					
+Rut.4.12#02=L	בֵֽיתְ/ךָ֙	vei.te./Kha	household/ your	{H1004M}/H9021	HNcmsc/Sp2ms			H1004M_A			{H1004M=בַּ֫יִת=: home»house:2_household}/H9021=Ps2m=your					
+Rut.4.12#03=L	כְּ/בֵ֣ית	ke./Veit	like/ [the] household of	H9004/{H1004M}	HR/Ncmsc			H1004M_B			H9004=כ=like/{H1004M=בַּ֫יִת=: home»house:2_household}					
+Rut.4.12#04=L	פֶּ֔רֶץ	Pe.retz	Perez	{H6557}	HNpm			H6557			{H6557=פֶּ֫רֶץ=Perez»Perez@Gen.38.29-Luk}					
+Rut.4.12#05=L	אֲשֶׁר\־	'a.Sher-	whom	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.4.12#06=L	יָלְדָ֥ה	Yal.dah	she bore	{H3205}	HVqp3fs			H3205			{H3205=יָלַד=to beget}					
+Rut.4.12#07=L	תָמָ֖ר	ta.Mar	Tamar	{H8559G}	HNpf			H8559G			{H8559G=תָּמָר=Tamar»Tamar@Gen.38.6-Mat}					
+Rut.4.12#08=L	לִֽ/יהוּדָ֑ה	li./hu.Dah	to/ Judah	H9005/{H3063G}	HR/Npl			H3063G			H9005=ל=to/{H3063G=יְהוּדָה=Judah»Judah@Gen.29.35-Rev}					
+Rut.4.12#09=L	מִן\־	min-	from	{H4480A}\H9014	HR			H4480A_A			{H4480A=מִן־=from}\H9014=־=link					
+Rut.4.12#10=L	הַ/זֶּ֗רַע	ha./Ze.ra'	the/ offspring	H9009/{H2233H}	HTd/Ncmsa			H2233H			H9009=ה=the/{H2233H=זֶ֫רַע=: children»seed:2_children;_descendants}					
+Rut.4.12#11=L	אֲשֶׁ֨ר	'a.Sher	which	{H0834A}	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}					
+Rut.4.12#12=L	יִתֵּ֤ן	yi.Ten	he will give	{H5414G}	HVqi3ms			H5414G			{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}					
+Rut.4.12#13=L	יְהוָה֙	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.4.12#14=L	לְ/ךָ֔	le./Kha	to <the>/ you	H9005/{H9031}	HRd/Sp2ms			H9031			H9005=ל=to/{H9031=Os2m=you}					
+Rut.4.12#15=L	מִן\־	min-	from	{H4480A}\H9014	HR			H4480A_B			{H4480A=מִן־=from}\H9014=־=link					
+Rut.4.12#16=L	הַֽ/נַּעֲרָ֖ה	ha./na.'a.Rah	the/ young woman	H9009/{H5291}	HTd/Ncfsa			H5291			H9009=ה=the/{H5291=נַעֲרָה=maiden}					
+Rut.4.12#17=L	הַ/זֹּֽאת\׃	ha./Zot	<the>/ this	H9009/{H2063}\H9016	HTd/Tm			H2063			H9009=ה=the/{H2063=זֹאת=this}\H9016=׃=verseEnd					
+Rut.4.13#01=L	וַ/יִּקַּ֨ח	va/i.yi.Kach	and/ he took	H9001/{H3947G}	Hc/Vqw3ms			H3947G			H9001=ו=&/{H3947G=לָקַח=: take»to take:1_take}					
+Rut.4.13#02=L	בֹּ֤עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.13#03=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.13#04=L	רוּת֙	rut	Ruth	{H7327}	HNpf			H7327			{H7327=רוּת=Ruth»Ruth@Rut.1.4-Mat}					
+Rut.4.13#05=L	וַ/תְּהִי\־	va./te.hi-	and/ she became	H9001/{H1961}\H9014	Hc/Vqw3fs			H1961			H9001=ו=&/{H1961=הָיָה=to be}\H9014=־=link					
+Rut.4.13#06=L	ל֣/וֹ	l/o	of/ him	H9005/{H9033}	HRd/Sp3ms			H9033			H9005=ל=to/{H9033=Os3m=him}					
+Rut.4.13#07=L	לְ/אִשָּׁ֔ה	le./'i.Shah	<into>/ a wife	H9005/{H0802H}	HR/Ncfsa			H0802H			H9005=ל=to/{H0802H=אִשָּׁה=: wife»woman:2_wife;_widow}					
+Rut.4.13#08=L	וַ/יָּבֹ֖א	va/i.ya.Vo'	and/ he went	H9001/{H0935G}	Hc/Vqw3ms			H0935G			H9001=ו=&/{H0935G=בּוֹא=: come»to come (in):1_come;_go_in}					
+Rut.4.13#09=L	אֵלֶ֑י/הָ	'e.Lei./ha	into/ her	{H0413}/H9034	HRd/Sp3fs			H0413			{H0413=אֶל=to(wards)}/H9034=Os3f=her					
+Rut.4.13#10=L	וַ/יִּתֵּ֨ן	va/i.yi.Ten	and/ he gave	H9001/{H5414G}	Hc/Vqw3ms			H5414G			H9001=ו=&/{H5414G=נָתַן=: give»to give:1_give;_deliver;_send;_produce}					
+Rut.4.13#11=L	יְהוָ֥ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.4.13#12=L	לָ֛/הּ	la/h	to <the>/ her	H9005/{H9034}	HRd/Sp3fs			H9034			H9005=ל=to/{H9034=Os3f=her}					
+Rut.4.13#13=L	הֵרָי֖וֹן	he.ra.Yon	conception	{H2032}	HNcmsa			H2032			{H2032=הֵרָיוֹן=conception}					
+Rut.4.13#14=L	וַ/תֵּ֥לֶד	va./Te.led	and/ she bore	H9001/{H3205}	Hc/Vqw3fs			H3205			H9001=ו=&/{H3205=יָלַד=to beget}					
+Rut.4.13#15=L	בֵּֽן\׃	Ben	a son	{H1121A}\H9016	HNcmsa			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}\H9016=׃=verseEnd					
+Rut.4.14#01=L	וַ/תֹּאמַ֤רְנָה	va./to.Mar.nah	and/ they said	H9001/{H0559}	Hc/Vqw3fp			H0559			H9001=ו=&/{H0559=אָמַר=to say}					
+Rut.4.14#02=L	הַ/נָּשִׁים֙	ha./na.Shim	the/ women	H9009/{H0802G}	HTd/Ncmpa			H0802G			H9009=ה=the/{H0802G=אִשָּׁה=: woman»woman:1_woman}					
+Rut.4.14#03=L	אֶֽל\־	'el-	to	{H0413}\H9014	HR			H0413			{H0413=אֶל=to(wards)}\H9014=־=link					
+Rut.4.14#04=L	נָעֳמִ֔י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.4.14#05=L	בָּר֣וּךְ	ba.Rukh	[be] blessed	{H1288}	HVqsmsa			H1288			{H1288=בָּרַךְ=to bless}					
+Rut.4.14#06=L	יְהוָ֔ה	Yah.weh	Yahweh	{H3068G}	HNpt			H3068G			{H3068G=יהוה=LORD»LORD@Gen.1.1-Heb}					
+Rut.4.14#07=L	אֲ֠שֶׁר	'a.Sher	who	{H0834A}	HTr			H0834A			{H0834A=אֲשֶׁר=which}					
+Rut.4.14#08=L	לֹ֣א	lo'	not	{H3808}	HTn			H3808			{H3808=לֹא=not}					
+Rut.4.14#09=L	הִשְׁבִּ֥ית	hish.Bit	he has caused to cease	{H7673A}	HVhp3ms			H7673A			{H7673A=שָׁבַת=to cease}					
+Rut.4.14#10=L	לָ֛/ךְ	la/kh	to <the>/ you	H9005/{H9032}	HRd/Sp2fs			H9032			H9005=ל=to/{H9032=Os2f=you}					
+Rut.4.14#11=L	גֹּאֵ֖ל	go.'El	a kinsman-redeemer	{H1350A}	HVqrmsa			H1350A			{H1350A=גָּאַל=: redeem»to redeem:1_redeem}					
+Rut.4.14#12=L	הַ/יּ֑וֹם	hai./Yom	this/ day	H9009/{H3117L}	HTd/Ncmsa			H3117L			H9009=ה=the/{H3117L=יוֹם=: today»day:6_today;_now}					
+Rut.4.14#13=L	וְ/יִקָּרֵ֥א	ve./yi.ka.Re'	and/ may it be proclaimed	H9002/{H7121H}	HC/VNu3ms			H7121H			H9002=ו=and/{H7121H=קָרָא=: call_by»to call:2_call_by;_name}					
+Rut.4.14#14=L	שְׁמ֖/וֹ	she.M/o	name/ his	{H8034}/H9023	HNcmsc/Sp3ms			H8034			{H8034=שֵׁם=name}/H9023=Ps3m=his					
+Rut.4.14#15=L	בְּ/יִשְׂרָאֵֽל\׃	be./Yis.ra.'El	in/ Israel	H9003/{H3478}\H9016	HR/Npl			H3478			H9003=ב=in/{H3478=יִשְׂרָאֵל=Israel»Israel@Gen.25.26-Rev}\H9016=׃=verseEnd					
+Rut.4.15#01=L	וְ/הָ֤יָה	ve./Ha.yah	and/ he will become	H9001/{H1961}	Hc/Vqq3ms			H1961			H9001=ו=&/{H1961=הָיָה=to be}					
+Rut.4.15#02=L	לָ/ךְ֙	lo/Kh	for <the>/ you	H9005/{H9032}	HRd/Sp2fs			H9032_A			H9005=ל=to/{H9032=Os2f=you}					
+Rut.4.15#03=L	לְ/מֵשִׁ֣יב	le./me.Shiv	<into>/ [one who] restores	H9005/{H7725H}	HR/Vhrmsc			H7725H			H9005=ל=to/{H7725H=שׁוּב=: rescue»to return:2_rescue;_restore}					
+Rut.4.15#04=L	נֶ֔פֶשׁ	Ne.fesh	life	{H5315H}	HNcfsa			H5315H			{H5315H=נֶ֫פֶשׁ=: life»soul:2_life;_breath}					
+Rut.4.15#05=L	וּ/לְ/כַלְכֵּ֖ל	u./le./khal.Kel	and/ to/ sustain	H9002/H9005/{H3557}	HC/R/Vpcc			H3557			H9002=ו=and/H9005=ל=to/{H3557=כּוּל=to sustain}					
+Rut.4.15#06=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.15#07=L	שֵׂיבָתֵ֑/ךְ	sei.va.Te/kh	old age/ your	{H7872}/H9022	HNcfsc/Sp2fs			H7872			{H7872=שֵׂיבָה=greyheaded}/H9022=Ps2f=your					
+Rut.4.15#08=L	כִּ֣י	ki	for	{H3588A}	HTc			H3588A			{H3588A=כִּי=for}					
+Rut.4.15#09=L	כַלָּתֵ֤/ךְ	kha.la.Te/kh	daughter-in-law/ your	{H3618H}/H9022	HNcfsc/Sp2fs			H3618H			{H3618H=כַּלָּה=: daughter-in-law»daughter-in-law:2_daughter-in-law}/H9022=Ps2f=your					
+Rut.4.15#10=L	אֲֽשֶׁר\־	'asher-	who	{H0834A}\H9014	HTr			H0834A_A			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.4.15#11=L	אֲהֵבַ֙תֶ/ךְ֙	'a.he.Va.te/kh	she loves/ you	{H0157G}/H9032	HVqp3fs/Sp2fs			H0157G			{H0157G=אָהֵב=: lover»to love:1_lover}/H9032=Os2f=you					
+Rut.4.15#12=L	יְלָדַ֔תּ/וּ	ye.la.Da.t/u	she has given birth to/ him	{H3205}/H9033	HVqp3fs/Sp3ms			H3205			{H3205=יָלַד=to beget}/H9033=Os3m=him					
+Rut.4.15#13=L	אֲשֶׁר\־	'a.Sher-	who	{H0834A}\H9014	HTr			H0834A_B			{H0834A=אֲשֶׁר=which}\H9014=־=link					
+Rut.4.15#14=L	הִיא֙	hi'	she	{H1931}	HPp3fs			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.4.15#15=L	ט֣וֹבָה	Toah	[is] good	{H2896A}	HAafsa			H2896A			{H2896A=טוֹב=pleasant}					
+Rut.4.15#16=L	לָ֔/ךְ	La/kh	to <the>/ you	H9005/{H9032}	HRd/Sp2fs			H9032_B			H9005=ל=to/{H9032=Os2f=you}					
+Rut.4.15#17=L	מִ/שִּׁבְעָ֖ה	mi./shiv.'Ah	more than/ seven	H9006/{H7651}	HR/Ncbsa			H7651			H9006=מ=from/{H7651=שֶׁ֫בַע=seven}					
+Rut.4.15#18=L	בָּנִֽים\׃	ba.Nim	sons	{H1121A}\H9016	HNcmpa			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}\H9016=׃=verseEnd					
+Rut.4.16#01=L	וַ/תִּקַּ֨ח	va./ti.Kach	and/ she took	H9001/{H3947G}	Hc/Vqw3fs			H3947G			H9001=ו=&/{H3947G=לָקַח=: take»to take:1_take}					
+Rut.4.16#02=L	נָעֳמִ֤י	no.'o.Mi	Naomi	{H5281}	HNpf			H5281			{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.4.16#03=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.16#04=L	הַ/יֶּ֙לֶד֙	hai./Ye.led	the/ child	H9009/{H3206}	HTd/Ncmsa			H3206			H9009=ה=the/{H3206=יֶ֫לֶד=youth}					
+Rut.4.16#05=L	וַ/תְּשִׁתֵ֣/הוּ	va./te.shi.Te./hu	and/ she placed/ him	H9001/{H7896H}/H9033	Hc/Vqw3fs/Sp3ms			H7896H			H9001=ו=&/{H7896H=שִׁית=: put»to set:2_put;_bring}/H9033=Os3m=him					
+Rut.4.16#06=L	בְ/חֵיקָ֔/הּ	ve./chei.Ka/h	on/ bosom/ her	H9003/{H2436G}/H9024	HR/Ncmsc/Sp3fs			H2436G			H9003=ב=in/{H2436G=חֵיק=: embrace»bosom:1_embrace;_chest}/H9024=Ps3f=her					
+Rut.4.16#07=L	וַ/תְּהִי\־	va./te.hi-	and/ she became	H9001/{H1961}\H9014	Hc/Vqw3fs			H1961			H9001=ו=&/{H1961=הָיָה=to be}\H9014=־=link					
+Rut.4.16#08=L	ל֖/וֹ	l/o	of/ him	H9005/{H9033}	HRd/Sp3ms			H9033			H9005=ל=to/{H9033=Os3m=him}					
+Rut.4.16#09=L	לְ/אֹמֶֽנֶת\׃	le./'o.Me.net	<into>/ a nurse	H9005/{H0539}\H9016	HR/Vqrfsa			H0539			H9005=ל=to/{H0539=אָמַן=be faithful}\H9016=׃=verseEnd					
+Rut.4.17#01=L	וַ/תִּקְרֶאנָה֩	va./tik.re.Nah	and/ they called	H9001/{H7121H}	Hc/Vqw3fp			H7121H_A			H9001=ו=&/{H7121H=קָרָא=: call_by»to call:2_call_by;_name}					
+Rut.4.17#02=L	ל֨/וֹ	l/o	<to> <the>/ him	H9005/{H9033}	HRd/Sp3ms			H9033			H9005=ל=to/{H9033=Os3m=him}					
+Rut.4.17#03=L	הַ/שְּׁכֵנ֥וֹת	ha./she.khe.Not	the/ [female] neighbors	H9009/{H7934}	HTd/Ncfpa			H7934			H9009=ה=the/{H7934=שָׁכֵן=neighboring}					
+Rut.4.17#04=L	שֵׁם֙	shem	a name	{H8034}	HNcmsa			H8034_A			{H8034=שֵׁם=name}					
+Rut.4.17#05=L	לֵ/אמֹ֔ר	le./Mor	<to>/ saying	H9005/{H0559}	HR/Vqcc			H0559			H9005=ל=to/{H0559=אָמַר=to say}					
+Rut.4.17#06=L	יֻלַּד\־	yu.lad-	he has been born	{H3205}\H9014	HVPp3ms			H3205			{H3205=יָלַד=to beget}\H9014=־=link					
+Rut.4.17#07=L	בֵּ֖ן	ben	a son	{H1121A}	HNcmsa			H1121A			{H1121A=בֵּן=: child»son:1_child;_son}					
+Rut.4.17#08=L	לְ/נָעֳמִ֑י	le./no.'o.Mi	to/ Naomi	H9005/{H5281}	HR/Npf			H5281			H9005=ל=to/{H5281=נׇעֳמִי=Naomi»Naomi@Rut.1.2-}					
+Rut.4.17#09=L	וַ/תִּקְרֶ֤אנָֽה	va./tik.Re.nah	and/ they called	H9001/{H7121H}	Hc/Vqw3fp			H7121H_B			H9001=ו=&/{H7121H=קָרָא=: call_by»to call:2_call_by;_name}					
+Rut.4.17#10=L	שְׁמ/וֹ֙	she.M/o	name/ his	{H8034}/H9023	HNcmsc/Sp3ms			H8034_B			{H8034=שֵׁם=name}/H9023=Ps3m=his					
+Rut.4.17#11=L	עוֹבֵ֔ד	o.Ved	Obed	{H5744G}	HNpm			H5744G			{H5744G=עוֹבֵד=Obed»Obed@Rut.4.17-Luk}					
+Rut.4.17#12=L	ה֥וּא	hu'	he	{H1931}	HPp3ms			H1931			{H1931=הוּא=he;_she;_it}					
+Rut.4.17#13=L	אֲבִי\־	'a.vi-	[was] [the] father of	{H0001G}\H9014	HNcmsc			H0001G_A			{H0001G=אָב=father}\H9014=־=link					
+Rut.4.17#14=L	יִשַׁ֖י	yi.Shai	Jesse	{H3448}	HNpm			H3448			{H3448=יִשַׁי=Jesse»Jesse@Rut.4.17-Rom}					
+Rut.4.17#15=L	אֲבִ֥י	'a.Vi	[the] father of	{H0001G}	HNcmsc			H0001G_B			{H0001G=אָב=father}					
+Rut.4.17#16=L	דָוִֽד\׃\ \פ	da.Vid	David	{H1732}\H9016\ \H9017	HNpm			H1732			{H1732=דָּוִד=David»David@Rut.4.17-Rev}\H9016=׃=verseEnd\ \H9017=פ=para					
+Rut.4.18#01=L	וְ/אֵ֙לֶּה֙	ve./'E.leh	and/ these	H9002/{H0428}	HC/Tm			H0428			H9002=ו=and/{H0428=אֵ֫לֶּה=these}					
+Rut.4.18#02=L	תּוֹלְד֣וֹת	tol.Dot	[are] [the] descendants of	{H8435}	HNcfpc			H8435			{H8435=תּוֹלֵדוֹת=generation}					
+Rut.4.18#03=L	פָּ֔רֶץ	Pa.retz	Perez	{H6557}	HNpm			H6557_A			{H6557=פֶּ֫רֶץ=Perez»Perez@Gen.38.29-Luk}					
+Rut.4.18#04=L	פֶּ֖רֶץ	Pe.retz	Perez	{H6557}	HNpm			H6557_B			{H6557=פֶּ֫רֶץ=Perez»Perez@Gen.38.29-Luk}					
+Rut.4.18#05=L	הוֹלִ֥יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205			{H3205=יָלַד=to beget}					
+Rut.4.18#06=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.18#07=L	חֶצְרֽוֹן\׃	chetz.Ron	Hezron	{H2696H}\H9016	HNpm			H2696H			{H2696H=חֶצְרוֹן=Hezron»Hezron@Gen.46.12-Luk}\H9016=׃=verseEnd					
+Rut.4.19#01=L	וְ/חֶצְרוֹן֙	ve./chetz.rOn	and/ Hezron	H9002/{H2696H}	HC/Npm			H2696H			H9002=ו=and/{H2696H=חֶצְרוֹן=Hezron»Hezron@Gen.46.12-Luk}					
+Rut.4.19#02=L	הוֹלִ֣יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_A			{H3205=יָלַד=to beget}					
+Rut.4.19#03=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.19#04=L	רָ֔ם	Ram	Ram	{H7410G}	HNpm			H7410G_A			{H7410G=רָם=Ram»Ram@Rut.4.19-Luk}					
+Rut.4.19#05=L	וְ/רָ֖ם	ve./Ram	and/ Ram	H9002/{H7410G}	HC/Npm			H7410G_B			H9002=ו=and/{H7410G=רָם=Ram»Ram@Rut.4.19-Luk}					
+Rut.4.19#06=L	הוֹלִ֥יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_B			{H3205=יָלַד=to beget}					
+Rut.4.19#07=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_B			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.19#08=L	עַמִּֽינָדָֽב\׃	'a.Mi.na.Dav	Amminadab	{H5992G}\H9016	HNpm			H5992G			{H5992G=עַמִּינָדָב=Amminadab»Amminadab@Exo.6.23-Luk}\H9016=׃=verseEnd					
+Rut.4.20#01=L	וְ/עַמִּֽינָדָב֙	ve./'a.mi.na.Dav	and/ Amminadab	H9002/{H5992G}	HC/Npm			H5992G			H9002=ו=and/{H5992G=עַמִּינָדָב=Amminadab»Amminadab@Exo.6.23-Luk}					
+Rut.4.20#02=L	הוֹלִ֣יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_A			{H3205=יָלַד=to beget}					
+Rut.4.20#03=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.20#04=L	נַחְשׁ֔וֹן	nach.Shon	Nahshon	{H5177}	HNpm			H5177_A			{H5177=נַחְשׁוֹן=Nahshon»Nahshon@Exo.6.23-Luk}					
+Rut.4.20#05=L	וְ/נַחְשׁ֖וֹן	ve./nach.Shon	and/ Nahshon	H9002/{H5177}	HC/Npm			H5177_B			H9002=ו=and/{H5177=נַחְשׁוֹן=Nahshon»Nahshon@Exo.6.23-Luk}					
+Rut.4.20#06=L	הוֹלִ֥יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_B			{H3205=יָלַד=to beget}					
+Rut.4.20#07=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_B			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.20#08=L	שַׂלְמָֽה\׃	sal.Mah	Salmah	{H8009}\H9016	HNpm			H8009			{H8009=שַׂלְמָה=Salmon»Salmon@Rut.4.20-Luk}\H9016=׃=verseEnd					
+Rut.4.21#01=L	וְ/שַׂלְמוֹן֙	ve./sal.mOn	and/ Salmon	H9002/{H8012}	HC/Npm			H8012			H9002=ו=and/{H8012=שַׂלְמוֹן=Salmon»Salmon@Rut.4.20-Luk}					
+Rut.4.21#02=L	הוֹלִ֣יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_A			{H3205=יָלַד=to beget}					
+Rut.4.21#03=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.21#04=L	בֹּ֔עַז	Bo.'az	Boaz	{H1162G}	HNpm			H1162G_A			{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.21#05=L	וּ/בֹ֖עַז	u./Vo.'az	and/ Boaz	H9002/{H1162G}	HC/Npm			H1162G_B			H9002=ו=and/{H1162G=בֹּ֫עַז=Boaz»Boaz@Rut.2.1-Luk}					
+Rut.4.21#06=L	הוֹלִ֥יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_B			{H3205=יָלַד=to beget}					
+Rut.4.21#07=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_B			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.21#08=L	עוֹבֵֽד\׃	o.Ved	Obed	{H5744G}\H9016	HNpm			H5744G			{H5744G=עוֹבֵד=Obed»Obed@Rut.4.17-Luk}\H9016=׃=verseEnd					
+Rut.4.22#01=L	וְ/עֹבֵד֙	ve./'o.Ved	and/ Obed	H9002/{H5744G}	HC/Npm			H5744G			H9002=ו=and/{H5744G=עוֹבֵד=Obed»Obed@Rut.4.17-Luk}					
+Rut.4.22#02=L	הוֹלִ֣יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_A			{H3205=יָלַד=to beget}					
+Rut.4.22#03=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_A			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.22#04=L	יִשָׁ֔י	yi.Shai	Jesse	{H3448}	HNpm			H3448_A			{H3448=יִשַׁי=Jesse»Jesse@Rut.4.17-Rom}					
+Rut.4.22#05=L	וְ/יִשַׁ֖י	ve./yi.Shai	and/ Jesse	H9002/{H3448}	HC/Npm			H3448_B			H9002=ו=and/{H3448=יִשַׁי=Jesse»Jesse@Rut.4.17-Rom}					
+Rut.4.22#06=L	הוֹלִ֥יד	ho.Lid	he fathered	{H3205}	HVhp3ms			H3205_B			{H3205=יָלַד=to beget}					
+Rut.4.22#07=L	אֶת\־	'et-	<obj.>	{H0853}\H9014	HTo			H0853_B			{H0853=אֵת=[Obj.]}\H9014=־=link					
+Rut.4.22#08=L	דָּוִֽד\׃	da.Vid	David	{H1732}\H9016	HNpm			H1732			{H1732=דָּוִד=David»David@Rut.4.17-Rev}\H9016=׃=verseEnd					

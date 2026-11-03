@@ -39,6 +39,7 @@ the Hebrew (Leningrad) numbering.
 | `lookup_strong` | The lexicon entry for one Hebrew Strong's number, or a menu of its senses.                   |
 | `get_names`     | The proper names (persons, places, divine names) in one verse, with kind and Hebrew form.          |
 | `find_occurrences` | Every occurrence of a Strong's number in a book, chapter or the whole Old Testament, with the word form at each. |
+| `search_lexicon` | Finds Hebrew lexicon entries by an English word in the gloss or meaning, to get a Strong's number. |
 
 Example calls (tool arguments):
 

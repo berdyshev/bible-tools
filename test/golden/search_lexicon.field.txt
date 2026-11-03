@@ -1,0 +1,22 @@
+20+ lexicon entries for "field"
+H1250B  «field»  בָּר
+H1251  «field»  בַּר
+H3010  «field»  יָגֵב
+H7704M  «field»  שָׂדַי
+H7709  «field»  שְׁדֵמָה
+H8309  «field»  שְׁרֵמָה
+H4750  «cucumber field»  מִקְשָׁה
+H7704H  «Field (of the Launderer)»  שָׂדֶה
+H7704G  «land: country»  שָׂדֶה
+H7704B  «land: soil»  שָׂדֶה
+H7704I  «land: wildlife»  שָׂדֶה
+H0059G  «Abel»  אָבֵל
+H0357  «Aijalon»  אַיָּלוֹן
+H0776G  «land: country/planet»  אֶ֫רֶץ
+H1908G  «Hadad»  הֲדַד
+H1908H  «Hadad»  הֲדַד
+H1908I  «Hadad»  הֲדַד
+H2521  «Helkath-hazzurim»  חֶלְקַת הַצֻּרִים
+H4278  «range»  מֶחְקָר
+H6085G  «Ephron»  עֶפְרוֹן
+More entries match; raise limit or use a more specific word.

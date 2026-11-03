@@ -226,18 +226,27 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
       const needle = text.trim().toLowerCase();
       if (needle === '') return [];
       const prefix = language === 'hebrew' ? 'H%' : language === 'greek' ? 'G%' : '%';
-      const word = new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(needle)}(?![\\p{L}\\p{N}])`, 'u');
+      const pattern = `(?<![\\p{L}\\p{N}])${escapeRegExp(needle)}(?![\\p{L}\\p{N}])`;
+      const word = new RegExp(pattern, 'u');
+      const words = new RegExp(pattern, 'gu');
       const rank = (e: LexiconEntry): number => {
         const gloss = e.gloss.toLowerCase();
         if (word.test(gloss)) return 0;
         if (gloss.includes(needle)) return 1;
         return word.test(e.meaning.toLowerCase()) ? 2 : 3;
       };
-      return lexiconSearch(prefix, needle, needle)
-        .map((entry) => ({ entry, rank: rank(entry) }))
-        .toSorted((a, b) => a.rank - b.rank)
-        .slice(0, limit)
-        .map((r) => r.entry);
+      return (
+        lexiconSearch(prefix, needle, needle)
+          .map((entry) => ({
+            entry,
+            rank: rank(entry),
+            mentions: entry.meaning.toLowerCase().match(words)?.length ?? 0,
+          }))
+          // Within a rank, entries that dwell on the word beat those that mention it once.
+          .toSorted((a, b) => (a.rank === b.rank ? b.mentions - a.mentions : a.rank - b.rank))
+          .slice(0, limit)
+          .map((r) => r.entry)
+      );
     },
     tipnr: (dstrong) => tipnrByKey(dstrong)[0] ?? null,
   };

@@ -40,6 +40,7 @@ void test('the tools are listed with read-only annotations', async () => {
     'get_names',
     'get_verse',
     'lookup_strong',
+    'search_lexicon',
   ]);
   for (const t of tools) {
     assert.equal(t.annotations?.readOnlyHint, true, t.name);
@@ -66,6 +67,8 @@ void test('successful calls are not errors and carry structured content where de
     { name: 'lookup_strong', arguments: { strong: 'H7704G' } },
     { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'Ruth' } },
     { name: 'find_occurrences', arguments: { strong: 'H7704' } },
+    { name: 'search_lexicon', arguments: { query: 'field' } },
+    { name: 'search_lexicon', arguments: { query: 'field', language: 'greek' } },
   ];
   for (const call of calls) {
     const result = await client.callTool(call);

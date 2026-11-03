@@ -5,6 +5,8 @@ import { normalizeBook } from '../../src/domain/books.ts';
 import type { VerseRef } from '../../src/domain/ref.ts';
 import {
   MAX_CHARS,
+  descriptionParts,
+  outputSchema,
   findOccurrences,
   formatOccurrences,
   groupByVerse,
@@ -156,4 +158,57 @@ void test('the text is capped at MAX_CHARS by dropping verses and says how to co
   const shown = text.split('\n')[1]?.split(', ').length ?? 0;
   const omitted = Number(/Truncated — (\d+)/.exec(text)?.[1]);
   assert.equal(shown + omitted, 300);
+});
+
+void test('the tool is named, described and documents every input', () => {
+  assert.equal(findOccurrences.name, 'find_occurrences');
+  assert.equal(findOccurrences.title, 'Occurrences of a Hebrew word');
+  for (const part of Object.values(descriptionParts)) assert.ok(part.length > 40, part);
+  for (const field of Object.values(findOccurrences.input.shape)) {
+    assert.ok((field.description ?? '').length > 20);
+  }
+});
+
+const accepts = (input: object) => findOccurrences.input.safeParse({ strong: 'H1', ...input }).success;
+
+void test('input bounds: strong is required and non-empty, limit is 1 to 500', () => {
+  assert.ok(!findOccurrences.input.safeParse({ strong: '' }).success);
+  assert.ok(accepts({ limit: 1 }) && accepts({ limit: 500 }));
+  assert.ok(!accepts({ limit: 0 }) && !accepts({ limit: 501 }) && !accepts({ limit: 2.5 }));
+});
+
+void test('a bare number reports each sense with its gloss and count', () => {
+  const rows = [
+    occ('Ruth', 1, 1, 'H7704B', 'a', 'א'),
+    occ('Ruth', 1, 2, 'H7704G', 'b', 'ב'),
+    occ('Ruth', 1, 2, 'H7704G', 'c', 'ג'),
+  ];
+  const repo = { ...createBibleRepo(fixtureDb()), occurrences: () => rows };
+  const result = findOccurrences.call({ strong: 'H7704' }, repo);
+  assert.deepEqual(outputSchema.parse(result.structuredContent).senses, [
+    { strong: 'H7704B', gloss: 'land: soil', count: 1 },
+    { strong: 'H7704G', gloss: 'land: country', count: 2 },
+  ]);
+  assert.match(
+    textOf(result),
+    /\nH7704B «land: soil»: 1 occurrence\nRuth 1:1 a — א\nH7704G «land: country»: 2 occurrences\n/,
+  );
+});
+
+void test('limit counts verses across senses and the continuation names the next chapter', () => {
+  const rows = [
+    occ('Ruth', 1, 1, 'H7704B', 'a', 'א'),
+    occ('Ruth', 2, 1, 'H7704B', 'b', 'ב'),
+    occ('Ruth', 3, 1, 'H7704G', 'c', 'ג'),
+    occ('Ruth', 4, 1, 'H7704G', 'd', 'ד'),
+  ];
+  const repo = { ...createBibleRepo(fixtureDb()), occurrences: () => rows };
+  const result = findOccurrences.call({ strong: 'H7704', limit: 3 }, repo);
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.deepEqual(
+    structured.occurrences.map((o) => o.ref),
+    ['Ruth 1:1', 'Ruth 2:1', 'Ruth 3:1'],
+  );
+  assert.equal(structured.truncated, true);
+  assert.match(textOf(result), /Truncated — 1 more verse; .*scope "Ruth 4"$/);
 });

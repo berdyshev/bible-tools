@@ -4,7 +4,8 @@ import { normalizeBook } from '../../src/domain/books.ts';
 import type { NameGroup, NameVerse } from '../../src/domain/names.ts';
 import { parsePassage, spanOf } from '../../src/domain/ref.ts';
 import type { Span, VerseRef } from '../../src/domain/ref.ts';
-import { description, formatNames, formatPassageNames } from '../../src/tools/get-names.ts';
+import { z } from 'zod/v4';
+import { description, formatNames, formatPassageNames, inputSchema } from '../../src/tools/get-names.ts';
 
 const book = normalizeBook('Ruth');
 assert.ok(book.ok);
@@ -124,4 +125,12 @@ void test('the description covers ranges, chapters and the cap', () => {
   assert.match(description, /Ruth 1:1-5/);
   assert.match(description, /2000 characters/);
   assert.match(description, /truncated — call get_names again with "Ruth 1:7-12"/);
+});
+
+void test('the ref description does not claim a verse cap', () => {
+  const refSchema = z.toJSONSchema(inputSchema).properties?.['ref'];
+  assert.ok(typeof refSchema === 'object');
+  assert.match(String(refSchema['description']), /no verse cap/);
+  assert.doesNotMatch(String(refSchema['description']), /up to \d+ verses/);
+  assert.match(String(refSchema['description']), /2000 characters/);
 });

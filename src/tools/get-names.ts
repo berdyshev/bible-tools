@@ -1,13 +1,24 @@
+import { z } from 'zod/v4';
 import { formatRef, formatSpan, parsePassage, spanOf, spanVerses } from '../domain/ref.ts';
 import type { Span, VerseRef } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
 import { groupNames, kindLabel, mergeNames } from '../domain/names.ts';
 import type { NameGroup, NameVerse, PassageName } from '../domain/names.ts';
 import type { BibleRepo } from '../data/repo.ts';
-import { inputSchema } from './get-verse.ts';
 import { MAX_CHARS, boundsIn, continuation, missingVerse, numberingLabel } from './passage.ts';
-import { defineTool, describeTool } from './shared.ts';
+import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
+
+export const inputSchema = z.object({
+  ref: z
+    .string()
+    .min(1)
+    .describe(
+      'English book name or OSIS id + a verse (`Ruth 1:2`), a verse range (`Ruth 1:1-5`; `Ruth 1:20-2:3` crosses chapters) ' +
+        `or a whole chapter (\`Ruth 1\`). There is no verse cap: a long passage is cut at about ${MAX_CHARS} characters with a hint for the next call.`,
+    ),
+  versification: versificationSchema,
+});
 
 export const descriptionParts: DescriptionParts = {
   what: "Lists the proper names of an Old Testament verse, verse range or chapter as identified in the Hebrew original (STEPBible morphology): persons, places, gentilics (e.g. Ephrathite) and divine names/titles, each with English name, Strong's number, kind, transliteration, word positions and Hebrew form. Multi-word names (Beth-lehem) are merged and repeated names are listed once, also across a passage.",

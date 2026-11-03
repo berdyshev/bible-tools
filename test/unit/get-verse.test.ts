@@ -71,7 +71,7 @@ const verseAt = (chapter: number, verse: number): VerseRef => ({ ...ref('eng'), 
 const spanOfText = (input: string): Span => {
   const passage = parsePassage(input);
   assert.ok(passage.ok);
-  const span = spanOf(passage.value, () => 40);
+  const span = spanOf(passage.value, () => ({ first: 1, last: 40 }));
   assert.ok(span.ok);
   return span.value;
 };

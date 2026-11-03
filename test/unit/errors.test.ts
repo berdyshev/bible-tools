@@ -25,7 +25,7 @@ const cases: readonly (readonly [string, InputError, string])[] = [
   ],
   [
     'verse_out_of_range',
-    { kind: 'verse_out_of_range', book: 'Ruth', chapter: 1, verse: 99, max: 22 },
+    { kind: 'verse_out_of_range', book: 'Ruth', chapter: 1, verse: 99, min: 1, max: 22 },
     'Ruth 1 has no verse 99. Use a verse from 1 to 22',
   ],
   [

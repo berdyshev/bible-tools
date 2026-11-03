@@ -12,6 +12,7 @@ export type InputError =
       readonly book: string;
       readonly chapter: number;
       readonly verse: number;
+      readonly min: number;
       readonly max: number;
     }
   | { readonly kind: 'invalid_range'; readonly input: string }
@@ -34,7 +35,7 @@ export const hint = (e: InputError): string => {
     case 'chapter_out_of_range':
       return `${e.book} has no chapter ${e.chapter}. Use a chapter from 1 to ${e.max}`;
     case 'verse_out_of_range':
-      return `${e.book} ${e.chapter} has no verse ${e.verse}. Use a verse from 1 to ${e.max}`;
+      return `${e.book} ${e.chapter} has no verse ${e.verse}. Use a verse from ${e.min} to ${e.max}`;
     case 'invalid_range':
       return `Range "${e.input}" ends before it starts. Use an ascending range, e.g. "Ruth 1:1-5"`;
     case 'range_not_supported':

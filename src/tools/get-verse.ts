@@ -3,7 +3,7 @@ import type { BibleRepo } from '../data/repo.ts';
 import { formatRef, formatSpan, parsePassage, spanOf, spanVerses } from '../domain/ref.ts';
 import type { Span, VerseRef } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
-import { MAX_CHARS, continuation, lastVerseIn } from './passage.ts';
+import { MAX_CHARS, boundsIn, continuation, missingVerse } from './passage.ts';
 import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
@@ -87,7 +87,7 @@ export const formatPassage = (span: Span, verses: Iterable<PassageVerse>): strin
 };
 
 function* versesWithWords(repo: BibleRepo, span: Span): Generator<PassageVerse> {
-  const last = lastVerseIn(repo, span.book, span.versification);
+  const last = boundsIn(repo, span.book, span.versification);
   for (const ref of spanVerses(span, last)) {
     const words = repo.verseWords(ref);
     if (words.length > 0) yield { ref, words };
@@ -103,19 +103,12 @@ export const getVerse = defineTool({
     const parsed = parsePassage(ref, versification ?? 'eng');
     if (!parsed.ok) return parsed;
     if (parsed.value.kind !== 'verse') {
-      const span = spanOf(parsed.value, lastVerseIn(repo, parsed.value.book, parsed.value.versification));
+      const span = spanOf(parsed.value, boundsIn(repo, parsed.value.book, parsed.value.versification));
       return span.ok ? ok({ text: formatPassage(span.value, versesWithWords(repo, span.value)) }) : span;
     }
     const words = repo.verseWords(parsed.value);
     if (words.length === 0) {
-      const { book, chapter, verse } = parsed.value;
-      return err({
-        kind: 'verse_out_of_range',
-        book: book.name,
-        chapter,
-        verse,
-        max: repo.lastVerse(parsed.value),
-      });
+      return err(missingVerse(repo, parsed.value));
     }
     return ok({ text: formatVerse(parsed.value, words) });
   },

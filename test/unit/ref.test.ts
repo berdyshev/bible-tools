@@ -11,7 +11,7 @@ import {
   spanOf,
   spanVerses,
 } from '../../src/domain/ref.ts';
-import type { Passage, Span, VerseRef } from '../../src/domain/ref.ts';
+import type { Passage, Span, VerseBounds, VerseRef } from '../../src/domain/ref.ts';
 
 void test('parses a plain reference', () => {
   const r = parseRef('Ruth 1:2');
@@ -230,7 +230,8 @@ void test('parsePassage reports an unknown book first and keeps malformed input'
 });
 
 // Ruth in the fixture: chapter 1 has 22 verses, chapter 2 has 23.
-const last = (chapter: number): number => ({ 1: 22, 2: 23 })[chapter] ?? 0;
+const last = (chapter: number): VerseBounds | null =>
+  ({ 1: { first: 1, last: 22 }, 2: { first: 1, last: 23 } })[chapter] ?? null;
 const span = (input: string): Span => {
   const r = spanOf(passage(input), last);
   assert.ok(r.ok, input);
@@ -257,7 +258,11 @@ void test('spanOf reports a verse beyond the chapter with the last verse', () =>
   ] as const) {
     const r = spanOf(passage(input), last);
     assert.ok(!r.ok, input);
-    assert.deepEqual(r.error, { kind: 'verse_out_of_range', book: 'Ruth', chapter, verse, max }, input);
+    assert.deepEqual(
+      r.error,
+      { kind: 'verse_out_of_range', book: 'Ruth', chapter, verse, min: 1, max },
+      input,
+    );
   }
   assert.ok(spanOf(passage('Ruth 1:22'), last).ok);
 });
@@ -297,7 +302,59 @@ void test('formatSpan writes the form the parser accepts', () => {
   assert.equal(formatSpan(span('Ruth 1:20-2:3')), 'Ruth 1:20-2:3');
   assert.equal(formatSpan(span('Ruth 1')), 'Ruth 1:1-22');
   const sam = passage('1 Samuel 3:1-2');
-  const samSpan = spanOf(sam, () => 21);
+  const samSpan = spanOf(sam, () => ({ first: 1, last: 21 }));
   assert.ok(samSpan.ok);
   assert.equal(formatSpan(samSpan.value), '1 Samuel 3:1-2');
+});
+
+// A psalm with a superscription: its chapter 3 runs from verse 0 to 8, chapter 4 from 1 to 9.
+const psalm = (chapter: number): VerseBounds | null =>
+  ({ 3: { first: 0, last: 8 }, 4: { first: 1, last: 9 } })[chapter] ?? null;
+
+void test('a chapter starts at its first verse, which is 0 with a superscription', () => {
+  const r = spanOf(passage('Psalms 3'), psalm);
+  assert.ok(r.ok);
+  assert.deepEqual(r.value.start, { chapter: 3, verse: 0 });
+  assert.deepEqual(r.value.end, { chapter: 3, verse: 8 });
+  assert.equal(formatSpan(r.value), 'Psalms 3:0-8');
+});
+
+void test('verse 0 is accepted only where the chapter has it', () => {
+  assert.ok(spanOf(passage('Psalms 3:0-2'), psalm).ok);
+  const r = spanOf(passage('Ruth 1:0-2'), last);
+  assert.ok(!r.ok);
+  assert.deepEqual(r.error, {
+    kind: 'verse_out_of_range',
+    book: 'Ruth',
+    chapter: 1,
+    verse: 0,
+    min: 1,
+    max: 22,
+  });
+  const after = spanOf(passage('Psalms 4:0'), psalm);
+  assert.ok(!after.ok);
+  assert.equal(hint(after.error), 'Psalms 4 has no verse 0. Use a verse from 1 to 9');
+});
+
+void test('the hint names the real first verse of a chapter with a superscription', () => {
+  const r = spanOf(passage('Psalms 3:9'), psalm);
+  assert.ok(!r.ok);
+  assert.equal(hint(r.error), 'Psalms 3 has no verse 9. Use a verse from 0 to 8');
+});
+
+void test('spanVerses restarts each chapter at its own first verse', () => {
+  const r = spanOf(passage('Psalms 3:7-4:2'), psalm);
+  assert.ok(r.ok);
+  assert.deepEqual(
+    [...spanVerses(r.value, psalm)].map((v) => `${v.chapter}:${v.verse}`),
+    ['3:7', '3:8', '4:1', '4:2'],
+  );
+  const wide = spanOf(passage('Psalms 2:1-3:1'), (c) => (c === 2 ? { first: 1, last: 2 } : psalm(c)));
+  assert.ok(wide.ok);
+  assert.deepEqual(
+    [...spanVerses(wide.value, (c) => (c === 2 ? { first: 1, last: 2 } : psalm(c)))].map(
+      (v) => `${v.chapter}:${v.verse}`,
+    ),
+    ['2:1', '2:2', '3:0', '3:1'],
+  );
 });

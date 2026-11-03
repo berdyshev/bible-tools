@@ -5,7 +5,7 @@ import { groupNames, kindLabel, mergeNames } from '../domain/names.ts';
 import type { NameGroup, NameVerse, PassageName } from '../domain/names.ts';
 import type { BibleRepo } from '../data/repo.ts';
 import { inputSchema } from './get-verse.ts';
-import { MAX_CHARS, continuation, lastVerseIn } from './passage.ts';
+import { MAX_CHARS, boundsIn, continuation, missingVerse } from './passage.ts';
 import { defineTool, describeTool } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
@@ -72,7 +72,7 @@ export const formatPassageNames = (
 };
 
 function* versesWithNames(repo: BibleRepo, span: Span): Generator<NameVerse & { readonly ref: VerseRef }> {
-  for (const ref of spanVerses(span, lastVerseIn(repo, span.book, span.versification))) {
+  for (const ref of spanVerses(span, boundsIn(repo, span.book, span.versification))) {
     const groups = groupNames(
       repo
         .nameWords(ref)
@@ -91,19 +91,12 @@ export const getNames = defineTool({
     const parsed = parsePassage(ref, versification ?? 'eng');
     if (!parsed.ok) return parsed;
     if (parsed.value.kind !== 'verse') {
-      const span = spanOf(parsed.value, lastVerseIn(repo, parsed.value.book, parsed.value.versification));
+      const span = spanOf(parsed.value, boundsIn(repo, parsed.value.book, parsed.value.versification));
       return span.ok ? ok({ text: formatPassageNames(span.value, versesWithNames(repo, span.value)) }) : span;
     }
     const words = repo.nameWords(parsed.value);
     if (words.length === 0 && repo.verseWords(parsed.value).length === 0) {
-      const { book, chapter, verse } = parsed.value;
-      return err({
-        kind: 'verse_out_of_range',
-        book: book.name,
-        chapter,
-        verse,
-        max: repo.lastVerse(parsed.value),
-      });
+      return err(missingVerse(repo, parsed.value));
     }
     const groups = groupNames(
       words.map((word) => ({ word, record: word.strong === null ? null : repo.tipnr(word.strong) })),

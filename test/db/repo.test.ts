@@ -12,6 +12,7 @@ import type { Scope } from '../../src/domain/ref.ts';
 import { parseStrong } from '../../src/domain/strong.ts';
 import { createSchema, load } from '../../src/ingest/load.ts';
 import { buildFixtureDbFile, fixtureDb } from '../helpers/fixture-db.ts';
+import { psalmDb } from '../helpers/psalm-fixture.ts';
 
 const repo = createBibleRepo(fixtureDb());
 
@@ -69,10 +70,17 @@ void test('verseWords is empty for a verse the text does not contain', () => {
   assert.deepEqual(repo.verseWords(ref('Gen 1:1')), []);
 });
 
-void test('lastVerse is the highest verse of the chapter, 0 when the chapter is absent', () => {
-  assert.equal(repo.lastVerse(ref('Ruth 1:1')), 22);
-  assert.equal(repo.lastVerse(ref('Ruth 4:1')), 22);
-  assert.equal(repo.lastVerse(ref('Gen 1:1')), 0);
+void test('verseBounds is the first and last verse of the chapter, null when the chapter is absent', () => {
+  assert.deepEqual(repo.verseBounds(ref('Ruth 1:1')), { first: 1, last: 22 });
+  assert.deepEqual(repo.verseBounds(ref('Ruth 4:1')), { first: 1, last: 22 });
+  assert.equal(repo.verseBounds(ref('Gen 1:1')), null);
+});
+
+void test('verseBounds starts a chapter with a superscription at verse 0', () => {
+  const psalms = createBibleRepo(psalmDb());
+  assert.deepEqual(psalms.verseBounds(ref('Psalms 3:1')), { first: 0, last: 2 });
+  assert.deepEqual(psalms.verseBounds(ref('Psalms 3:1', 'heb')), { first: 1, last: 3 });
+  assert.equal(psalms.verseBounds(ref('Psalms 4:1')), null);
 });
 
 void test('meta returns stored build values', () => {
@@ -178,9 +186,9 @@ void test('versification selects English or Hebrew numbering', () => {
     samuel.nameWords(ref('1 Samuel 20:42')).map((w) => w.lemmaGloss),
     ['Jonathan'],
   );
-  assert.equal(samuel.lastVerse(ref('1 Samuel 20:1')), 42);
-  assert.equal(samuel.lastVerse(ref('1 Samuel 21:1', 'heb')), 1);
-  assert.equal(samuel.lastVerse(ref('1 Samuel 21:1')), 0);
+  assert.equal(samuel.verseBounds(ref('1 Samuel 20:1'))?.last, 42);
+  assert.equal(samuel.verseBounds(ref('1 Samuel 21:1', 'heb'))?.last, 1);
+  assert.equal(samuel.verseBounds(ref('1 Samuel 21:1')), null);
   assert.deepEqual(samuel.nameWords(ref('1 Samuel 21:1')), []);
   assert.deepEqual(samuel.nameWords(ref('1 Samuel 20:42', 'heb')), []);
 });

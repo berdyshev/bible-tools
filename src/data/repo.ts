@@ -1,7 +1,7 @@
 import type { DatabaseSync, SQLInputValue } from 'node:sqlite';
 import { z } from 'zod/v4';
 import { normalizeBook, BOOKS } from '../domain/books.ts';
-import type { VerseRef, Scope, Versification } from '../domain/ref.ts';
+import type { VerseBounds, VerseRef, Scope, Versification } from '../domain/ref.ts';
 import type { Strong } from '../domain/strong.ts';
 
 const bool = z.number().transform((n) => n === 1);
@@ -96,8 +96,8 @@ export interface BibleRepo {
   lexiconEntry(key: string): LexiconEntry | null;
   /** Every sense of a base number such as "H7704", in file order. */
   senses(base: string): LexiconEntry[];
-  /** Highest verse number the text has in the reference's chapter, or 0 if the chapter has none. */
-  lastVerse(ref: VerseRef): number;
+  /** Lowest and highest verse number the text has in the reference's chapter; null if the chapter has none. */
+  verseBounds(ref: VerseRef): VerseBounds | null;
   /** Value stored under `key` when the database was built, e.g. "stepbible_commit"; null if absent. */
   meta(key: string): string | null;
   /**
@@ -157,13 +157,14 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     `SELECT ${LEXICON_COLUMNS} FROM lexicon WHERE substr(dstrong, 1, 5) = ? ORDER BY id`,
     lexiconRow,
   );
-  const lastEng = query(
-    'SELECT max(verse) AS last FROM words WHERE book = ? AND chapter = ?',
-    z.object({ last: z.number().nullable() }),
+  const boundsSchema = z.object({ first: z.number().nullable(), last: z.number().nullable() });
+  const boundsEng = query(
+    'SELECT min(verse) AS first, max(verse) AS last FROM words WHERE book = ? AND chapter = ?',
+    boundsSchema,
   );
-  const lastHeb = query(
-    'SELECT max(heb_verse) AS last FROM words WHERE book = ? AND heb_chapter = ?',
-    z.object({ last: z.number().nullable() }),
+  const boundsHeb = query(
+    'SELECT min(heb_verse) AS first, max(heb_verse) AS last FROM words WHERE book = ? AND heb_chapter = ?',
+    boundsSchema,
   );
   const metaByKey = query('SELECT value FROM meta WHERE key = ?', z.object({ value: z.string() }));
   const tipnrByKey = query(
@@ -200,8 +201,12 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
       (ref.versification === 'heb' ? wordsHeb : wordsEng)(ref.book.id, ref.chapter, ref.verse),
     nameWords: (ref) =>
       (ref.versification === 'heb' ? namesHeb : namesEng)(ref.book.id, ref.chapter, ref.verse),
-    lastVerse: (ref) =>
-      (ref.versification === 'heb' ? lastHeb : lastEng)(ref.book.id, ref.chapter)[0]?.last ?? 0,
+    verseBounds: (ref) => {
+      const row = (ref.versification === 'heb' ? boundsHeb : boundsEng)(ref.book.id, ref.chapter)[0];
+      return row === undefined || row.first === null || row.last === null
+        ? null
+        : { first: row.first, last: row.last };
+    },
     meta: (key) => metaByKey(key)[0]?.value ?? null,
     lexiconEntry: (key) => entryByKey(key)[0] ?? null,
     senses: (base) => sensesByBase(base),

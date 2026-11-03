@@ -58,7 +58,7 @@ void test('the description is generic', () => {
 const spanOfText = (input: string, versification: 'eng' | 'heb' = 'eng'): Span => {
   const passage = parsePassage(input, versification);
   assert.ok(passage.ok);
-  const span = spanOf(passage.value, () => 40);
+  const span = spanOf(passage.value, () => ({ first: 1, last: 40 }));
   assert.ok(span.ok);
   return span.value;
 };

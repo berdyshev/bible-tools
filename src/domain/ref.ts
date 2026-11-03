@@ -115,37 +115,57 @@ export type Span = {
   readonly end: { readonly chapter: number; readonly verse: number };
 };
 
+/** The verse numbers a chapter spans; a superscription makes `first` 0. */
+export type VerseBounds = { readonly first: number; readonly last: number };
+
 /**
- * The verses a passage covers. `lastVerse(chapter)` is the chapter's highest verse number (0 if the
- * text has none); a verse beyond it is an error.
+ * The verses a passage covers. `bounds(chapter)` is the chapter's first and last verse number (null if
+ * the text has none); a verse outside it is an error.
  */
 export const spanOf = (
   passage: Passage,
-  lastVerse: (chapter: number) => number,
+  bounds: (chapter: number) => VerseBounds | null,
 ): Result<Span, InputError> => {
   const { book, versification } = passage;
-  const start = { chapter: passage.chapter, verse: passage.kind === 'chapter' ? 1 : passage.verse };
+  const outOfRange = (chapter: number, verse: number): InputError => {
+    const b = bounds(chapter);
+    return {
+      kind: 'verse_out_of_range',
+      book: book.name,
+      chapter,
+      verse,
+      min: b?.first ?? 1,
+      max: b?.last ?? 0,
+    };
+  };
+  const startBounds = bounds(passage.chapter);
+  const start = {
+    chapter: passage.chapter,
+    verse: passage.kind === 'chapter' ? (startBounds?.first ?? 1) : passage.verse,
+  };
   const end =
     passage.kind === 'verse'
       ? start
       : passage.kind === 'range'
         ? { chapter: passage.endChapter, verse: passage.endVerse }
-        : { chapter: passage.chapter, verse: lastVerse(passage.chapter) };
+        : { chapter: passage.chapter, verse: startBounds?.last ?? 0 };
   for (const at of [start, end]) {
-    const max = lastVerse(at.chapter);
-    if (at.verse > max) {
-      return err({ kind: 'verse_out_of_range', book: book.name, chapter: at.chapter, verse: at.verse, max });
-    }
+    const b = bounds(at.chapter);
+    if (b === null || at.verse < b.first || at.verse > b.last) return err(outOfRange(at.chapter, at.verse));
   }
   return ok({ book, versification, start, end });
 };
 
 /** The verses of a span in text order. */
-export function* spanVerses(span: Span, lastVerse: (chapter: number) => number): Generator<VerseRef> {
+export function* spanVerses(
+  span: Span,
+  bounds: (chapter: number) => VerseBounds | null,
+): Generator<VerseRef> {
   const { book, versification, start, end } = span;
   for (let chapter = start.chapter; chapter <= end.chapter; chapter++) {
-    const last = chapter === end.chapter ? end.verse : lastVerse(chapter);
-    for (let verse = chapter === start.chapter ? start.verse : 1; verse <= last; verse++) {
+    const b = bounds(chapter);
+    const last = chapter === end.chapter ? end.verse : (b?.last ?? 0);
+    for (let verse = chapter === start.chapter ? start.verse : (b?.first ?? 1); verse <= last; verse++) {
       yield { kind: 'verse', book, chapter, verse, versification };
     }
   }

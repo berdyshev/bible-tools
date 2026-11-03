@@ -4,6 +4,7 @@ import { createBibleRepo } from '../../src/data/repo.ts';
 import { getNames } from '../../src/tools/get-names.ts';
 import { inputSchema } from '../../src/tools/get-verse.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
+import { psalmDb } from '../helpers/psalm-fixture.ts';
 import { expectGolden } from '../helpers/golden.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
@@ -100,4 +101,10 @@ void test('versification other than eng or heb is refused with the custom messag
     parsed.error?.issues[0]?.message,
     'versification must be "eng" (English/NRSV, default) or "heb" (Hebrew/Leningrad)',
   );
+});
+
+void test('get_names on a chapter with a superscription includes the superscription names', () => {
+  const text = textOf(getNames.call({ ref: 'Ps 3' }, createBibleRepo(psalmDb())));
+  assert.match(text, /^Psalms 3:0-2 \(English numbering\)/);
+  assert.match(text, /\n- David {2}H1732 .* at 3:0 w2\b/);
 });

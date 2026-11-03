@@ -6,6 +6,7 @@ import { createBibleRepo } from '../../src/data/repo.ts';
 import type { BibleRepo } from '../../src/data/repo.ts';
 import { openDb } from '../../src/data/db.ts';
 import { findOccurrences, outputSchema } from '../../src/tools/find-occurrences.ts';
+import { getNames } from '../../src/tools/get-names.ts';
 import { getVerse } from '../../src/tools/get-verse.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { textOf } from '../helpers/tool-text.ts';
@@ -71,4 +72,25 @@ void test('find_occurrences counts the whole OT like a direct count of the word 
   assert.equal(structured.total, expected);
   assert.match(textOf(result), new RegExp(`^H7704G in the Old Testament: ${expected} occurrences in `));
   assert.ok(textOf(result).length <= 2000);
+});
+
+void test('get_verse on a psalm chapter starts with its superscription at verse 0', { skip }, () => {
+  assert.ok(repo);
+  const text = textOf(getVerse.call({ ref: 'Ps 3' }, repo));
+  assert.match(text, /^Psalms 3:0-8 \(English numbering\)/);
+  assert.match(text, /\nPsalms 3:0\n1\. miz\.Mor {2}H4210 /);
+  assert.match(text, /\nPsalms 3:1\n/);
+});
+
+void test('get_names on a psalm chapter lists David from the superscription', { skip }, () => {
+  assert.ok(repo);
+  const text = textOf(getNames.call({ ref: 'Ps 3' }, repo));
+  assert.match(text, /\n- David {2}H1732 .* at 3:0 w2\b/);
+});
+
+void test('a chapter without a verse 0 rejects it', { skip }, () => {
+  assert.ok(repo);
+  const result = getVerse.call({ ref: 'Ruth 1:0-2' }, repo);
+  assert.equal(result.isError, true);
+  assert.equal(textOf(result), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
 });

@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import { getVerse } from '../../src/tools/get-verse.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
+import { psalmDb } from '../helpers/psalm-fixture.ts';
 import { expectGolden } from '../helpers/golden.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
@@ -97,4 +98,20 @@ void test('a descending range is refused with a hint', () => {
 void test('a chapter the text does not have is an error', () => {
   assert.equal(failure('Ruth 5'), 'Ruth has no chapter 5. Use a chapter from 1 to 4');
   assert.equal(failure('Gen 1'), 'Genesis 1 has no verse 1. Use a verse from 1 to 0');
+});
+
+const psalms = createBibleRepo(psalmDb());
+
+void test('a chapter with a superscription starts at verse 0', () => {
+  const text = textOf(getVerse.call({ ref: 'Ps 3' }, psalms));
+  assert.match(text, /^Psalms 3:0-2 \(English numbering\)/);
+  assert.match(text, /\nPsalms 3:0\n1\. [^\n]+\n/);
+  assert.match(text, /\nPsalms 3:1\n/);
+  assert.match(text, /\n2\. le\.\/da\.Vid {2}H1732 /);
+});
+
+void test('verse 0 is a verse of a chapter that has it and an error elsewhere', () => {
+  assert.match(textOf(getVerse.call({ ref: 'Ps 3:0' }, psalms)), /^Psalms 3:0 /);
+  assert.equal(failure('Ruth 1:0-2'), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
+  assert.equal(failure('Ruth 1:0'), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
 });

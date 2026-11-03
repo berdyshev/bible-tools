@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import type { BibleRepo } from '../../src/data/repo.ts';
 import { openDb } from '../../src/data/db.ts';
+import { findOccurrences, outputSchema } from '../../src/tools/find-occurrences.ts';
 import { getVerse } from '../../src/tools/get-verse.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { textOf } from '../helpers/tool-text.ts';
@@ -56,4 +57,18 @@ void test('the database holds the whole text at the pinned data revision', { ski
   const pinned = /DEFAULT_COMMIT = '([0-9a-f]{40})'/.exec(script)?.[1];
   assert.notEqual(pinned, undefined);
   assert.equal(repo.meta('stepbible_commit'), pinned);
+});
+
+void test('find_occurrences counts the whole OT like a direct count of the word table', { skip }, () => {
+  assert.ok(full);
+  assert.ok(repo);
+  const row = full.prepare("SELECT COUNT(*) AS n FROM words WHERE strong = 'H7704G'").get();
+  const expected = typeof row?.['n'] === 'number' ? row['n'] : -1;
+  assert.ok(expected > 0);
+  const result = findOccurrences.call({ strong: 'H7704G', limit: 500 }, repo);
+  assert.equal(result.isError, undefined);
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.equal(structured.total, expected);
+  assert.match(textOf(result), new RegExp(`^H7704G in the Old Testament: ${expected} occurrences in `));
+  assert.ok(textOf(result).length <= 2000);
 });

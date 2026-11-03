@@ -33,9 +33,14 @@ after(async () => {
   await client.close();
 });
 
-void test('the three tools are listed with read-only annotations', async () => {
+void test('the tools are listed with read-only annotations', async () => {
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map((t) => t.name).toSorted(), ['get_names', 'get_verse', 'lookup_strong']);
+  assert.deepEqual(tools.map((t) => t.name).toSorted(), [
+    'find_occurrences',
+    'get_names',
+    'get_verse',
+    'lookup_strong',
+  ]);
   for (const t of tools) {
     assert.equal(t.annotations?.readOnlyHint, true, t.name);
     assert.equal(t.annotations?.idempotentHint, true, t.name);
@@ -59,6 +64,8 @@ void test('successful calls are not errors and carry structured content where de
     { name: 'get_names', arguments: { ref: 'Ruth 1:2' } },
     { name: 'lookup_strong', arguments: { strong: 'H7704' } },
     { name: 'lookup_strong', arguments: { strong: 'H7704G' } },
+    { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'Ruth' } },
+    { name: 'find_occurrences', arguments: { strong: 'H7704' } },
   ];
   for (const call of calls) {
     const result = await client.callTool(call);

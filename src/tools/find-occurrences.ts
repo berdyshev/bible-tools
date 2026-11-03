@@ -4,12 +4,11 @@ import { formatRef, parseScope } from '../domain/ref.ts';
 import type { Scope, VerseRef, Versification } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
 import { parseStrong } from '../domain/strong.ts';
+import { MAX_CHARS, numberingLabel } from './passage.ts';
 import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
 export const DEFAULT_LIMIT = 50;
-/** Upper bound on the characters of the text output, so one call never floods the model's context. */
-export const MAX_CHARS = 2000;
 
 export const inputSchema = z.object({
   strong: z
@@ -136,7 +135,7 @@ export type OccurrenceView = {
 const plural = (n: number, word: string): string => `${n} ${word}${n === 1 ? '' : 's'}`;
 
 export const formatOccurrences = (v: OccurrenceView): string => {
-  const numbering = v.versification === 'heb' ? 'Hebrew numbering' : 'English numbering';
+  const numbering = numberingLabel(v.versification);
   const head =
     v.total === 0
       ? `${v.strong} in ${v.scopeLabel}: no occurrences (${numbering})`

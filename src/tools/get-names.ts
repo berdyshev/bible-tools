@@ -5,7 +5,7 @@ import { groupNames, kindLabel, mergeNames } from '../domain/names.ts';
 import type { NameGroup, NameVerse, PassageName } from '../domain/names.ts';
 import type { BibleRepo } from '../data/repo.ts';
 import { inputSchema } from './get-verse.ts';
-import { MAX_CHARS, boundsIn, continuation, missingVerse } from './passage.ts';
+import { MAX_CHARS, boundsIn, continuation, missingVerse, numberingLabel } from './passage.ts';
 import { defineTool, describeTool } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
@@ -28,8 +28,7 @@ const formatName = (g: NameGroup): string => {
 };
 
 export const formatNames = (ref: VerseRef, groups: readonly NameGroup[]): string => {
-  const numbering = ref.versification === 'heb' ? 'Hebrew numbering' : 'English numbering';
-  const header = `${formatRef(ref)} (${numbering}) — proper names (Hebrew original)`;
+  const header = `${formatRef(ref)} (${numberingLabel(ref.versification)}) — proper names (Hebrew original)`;
   return [
     header,
     ...(groups.length === 0 ? ['No proper names in this verse.'] : groups.map(formatName)),
@@ -43,8 +42,7 @@ const formatPassageName = (g: PassageName): string => {
 };
 
 const renderPassage = (span: Span, verses: readonly NameVerse[]): string => {
-  const numbering = span.versification === 'heb' ? 'Hebrew numbering' : 'English numbering';
-  const header = `${formatSpan(span)} (${numbering}) — proper names (Hebrew original)`;
+  const header = `${formatSpan(span)} (${numberingLabel(span.versification)}) — proper names (Hebrew original)`;
   const names = mergeNames(verses);
   return [
     header,

@@ -7,6 +7,10 @@ import type { Span, VerseBounds, Versification, VerseRef } from '../domain/ref.t
 /** Tool output is re-sent on every agent step, so passages are cut at about this many characters. */
 export const MAX_CHARS = 2000;
 
+/** The parenthesised label that tells which verse numbering a result uses. */
+export const numberingLabel = (versification: Versification): string =>
+  versification === 'heb' ? 'Hebrew numbering' : 'English numbering';
+
 /** First and last verse of each chapter of `book`, as the span helpers expect it. */
 export const boundsIn =
   (repo: BibleRepo, book: Book, versification: Versification) =>

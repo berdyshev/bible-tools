@@ -4,7 +4,6 @@ import type { Occurrence } from '../../src/data/repo.ts';
 import { normalizeBook } from '../../src/domain/books.ts';
 import type { VerseRef } from '../../src/domain/ref.ts';
 import {
-  MAX_CHARS,
   descriptionParts,
   outputSchema,
   findOccurrences,
@@ -14,6 +13,7 @@ import {
   type SenseGroup,
 } from '../../src/tools/find-occurrences.ts';
 import { createBibleRepo } from '../../src/data/repo.ts';
+import { MAX_CHARS } from '../../src/tools/passage.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { textOf } from '../helpers/tool-text.ts';
 

@@ -3,7 +3,7 @@ import type { BibleRepo } from '../data/repo.ts';
 import { formatRef, formatSpan, parsePassage, spanOf, spanVerses } from '../domain/ref.ts';
 import type { Span, VerseRef } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
-import { MAX_CHARS, boundsIn, continuation, missingVerse } from './passage.ts';
+import { MAX_CHARS, boundsIn, continuation, missingVerse, numberingLabel } from './passage.ts';
 import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
@@ -54,8 +54,7 @@ const formatWord = (w: VerseWord): string => {
 };
 
 const header = (label: string, versification: VerseRef['versification']): string => {
-  const numbering = versification === 'heb' ? 'Hebrew numbering' : 'English numbering';
-  return `${label} (${numbering}) — Hebrew, read right to left; Strong's numbers per STEPBible`;
+  return `${label} (${numberingLabel(versification)}) — Hebrew, read right to left; Strong's numbers per STEPBible`;
 };
 
 export const formatVerse = (ref: VerseRef, words: readonly VerseWord[]): string =>

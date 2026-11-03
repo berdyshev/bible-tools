@@ -46,7 +46,7 @@ void test('an input error becomes isError with the fix hint', () => {
     content: [
       {
         type: 'text',
-        text: 'Malformed Strong\'s number "-1". Use H or G followed by digits, e.g. "H1254"',
+        text: 'Malformed Strong\'s number "-1". Use H or G, then 1–4 digits (zero-padding optional) and an optional sense letter, e.g. "H1254" or "H7704G"',
       },
     ],
     isError: true,

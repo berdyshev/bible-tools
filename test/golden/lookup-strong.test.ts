@@ -36,12 +36,12 @@ void test('a bare number with one sense gives that entry without a menu', () => 
   assert.doesNotMatch(text, /senses/);
 });
 
-void test('an unknown number gets a hint', () => {
+void test('a number with too many digits is malformed', () => {
   const result = lookupStrong.call({ strong: 'H99999' }, repo);
   assert.equal(result.isError, true);
   assert.equal(
     textOf(result),
-    'Malformed Strong\'s number "H99999". Use H or G followed by digits, e.g. "H1254"',
+    'Malformed Strong\'s number "H99999". Use H or G, then 1–4 digits (zero-padding optional) and an optional sense letter, e.g. "H1254" or "H7704G"',
   );
 });
 

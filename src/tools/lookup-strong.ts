@@ -4,7 +4,8 @@ import { parseStrong } from '../domain/strong.ts';
 import { err, ok } from '../domain/result.ts';
 import type { Result } from '../domain/result.ts';
 import type { BibleRepo } from '../data/repo.ts';
-import { defineTool } from './shared.ts';
+import { defineTool, describeTool } from './shared.ts';
+import type { DescriptionParts } from './shared.ts';
 
 export const inputSchema = z.object({
   strong: z
@@ -33,15 +34,15 @@ export const outputSchema = z.object({
   senses: z.array(senseSchema),
 });
 
-export const description =
-  "Returns the lexicon entry (STEPBible TBESH, based on Brown-Driver-Briggs) for one Hebrew Strong's number: " +
-  'lemma, transliteration, part of speech, short gloss, the list of meanings and the other senses of the same word. ' +
-  'Use it to explain the range of meanings of a Hebrew word and to justify a translation choice. ' +
-  'Take the number from get_verse output. Accepts `H0376`, `H376` and `H7704G` (the letter selects one sense). ' +
-  'A bare number that has several senses returns a menu, one line per sense: `strong  lemma  «gloss»`; ' +
-  'pick the sense get_verse shows for your verse and call again. ' +
-  'Prefix tags such as H9003 (`in`) are explained too. ' +
-  'It does not show where else the word occurs and does not decide the meaning in context.';
+export const descriptionParts: DescriptionParts = {
+  what: "Returns the lexicon entry (STEPBible TBESH, based on Brown-Driver-Briggs) for one Hebrew Strong's number: lemma, transliteration, part of speech, short gloss, the list of meanings and the other senses of the same word. Prefix tags such as H9003 (`in`) are explained too.",
+  when: 'Use it to explain the range of meanings of a Hebrew word and to justify a translation choice. Take the number from get_verse output; accepts `H0376`, `H376` and `H7704G` (the letter selects one sense).',
+  output:
+    'A bare number that has several senses returns a menu, one line per sense: `strong  lemma  «gloss»`; pick the sense get_verse shows for your verse and call again.',
+  not: 'It does not show where else the word occurs and does not decide the meaning in context.',
+};
+
+export const description = describeTool(descriptionParts);
 
 export type LexiconSense = {
   readonly strong: string;

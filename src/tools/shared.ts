@@ -21,6 +21,16 @@ export const versificationSchema = z
 type Schema = z.ZodObject;
 type Args<In extends Schema> = z.infer<In>;
 
+/** The four sentences every tool description has: what it does, when to use it, its output, and what it is not for. */
+export type DescriptionParts = {
+  readonly what: string;
+  readonly when: string;
+  readonly output: string;
+  readonly not: string;
+};
+
+export const describeTool = (p: DescriptionParts): string => `${p.what} ${p.when} ${p.output} ${p.not}`;
+
 type ToolOutput<Out extends Schema | undefined> = {
   readonly text: string;
   readonly structured?: Out extends Schema ? z.infer<Out> : never;
@@ -37,6 +47,7 @@ export type ToolSpec<In extends Schema, Out extends Schema | undefined> = {
 
 export type Tool<In extends Schema> = {
   readonly name: string;
+  readonly title: string;
   readonly description: string;
   readonly input: In;
   /** Runs the handler with the error handling the server applies. */
@@ -95,5 +106,12 @@ export const defineTool = <In extends Schema, Out extends Schema | undefined = u
     );
   };
 
-  return { name: spec.name, description: spec.description, input: spec.input, call, register };
+  return {
+    name: spec.name,
+    title: spec.title,
+    description: spec.description,
+    input: spec.input,
+    call,
+    register,
+  };
 };

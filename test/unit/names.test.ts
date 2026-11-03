@@ -101,6 +101,8 @@ void test('shows the description only when category matches, differs from the na
   assert.equal(note({ category: 'person', description: 'Abel' }), null);
   assert.equal(note({ category: 'person', description: 'Abel_1' }, 'Cain'), null);
   assert.equal(note({ category: 'person', description: 'Abel 1' }, 'Cain'), 'Abel 1');
+  assert.equal(note({ category: 'person', description: 'Abel_12' }, 'Cain'), null);
+  assert.equal(note({ category: 'person', description: 'Abel_1 of Judah' }, 'Cain'), 'Abel_1 of Judah');
   assert.equal(groupNames([input(word(1))])[0]?.note, null);
 });
 

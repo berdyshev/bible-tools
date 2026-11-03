@@ -2,7 +2,8 @@ import { z } from 'zod/v4';
 import { formatRef, parseRef } from '../domain/ref.ts';
 import type { VerseRef } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
-import { defineTool, versificationSchema } from './shared.ts';
+import { defineTool, describeTool, versificationSchema } from './shared.ts';
+import type { DescriptionParts } from './shared.ts';
 
 export const inputSchema = z.object({
   ref: z
@@ -15,16 +16,17 @@ export const inputSchema = z.object({
   versification: versificationSchema,
 });
 
-export const description =
-  'Returns the Hebrew original (Leningrad codex, STEPBible TAHOT) of one Old Testament verse, word by word: ' +
-  "transliteration, Strong's number, a literal English gloss and the Hebrew text; proper names are marked. " +
-  "Use it to see what stands behind a translated word, to justify a literal reading, or to get the Strong's numbers " +
-  'for lookup_strong. ' +
-  'Output: a header line, then one line per word in reading order: ' +
-  '`position. transliteration  strong  gloss  [name: kind]  hebrew`; ' +
-  "'/' in a gloss separates prefix, root and suffix (e.g. `and/ name`). " +
-  'It does not translate the verse and gives no definitions: use lookup_strong for meanings and get_names ' +
-  'for a clean list of the names in a verse.';
+export const descriptionParts: DescriptionParts = {
+  what:
+    'Returns the Hebrew original (Leningrad codex, STEPBible TAHOT) of one Old Testament verse, word by word: ' +
+    "transliteration, Strong's number, a literal English gloss and the Hebrew text; proper names are marked.",
+  when: "Use it to see what stands behind a translated word, to justify a literal reading, or to get the Strong's numbers for lookup_strong.",
+  output:
+    "Output: a header line, then one line per word in reading order: `position. transliteration  strong  gloss  [name: kind]  hebrew`; '/' in a gloss separates prefix, root and suffix (e.g. `and/ name`).",
+  not: 'It does not translate the verse and gives no definitions: use lookup_strong for meanings and get_names for a clean list of the names in a verse.',
+};
+
+export const description = describeTool(descriptionParts);
 
 /** The parts of a word that a verse line shows. */
 export type VerseWord = {

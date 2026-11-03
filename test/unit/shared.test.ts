@@ -75,6 +75,7 @@ void test('tools are read-only and closed-world', () => {
 void test('versification accepts eng, heb and nothing; anything else gets the custom message', () => {
   assert.equal(versificationSchema.parse(undefined), undefined);
   assert.equal(versificationSchema.parse('heb'), 'heb');
+  assert.equal(versificationSchema.parse('eng'), 'eng');
   const bad = versificationSchema.safeParse('lxx');
   assert.equal(bad.success, false);
   assert.equal(

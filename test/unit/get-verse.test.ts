@@ -53,3 +53,8 @@ void test('the schema requires a non-empty ref and validates versification', () 
   assert.equal(inputSchema.safeParse({ ref: 'Ruth 1:1', versification: 'lxx' }).success, false);
   assert.equal(inputSchema.safeParse({ ref: 'Ruth 1:1', versification: 'heb' }).success, true);
 });
+
+void test('a proper name without a kind is marked unknown', () => {
+  const [, line] = formatVerse(ref('eng'), [word({ isProperName: true })]).split('\n');
+  assert.match(line ?? '', /\[name: unknown\]/);
+});

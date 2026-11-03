@@ -4,18 +4,18 @@ import { err, ok } from '../domain/result.ts';
 import { groupNames, kindLabel } from '../domain/names.ts';
 import type { NameGroup } from '../domain/names.ts';
 import { inputSchema } from './get-verse.ts';
-import { defineTool } from './shared.ts';
+import { defineTool, describeTool } from './shared.ts';
+import type { DescriptionParts } from './shared.ts';
 
-export const description =
-  'Lists the proper names of one Old Testament verse as identified in the Hebrew original (STEPBible morphology): ' +
-  "persons, places, gentilics (e.g. Ephrathite) and divine names/titles, each with English name, Strong's number, " +
-  'kind, transliteration, word positions and Hebrew form. ' +
-  'Multi-word names (Beth-lehem) are merged and repeated names are listed once. ' +
-  'Use it before translating or checking a verse to know exactly which names occur in it: ' +
-  'a translation may hide names inside compounds or derived forms. ' +
-  'Output: a header line, then one line per name: ' +
-  '`- name  strong  (kind)  transliteration  words positions [— description]  hebrew`. ' +
-  'It does not give forms of the names in other languages; use get_verse for the full word-by-word text.';
+export const descriptionParts: DescriptionParts = {
+  what: "Lists the proper names of one Old Testament verse as identified in the Hebrew original (STEPBible morphology): persons, places, gentilics (e.g. Ephrathite) and divine names/titles, each with English name, Strong's number, kind, transliteration, word positions and Hebrew form. Multi-word names (Beth-lehem) are merged and repeated names are listed once.",
+  when: 'Use it before translating or checking a verse to know exactly which names occur in it: a translation may hide names inside compounds or derived forms.',
+  output:
+    'Output: a header line, then one line per name: `- name  strong  (kind)  transliteration  words positions [— description]  hebrew`.',
+  not: 'It does not give forms of the names in other languages; use get_verse for the full word-by-word text.',
+};
+
+export const description = describeTool(descriptionParts);
 
 // Hebrew goes last on the line so bidi-aware renderers keep the line left-to-right.
 const formatName = (g: NameGroup): string => {

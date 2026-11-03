@@ -23,6 +23,10 @@
   },
   "overrides": [
     {
+      "files": ["test/helpers/rpc.ts"],
+      "rules": { "unicorn/prefer-add-event-listener": "off" }
+    },
+    {
       "files": ["src/**/*.ts"],
       "rules": { "no-console": ["error", { "allow": ["error"] }] }
     }

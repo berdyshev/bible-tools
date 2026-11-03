@@ -3,7 +3,7 @@
   "plugins": ["@stryker-mutator/tap-runner"],
   "testRunner": "tap",
   "tap": {
-    "testFiles": ["test/unit/**/*.test.ts"]
+    "testFiles": ["test/unit/**/*.test.ts", "test/db/**/*.test.ts"]
   },
   "coverageAnalysis": "perTest",
   "checkers": [],

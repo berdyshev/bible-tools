@@ -7,7 +7,9 @@ import { after, test } from 'node:test';
 import { DatabaseNotFoundError, openDb } from '../../src/data/db.ts';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import type { VerseRef, Versification } from '../../src/domain/ref.ts';
-import { parseRef } from '../../src/domain/ref.ts';
+import { parseRef, parseScope } from '../../src/domain/ref.ts';
+import type { Scope } from '../../src/domain/ref.ts';
+import { parseStrong } from '../../src/domain/strong.ts';
 import { createSchema, load } from '../../src/ingest/load.ts';
 import { buildFixtureDbFile, fixtureDb } from '../helpers/fixture-db.ts';
 
@@ -181,6 +183,101 @@ void test('versification selects English or Hebrew numbering', () => {
   assert.equal(samuel.lastVerse(ref('1 Samuel 21:1')), 0);
   assert.deepEqual(samuel.nameWords(ref('1 Samuel 21:1')), []);
   assert.deepEqual(samuel.nameWords(ref('1 Samuel 20:42', 'heb')), []);
+});
+
+const occ = (strong: string, scope: string, versification: Versification = 'eng') => {
+  const s = parseStrong(strong);
+  const sc = parseScope(scope, versification);
+  assert.ok(s.ok && sc.ok);
+  return repo.occurrences(s.value, sc.value, versification);
+};
+const where = (strong: string, scope: string) =>
+  occ(strong, scope).map((o) => `${o.ref.chapter}:${o.ref.verse}#${o.position}`);
+
+void test('occurrences of an exact sense in a book come in text order with their fields', () => {
+  const rows = occ('H7704G', 'Ruth');
+  assert.equal(rows.length, 16);
+  assert.deepEqual(
+    rows.map((o) => `${o.ref.chapter}:${o.ref.verse}`),
+    [
+      '1:1',
+      '1:2',
+      '1:6',
+      '1:6',
+      '1:22',
+      '2:2',
+      '2:3',
+      '2:3',
+      '2:6',
+      '2:8',
+      '2:9',
+      '2:17',
+      '2:22',
+      '4:3',
+      '4:3',
+      '4:5',
+    ],
+  );
+  assert.deepEqual(rows[0], {
+    ref: { kind: 'verse', book: rows[0]?.ref.book, chapter: 1, verse: 1, versification: 'eng' },
+    position: 14,
+    transliteration: 'bi/s.Dei',
+    hebrew: rows[0]?.hebrew,
+    strong: 'H7704G',
+  });
+  assert.equal(rows[0]?.ref.book.id, 'Ruth');
+  assert.equal(consonants(rows[0]?.hebrew), 'ב/שדי');
+});
+
+void test('occurrences in a chapter or the whole OT are narrowed by the scope', () => {
+  assert.deepEqual(where('H7704G', 'Ruth 2'), [
+    '2:2#8',
+    '2:3#4',
+    '2:3#10',
+    '2:6#13',
+    '2:8#11',
+    '2:9#2',
+    '2:17#2',
+    '2:22#15',
+  ]);
+  assert.equal(occ('H7704G', 'OT').length, 16);
+  assert.equal(occ('H7704G', 'Gen').length, 0);
+  assert.equal(occ('H7704G', 'Ruth 3').length, 0);
+});
+
+void test('a bare number matches the same words as the sense that occurs; other senses do not match', () => {
+  const bare = occ('H7704', 'Ruth');
+  assert.deepEqual(bare, occ('H7704G', 'Ruth'));
+  assert.equal(bare.length, 16);
+  assert.ok(bare.every((o) => o.strong === 'H7704G'));
+  assert.equal(occ('H7704B', 'Ruth').length, 0);
+  assert.equal(occ('H7704Z', 'Ruth').length, 0);
+});
+
+const scope = (text: string, v: Versification): Scope => {
+  const s = parseScope(text, v);
+  assert.ok(s.ok);
+  return s.value;
+};
+
+void test('occurrences are numbered and scoped by the requested versification', () => {
+  const db = new DatabaseSync(':memory:');
+  createSchema(db);
+  load(db, { tahot: SAMUEL, tbesh: [], tipnr: [] }, {});
+  const samuel = createBibleRepo(db);
+  const strong = parseStrong('H3083H');
+  assert.ok(strong.ok);
+  const eng = samuel.occurrences(strong.value, scope('1Sam 20', 'eng'), 'eng');
+  assert.deepEqual(
+    eng.map((o) => [o.ref.chapter, o.ref.verse, o.ref.versification]),
+    [[20, 42, 'eng']],
+  );
+  const heb = samuel.occurrences(strong.value, scope('1Sam 21', 'heb'), 'heb');
+  assert.deepEqual(
+    heb.map((o) => [o.ref.chapter, o.ref.verse, o.ref.versification]),
+    [[21, 1, 'heb']],
+  );
+  assert.deepEqual(samuel.occurrences(strong.value, scope('1Sam 21', 'eng'), 'eng'), []);
 });
 
 const dir = mkdtempSync(join(tmpdir(), 'stepbible-repo-'));

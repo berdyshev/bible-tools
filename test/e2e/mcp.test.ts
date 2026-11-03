@@ -112,6 +112,7 @@ void test('a failing repository gives a generic error and the details go to stde
     lastVerse: boom,
     meta: () => null,
     tipnr: boom,
+    occurrences: boom,
   });
   const logged: unknown[][] = [];
   const original = console.error;

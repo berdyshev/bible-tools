@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { hint } from '../../src/domain/errors.ts';
-import { formatRef, parseRef } from '../../src/domain/ref.ts';
+import { formatRef, parseRef, parseScope } from '../../src/domain/ref.ts';
 
 void test('parses a plain reference', () => {
   const r = parseRef('Ruth 1:2');
@@ -102,4 +102,44 @@ void test('formatRef uses the English book name', () => {
   const s = parseRef('song 2:3');
   assert.ok(s.ok);
   assert.equal(formatRef(s.value), 'Song of Songs 2:3');
+});
+
+void test('parseScope accepts the whole OT, a book and a chapter', () => {
+  for (const input of ['OT', 'ot', ' all ', '']) {
+    assert.deepEqual(parseScope(input), { ok: true, value: { kind: 'testament', testament: 'OT' } }, input);
+  }
+  const book = parseScope(' Ruth ');
+  assert.ok(book.ok && book.value.kind === 'book');
+  assert.equal(book.value.book.id, 'Ruth');
+  const chapter = parseScope('1 Samuel 20');
+  assert.ok(chapter.ok && chapter.value.kind === 'chapter');
+  assert.deepEqual([chapter.value.book.id, chapter.value.chapter], ['1Sam', 20]);
+  const glued = parseScope('Ruth2');
+  assert.ok(glued.ok && glued.value.kind === 'chapter' && glued.value.chapter === 2);
+});
+
+void test('parseScope checks the chapter against the versification', () => {
+  const eng = parseScope('Joel 4');
+  assert.ok(!eng.ok);
+  assert.deepEqual(eng.error, { kind: 'chapter_out_of_range', book: 'Joel', chapter: 4, max: 3 });
+  assert.ok(parseScope('Joel 4', 'heb').ok);
+  assert.ok(!parseScope('Ruth 5').ok);
+  assert.ok(!parseScope('Ruth 0').ok);
+});
+
+void test('parseScope rejects other shapes with the allowed forms, and unknown books as such', () => {
+  for (const input of ['Ruth 1:2', 'Ruth 1-2', '12', 'Ruth!']) {
+    const r = parseScope(input);
+    assert.ok(!r.ok, input);
+    assert.equal(r.error.kind, 'invalid_scope', input);
+  }
+  const bad = parseScope('Ruth 1:2');
+  assert.ok(!bad.ok);
+  assert.equal(
+    hint(bad.error),
+    'Invalid scope "Ruth 1:2". Use one of: OT, a book such as "Ruth", a chapter such as "Ruth 2"',
+  );
+  const unknown = parseScope('Foo 2');
+  assert.ok(!unknown.ok);
+  assert.equal(unknown.error.kind, 'unknown_book');
 });

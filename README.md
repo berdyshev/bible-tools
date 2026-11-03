@@ -64,6 +64,13 @@ output as the matching tool). They are not listed, since there is nothing sensib
 `ref` is URL-encoded; `Ruth.1.1` is accepted too. Invalid input is a JSON-RPC error with the
 same hint the tools give.
 
+## Prompts
+
+| Prompt           | Argument | What it asks the model to do                                                                      |
+| ---------------- | -------- | ------------------------------------------------------------------------------------------------- |
+| `word_study`     | `strong` | `lookup_strong` (pick a sense if a menu comes back), `find_occurrences` over the Old Testament, `get_verse` on a few representative references, then summarize the usage without inventing data. |
+| `verse_analysis` | `ref`    | `get_verse`, then `get_names`, then `lookup_strong` on the key words.                             |
+
 ## Use with Claude Desktop or Claude Code
 
 Use absolute paths for `node` and for `src/stdio.ts`; the `--disable-warning` flag silences

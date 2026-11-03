@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import type { BibleRepo } from './data/repo.ts';
+import { registerPrompts } from './prompts.ts';
 import { registerResources } from './resources.ts';
 import { findOccurrences } from './tools/find-occurrences.ts';
 import { getNames } from './tools/get-names.ts';
@@ -26,9 +27,10 @@ const tools: readonly Registrable[] = [getVerse, lookupStrong, getNames, findOcc
 export const createServer = ({ repo }: { readonly repo: BibleRepo }): McpServer => {
   const server = new McpServer(
     { name: 'stepbible', version: '0.0.0' },
-    { instructions: instructions(repo), capabilities: { tools: {}, resources: {} } },
+    { instructions: instructions(repo), capabilities: { tools: {}, resources: {}, prompts: {} } },
   );
   for (const tool of tools) tool.register(server, repo);
   registerResources(server, repo);
+  registerPrompts(server);
   return server;
 };

@@ -216,3 +216,58 @@ void test('resource read failures do not leak internals', async () => {
     await failing.close();
   }
 });
+
+const promptText = async (name: string, args: Record<string, string>): Promise<string> => {
+  const { messages } = await client.getPrompt({ name, arguments: args });
+  assert.equal(messages.length, 1, name);
+  const content = messages[0]?.content;
+  if (content?.type !== 'text') throw new Error('prompt message has no text');
+  return content.text;
+};
+
+void test('prompts are listed with their arguments', async () => {
+  const { prompts } = await client.listPrompts();
+  assert.deepEqual(prompts.map((p) => p.name).toSorted(), ['verse_analysis', 'word_study']);
+  const args = (name: string) =>
+    prompts.find((p) => p.name === name)?.arguments?.map((a) => [a.name, a.required]);
+  assert.deepEqual(args('word_study'), [['strong', true]]);
+  assert.deepEqual(args('verse_analysis'), [['ref', true]]);
+  for (const p of prompts) {
+    assert.doesNotMatch(p.description ?? '', /German|Russian|Elberfelder|RBO/i, p.name);
+  }
+});
+
+void test('word_study names the tools in order', async () => {
+  const text = await promptText('word_study', { strong: 'H7704G' });
+  assert.match(text, /H7704G/);
+  const order = ['lookup_strong', 'find_occurrences', 'get_verse'].map((tool) => text.indexOf(tool));
+  assert.ok(
+    order.every((i) => i >= 0),
+    text,
+  );
+  assert.deepEqual(
+    order,
+    order.toSorted((a, b) => a - b),
+  );
+  assert.match(text, /menu/);
+  assert.match(text, /do not invent/i);
+});
+
+void test('verse_analysis names the tools in order', async () => {
+  const text = await promptText('verse_analysis', { ref: 'Ruth 1:1' });
+  assert.match(text, /Ruth 1:1/);
+  const order = ['get_verse', 'get_names', 'lookup_strong'].map((tool) => text.indexOf(tool));
+  assert.ok(
+    order.every((i) => i >= 0),
+    text,
+  );
+  assert.deepEqual(
+    order,
+    order.toSorted((a, b) => a - b),
+  );
+  assert.match(text, /do not invent/i);
+});
+
+void test('a prompt without its argument is rejected', async () => {
+  await assert.rejects(client.getPrompt({ name: 'word_study', arguments: {} }));
+});

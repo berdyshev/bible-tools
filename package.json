@@ -9,10 +9,11 @@
   "packageManager": "pnpm@12.15.0",
   "scripts": {
     "check": "tsc",
+    "data:fetch": "node scripts/fetch-stepbible.ts",
     "test": "node --test \"test/**/*.test.ts\"",
-    "lint": "oxlint --type-aware --deny-warnings src test",
-    "fmt": "oxfmt src test",
-    "fmt:check": "oxfmt --check src test",
+    "lint": "oxlint --type-aware --deny-warnings src scripts test",
+    "fmt": "oxfmt src scripts test",
+    "fmt:check": "oxfmt --check src scripts test",
     "test:mutation": "stryker run",
     "test:mutation:full": "stryker run --force"
   },
@@ -24,5 +25,8 @@
     "oxlint": "1.91.0",
     "oxlint-tsgolint": "7.0.2005",
     "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
   }
 }

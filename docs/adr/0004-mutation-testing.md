@@ -20,7 +20,7 @@ Use Stryker 10.1.1 with the tap runner (`stryker.config.json`):
 
 - `testRunner: "tap"`, tap test files `test/unit/**/*.test.ts` (database and golden tests are added when they exist).
 - `coverageAnalysis: "perTest"` (coverage is per test file), `checkers: []`, `disableTypeChecks: true`.
-- `incremental: true` with `reports/stryker-incremental.json`; thresholds high 90, low 80, break 75.
+- `incremental: true` with `reports/stryker-incremental.json`; thresholds high 90, low 80, break 80.
 - `mutate`: `src/domain/**`, `src/ingest/**`, `src/data/repo.ts`, `src/tools/**`.
 - Scripts: `test:mutation` (`stryker run`) and `test:mutation:full` (`stryker run --force`).
 
@@ -70,6 +70,5 @@ The command runner (`testRunner: "command"`) was not needed and is not configure
 
 ## Follow-ups
 
-- Add database and golden test files to `tap.testFiles` as they are created, and re-measure wall time on the full scope.
-- Raise the break threshold from 75 to 80 once the milestone with the full test set is complete.
+- Re-measure wall time on the full scope.
 - Drop the `tsconfigFile` workaround if Stryker stops requiring the classic TypeScript API.

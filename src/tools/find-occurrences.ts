@@ -1,5 +1,6 @@
 import { z } from 'zod/v4';
 import type { Occurrence } from '../data/repo.ts';
+import { BOOK_IDS } from '../domain/books.ts';
 import { formatRef, parseScope } from '../domain/ref.ts';
 import type { Scope, VerseRef, Versification } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
@@ -70,6 +71,12 @@ export type VerseHit = {
   readonly forms: readonly Form[];
 };
 
+const textOrder = (a: VerseRef, b: VerseRef): number => {
+  const byBook = BOOK_IDS.indexOf(a.book.id) - BOOK_IDS.indexOf(b.book.id);
+  if (byBook !== 0) return byBook;
+  return a.chapter === b.chapter ? a.verse - b.verse : a.chapter - b.chapter;
+};
+
 const verseKey = (r: VerseRef): string => `${r.book.id} ${r.chapter}:${r.verse}`;
 
 /** Folds the words of a verse into one hit per sense; the input is in text order. */
@@ -127,12 +134,19 @@ export type OccurrenceView = {
   readonly bySense: boolean;
   /** Only the groups with something to show, hits already cut to the displayed set. */
   readonly groups: readonly SenseGroup[];
+  /** Verses not shown; in a by-sense listing, verse-sense entries, since one verse can hold several. */
   readonly omitted: number;
-  /** Scope that starts at the first omitted verse's chapter, for the continuation hint. */
+  /** Scope that starts at the chapter of the earliest omitted verse in text order, for the continuation hint. */
   readonly nextScope: string | null;
 };
 
 const plural = (n: number, word: string): string => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+const omittedUnit = (v: OccurrenceView): string => {
+  const one = v.omitted === 1;
+  if (v.bySense) return one ? 'verse-sense entry' : 'verse-sense entries';
+  return one ? 'verse' : 'verses';
+};
 
 export const formatOccurrences = (v: OccurrenceView): string => {
   const numbering = numberingLabel(v.versification);
@@ -148,7 +162,7 @@ export const formatOccurrences = (v: OccurrenceView): string => {
     v.omitted === 0
       ? []
       : [
-          `Truncated — ${v.omitted} more ${v.omitted === 1 ? 'verse' : 'verses'}; narrow the scope or raise limit` +
+          `Truncated — ${v.omitted} more ${omittedUnit(v)}; narrow the scope or raise limit` +
             (v.nextScope === null ? '' : `, or call again with scope "${v.nextScope}"`),
         ];
   return [head, ...body, ...tail].join('\n');
@@ -210,7 +224,12 @@ export const findOccurrences = defineTool({
     const entries = flat.length;
 
     const view = (shown: number): OccurrenceView => {
-      const next = flat[shown];
+      const next = flat
+        .slice(shown)
+        .reduce<VerseHit | undefined>(
+          (first, h) => (first === undefined || textOrder(h.ref, first.ref) < 0 ? h : first),
+          undefined,
+        );
       return {
         strong: key,
         scopeLabel: scopeLabel(where.value),

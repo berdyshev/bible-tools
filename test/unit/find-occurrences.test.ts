@@ -210,5 +210,36 @@ void test('limit counts verses across senses and the continuation names the next
     ['Ruth 1:1', 'Ruth 2:1', 'Ruth 3:1'],
   );
   assert.equal(structured.truncated, true);
-  assert.match(textOf(result), /Truncated — 1 more verse; .*scope "Ruth 4"$/);
+  assert.match(textOf(result), /Truncated — 1 more verse-sense entry; .*scope "Ruth 4"$/);
+});
+
+const senseRepo = (rows: Occurrence[]) => ({ ...createBibleRepo(fixtureDb()), occurrences: () => rows });
+
+void test('by sense, the continuation scope is the earliest omitted verse in text order', () => {
+  // Sense B comes first in the listing but its last verse is in chapter 3; sense G's omitted verse is earlier in the text.
+  const rows = [
+    occ('Ruth', 1, 1, 'H7704B', 'a', 'א'),
+    occ('Ruth', 3, 1, 'H7704B', 'b', 'ב'),
+    occ('Ruth', 2, 1, 'H7704G', 'c', 'ג'),
+    occ('Ruth', 4, 1, 'H7704G', 'd', 'ד'),
+  ];
+  const text = textOf(findOccurrences.call({ strong: 'H7704', limit: 1 }, senseRepo(rows)));
+  assert.match(text, /Truncated — 3 more verse-sense entries; .*scope "Ruth 2"$/);
+});
+
+void test('by sense, continuation compares books, then chapters, then verses', () => {
+  const rows = [
+    occ('Gen', 1, 1, 'H7704B', 'a', 'א'),
+    occ('Ruth', 1, 1, 'H7704B', 'b', 'ב'),
+    occ('Exod', 5, 1, 'H7704G', 'c', 'ג'),
+    occ('Exod', 2, 9, 'H7704G', 'd', 'ד'),
+  ];
+  const text = textOf(findOccurrences.call({ strong: 'H7704', limit: 1 }, senseRepo(rows)));
+  assert.match(text, /scope "Exodus 2"$/);
+});
+
+void test('an exact sense still says verses, and continues at the next verse', () => {
+  const rows = [occ('Ruth', 1, 1, 'H7704G', 'a', 'א'), occ('Ruth', 2, 1, 'H7704G', 'b', 'ב')];
+  const text = textOf(findOccurrences.call({ strong: 'H7704G', limit: 1 }, senseRepo(rows)));
+  assert.match(text, /Truncated — 1 more verse; .*scope "Ruth 2"$/);
 });

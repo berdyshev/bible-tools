@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node --disable-warning=ExperimentalWarning src/stdio.ts",
     "check": "tsc",
+    "inspect": "npx @modelcontextprotocol/inspector node --disable-warning=ExperimentalWarning src/stdio.ts",
     "data:fetch": "node scripts/fetch-stepbible.ts",
     "data:build": "node --disable-warning=ExperimentalWarning scripts/build-db.ts",
     "fixtures": "node scripts/make-fixtures.ts",

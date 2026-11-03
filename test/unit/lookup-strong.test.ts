@@ -18,6 +18,13 @@ void test('formats an entry with trimmed meaning and other senses', () => {
   );
 });
 
+void test('drops the leading gloss separator from the meaning', () => {
+  assert.equal(
+    formatEntry({ ...entry, meaning: ': country/field\n1) field' }, []),
+    'H1234B  אבג  a.vag  [H:N-M]  «thing»\ncountry/field\n1) field',
+  );
+});
+
 void test('omits the other-senses line when there are none', () => {
   assert.equal(formatEntry(entry, []), 'H1234B  אבג  a.vag  [H:N-M]  «thing»\na thing; stuff');
 });

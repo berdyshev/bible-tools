@@ -56,6 +56,9 @@ export type LexiconEntryView = LexiconSense & {
   readonly meaning: string;
 };
 
+/** TBESH meanings begin with the tail of the gloss (": country/field"); drop that separator. */
+const cleanMeaning = (meaning: string): string => meaning.trim().replace(/^:\s*/, '');
+
 const senseLine = (s: LexiconSense): string => `${s.strong}  ${s.hebrew}  «${s.gloss}»`;
 
 export const formatMenu = (base: string, senses: readonly LexiconSense[]): string =>
@@ -68,7 +71,7 @@ export const formatEntry = (entry: LexiconEntryView, others: readonly LexiconSen
   const head = `${entry.strong}  ${entry.hebrew}  ${entry.transliteration}  [${entry.morph}]  «${entry.gloss}»`;
   const more =
     others.length === 0 ? [] : [`Other senses: ${others.map((o) => `${o.strong} «${o.gloss}»`).join('; ')}`];
-  return [head, entry.meaning.trim(), ...more].join('\n');
+  return [head, cleanMeaning(entry.meaning), ...more].join('\n');
 };
 
 const sense = (s: LexiconSense) => ({ strong: s.strong, lemma: s.hebrew, gloss: s.gloss });
@@ -102,7 +105,7 @@ const lookup = (
         transliteration: entry.transliteration,
         morph: entry.morph,
         gloss: entry.gloss,
-        meaning: entry.meaning.trim(),
+        meaning: cleanMeaning(entry.meaning),
       },
       senses: others.map(sense),
     },

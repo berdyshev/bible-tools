@@ -1,5 +1,5 @@
 H7704G  שָׂדֶה  sa.deh  [H:N-M]  «land: country»
-: country/field
+country/field
 1) field, land
 1a) open field, country
 1b) definite portion of ground, field, land

@@ -37,7 +37,7 @@ the Hebrew (Leningrad) numbering.
 | --------------- | -------------------------------------------------------------------------------------------- |
 | `get_verse`     | The Hebrew words of a verse, a range (`Ruth 1:1-5`, up to 10 verses) or a chapter, with transliteration, English gloss and Strong's numbers. Long passages are cut at a verse boundary with a hint for the next call. |
 | `lookup_strong` | The lexicon entry for one Hebrew Strong's number, or a menu of its senses.                   |
-| `get_names`     | The proper names (persons, places, divine names) in one verse, with kind and Hebrew form.          |
+| `get_names`     | The proper names (persons, places, divine names) in a verse, range or chapter, deduplicated by Strong's number, with kind, word positions per verse and Hebrew form. |
 | `find_occurrences` | Every occurrence of a Strong's number in a book, chapter or the whole Old Testament, with the word form at each. |
 | `search_lexicon` | Finds Hebrew lexicon entries by an English word in the gloss or meaning, to get a Strong's number. |
 

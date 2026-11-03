@@ -90,3 +90,33 @@ export const groupNames = (inputs: readonly NameInput[]): NameGroup[] => {
   }
   return [...byKey.values()];
 };
+
+/** The names of one verse of a passage, as `groupNames` returns them. */
+export type NameVerse = {
+  readonly chapter: number;
+  readonly verse: number;
+  readonly groups: readonly NameGroup[];
+};
+
+/** A name of a passage: its first form, and each verse it stands in with the word positions there. */
+export type PassageName = Omit<NameGroup, 'positions'> & {
+  readonly occurrences: readonly {
+    readonly chapter: number;
+    readonly verse: number;
+    readonly positions: readonly number[];
+  }[];
+};
+
+/** Merges the names of consecutive verses: one entry per Strong's number, in order of first appearance. */
+export const mergeNames = (verses: readonly NameVerse[]): PassageName[] => {
+  const byKey = new Map<string, { name: PassageName; occurrences: PassageName['occurrences'][number][] }>();
+  for (const { chapter, verse, groups } of verses) {
+    for (const { positions, ...group } of groups) {
+      const key = group.strong ?? group.name;
+      const entry = byKey.get(key) ?? { name: { ...group, occurrences: [] }, occurrences: [] };
+      entry.occurrences.push({ chapter, verse, positions });
+      byKey.set(key, entry);
+    }
+  }
+  return [...byKey.values()].map(({ name, occurrences }) => ({ ...name, occurrences }));
+};

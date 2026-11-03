@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { groupNames, kindLabel } from '../../src/domain/names.ts';
-import type { NameInput, NameKind, NameRecord, NameWord } from '../../src/domain/names.ts';
+import { groupNames, kindLabel, mergeNames } from '../../src/domain/names.ts';
+import type { NameGroup, NameInput, NameKind, NameRecord, NameWord } from '../../src/domain/names.ts';
 
 const word = (position: number, over: Partial<NameWord> = {}): NameWord => ({
   position,
@@ -114,4 +114,73 @@ void test('labels the divine name', () => {
   const kinds: NameKind[] = ['person', 'place', 'gentilic'];
   for (const k of kinds) assert.equal(kindLabel(k), k);
   assert.equal(kindLabel('other'), 'divine name/title');
+});
+
+const group = (over: Partial<NameGroup>): NameGroup => ({
+  name: 'Naomi',
+  strong: 'H5281',
+  kind: 'person',
+  hebrew: 'h',
+  transliteration: 't',
+  positions: [1],
+  note: null,
+  ...over,
+});
+
+void test('mergeNames lists a name once per Strong number with every verse it stands in', () => {
+  const merged = mergeNames([
+    {
+      chapter: 1,
+      verse: 2,
+      groups: [group({ positions: [6] }), group({ name: 'Moab', strong: 'H4124G', kind: 'place' })],
+    },
+    { chapter: 1, verse: 3, groups: [] },
+    { chapter: 1, verse: 8, groups: [group({ positions: [2, 3], hebrew: 'later' })] },
+  ]);
+  assert.deepEqual(merged, [
+    {
+      name: 'Naomi',
+      strong: 'H5281',
+      kind: 'person',
+      hebrew: 'h',
+      transliteration: 't',
+      note: null,
+      occurrences: [
+        { chapter: 1, verse: 2, positions: [6] },
+        { chapter: 1, verse: 8, positions: [2, 3] },
+      ],
+    },
+    {
+      name: 'Moab',
+      strong: 'H4124G',
+      kind: 'place',
+      hebrew: 'h',
+      transliteration: 't',
+      note: null,
+      occurrences: [{ chapter: 1, verse: 2, positions: [1] }],
+    },
+  ]);
+});
+
+void test('mergeNames tells apart senses with different Strong numbers and keys by name without one', () => {
+  const merged = mergeNames([
+    {
+      chapter: 2,
+      verse: 1,
+      groups: [
+        group({ name: 'Moab', strong: 'H4124G' }),
+        group({ name: 'Moab', strong: 'H4125' }),
+        group({ name: 'Boaz', strong: null }),
+      ],
+    },
+    { chapter: 2, verse: 4, groups: [group({ name: 'Boaz', strong: null, positions: [3] })] },
+  ]);
+  assert.deepEqual(
+    merged.map((m) => [m.name, m.strong, m.occurrences.length]),
+    [
+      ['Moab', 'H4124G', 1],
+      ['Moab', 'H4125', 1],
+      ['Boaz', null, 2],
+    ],
+  );
 });

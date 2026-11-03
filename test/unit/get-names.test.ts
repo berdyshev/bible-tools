@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { normalizeBook } from '../../src/domain/books.ts';
-import type { NameGroup } from '../../src/domain/names.ts';
-import type { VerseRef } from '../../src/domain/ref.ts';
-import { description, formatNames } from '../../src/tools/get-names.ts';
+import type { NameGroup, NameVerse } from '../../src/domain/names.ts';
+import { parsePassage, spanOf } from '../../src/domain/ref.ts';
+import type { Span, VerseRef } from '../../src/domain/ref.ts';
+import { description, formatNames, formatPassageNames } from '../../src/tools/get-names.ts';
 
 const book = normalizeBook('Ruth');
 assert.ok(book.ok);
@@ -52,4 +53,75 @@ void test('says so when there are no names and names the numbering', () => {
 void test('the description is generic', () => {
   assert.doesNotMatch(description, /german|russian|elberfelder|rbo|name table/i);
   assert.match(description, /does not give forms/);
+});
+
+const spanOfText = (input: string, versification: 'eng' | 'heb' = 'eng'): Span => {
+  const passage = parsePassage(input, versification);
+  assert.ok(passage.ok);
+  const span = spanOf(passage.value, () => 40);
+  assert.ok(span.ok);
+  return span.value;
+};
+
+const verse = (n: number, groups: NameGroup[]): NameVerse & { ref: VerseRef } => ({
+  ref: { ...ref('eng'), verse: n },
+  chapter: 1,
+  verse: n,
+  groups,
+});
+
+void test('a passage lists each name once with verse and word positions, Hebrew last', () => {
+  assert.deepEqual(
+    formatPassageNames(spanOfText('Ruth 1:2-5'), [
+      verse(2, [
+        group({ positions: [6] }),
+        group({ name: 'Moab', strong: null, kind: 'place', note: 'land' }),
+      ]),
+      verse(3, []),
+      verse(5, [group({ positions: [2, 3] })]),
+    ]).split('\n'),
+    [
+      'Ruth 1:2-5 (English numbering) — proper names (Hebrew original)',
+      '- Naomi  H5281  (person)  no.o.Mi  at 1:2 w6; 1:5 w2,3  נָעֳמִי',
+      '- Moab  —  (place)  no.o.Mi  at 1:2 w6 — land  נָעֳמִי',
+    ],
+  );
+});
+
+void test('a passage without names says so and names the numbering', () => {
+  assert.equal(
+    formatPassageNames(spanOfText('Ruth 1:2-3', 'heb'), [verse(2, []), verse(3, [])]),
+    'Ruth 1:2-3 (Hebrew numbering) — proper names (Hebrew original)\nNo proper names in this passage.',
+  );
+});
+
+const long = (n: number): NameVerse & { ref: VerseRef } =>
+  verse(n, [group({ name: `Name${n}`, strong: `H${n}`, hebrew: 'א'.repeat(900) })]);
+
+void test('a passage is cut before the verse that would pass 2000 characters', () => {
+  const text = formatPassageNames(spanOfText('Ruth 1:1-9'), [long(1), long(2), long(3)]);
+  assert.ok(text.includes('Name1'));
+  assert.ok(text.includes('Name2'));
+  assert.ok(!text.includes('Name3'));
+  assert.ok(text.length <= 2100);
+  assert.ok(text.endsWith('\ntruncated — call get_names again with "Ruth 1:3-9"'));
+  assert.ok(!formatPassageNames(spanOfText('Ruth 1:1-2'), [long(1), long(2)]).includes('truncated'));
+});
+
+void test('the first verse is shown even when it alone passes the cap', () => {
+  const huge = verse(1, [group({ hebrew: 'א'.repeat(2500) })]);
+  const text = formatPassageNames(spanOfText('Ruth 1:1-3'), [
+    huge,
+    verse(2, [group({ name: 'Other', strong: 'H2' })]),
+  ]);
+  assert.ok(text.includes('Naomi'));
+  assert.ok(!text.includes('Other'));
+  assert.ok(text.endsWith('"Ruth 1:2-3"'));
+});
+
+void test('the description covers ranges, chapters and the cap', () => {
+  assert.match(description, /verse range or chapter/);
+  assert.match(description, /Ruth 1:1-5/);
+  assert.match(description, /2000 characters/);
+  assert.match(description, /truncated — call get_names again with "Ruth 1:7-12"/);
 });

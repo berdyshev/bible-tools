@@ -1,0 +1,6 @@
+node_modules/
+data/raw/
+*.sqlite
+data/SOURCES.md
+reports/
+.stryker-tmp/

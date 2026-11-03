@@ -1,0 +1,16 @@
+{
+  "name": "stepbible-mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.12" },
+  "packageManager": "pnpm@12.15.0",
+  "scripts": {
+    "check": "tsc",
+    "test": "node --test \"test/**/*.test.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "7.0.2"
+  }
+}

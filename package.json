@@ -10,6 +10,7 @@
   "scripts": {
     "check": "tsc",
     "data:fetch": "node scripts/fetch-stepbible.ts",
+    "data:build": "node --disable-warning=ExperimentalWarning scripts/build-db.ts",
     "test": "node --test \"test/**/*.test.ts\"",
     "lint": "oxlint --type-aware --deny-warnings src scripts test",
     "fmt": "oxfmt src scripts test",

@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import type { BibleRepo } from './data/repo.ts';
+import { getVerse } from './tools/get-verse.ts';
 import type { Registrable } from './tools/shared.ts';
 
 const attribution = (repo: BibleRepo): string => {
@@ -15,7 +16,7 @@ export const instructions = (repo: BibleRepo): string =>
     attribution(repo),
   ].join('\n');
 
-const tools: readonly Registrable[] = [];
+const tools: readonly Registrable[] = [getVerse];
 
 export const createServer = ({ repo }: { readonly repo: BibleRepo }): McpServer => {
   const server = new McpServer(

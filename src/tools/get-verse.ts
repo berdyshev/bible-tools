@@ -8,7 +8,7 @@ import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
 /** A passage longer than this is cut off at a verse boundary. */
-export const MAX_VERSES = 10;
+const MAX_VERSES = 10;
 
 export const inputSchema = z.object({
   ref: z

@@ -3,7 +3,7 @@ import { z } from 'zod/v4';
 
 const user = (text: string) => ({ role: 'user', content: { type: 'text', text } }) as const;
 
-export const wordStudyText = (strong: string): string =>
+const wordStudyText = (strong: string): string =>
   [
     `Do a word study of the Hebrew word ${strong}.`,
     `1. Call lookup_strong with "${strong}". If it returns a menu of senses, pick the one that fits and call it again.`,
@@ -12,7 +12,7 @@ export const wordStudyText = (strong: string): string =>
     'Then summarize how the word is used. Base the summary only on what the tools returned; do not invent data.',
   ].join('\n');
 
-export const verseAnalysisText = (ref: string): string =>
+const verseAnalysisText = (ref: string): string =>
   [
     `Analyze the Hebrew text of ${ref}.`,
     `1. Call get_verse with "${ref}".`,

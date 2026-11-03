@@ -3,13 +3,7 @@ import { test } from 'node:test';
 import { normalizeBook } from '../../src/domain/books.ts';
 import { parsePassage, spanOf } from '../../src/domain/ref.ts';
 import type { Span, VerseRef } from '../../src/domain/ref.ts';
-import {
-  description,
-  formatPassage,
-  formatVerse,
-  inputSchema,
-  MAX_VERSES,
-} from '../../src/tools/get-verse.ts';
+import { description, formatPassage, formatVerse, inputSchema } from '../../src/tools/get-verse.ts';
 import type { PassageVerse, VerseWord } from '../../src/tools/get-verse.ts';
 
 const book = normalizeBook('Ruth');
@@ -93,7 +87,6 @@ void test('a passage has one header, then each verse under its own sub-header', 
 });
 
 void test('a passage stops at the verse cap and names the rest', () => {
-  assert.equal(MAX_VERSES, 10);
   const lines = formatPassage(spanOfText('Ruth 1:1-12'), verses(1, 12)).split('\n');
   assert.equal(lines.filter((l) => /^Ruth 1:\d+$/.test(l)).length, 10);
   assert.equal(lines.at(-1), 'truncated — call get_verse again with "Ruth 1:11-12"');

@@ -7,7 +7,7 @@ import { lookupStrong } from './tools/lookup-strong.ts';
 /** `Ruth.1.1` (OSIS style) is read as `Ruth 1:1`; anything else is passed on unchanged. */
 const DOTTED_REF = /^(.+)\.(\d+)\.(\d+)$/;
 
-export const normalizeRef = (ref: string): string => {
+const normalizeRef = (ref: string): string => {
   const m = DOTTED_REF.exec(ref);
   return m === null ? ref : `${m[1]} ${m[2]}:${m[3]}`;
 };

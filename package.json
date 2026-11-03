@@ -12,9 +12,13 @@
     "test": "node --test \"test/**/*.test.ts\"",
     "lint": "oxlint --type-aware --deny-warnings src test",
     "fmt": "oxfmt src test",
-    "fmt:check": "oxfmt --check src test"
+    "fmt:check": "oxfmt --check src test",
+    "test:mutation": "stryker run",
+    "test:mutation:full": "stryker run --force"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "10.1.1",
+    "@stryker-mutator/tap-runner": "10.1.1",
     "@types/node": "^24.19.2",
     "oxfmt": "0.76.0",
     "oxlint": "1.91.0",

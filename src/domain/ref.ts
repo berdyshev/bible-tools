@@ -118,6 +118,21 @@ export type Span = {
 /** The verse numbers a chapter spans; a superscription makes `first` 0. */
 export type VerseBounds = { readonly first: number; readonly last: number };
 
+/** The error for a verse outside `bounds`, the chapter's verse range (null if the text has none). */
+export const verseOutOfRange = (
+  book: Book,
+  chapter: number,
+  verse: number,
+  bounds: VerseBounds | null,
+): InputError => ({
+  kind: 'verse_out_of_range',
+  book: book.name,
+  chapter,
+  verse,
+  min: bounds?.first ?? 1,
+  max: bounds?.last ?? 0,
+});
+
 /**
  * The verses a passage covers. `bounds(chapter)` is the chapter's first and last verse number (null if
  * the text has none); a verse outside it is an error.
@@ -127,17 +142,6 @@ export const spanOf = (
   bounds: (chapter: number) => VerseBounds | null,
 ): Result<Span, InputError> => {
   const { book, versification } = passage;
-  const outOfRange = (chapter: number, verse: number): InputError => {
-    const b = bounds(chapter);
-    return {
-      kind: 'verse_out_of_range',
-      book: book.name,
-      chapter,
-      verse,
-      min: b?.first ?? 1,
-      max: b?.last ?? 0,
-    };
-  };
   const startBounds = bounds(passage.chapter);
   const start = {
     chapter: passage.chapter,
@@ -151,7 +155,8 @@ export const spanOf = (
         : { chapter: passage.chapter, verse: startBounds?.last ?? 0 };
   for (const at of [start, end]) {
     const b = bounds(at.chapter);
-    if (b === null || at.verse < b.first || at.verse > b.last) return err(outOfRange(at.chapter, at.verse));
+    if (b === null || at.verse < b.first || at.verse > b.last)
+      return err(verseOutOfRange(book, at.chapter, at.verse, b));
   }
   return ok({ book, versification, start, end });
 };

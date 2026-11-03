@@ -1,6 +1,6 @@
 import type { BibleRepo } from '../data/repo.ts';
 import type { Book } from '../domain/books.ts';
-import { formatSpan, spanFrom } from '../domain/ref.ts';
+import { formatSpan, spanFrom, verseOutOfRange } from '../domain/ref.ts';
 import type { InputError } from '../domain/errors.ts';
 import type { Span, VerseBounds, Versification, VerseRef } from '../domain/ref.ts';
 
@@ -18,17 +18,8 @@ export const boundsIn =
     repo.verseBounds({ kind: 'verse', book, chapter, verse: 1, versification });
 
 /** The error for a single verse the text does not have. */
-export const missingVerse = (repo: BibleRepo, ref: VerseRef): InputError => {
-  const bounds = repo.verseBounds(ref);
-  return {
-    kind: 'verse_out_of_range',
-    book: ref.book.name,
-    chapter: ref.chapter,
-    verse: ref.verse,
-    min: bounds?.first ?? 1,
-    max: bounds?.last ?? 0,
-  };
-};
+export const missingVerse = (repo: BibleRepo, ref: VerseRef): InputError =>
+  verseOutOfRange(ref.book, ref.chapter, ref.verse, repo.verseBounds(ref));
 
 /** The closing line of a cut-off passage: which call returns the rest. */
 export const continuation = (tool: string, span: Span, next: VerseRef): string =>

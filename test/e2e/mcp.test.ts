@@ -120,6 +120,7 @@ void test('a failing repository gives a generic error and the details go to stde
     meta: () => null,
     tipnr: boom,
     occurrences: boom,
+    searchLexicon: boom,
   });
   const logged: unknown[][] = [];
   const original = console.error;

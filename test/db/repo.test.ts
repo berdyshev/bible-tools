@@ -280,6 +280,46 @@ void test('occurrences are numbered and scoped by the requested versification', 
   assert.deepEqual(samuel.occurrences(strong.value, scope('1Sam 21', 'eng'), 'eng'), []);
 });
 
+const keys = (query: string, language?: 'hebrew' | 'greek', limit = 50) =>
+  repo.searchLexicon(query, language, limit).map((e) => e.strong);
+
+void test('searchLexicon ranks whole-word gloss matches before meaning-only matches', () => {
+  const found = keys('field');
+  assert.deepEqual(found.slice(0, 2), ['H1250B', 'H1251']);
+  assert.ok(found.includes('H7704M'));
+  assert.ok(found.includes('H7704G'));
+  const glossHits = repo
+    .searchLexicon('field', undefined, 50)
+    .filter((e) => /\bfield\b/i.test(e.gloss))
+    .map((e) => e.strong);
+  assert.deepEqual(found.slice(0, glossHits.length), glossHits);
+  assert.ok(found.indexOf('H7704G') >= glossHits.length);
+});
+
+void test('searchLexicon prefers whole words to substrings and ignores case', () => {
+  const found = repo.searchLexicon('FIELD', 'hebrew', 50);
+  assert.deepEqual(found, repo.searchLexicon('field', 'hebrew', 50));
+  const whole = found.findIndex((e) => /\bfields?\b/i.test(e.gloss));
+  assert.equal(whole, 0);
+  const partial = repo.searchLexicon('countr', undefined, 50);
+  assert.ok(partial.some((e) => e.strong === 'H7704G'));
+});
+
+void test('searchLexicon honours the limit, the language and empty queries', () => {
+  assert.equal(keys('field', 'hebrew', 3).length, 3);
+  assert.deepEqual(keys('field', 'hebrew', 3), keys('field').slice(0, 3));
+  assert.deepEqual(keys('field', 'greek'), []);
+  assert.deepEqual(keys('   '), []);
+  assert.deepEqual(keys('zzzzqqq'), []);
+});
+
+void test('searchLexicon treats the query as text, not as a pattern', () => {
+  assert.deepEqual(keys('%'), []);
+  assert.deepEqual(keys('.*'), []);
+  assert.deepEqual(keys("'; DROP TABLE lexicon; --"), []);
+  assert.equal(repo.lexiconEntry('H7704G')?.strong, 'H7704G');
+});
+
 const dir = mkdtempSync(join(tmpdir(), 'stepbible-repo-'));
 after(() => {
   rmSync(dir, { recursive: true, force: true });

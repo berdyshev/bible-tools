@@ -105,6 +105,12 @@ export interface BibleRepo {
    * sense only; a bare number matches every sense.
    */
   occurrences(strong: Strong, scope: Scope, versification: Versification): Occurrence[];
+  /**
+   * Entries whose gloss or meaning mentions the English `query`, best first: a whole-word match in
+   * the gloss, then any match in the gloss, then a whole-word match in the meaning, then any match
+   * there. `language` limits the entries to Hebrew or Greek; at most `limit` are returned.
+   */
+  searchLexicon(query: string, language: 'hebrew' | 'greek' | undefined, limit: number): LexiconEntry[];
   /** First TIPNR record for a disambiguated key; null if the key names no proper noun. */
   tipnr(dstrong: string): TipnrRecord | null;
 }
@@ -116,6 +122,8 @@ const WORD_COLUMNS = `book, chapter, verse, heb_chapter AS hebChapter, heb_verse
 
 const LEXICON_COLUMNS = `dstrong AS strong, estrong AS extendedStrong, ustrong AS unifiedStrong, relation,
   hebrew, transliteration, morph, gloss, meaning`;
+
+const escapeRegExp = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
   const query = <T>(sql: string, schema: z.ZodType<T>) => {
@@ -164,6 +172,12 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     tipnrRow,
   );
 
+  const lexiconSearch = query(
+    `SELECT ${LEXICON_COLUMNS} FROM lexicon
+     WHERE dstrong LIKE ? AND (instr(lower(gloss), ?) > 0 OR instr(lower(meaning), ?) > 0) ORDER BY id`,
+    lexiconRow,
+  );
+
   const OT_IDS = BOOKS.filter((b) => b.testament === 'OT').map((b) => b.id);
   const occurrenceQuery = (exact: boolean, scope: Scope, versification: Versification) => {
     const heb = versification === 'heb';
@@ -207,6 +221,23 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
         hebrew: r.hebrew,
         strong: r.strong,
       }));
+    },
+    searchLexicon: (text, language, limit) => {
+      const needle = text.trim().toLowerCase();
+      if (needle === '') return [];
+      const prefix = language === 'hebrew' ? 'H%' : language === 'greek' ? 'G%' : '%';
+      const word = new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(needle)}(?![\\p{L}\\p{N}])`, 'u');
+      const rank = (e: LexiconEntry): number => {
+        const gloss = e.gloss.toLowerCase();
+        if (word.test(gloss)) return 0;
+        if (gloss.includes(needle)) return 1;
+        return word.test(e.meaning.toLowerCase()) ? 2 : 3;
+      };
+      return lexiconSearch(prefix, needle, needle)
+        .map((entry) => ({ entry, rank: rank(entry) }))
+        .toSorted((a, b) => a.rank - b.rank)
+        .slice(0, limit)
+        .map((r) => r.entry);
     },
     tipnr: (dstrong) => tipnrByKey(dstrong)[0] ?? null,
   };

@@ -21,6 +21,7 @@
     "test:mutation:full": "stryker run --force"
   },
   "devDependencies": {
+    "@modelcontextprotocol/client": "2.4.0",
     "@stryker-mutator/core": "10.1.1",
     "@stryker-mutator/tap-runner": "10.1.1",
     "@types/node": "^24.19.2",

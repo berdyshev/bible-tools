@@ -141,3 +141,78 @@ void test('a failing repository gives a generic error and the details go to stde
     await failing.close();
   }
 });
+
+void test('resource templates are listed and not enumerated', async () => {
+  const { resourceTemplates } = await client.listResourceTemplates();
+  assert.deepEqual(resourceTemplates.map((t) => t.uriTemplate).toSorted(), [
+    'stepbible://strong/{id}',
+    'stepbible://verse/{ref}',
+  ]);
+  for (const t of resourceTemplates) assert.equal(t.mimeType, 'text/plain', t.name);
+  const verse = resourceTemplates.find((t) => t.name === 'verse');
+  assert.match(verse?.description ?? '', /URL-encoded/);
+  assert.match(verse?.description ?? '', /Ruth\.1\.1/);
+  const { resources } = await client.listResources();
+  assert.deepEqual(resources, []);
+});
+
+void test('resources return the same text as the tools', async () => {
+  const cases = [
+    { uri: 'stepbible://verse/Ruth%201%3A1', tool: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
+    { uri: 'stepbible://verse/Ruth.1.1', tool: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
+    { uri: 'stepbible://strong/H7704G', tool: 'lookup_strong', arguments: { strong: 'H7704G' } },
+  ];
+  for (const { uri, tool, arguments: args } of cases) {
+    const { contents } = await client.readResource({ uri });
+    const content = contents[0];
+    assert.equal(contents.length, 1, uri);
+    assert.equal(content?.mimeType, 'text/plain', uri);
+    assert.equal(
+      content !== undefined && 'text' in content ? content.text : null,
+      textOf(await client.callTool({ name: tool, arguments: args })),
+      uri,
+    );
+  }
+});
+
+void test('invalid resource input is an error with the hint', async () => {
+  await assert.rejects(
+    client.readResource({ uri: 'stepbible://verse/Ruth%2099%3A1' }),
+    /Ruth has no chapter 99/,
+  );
+  await assert.rejects(
+    client.readResource({ uri: 'stepbible://strong/H99999' }),
+    /Malformed Strong's number "H99999"/,
+  );
+  await assert.rejects(
+    client.readResource({ uri: 'stepbible://strong/H9999' }),
+    /Strong's number "H9999" was not found/,
+  );
+});
+
+void test('resource read failures do not leak internals', async () => {
+  const failing = await connect({
+    verseWords: boom,
+    nameWords: boom,
+    lexiconEntry: boom,
+    senses: boom,
+    lastVerse: boom,
+    meta: () => null,
+    tipnr: boom,
+    occurrences: boom,
+    searchLexicon: boom,
+  });
+  const original = console.error;
+  console.error = () => {};
+  try {
+    await assert.rejects(failing.readResource({ uri: 'stepbible://verse/Ruth%201%3A2' }), (e: unknown) => {
+      assert.ok(e instanceof Error);
+      assert.match(e.message, /Internal error/);
+      assert.doesNotMatch(e.message, /secret/);
+      return true;
+    });
+  } finally {
+    console.error = original;
+    await failing.close();
+  }
+});

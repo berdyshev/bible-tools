@@ -49,8 +49,20 @@ Example calls (tool arguments):
 { "name": "get_names", "arguments": { "ref": "Ruth 1:2", "versification": "heb" } }
 ```
 
-Ranges are not supported; ask for one verse at a time. Errors come back as tool results with
-`isError` set and a hint on how to fix the call.
+Errors come back as tool results with `isError` set and a hint on how to fix the call.
+
+## Resources
+
+Hosts can attach data as context through two resource templates (plain text, the same
+output as the matching tool). They are not listed, since there is nothing sensible to enumerate.
+
+| Template                  | Same as         | Example                         |
+| ------------------------- | --------------- | ------------------------------- |
+| `stepbible://verse/{ref}` | `get_verse`     | `stepbible://verse/Ruth%201%3A1` |
+| `stepbible://strong/{id}` | `lookup_strong` | `stepbible://strong/H7704G`     |
+
+`ref` is URL-encoded; `Ruth.1.1` is accepted too. Invalid input is a JSON-RPC error with the
+same hint the tools give.
 
 ## Use with Claude Desktop or Claude Code
 

@@ -29,6 +29,11 @@ const cases: readonly (readonly [string, InputError, string])[] = [
     'Ruth 1 has no verse 99. Use a verse from 1 to 22',
   ],
   [
+    'invalid_range',
+    { kind: 'invalid_range', input: 'Ruth 1:5-2' },
+    'Range "Ruth 1:5-2" ends before it starts. Use an ascending range, e.g. "Ruth 1:1-5"',
+  ],
+  [
     'range_not_supported',
     { kind: 'range_not_supported', input: 'Ruth 1:1-3' },
     'Ranges are not supported here: "Ruth 1:1-3". Pass a single verse, e.g. "Ruth 1:1"',

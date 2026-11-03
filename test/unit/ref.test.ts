@@ -1,7 +1,17 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { hint } from '../../src/domain/errors.ts';
-import { formatRef, parseRef, parseScope } from '../../src/domain/ref.ts';
+import {
+  formatRef,
+  formatSpan,
+  parsePassage,
+  parseRef,
+  parseScope,
+  spanFrom,
+  spanOf,
+  spanVerses,
+} from '../../src/domain/ref.ts';
+import type { Passage, Span, VerseRef } from '../../src/domain/ref.ts';
 
 void test('parses a plain reference', () => {
   const r = parseRef('Ruth 1:2');
@@ -142,4 +152,152 @@ void test('parseScope rejects other shapes with the allowed forms, and unknown b
   const unknown = parseScope('Foo 2');
   assert.ok(!unknown.ok);
   assert.equal(unknown.error.kind, 'unknown_book');
+});
+
+const passage = (input: string, versification: 'eng' | 'heb' = 'eng'): Passage => {
+  const r = parsePassage(input, versification);
+  assert.ok(r.ok, input);
+  return r.value;
+};
+
+void test('parsePassage returns a verse for a single verse', () => {
+  const p = passage('Ruth 1:2');
+  assert.ok(p.kind === 'verse');
+  assert.deepEqual([p.book.id, p.chapter, p.verse], ['Ruth', 1, 2]);
+});
+
+void test('parsePassage reads a same-chapter range with any dash and spacing', () => {
+  for (const input of ['Ruth 1:1-5', 'Ruth 1:1 – 5', 'ruth1:1—5', '  Ruth 1 : 1 - 5 ']) {
+    const p = passage(input);
+    assert.ok(p.kind === 'range', input);
+    assert.deepEqual([p.book.id, p.chapter, p.verse, p.endChapter, p.endVerse], ['Ruth', 1, 1, 1, 5], input);
+  }
+});
+
+void test('parsePassage reads a cross-chapter range', () => {
+  const p = passage('Ruth 1:20-2:3');
+  assert.ok(p.kind === 'range');
+  assert.deepEqual([p.chapter, p.verse, p.endChapter, p.endVerse], [1, 20, 2, 3]);
+  const same = passage('Ruth 1:2-1:4');
+  assert.ok(same.kind === 'range');
+  assert.deepEqual([same.endChapter, same.endVerse], [1, 4]);
+});
+
+void test('parsePassage reads a whole chapter and carries the versification', () => {
+  const p = passage('1 Samuel 3', 'heb');
+  assert.ok(p.kind === 'chapter');
+  assert.deepEqual([p.book.id, p.chapter, p.versification], ['1Sam', 3, 'heb']);
+  assert.equal(passage('Ruth 1:1-2', 'heb').versification, 'heb');
+});
+
+void test('parsePassage accepts a range of one verse', () => {
+  const p = passage('Ruth 1:3-3');
+  assert.ok(p.kind === 'range');
+  assert.deepEqual([p.verse, p.endVerse], [3, 3]);
+});
+
+void test('parsePassage rejects a range that ends before it starts', () => {
+  for (const input of ['Ruth 1:5-2', 'Ruth 2:1-1:3', 'Ruth 2:1-1:9']) {
+    const r = parsePassage(input);
+    assert.ok(!r.ok, input);
+    assert.deepEqual(r.error, { kind: 'invalid_range', input }, input);
+  }
+});
+
+void test('parsePassage checks both chapters against the versification', () => {
+  const start = parsePassage('Ruth 9:1-2');
+  assert.ok(!start.ok);
+  assert.deepEqual(start.error, { kind: 'chapter_out_of_range', book: 'Ruth', chapter: 9, max: 4 });
+  const end = parsePassage('Ruth 4:1-5:2');
+  assert.ok(!end.ok);
+  assert.deepEqual(end.error, { kind: 'chapter_out_of_range', book: 'Ruth', chapter: 5, max: 4 });
+  const chapter = parsePassage('Ruth 0');
+  assert.ok(!chapter.ok);
+  assert.equal(chapter.error.kind, 'chapter_out_of_range');
+  assert.ok(!parsePassage('Joel 4').ok);
+  assert.ok(parsePassage('Joel 4', 'heb').ok);
+});
+
+void test('parsePassage reports an unknown book first and keeps malformed input', () => {
+  const unknown = parsePassage('Руфь 1:2-3');
+  assert.ok(!unknown.ok);
+  assert.equal(unknown.error.kind, 'unknown_book');
+  for (const input of ['', 'Ruth', 'Ruth 1:', 'Ruth 1:2-', 'Ruth 1-2', 'Ruth 1:2:3']) {
+    const r = parsePassage(input);
+    assert.ok(!r.ok, input);
+    assert.deepEqual(r.error, { kind: 'malformed_reference', input }, input);
+  }
+});
+
+// Ruth in the fixture: chapter 1 has 22 verses, chapter 2 has 23.
+const last = (chapter: number): number => ({ 1: 22, 2: 23 })[chapter] ?? 0;
+const span = (input: string): Span => {
+  const r = spanOf(passage(input), last);
+  assert.ok(r.ok, input);
+  return r.value;
+};
+
+void test('spanOf gives the first and last verse of each passage kind', () => {
+  assert.deepEqual(span('Ruth 1:4').start, { chapter: 1, verse: 4 });
+  assert.deepEqual(span('Ruth 1:4').end, { chapter: 1, verse: 4 });
+  assert.deepEqual(span('Ruth 1:2-5').end, { chapter: 1, verse: 5 });
+  assert.deepEqual(span('Ruth 1:20-2:3').end, { chapter: 2, verse: 3 });
+  assert.deepEqual(span('Ruth 2').start, { chapter: 2, verse: 1 });
+  assert.deepEqual(span('Ruth 2').end, { chapter: 2, verse: 23 });
+  assert.equal(span('Ruth 2').versification, 'eng');
+});
+
+void test('spanOf reports a verse beyond the chapter with the last verse', () => {
+  for (const [input, chapter, verse, max] of [
+    ['Ruth 1:23', 1, 23, 22],
+    ['Ruth 1:2-23', 1, 23, 22],
+    ['Ruth 1:20-2:24', 2, 24, 23],
+    ['Ruth 3:1-2', 3, 1, 0],
+    ['Ruth 3', 3, 1, 0],
+  ] as const) {
+    const r = spanOf(passage(input), last);
+    assert.ok(!r.ok, input);
+    assert.deepEqual(r.error, { kind: 'verse_out_of_range', book: 'Ruth', chapter, verse, max }, input);
+  }
+  assert.ok(spanOf(passage('Ruth 1:22'), last).ok);
+});
+
+void test('spanVerses walks verses in order across chapter boundaries', () => {
+  const labels = (input: string): string[] =>
+    [...spanVerses(span(input), last)].map((v) => `${v.chapter}:${v.verse}`);
+  assert.deepEqual(labels('Ruth 1:2-4'), ['1:2', '1:3', '1:4']);
+  assert.deepEqual(labels('Ruth 1:21-2:2'), ['1:21', '1:22', '2:1', '2:2']);
+  assert.deepEqual(labels('Ruth 1:7'), ['1:7']);
+  assert.equal(labels('Ruth 2').length, 23);
+  const first = [...spanVerses(span('Ruth 1:2'), last)][0];
+  assert.equal(first?.kind, 'verse');
+  assert.equal(first?.book.id, 'Ruth');
+  assert.equal(first?.versification, 'eng');
+});
+
+const passageVerse = (): VerseRef => {
+  const p = passage('Ruth 1:1');
+  assert.ok(p.kind === 'verse');
+  return p;
+};
+
+void test('spanFrom keeps the end and moves the start', () => {
+  const rest = spanFrom(span('Ruth 1:1-12'), { ...passageVerse(), chapter: 1, verse: 7 });
+  assert.equal(formatSpan(rest), 'Ruth 1:7-12');
+  assert.equal(
+    formatSpan(spanFrom(span('Ruth 1:20-2:3'), { ...passageVerse(), chapter: 2, verse: 1 })),
+    'Ruth 2:1-3',
+  );
+});
+
+void test('formatSpan writes the form the parser accepts', () => {
+  assert.equal(formatSpan(span('Ruth 1:4')), 'Ruth 1:4');
+  assert.equal(formatSpan(span('Ruth 1:3-3')), 'Ruth 1:3');
+  assert.equal(formatSpan(span('Ruth 1:1-5')), 'Ruth 1:1-5');
+  assert.equal(formatSpan(span('Ruth 1:20-2:3')), 'Ruth 1:20-2:3');
+  assert.equal(formatSpan(span('Ruth 1')), 'Ruth 1:1-22');
+  const sam = passage('1 Samuel 3:1-2');
+  const samSpan = spanOf(sam, () => 21);
+  assert.ok(samSpan.ok);
+  assert.equal(formatSpan(samSpan.value), '1 Samuel 3:1-2');
 });

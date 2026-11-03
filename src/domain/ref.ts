@@ -5,10 +5,7 @@ import { err, ok, type Result } from './result.ts';
 /** English (NRSV) or Hebrew (Leningrad) chapter and verse numbering. */
 export type Versification = 'eng' | 'heb';
 
-/**
- * A single verse. `kind` leaves room for a range variant to join a `Ref` union later
- * without changing existing consumers of `VerseRef`.
- */
+/** A single verse. */
 export type VerseRef = {
   readonly kind: 'verse';
   readonly book: Book;
@@ -39,7 +36,7 @@ export const parseRef = (
 
   const chapter = Number(groups?.['chapter']);
   const verse = Number(groups?.['verse']);
-  const max = versification === 'heb' ? (book.value.hebChapters ?? book.value.chapters) : book.value.chapters;
+  const max = maxChapter(book.value, versification);
   if (chapter < 1 || chapter > max) {
     return err({ kind: 'chapter_out_of_range', book: book.value.name, chapter, max });
   }
@@ -47,6 +44,125 @@ export const parseRef = (
 };
 
 export const formatRef = (ref: VerseRef): string => `${ref.book.name} ${ref.chapter}:${ref.verse}`;
+
+const maxChapter = (book: Book, versification: Versification): number =>
+  versification === 'heb' ? (book.hebChapters ?? book.chapters) : book.chapters;
+
+/** A run of verses, possibly crossing chapters: `Ruth 1:1-5` or `Ruth 1:20-2:3`. */
+export type VerseRange = {
+  readonly kind: 'range';
+  readonly book: Book;
+  readonly chapter: number;
+  readonly verse: number;
+  readonly endChapter: number;
+  readonly endVerse: number;
+  readonly versification: Versification;
+};
+
+/** A whole chapter, such as `Ruth 1`. */
+export type ChapterRef = {
+  readonly kind: 'chapter';
+  readonly book: Book;
+  readonly chapter: number;
+  readonly versification: Versification;
+};
+
+/** Anything a passage-taking tool accepts. */
+export type Passage = VerseRef | VerseRange | ChapterRef;
+
+const PASSAGE_RE = new RegExp(
+  String.raw`^${BOOK}\s*(?<chapter>\d+)(?:\s*:\s*(?<verse>\d+)(?:\s*[-–—]\s*(?:(?<endChapter>\d+)\s*:\s*)?(?<endVerse>\d+))?)?$`,
+  'u',
+);
+
+/** Parses a verse, a verse range (`Ruth 1:1-5`, `Ruth 1:20-2:3`) or a whole chapter (`Ruth 1`). */
+export const parsePassage = (
+  input: string,
+  versification: Versification = 'eng',
+): Result<Passage, InputError> => {
+  const text = input.trim();
+  const groups = PASSAGE_RE.exec(text)?.groups;
+  const bookText = groups?.['book'];
+  if (bookText === undefined) return err({ kind: 'malformed_reference', input });
+
+  const endVerseText = groups?.['endVerse'];
+  if (groups?.['verse'] !== undefined && endVerseText === undefined) return parseRef(text, versification);
+
+  const book = normalizeBook(bookText);
+  if (!book.ok) return book;
+  const max = maxChapter(book.value, versification);
+  const chapter = Number(groups?.['chapter']);
+  const endChapter = groups?.['endChapter'] === undefined ? chapter : Number(groups['endChapter']);
+  for (const c of [chapter, endChapter]) {
+    if (c < 1 || c > max)
+      return err({ kind: 'chapter_out_of_range', book: book.value.name, chapter: c, max });
+  }
+  if (endVerseText === undefined) return ok({ kind: 'chapter', book: book.value, chapter, versification });
+
+  const verse = Number(groups?.['verse']);
+  const endVerse = Number(endVerseText);
+  if (endChapter < chapter || (endChapter === chapter && endVerse < verse)) {
+    return err({ kind: 'invalid_range', input });
+  }
+  return ok({ kind: 'range', book: book.value, chapter, verse, endChapter, endVerse, versification });
+};
+
+/** First and last verse of a passage, both inclusive. */
+export type Span = {
+  readonly book: Book;
+  readonly versification: Versification;
+  readonly start: { readonly chapter: number; readonly verse: number };
+  readonly end: { readonly chapter: number; readonly verse: number };
+};
+
+/**
+ * The verses a passage covers. `lastVerse(chapter)` is the chapter's highest verse number (0 if the
+ * text has none); a verse beyond it is an error.
+ */
+export const spanOf = (
+  passage: Passage,
+  lastVerse: (chapter: number) => number,
+): Result<Span, InputError> => {
+  const { book, versification } = passage;
+  const start = { chapter: passage.chapter, verse: passage.kind === 'chapter' ? 1 : passage.verse };
+  const end =
+    passage.kind === 'verse'
+      ? start
+      : passage.kind === 'range'
+        ? { chapter: passage.endChapter, verse: passage.endVerse }
+        : { chapter: passage.chapter, verse: lastVerse(passage.chapter) };
+  for (const at of [start, end]) {
+    const max = lastVerse(at.chapter);
+    if (at.verse > max) {
+      return err({ kind: 'verse_out_of_range', book: book.name, chapter: at.chapter, verse: at.verse, max });
+    }
+  }
+  return ok({ book, versification, start, end });
+};
+
+/** The verses of a span in text order. */
+export function* spanVerses(span: Span, lastVerse: (chapter: number) => number): Generator<VerseRef> {
+  const { book, versification, start, end } = span;
+  for (let chapter = start.chapter; chapter <= end.chapter; chapter++) {
+    const last = chapter === end.chapter ? end.verse : lastVerse(chapter);
+    for (let verse = chapter === start.chapter ? start.verse : 1; verse <= last; verse++) {
+      yield { kind: 'verse', book, chapter, verse, versification };
+    }
+  }
+}
+
+/** The span from `from` to the end of `span`. */
+export const spanFrom = (span: Span, from: VerseRef): Span => ({
+  ...span,
+  start: { chapter: from.chapter, verse: from.verse },
+});
+
+/** `Ruth 1:2`, `Ruth 1:1-5` or `Ruth 1:20-2:3`: the form the parser accepts. */
+export const formatSpan = ({ book, start, end }: Span): string => {
+  const first = `${book.name} ${start.chapter}:${start.verse}`;
+  if (start.chapter !== end.chapter) return `${first}-${end.chapter}:${end.verse}`;
+  return start.verse === end.verse ? first : `${first}-${end.verse}`;
+};
 
 /** Where a concordance search looks: the whole Old Testament, one book, or one chapter. */
 export type Scope =
@@ -75,7 +191,7 @@ export const parseScope = (
   if (chapterText === undefined) return ok({ kind: 'book', book: book.value });
 
   const chapter = Number(chapterText);
-  const max = versification === 'heb' ? (book.value.hebChapters ?? book.value.chapters) : book.value.chapters;
+  const max = maxChapter(book.value, versification);
   if (chapter < 1 || chapter > max) {
     return err({ kind: 'chapter_out_of_range', book: book.value.name, chapter, max });
   }

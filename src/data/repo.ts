@@ -69,6 +69,10 @@ export interface BibleRepo {
   lexiconEntry(key: string): LexiconEntry | null;
   /** Every sense of a base number such as "H7704", in file order. */
   senses(base: string): LexiconEntry[];
+  /** Highest verse number the text has in the reference's chapter, or 0 if the chapter has none. */
+  lastVerse(ref: VerseRef): number;
+  /** Value stored under `key` when the database was built, e.g. "stepbible_commit"; null if absent. */
+  meta(key: string): string | null;
   /** First TIPNR record for a disambiguated key; null if the key names no proper noun. */
   tipnr(dstrong: string): TipnrRecord | null;
 }
@@ -113,6 +117,15 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     `SELECT ${LEXICON_COLUMNS} FROM lexicon WHERE substr(dstrong, 1, 5) = ? ORDER BY id`,
     lexiconRow,
   );
+  const lastEng = query(
+    'SELECT max(verse) AS last FROM words WHERE book = ? AND chapter = ?',
+    z.object({ last: z.number().nullable() }),
+  );
+  const lastHeb = query(
+    'SELECT max(heb_verse) AS last FROM words WHERE book = ? AND heb_chapter = ?',
+    z.object({ last: z.number().nullable() }),
+  );
+  const metaByKey = query('SELECT value FROM meta WHERE key = ?', z.object({ value: z.string() }));
   const tipnrByKey = query(
     `SELECT unique_name AS uniqueName, dstrong, category, description FROM names
      WHERE dstrong = ? ORDER BY rowid LIMIT 1`,
@@ -124,6 +137,9 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
       (ref.versification === 'heb' ? wordsHeb : wordsEng)(ref.book.id, ref.chapter, ref.verse),
     nameWords: (ref) =>
       (ref.versification === 'heb' ? namesHeb : namesEng)(ref.book.id, ref.chapter, ref.verse),
+    lastVerse: (ref) =>
+      (ref.versification === 'heb' ? lastHeb : lastEng)(ref.book.id, ref.chapter)[0]?.last ?? 0,
+    meta: (key) => metaByKey(key)[0]?.value ?? null,
     lexiconEntry: (key) => entryByKey(key)[0] ?? null,
     senses: (base) => sensesByBase(base),
     tipnr: (dstrong) => tipnrByKey(dstrong)[0] ?? null,

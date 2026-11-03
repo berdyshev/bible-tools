@@ -67,6 +67,17 @@ void test('verseWords is empty for a verse the text does not contain', () => {
   assert.deepEqual(repo.verseWords(ref('Gen 1:1')), []);
 });
 
+void test('lastVerse is the highest verse of the chapter, 0 when the chapter is absent', () => {
+  assert.equal(repo.lastVerse(ref('Ruth 1:1')), 22);
+  assert.equal(repo.lastVerse(ref('Ruth 4:1')), 22);
+  assert.equal(repo.lastVerse(ref('Gen 1:1')), 0);
+});
+
+void test('meta returns stored build values', () => {
+  assert.equal(repo.meta('stepbible_commit'), 'fixture');
+  assert.equal(repo.meta('absent'), null);
+});
+
 void test('nameWords returns only the proper-name words of Ruth 1:2', () => {
   const names = repo.nameWords(ref('Ruth 1:2'));
   assert.deepEqual(
@@ -165,6 +176,9 @@ void test('versification selects English or Hebrew numbering', () => {
     samuel.nameWords(ref('1 Samuel 20:42')).map((w) => w.lemmaGloss),
     ['Jonathan'],
   );
+  assert.equal(samuel.lastVerse(ref('1 Samuel 20:1')), 42);
+  assert.equal(samuel.lastVerse(ref('1 Samuel 21:1', 'heb')), 1);
+  assert.equal(samuel.lastVerse(ref('1 Samuel 21:1')), 0);
   assert.deepEqual(samuel.nameWords(ref('1 Samuel 21:1')), []);
   assert.deepEqual(samuel.nameWords(ref('1 Samuel 20:42', 'heb')), []);
 });

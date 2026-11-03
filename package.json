@@ -8,6 +8,7 @@
   },
   "packageManager": "pnpm@12.15.0",
   "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/stdio.ts",
     "check": "tsc",
     "data:fetch": "node scripts/fetch-stepbible.ts",
     "data:build": "node --disable-warning=ExperimentalWarning scripts/build-db.ts",
@@ -29,6 +30,7 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
     "zod": "4.6.7"
   }
 }

@@ -3,14 +3,19 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24.12" },
+  "engines": {
+    "node": ">=24.12"
+  },
   "packageManager": "pnpm@12.15.0",
   "scripts": {
     "check": "tsc",
-    "test": "node --test \"test/**/*.test.ts\""
+    "test": "node --test \"test/**/*.test.ts\"",
+    "lint": "oxlint --type-aware --deny-warnings src test"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
+    "oxlint": "1.91.0",
+    "oxlint-tsgolint": "7.0.2005",
     "typescript": "7.0.2"
   }
 }

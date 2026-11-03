@@ -117,7 +117,7 @@ pnpm lint               # oxlint, type-aware
 pnpm fmt                # format (pnpm fmt:check only verifies)
 pnpm test               # unit, database, golden and end-to-end tests; no database file needed
 pnpm test:realdb        # smoke tests against data/bible.sqlite; skipped when it is absent
-pnpm test:mutation      # Stryker mutation testing of src/ (fails below a score of 75)
+pnpm test:mutation      # Stryker mutation testing of src/ (fails below a score of 80)
 pnpm fixtures           # regenerate test/fixtures/raw/ from data/raw/
 pnpm inspect            # open the MCP Inspector
 ```

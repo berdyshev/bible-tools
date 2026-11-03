@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import type { BibleRepo } from './data/repo.ts';
+import { getNames } from './tools/get-names.ts';
 import { getVerse } from './tools/get-verse.ts';
 import { lookupStrong } from './tools/lookup-strong.ts';
 import type { Registrable } from './tools/shared.ts';
@@ -17,7 +18,7 @@ export const instructions = (repo: BibleRepo): string =>
     attribution(repo),
   ].join('\n');
 
-const tools: readonly Registrable[] = [getVerse, lookupStrong];
+const tools: readonly Registrable[] = [getVerse, lookupStrong, getNames];
 
 export const createServer = ({ repo }: { readonly repo: BibleRepo }): McpServer => {
   const server = new McpServer(

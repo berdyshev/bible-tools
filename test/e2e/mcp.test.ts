@@ -92,8 +92,8 @@ void test('input errors reach the client with their hint', async () => {
     },
     {
       name: 'get_verse',
-      arguments: { ref: 'Ruth 1:2-3' },
-      text: /^Ranges are not supported here: "Ruth 1:2-3"/,
+      arguments: { ref: 'Ruth 1:5-2' },
+      text: /^Range "Ruth 1:5-2" ends before it starts/,
     },
     {
       name: 'lookup_strong',

@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createBibleRepo } from '../../src/data/repo.ts';
-import { getNames } from '../../src/tools/get-names.ts';
-import { inputSchema } from '../../src/tools/get-verse.ts';
+import { getNames, inputSchema } from '../../src/tools/get-names.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { expectGolden } from '../helpers/golden.ts';
 import { textOf } from '../helpers/tool-text.ts';

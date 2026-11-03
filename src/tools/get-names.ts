@@ -1,11 +1,22 @@
+import { z } from 'zod/v4';
 import { formatRef, parseRef } from '../domain/ref.ts';
 import type { VerseRef } from '../domain/ref.ts';
 import { err, ok } from '../domain/result.ts';
 import { groupNames, kindLabel } from '../domain/names.ts';
 import type { NameGroup } from '../domain/names.ts';
-import { inputSchema } from './get-verse.ts';
-import { defineTool, describeTool } from './shared.ts';
+import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
+
+export const inputSchema = z.object({
+  ref: z
+    .string()
+    .min(1)
+    .describe(
+      'One verse: English book name or OSIS id + chapter:verse, e.g. `Ruth 1:2`, `Gen 12:10`, `1Sam 3:4`. ' +
+        'Ranges such as `Ruth 1:2-3` are not supported: call once per verse.',
+    ),
+  versification: versificationSchema,
+});
 
 export const descriptionParts: DescriptionParts = {
   what: "Lists the proper names of one Old Testament verse as identified in the Hebrew original (STEPBible morphology): persons, places, gentilics (e.g. Ephrathite) and divine names/titles, each with English name, Strong's number, kind, transliteration, word positions and Hebrew form. Multi-word names (Beth-lehem) are merged and repeated names are listed once.",

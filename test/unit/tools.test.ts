@@ -44,7 +44,7 @@ const fieldDescription = (schema: z.ZodObject, field: string): string => {
 };
 
 void test('argument descriptions carry examples', () => {
-  assert.match(fieldDescription(getVerse.input, 'ref'), /`Ruth 1:2`.*not supported/);
+  assert.match(fieldDescription(getVerse.input, 'ref'), /`Ruth 1:2`.*`Ruth 1:1-5`.*`Ruth 1`/);
   assert.match(fieldDescription(getVerse.input, 'versification'), /"eng".*"heb"/);
   assert.match(fieldDescription(lookupStrong.input, 'strong'), /`H1254`.*`H7704G`.*menu/);
 });

@@ -55,6 +55,15 @@ const tipnrRow = z.object({
   description: z.string(),
 });
 
+const morphologyRow = z.object({
+  code: z.string(),
+  language: z.enum(['hebrew', 'greek']),
+  parsing: z.string(),
+  summary: z.string(),
+  meaning: z.string(),
+  example: z.string(),
+});
+
 const occurrenceRow = z.object({
   book: z.string().transform((id, ctx) => {
     const book = normalizeBook(id);
@@ -74,6 +83,8 @@ const occurrenceRow = z.object({
 export type Word = z.infer<typeof wordRow>;
 /** One TBESH lexicon entry. */
 export type LexiconEntry = z.infer<typeof lexiconRow>;
+/** One full morphology code with its explanation (TEHMC, TEGMC). */
+export type MorphologyEntry = z.infer<typeof morphologyRow>;
 /** One TIPNR proper-name record. */
 export type TipnrRecord = z.infer<typeof tipnrRow>;
 
@@ -111,6 +122,8 @@ export interface BibleRepo {
    * there. `language` limits the entries to Hebrew or Greek; at most `limit` are returned.
    */
   searchLexicon(query: string, language: 'hebrew' | 'greek' | undefined, limit: number): LexiconEntry[];
+  /** The explanation of a full morphology code such as "HVqw3ms" or "V-AAI-3S", matched exactly; null if unknown. */
+  morphologyCode(code: string): MorphologyEntry | null;
   /** First TIPNR record for a disambiguated key; null if the key names no proper noun. */
   tipnr(dstrong: string): TipnrRecord | null;
 }
@@ -174,6 +187,11 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     `SELECT unique_name AS uniqueName, dstrong, category, description FROM names
      WHERE dstrong = ? ORDER BY rowid LIMIT 1`,
     tipnrRow,
+  );
+
+  const morphologyByCode = query(
+    'SELECT code, language, parsing, summary, meaning, example FROM morphology WHERE code = ?',
+    morphologyRow,
   );
 
   const lexiconSearch = query(
@@ -260,6 +278,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
           .map((r) => r.entry)
       );
     },
+    morphologyCode: (code) => morphologyByCode(code)[0] ?? null,
     tipnr: (dstrong) => tipnrByKey(dstrong)[0] ?? null,
   };
 };

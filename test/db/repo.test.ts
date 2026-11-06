@@ -137,6 +137,27 @@ void test('senses matches a base of any width and never a longer number that sta
   assert.deepEqual(lexicon.senses('G200'), []);
 });
 
+void test('morphologyCode returns the explanation of an exact full code', () => {
+  assert.deepEqual(repo.morphologyCode('V-AAI-3S'), {
+    code: 'V-AAI-3S',
+    language: 'greek',
+    parsing: 'Function=Verb; Tense=Aorist; Voice=Active; Mood=Indicative; Person=3rd; Number=Singular',
+    summary: 'Verb Aorist Active Indicative 3rd Singular',
+    meaning: 'an ACTION that happened - by a person or thing being discussed',
+    example: '_he/she/it taught _',
+  });
+  const hebrew = repo.morphologyCode('HVqw3ms');
+  assert.equal(hebrew?.language, 'hebrew');
+  assert.equal(hebrew?.example, 'he/it did or does rise');
+  assert.match(hebrew?.summary ?? '', /^Verb : Qal /);
+});
+
+void test('morphologyCode is exact: no case folding, no prefix match, no whitespace trimming', () => {
+  for (const code of ['v-aai-3s', 'V-AAI', 'V-AAI-3S ', 'Vqw3ms', 'HVqw3m', '', '%', 'V-AAI-3S%']) {
+    assert.equal(repo.morphologyCode(code), null, JSON.stringify(code));
+  }
+});
+
 void test('lexiconEntry finds the exact key and gives the sense gloss', () => {
   const entry = repo.lexiconEntry('H7704G');
   assert.equal(entry?.gloss, 'land: country');

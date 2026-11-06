@@ -124,6 +124,7 @@ void test('a failing repository gives a generic error and the details go to stde
     tipnr: boom,
     occurrences: boom,
     searchLexicon: boom,
+    morphologyCode: boom,
   });
   const logged: unknown[][] = [];
   const original = console.error;
@@ -204,6 +205,7 @@ void test('resource read failures do not leak internals', async () => {
     tipnr: boom,
     occurrences: boom,
     searchLexicon: boom,
+    morphologyCode: boom,
   });
   const original = console.error;
   console.error = () => {};

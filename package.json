@@ -9,6 +9,7 @@
   "packageManager": "pnpm@12.15.0",
   "scripts": {
     "start": "node --disable-warning=ExperimentalWarning src/stdio.ts",
+    "start:http": "node --disable-warning=ExperimentalWarning src/http.ts",
     "check": "tsc",
     "inspect": "npx @modelcontextprotocol/inspector node --disable-warning=ExperimentalWarning src/stdio.ts",
     "data:fetch": "node scripts/fetch-stepbible.ts",

@@ -100,6 +100,36 @@ claude mcp add stepbible -- /absolute/path/to/node --disable-warning=Experimenta
 `env` is optional when the database is at the default location. Find the `node` path with
 `which node`.
 
+## HTTP
+
+```sh
+pnpm start:http
+```
+
+Serves the same tools, resources and prompts over stateless Streamable HTTP: every request gets a
+fresh server instance and no session is kept.
+
+| Endpoint      | Purpose                                                                     |
+| ------------- | --------------------------------------------------------------------------- |
+| `POST /mcp`   | MCP messages. Limited to 60 requests per minute per client IP (`429` above) |
+| `GET /health` | Liveness probe: `{"status":"ok"}`, with no rate limit or header checks      |
+
+`GET` and `DELETE` on `/mcp` answer `405`, as there are no sessions to open or close.
+
+| Variable          | Default                     | Purpose                                        |
+| ----------------- | --------------------------- | ---------------------------------------------- |
+| `PORT`            | `3000`                      | Listening port on `0.0.0.0`                    |
+| `STEPBIBLE_DB`    | `data/bible.sqlite`         | Database file                                  |
+| `ALLOWED_HOSTS`   | localhost, 127.0.0.1, [::1] | Comma-separated hostnames accepted in `Host`   |
+| `ALLOWED_ORIGINS` | localhost, 127.0.0.1, [::1] | Comma-separated hostnames accepted in `Origin` |
+
+Requests to `/mcp` with any other `Host` or `Origin` answer `403`, so a public deployment must set
+`ALLOWED_HOSTS` to its hostname; `/health` keeps answering `200` either way. Requests without an
+`Origin` are accepted, as non-browser clients do not send one.
+
+The client IP is the socket address and `X-Forwarded-For` is not trusted, so behind a reverse proxy
+all clients share one rate limit.
+
 ## MCP Inspector
 
 ```sh

@@ -25,11 +25,19 @@ const tahot = (range: string, what: string): Source => ({
   description: `TAHOT (Hebrew OT word-per-line), ${what}`,
 });
 
+const tagnt = (range: string, what: string): Source => ({
+  localName: `TAGNT-${range}.txt`,
+  repoPath: `${TAHOT_DIR}TAGNT ${range} - Translators Amalgamated Greek NT - STEPBible.org CC-BY.txt`,
+  description: `TAGNT (Greek NT word-per-line), ${what}`,
+});
+
 const SOURCES: readonly Source[] = [
   tahot('Gen-Deu', 'Genesis-Deuteronomy'),
   tahot('Jos-Est', 'Joshua-Esther (includes Ruth)'),
   tahot('Job-Sng', 'Job-Song of Songs'),
   tahot('Isa-Mal', 'Isaiah-Malachi'),
+  tagnt('Mat-Jhn', 'Matthew-John'),
+  tagnt('Act-Rev', 'Acts-Revelation'),
   {
     localName: 'TBESH.txt',
     repoPath:
@@ -37,10 +45,29 @@ const SOURCES: readonly Source[] = [
     description: 'TBESH (brief Hebrew lexicon, extended Strong numbers)',
   },
   {
+    localName: 'TBESG.txt',
+    repoPath:
+      'Lexicons/TBESG - Translators Brief lexicon of Extended Strongs for Greek - STEPBible.org CC BY.txt',
+    description: 'TBESG (brief Greek lexicon, extended Strong numbers)',
+  },
+  {
     localName: 'TIPNR.txt',
     repoPath:
       'Proper Nouns/TIPNR - Translators Individualised Proper Names with all References - STEPBible.org CC BY.txt',
     description: 'TIPNR (proper names with unique IDs)',
+  },
+  {
+    localName: 'TEHMC.txt',
+    repoPath:
+      'Morphology codes/TEHMC - Translators Expansion of Hebrew Morphology Codes - STEPBible.org CC BY.txt',
+    description: 'TEHMC (expansions of Hebrew morphology codes)',
+  },
+  {
+    localName: 'TEGMC.txt',
+    // The double "h" in "Morphhology" is the file's real name.
+    repoPath:
+      'Morphology codes/TEGMC - Translators Expansion of Greek Morphhology Codes - STEPBible.org CC BY.txt',
+    description: 'TEGMC (expansions of Greek morphology codes)',
   },
 ];
 
@@ -84,6 +111,9 @@ When the Hebrew (Leningrad) reference differs it is given in parentheses,
 e.g. \`1Sa.20.42(21.1)#01=L\` (English 20.42 = Hebrew 21.1). Both are stored in the database
 (\`chapter\`/\`verse\` = English, \`heb_chapter\`/\`heb_verse\` = Hebrew; equal when the file gives no bracket).
 Psalm titles are verse 0 (English numbering).
+
+TAGNT's primary reference is the English (NRSV) reference too; a second numbering in \`{}\`, \`[]\` or
+\`()\` is ignored. The New Testament is stored with \`heb_chapter\`/\`heb_verse\` equal to \`chapter\`/\`verse\`.
 `,
 );
 console.log('wrote data/SOURCES.md');

@@ -36,14 +36,19 @@ export const parseRef = (
 
   const chapter = Number(groups?.['chapter']);
   const verse = Number(groups?.['verse']);
-  const max = maxChapter(book.value, versification);
+  const numbering = numberingOf(book.value, versification);
+  const max = maxChapter(book.value, numbering);
   if (chapter < 1 || chapter > max) {
     return err({ kind: 'chapter_out_of_range', book: book.value.name, chapter, max });
   }
-  return ok({ kind: 'verse', book: book.value, chapter, verse, versification });
+  return ok({ kind: 'verse', book: book.value, chapter, verse, versification: numbering });
 };
 
 export const formatRef = (ref: VerseRef): string => `${ref.book.name} ${ref.chapter}:${ref.verse}`;
+
+/** The New Testament has only one numbering, so a Hebrew request for it is read as English. */
+const numberingOf = (book: Book, versification: Versification): Versification =>
+  book.testament === 'NT' ? 'eng' : versification;
 
 const maxChapter = (book: Book, versification: Versification): number =>
   versification === 'heb' ? (book.hebChapters ?? book.chapters) : book.chapters;
@@ -90,21 +95,31 @@ export const parsePassage = (
 
   const book = normalizeBook(bookText);
   if (!book.ok) return book;
-  const max = maxChapter(book.value, versification);
+  const numbering = numberingOf(book.value, versification);
+  const max = maxChapter(book.value, numbering);
   const chapter = Number(groups?.['chapter']);
   const endChapter = groups?.['endChapter'] === undefined ? chapter : Number(groups['endChapter']);
   for (const c of [chapter, endChapter]) {
     if (c < 1 || c > max)
       return err({ kind: 'chapter_out_of_range', book: book.value.name, chapter: c, max });
   }
-  if (endVerseText === undefined) return ok({ kind: 'chapter', book: book.value, chapter, versification });
+  if (endVerseText === undefined)
+    return ok({ kind: 'chapter', book: book.value, chapter, versification: numbering });
 
   const verse = Number(groups?.['verse']);
   const endVerse = Number(endVerseText);
   if (endChapter < chapter || (endChapter === chapter && endVerse < verse)) {
     return err({ kind: 'invalid_range', input });
   }
-  return ok({ kind: 'range', book: book.value, chapter, verse, endChapter, endVerse, versification });
+  return ok({
+    kind: 'range',
+    book: book.value,
+    chapter,
+    verse,
+    endChapter,
+    endVerse,
+    versification: numbering,
+  });
 };
 
 /** First and last verse of a passage, both inclusive. */

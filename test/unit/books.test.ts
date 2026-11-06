@@ -8,13 +8,25 @@ const idOf = (input: string): string | undefined => {
   return r.ok ? r.value.id : undefined;
 };
 
-void test('table has the 39 Old Testament books with unique ids and codes', () => {
-  assert.equal(BOOKS.length, 39);
-  assert.equal(new Set(BOOK_IDS).size, 39);
-  assert.equal(new Set(BOOKS.map((b) => b.sourceCode)).size, 39);
-  assert.ok(BOOKS.every((b) => b.testament === 'OT'));
+void test('table has 39 Old Testament and 27 New Testament books with unique ids and codes', () => {
+  assert.equal(BOOKS.length, 66);
+  assert.equal(new Set(BOOK_IDS).size, 66);
+  assert.equal(new Set(BOOKS.map((b) => b.sourceCode)).size, 66);
+  assert.equal(BOOKS.filter((b) => b.testament === 'OT').length, 39);
+  assert.equal(BOOKS.filter((b) => b.testament === 'NT').length, 27);
   assert.deepEqual(BOOK_IDS.slice(0, 3), ['Gen', 'Exod', 'Lev']);
-  assert.equal(BOOK_IDS.at(-1), 'Mal');
+  assert.equal(BOOK_IDS[38], 'Mal');
+  assert.equal(BOOK_IDS[39], 'Matt');
+  assert.equal(BOOK_IDS.at(-1), 'Rev');
+});
+
+void test('the New Testament has 260 chapters and no Hebrew chapter counts', () => {
+  const nt = BOOKS.filter((b) => b.testament === 'NT');
+  assert.equal(
+    nt.reduce((sum, b) => sum + b.chapters, 0),
+    260,
+  );
+  assert.ok(nt.every((b) => b.hebChapters === undefined));
 });
 
 void test('no spelling resolves to two different books', () => {
@@ -28,7 +40,7 @@ void test('no spelling resolves to two different books', () => {
   }
 });
 
-void test('every book is found by its id, name and TAHOT code', () => {
+void test('every book is found by its id, name and source code', () => {
   for (const b of BOOKS) {
     assert.equal(idOf(b.id), b.id);
     assert.equal(idOf(b.name), b.id);
@@ -87,11 +99,53 @@ void test('book metadata', () => {
   assert.equal(ps.value.chapters, 150);
 });
 
+void test('New Testament ids, codes and common spellings', () => {
+  const cases: [string, string][] = [
+    ['Matthew', 'Matt'],
+    ['Mat', 'Matt'],
+    ['Mt', 'Matt'],
+    ['Mrk', 'Mark'],
+    ['Luk', 'Luke'],
+    ['Jhn', 'John'],
+    ['Jn', 'John'],
+    ['Acts of the Apostles', 'Acts'],
+    ['1Co', '1Cor'],
+    ['I Corinthians', '1Cor'],
+    ['2 Cor', '2Cor'],
+    ['Php', 'Phil'],
+    ['Philippians', 'Phil'],
+    ['Phm', 'Phlm'],
+    ['Philemon', 'Phlm'],
+    ['1Th', '1Thess'],
+    ['2Ti', '2Tim'],
+    ['Tit', 'Titus'],
+    ['Heb', 'Heb'],
+    ['Jas', 'Jas'],
+    ['1Jn', '1John'],
+    ['3 John', '3John'],
+    ['Jud', 'Jude'],
+    ['Jude', 'Jude'],
+    ['Revelation', 'Rev'],
+  ];
+  for (const [input, id] of cases) assert.equal(idOf(input), id, input);
+});
+
+void test('look-alike Old and New Testament spellings stay apart', () => {
+  assert.equal(idOf('Judg'), 'Judg');
+  assert.equal(idOf('Jdg'), 'Judg');
+  assert.equal(idOf('Jud'), 'Jude');
+  assert.equal(idOf('Jon'), 'Jonah');
+  assert.equal(idOf('Jol'), 'Joel');
+  assert.equal(idOf('Jn'), 'John');
+  assert.equal(idOf('Job'), 'Job');
+  assert.equal(idOf('Phil'), 'Phil');
+});
+
 void test('unknown book carries the input and the valid ids', () => {
   const r = normalizeBook('Руфь');
   assert.ok(!r.ok);
   assert.deepEqual(r.error, { kind: 'unknown_book', input: 'Руфь', validIds: BOOK_IDS });
   assert.match(hint(r.error), /^Unknown book "Руфь"\. Use English OSIS ids or names: Gen, Exod, Lev, …$/);
   assert.ok(!normalizeBook('').ok);
-  assert.ok(!normalizeBook('Matthew').ok);
+  assert.ok(!normalizeBook('Tobit').ok);
 });

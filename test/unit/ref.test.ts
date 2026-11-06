@@ -58,7 +58,7 @@ void test('unknown book (non-English names included)', () => {
   assert.ok(!r.ok);
   assert.equal(r.error.kind, 'unknown_book');
   assert.match(hint(r.error), /^Unknown book "Руфь"/);
-  const m = parseRef('Matthew 1:1');
+  const m = parseRef('Tobit 1:1');
   assert.ok(!m.ok);
   assert.equal(m.error.kind, 'unknown_book');
 });
@@ -357,4 +357,20 @@ void test('spanVerses restarts each chapter at its own first verse', () => {
     ),
     ['2:1', '2:2', '3:0', '3:1'],
   );
+});
+
+void test('New Testament references use English numbering even when Hebrew is requested', () => {
+  const verse = parseRef('John 1:1', 'heb');
+  assert.ok(verse.ok);
+  assert.deepEqual([verse.value.book.id, verse.value.versification], ['John', 'eng']);
+  assert.equal(passage('Romans 8', 'heb').versification, 'eng');
+  assert.equal(passage('Matthew 5:3-7', 'heb').versification, 'eng');
+  assert.equal(passage('Joel 4', 'heb').versification, 'heb');
+});
+
+void test('New Testament chapter counts bound references', () => {
+  assert.ok(parseRef('Rev 22:21').ok);
+  assert.ok(!parseRef('Rev 23:1').ok);
+  assert.ok(!parsePassage('Jude 2').ok);
+  assert.ok(parseScope('3 John 1').ok);
 });

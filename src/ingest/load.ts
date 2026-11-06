@@ -1,17 +1,32 @@
 import type { DatabaseSync } from 'node:sqlite';
 import type { ParseIssue, ParseOutcome } from './issue.ts';
-import { parseTahotLine } from './tahot.ts';
+import { parseMorphologyCodes, type MorphologyCode } from './morphology.ts';
+import { baseText, parseTagntLine } from './tagnt.ts';
+import { parseTahotLine, type TahotWord } from './tahot.ts';
 import { parseTbeshLine } from './tbesh.ts';
 import { parseTipnr } from './tipnr.ts';
 
 export type LoadInput = {
+  /** Hebrew Old Testament word lines (TAHOT). */
   readonly tahot: Iterable<string>;
+  /** Greek New Testament word lines (TAGNT); loaded after the Old Testament. */
+  readonly tagnt?: Iterable<string>;
+  /** Lexicon lines: TBESH, TBESG or both. */
   readonly tbesh: Iterable<string>;
   readonly tipnr: Iterable<string>;
+  /** Hebrew morphology code lines (TEHMC). */
+  readonly hebrewMorphology?: Iterable<string>;
+  /** Greek morphology code lines (TEGMC). */
+  readonly greekMorphology?: Iterable<string>;
 };
 
 export type LoadReport = {
-  readonly counts: { readonly words: number; readonly lexicon: number; readonly names: number };
+  readonly counts: {
+    readonly words: number;
+    readonly lexicon: number;
+    readonly names: number;
+    readonly morphology: number;
+  };
   readonly issues: readonly ParseIssue[];
 };
 
@@ -74,6 +89,15 @@ CREATE TABLE names (
 CREATE INDEX idx_names_u ON names(unique_name);
 CREATE INDEX idx_names_d ON names(dstrong);
 
+CREATE TABLE morphology (
+  code TEXT PRIMARY KEY,
+  language TEXT NOT NULL,
+  parsing TEXT NOT NULL,
+  summary TEXT NOT NULL,
+  meaning TEXT NOT NULL,
+  example TEXT NOT NULL
+);
+
 CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 `);
 };
@@ -109,6 +133,39 @@ const eachRecord = <T>(
   return count;
 };
 
+/**
+ * Feeds the Greek lines to `store`, keeping per verse only the words of the base text. Words are grouped by
+ * consecutive reference; returns the number of words stored.
+ */
+const eachBaseWord = (
+  lines: Iterable<string>,
+  issues: ParseIssue[],
+  store: (word: TahotWord) => void,
+): number => {
+  let count = 0;
+  let verseKey = '';
+  let verse: TahotWord[] = [];
+  const flush = (): void => {
+    for (const word of baseText(verse)) {
+      store(word);
+      count++;
+    }
+    verse = [];
+  };
+  for (const line of lines) {
+    const outcome = parseTagntLine(line);
+    if (!outcome.ok) issues.push(outcome.error);
+    else if (outcome.value !== null) {
+      const key = `${outcome.value.book} ${outcome.value.chapter}:${outcome.value.verse}`;
+      if (key !== verseKey) flush();
+      verseKey = key;
+      verse.push(outcome.value);
+    }
+  }
+  flush();
+  return count;
+};
+
 export const load = (
   db: DatabaseSync,
   input: LoadInput,
@@ -129,37 +186,45 @@ export const load = (
   const insName = db.prepare(
     'INSERT INTO names (unique_name, dstrong, category, description) VALUES (?, ?, ?, ?)',
   );
+  const insMorph = db.prepare(
+    'INSERT INTO morphology (code, language, parsing, summary, meaning, example) VALUES (?, ?, ?, ?, ?, ?)',
+  );
   const insMeta = db.prepare('INSERT INTO meta (key, value) VALUES (?, ?)');
 
-  const words = inTransaction(db, () =>
-    eachRecord(input.tahot, parseTahotLine, issues, (w) => {
-      insWord.run(
-        w.book,
-        w.chapter,
-        w.verse,
-        w.hebChapter,
-        w.hebVerse,
-        w.position,
-        w.textType,
-        w.original,
-        w.transliteration,
-        w.gloss,
-        w.strongRaw,
-        w.strong,
-        w.strongBase,
-        JSON.stringify(w.prefixes),
-        JSON.stringify(w.suffixes),
-        w.conjoined ? 1 : 0,
-        w.morphRaw,
-        w.morph,
-        w.lemma,
-        w.lemmaGloss,
-        w.expandedRaw,
-        w.nameId,
-        w.isProperName ? 1 : 0,
-        w.nameKind,
-      );
-    }),
+  const storeWord = (w: TahotWord): void => {
+    insWord.run(
+      w.book,
+      w.chapter,
+      w.verse,
+      w.hebChapter,
+      w.hebVerse,
+      w.position,
+      w.textType,
+      w.original,
+      w.transliteration,
+      w.gloss,
+      w.strongRaw,
+      w.strong,
+      w.strongBase,
+      JSON.stringify(w.prefixes),
+      JSON.stringify(w.suffixes),
+      w.conjoined ? 1 : 0,
+      w.morphRaw,
+      w.morph,
+      w.lemma,
+      w.lemmaGloss,
+      w.expandedRaw,
+      w.nameId,
+      w.isProperName ? 1 : 0,
+      w.nameKind,
+    );
+  };
+  // Old Testament first: rows are read back in id order, which must be canonical book order.
+  const words = inTransaction(
+    db,
+    () =>
+      eachRecord(input.tahot, parseTahotLine, issues, storeWord) +
+      eachBaseWord(input.tagnt ?? [], issues, storeWord),
   );
 
   const lexicon = inTransaction(db, () =>
@@ -185,9 +250,18 @@ export const load = (
     return parsed.length;
   });
 
+  const morphology = inTransaction(db, () => {
+    const codes: MorphologyCode[] = [
+      ...parseMorphologyCodes(input.hebrewMorphology ?? [], 'hebrew'),
+      ...parseMorphologyCodes(input.greekMorphology ?? [], 'greek'),
+    ];
+    for (const c of codes) insMorph.run(c.code, c.language, c.parsing, c.summary, c.meaning, c.example);
+    return codes.length;
+  });
+
   inTransaction(db, () => {
     for (const [key, value] of Object.entries(meta)) insMeta.run(key, value);
   });
 
-  return { counts: { words, lexicon, names }, issues };
+  return { counts: { words, lexicon, names, morphology }, issues };
 };

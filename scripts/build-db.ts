@@ -1,4 +1,4 @@
-// Parses data/raw/* (STEPBible TAHOT, TBESH, TIPNR) into data/bible.sqlite.
+// Parses data/raw/* (STEPBible TAHOT, TAGNT, TBESH, TBESG, TIPNR, TEHMC, TEGMC) into data/bible.sqlite.
 // Usage: node --disable-warning=ExperimentalWarning scripts/build-db.ts
 import { readFileSync, rmSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
@@ -14,6 +14,8 @@ const sha = /commit `([0-9a-f]{40})`/.exec(SOURCES)?.[1];
 if (sha === undefined) throw new Error('data/SOURCES.md has no commit SHA; run pnpm data:fetch');
 
 const TAHOT_FILES = ['TAHOT-Gen-Deu.txt', 'TAHOT-Jos-Est.txt', 'TAHOT-Job-Sng.txt', 'TAHOT-Isa-Mal.txt'];
+// Mat-Jhn before Act-Rev keeps canonical book order.
+const TAGNT_FILES = ['TAGNT-Mat-Jhn.txt', 'TAGNT-Act-Rev.txt'];
 
 rmSync(DB_PATH, { force: true });
 const db = new DatabaseSync(DB_PATH);
@@ -22,16 +24,22 @@ const { counts, issues } = load(
   db,
   {
     tahot: TAHOT_FILES.flatMap(lines),
-    tbesh: lines('TBESH.txt'),
+    tagnt: TAGNT_FILES.flatMap(lines),
+    tbesh: [...lines('TBESH.txt'), ...lines('TBESG.txt')],
     tipnr: lines('TIPNR.txt'),
+    hebrewMorphology: lines('TEHMC.txt'),
+    greekMorphology: lines('TEGMC.txt'),
   },
   {
     stepbible_commit: sha,
     built_at: new Date().toISOString(),
-    schema_note: 'chapter/verse = English (NRSV); heb_chapter/heb_verse = Hebrew versification',
+    schema_note:
+      'chapter/verse = English (NRSV); heb_chapter/heb_verse = Hebrew versification (equal to chapter/verse in the New Testament)',
   },
 );
 db.close();
 
-console.log(`words=${counts.words} lexicon=${counts.lexicon} names=${counts.names} issues=${issues.length}`);
+console.log(
+  `words=${counts.words} lexicon=${counts.lexicon} names=${counts.names} morphology=${counts.morphology} issues=${issues.length}`,
+);
 for (const i of issues.slice(0, 10)) console.log(`  ${i.reason}: ${i.line.slice(0, 80)}`);

@@ -204,22 +204,25 @@ export const formatSpan = ({ book, start, end }: Span): string => {
   return start.verse === end.verse ? first : `${first}-${end.verse}`;
 };
 
-/** Where a concordance search looks: the whole Old Testament, one book, or one chapter. */
+/** Where a concordance search looks: a whole testament, one book, or one chapter. */
 export type Scope =
-  | { readonly kind: 'testament'; readonly testament: 'OT' }
+  | { readonly kind: 'testament'; readonly testament: 'OT' | 'NT' }
   | { readonly kind: 'book'; readonly book: Book }
   | { readonly kind: 'chapter'; readonly book: Book; readonly chapter: number };
 
 const SCOPE_RE = new RegExp(String.raw`^${BOOK}(?:\s*(?<chapter>\d+))?$`, 'u');
-const WHOLE_OT = new Set(['', 'ot', 'all']);
-const SCOPE_FORMS = ['OT', 'a book such as "Ruth"', 'a chapter such as "Ruth 2"'] as const;
+const WHOLE_OT = new Set(['', 'ot', 'old testament', 'all']);
+const WHOLE_NT = new Set(['nt', 'new testament']);
+const SCOPE_FORMS = ['OT', 'NT', 'a book such as "Ruth"', 'a chapter such as "Ruth 2"'] as const;
 
 export const parseScope = (
   input: string,
   versification: Versification = 'eng',
 ): Result<Scope, InputError> => {
   const text = input.trim();
-  if (WHOLE_OT.has(text.toLowerCase())) return ok({ kind: 'testament', testament: 'OT' });
+  const spelled = text.toLowerCase().replace(/\s+/g, ' ');
+  if (WHOLE_OT.has(spelled)) return ok({ kind: 'testament', testament: 'OT' });
+  if (WHOLE_NT.has(spelled)) return ok({ kind: 'testament', testament: 'NT' });
 
   const groups = SCOPE_RE.exec(text)?.groups;
   const bookText = groups?.['book'];

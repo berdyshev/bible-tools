@@ -16,13 +16,13 @@ export const inputSchema = z.object({
     .string()
     .min(1)
     .describe(
-      "Hebrew Strong's number as shown by get_verse, e.g. `H7704G` (one sense) or `H7704` (all senses, grouped by sense). Zero-padding is optional.",
+      "Hebrew or Greek Strong's number as shown by get_verse, e.g. `H7704G` (one sense), `H7704` (all senses, grouped by sense) or `G3056`. Zero-padding is optional.",
     ),
   scope: z
     .string()
     .optional()
     .describe(
-      'Where to look: a book (`Ruth`), a chapter (`Ruth 2`) or `OT` for the whole Old Testament. Default `OT`.',
+      'Where to look: a book (`Ruth`, `John`), a chapter (`Ruth 2`), `OT` for the whole Old Testament or `NT` for the whole New Testament. Default: `OT` for a Hebrew number, `NT` for a Greek one.',
     ),
   versification: versificationSchema,
   limit: z
@@ -52,10 +52,10 @@ export const outputSchema = z.object({
 });
 
 export const descriptionParts: DescriptionParts = {
-  what: "Lists every occurrence of one Hebrew Strong's number (STEPBible TAHOT) in a book, a chapter or the whole Old Testament: a count, then the verses with the word form at each, grouped by book.",
+  what: "Lists every occurrence of one Hebrew or Greek Strong's number (STEPBible TAHOT, TAGNT) in a book, a chapter or a whole testament: a count, then the verses with the word form at each, grouped by book. A Greek word that is compounded with another counts under its first part only.",
   when: "Use it to check how consistently a term is rendered across a passage: take the Strong's number from get_verse, list its occurrences, and compare the contexts. A bare number such as `H7704` includes all senses and groups them by sense; `H7704G` selects one.",
   output:
-    'Output: a count header (`H7704G in Ruth: 16 occurrences in 13 verses`), then one line per book: `Ruth 1:1 transliteration, 1:2 …` with `×2` for a verse where the word repeats and the Hebrew forms at the end. A long list is cut with a hint on how to narrow the scope or continue.',
+    'Output: a count header (`H7704G in Ruth: 16 occurrences in 13 verses`), then one line per book: `Ruth 1:1 transliteration, 1:2 …` with `×2` for a verse where the word repeats and the original forms at the end. A long list is cut with a hint on how to narrow the scope or continue.',
   not: "It matches the Strong's number only, not English text or related words; use search_lexicon to find a number by meaning and lookup_strong for its definition. It gives no verse text: use get_verse for that.",
 };
 
@@ -117,7 +117,7 @@ const bookRuns = (hits: readonly VerseHit[]): VerseHit[][] => {
   return runs;
 };
 
-// Latin text first and the Hebrew forms last on the line, so bidi-aware renderers keep it left-to-right.
+// Latin text first and the original forms last on the line, so bidi-aware renderers keep it left-to-right.
 const bookLines = (hits: readonly VerseHit[]): string[] =>
   bookRuns(hits).map((run) => {
     const original = [...new Set(run.flatMap((h) => h.forms.map((f) => f.original)))];
@@ -168,10 +168,13 @@ export const formatOccurrences = (v: OccurrenceView): string => {
   return [head, ...body, ...tail].join('\n');
 };
 
+const isNewTestament = (s: Scope): boolean =>
+  s.kind === 'testament' ? s.testament === 'NT' : s.book.testament === 'NT';
+
 const scopeLabel = (s: Scope): string => {
   switch (s.kind) {
     case 'testament':
-      return 'the Old Testament';
+      return s.testament === 'NT' ? 'the New Testament' : 'the Old Testament';
     case 'book':
       return s.book.name;
     case 'chapter':
@@ -193,16 +196,23 @@ const take = (groups: readonly SenseGroup[], shown: number): SenseGroup[] => {
 
 export const findOccurrences = defineTool({
   name: 'find_occurrences',
-  title: 'Occurrences of a Hebrew word',
+  title: 'Occurrences of a word',
   description,
   input: inputSchema,
   output: outputSchema,
   run: ({ strong, scope, versification, limit }, repo) => {
     const parsed = parseStrong(strong);
     if (!parsed.ok) return parsed;
-    const numbering = versification ?? 'eng';
-    const where = parseScope(scope ?? 'OT', numbering);
+    // An omitted or "all" scope is the whole testament of the number's language.
+    const wholeText = parsed.value.lang === 'G' ? 'NT' : 'OT';
+    const spelled = scope?.trim().toLowerCase();
+    const where = parseScope(
+      spelled === undefined || spelled === '' || spelled === 'all' ? wholeText : (scope ?? wholeText),
+      versification ?? 'eng',
+    );
     if (!where.ok) return where;
+    // The New Testament has only English numbering.
+    const numbering = isNewTestament(where.value) ? 'eng' : (versification ?? 'eng');
     const { key, sense } = parsed.value;
     if (sense === undefined ? repo.senses(key).length === 0 : repo.lexiconEntry(key) === null) {
       return err({ kind: 'unknown_strong', input: strong });

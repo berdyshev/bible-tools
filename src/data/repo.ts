@@ -125,6 +125,9 @@ const LEXICON_COLUMNS = `dstrong AS strong, estrong AS extendedStrong, ustrong A
 
 const escapeRegExp = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+const testamentIds = (testament: 'OT' | 'NT'): string[] =>
+  BOOKS.filter((b) => b.testament === testament).map((b) => b.id);
+
 export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
   const query = <T>(sql: string, schema: z.ZodType<T>) => {
     const stmt = db.prepare(sql);
@@ -179,14 +182,18 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     lexiconRow,
   );
 
-  const OT_IDS = BOOKS.filter((b) => b.testament === 'OT').map((b) => b.id);
   const occurrenceQuery = (exact: boolean, scope: Scope, versification: Versification) => {
     const heb = versification === 'heb';
     const chapterCol = heb ? 'heb_chapter' : 'chapter';
     const verseCol = heb ? 'heb_verse' : 'verse';
     const where = [exact ? 'strong = ?' : 'strong_base = ?'];
-    if (scope.kind === 'testament') where.push(`book IN (${OT_IDS.map(() => '?').join(', ')})`);
-    else where.push('book = ?');
+    if (scope.kind === 'testament') {
+      where.push(
+        `book IN (${testamentIds(scope.testament)
+          .map(() => '?')
+          .join(', ')})`,
+      );
+    } else where.push('book = ?');
     if (scope.kind === 'chapter') where.push(`${chapterCol} = ?`);
     // Rows are loaded in canonical book order, so id order is book, chapter, verse, position.
     return query(
@@ -212,7 +219,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     senses: (base) => sensesByBase(base, base),
     occurrences: (strong, scope, versification) => {
       const params: SQLInputValue[] = [strong.key];
-      if (scope.kind === 'testament') params.push(...OT_IDS);
+      if (scope.kind === 'testament') params.push(...testamentIds(scope.testament));
       else params.push(scope.book.id);
       if (scope.kind === 'chapter') params.push(scope.chapter);
       return occurrenceQuery(

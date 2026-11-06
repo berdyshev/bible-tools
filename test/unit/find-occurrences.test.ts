@@ -162,7 +162,7 @@ void test('the text is capped at MAX_CHARS by dropping verses and says how to co
 
 void test('the tool is named, described and documents every input', () => {
   assert.equal(findOccurrences.name, 'find_occurrences');
-  assert.equal(findOccurrences.title, 'Occurrences of a Hebrew word');
+  assert.equal(findOccurrences.title, 'Occurrences of a word');
   for (const part of Object.values(descriptionParts)) assert.ok(part.length > 40, part);
   for (const field of Object.values(findOccurrences.input.shape)) {
     assert.ok((field.description ?? '').length > 20);

@@ -128,6 +128,21 @@ void test('parseScope accepts the whole OT, a book and a chapter', () => {
   assert.ok(glued.ok && glued.value.kind === 'chapter' && glued.value.chapter === 2);
 });
 
+void test('parseScope accepts the whole New Testament and the long spellings', () => {
+  for (const input of ['NT', 'nt', ' New Testament ', 'new   testament']) {
+    assert.deepEqual(parseScope(input), { ok: true, value: { kind: 'testament', testament: 'NT' } }, input);
+  }
+  for (const input of ['Old Testament', 'old testament']) {
+    assert.deepEqual(parseScope(input), { ok: true, value: { kind: 'testament', testament: 'OT' } }, input);
+  }
+  const book = parseScope('John');
+  assert.ok(book.ok && book.value.kind === 'book');
+  assert.equal(book.value.book.id, 'John');
+  const chapter = parseScope('Romans 8', 'heb');
+  assert.ok(chapter.ok && chapter.value.kind === 'chapter');
+  assert.ok(!parseScope('Romans 17').ok);
+});
+
 void test('parseScope checks the chapter against the versification', () => {
   const eng = parseScope('Joel 4');
   assert.ok(!eng.ok);
@@ -147,7 +162,7 @@ void test('parseScope rejects other shapes with the allowed forms, and unknown b
   assert.ok(!bad.ok);
   assert.equal(
     hint(bad.error),
-    'Invalid scope "Ruth 1:2". Use one of: OT, a book such as "Ruth", a chapter such as "Ruth 2"',
+    'Invalid scope "Ruth 1:2". Use one of: OT, NT, a book such as "Ruth", a chapter such as "Ruth 2"',
   );
   const unknown = parseScope('Foo 2');
   assert.ok(!unknown.ok);

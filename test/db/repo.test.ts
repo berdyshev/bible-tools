@@ -285,6 +285,18 @@ void test('a bare number matches the same words as the sense that occurs; other 
   assert.equal(occ('H7704Z', 'Ruth').length, 0);
 });
 
+void test('a testament scope searches only the books of that testament', () => {
+  const g = parseStrong('G3056');
+  assert.ok(g.ok);
+  const inNt = repo.occurrences(g.value, { kind: 'testament', testament: 'NT' }, 'eng');
+  assert.ok(inNt.length > 0 && inNt.every((o) => o.ref.book.id === 'John'));
+  assert.deepEqual(repo.occurrences(g.value, { kind: 'testament', testament: 'OT' }, 'eng'), []);
+  const h = parseStrong('H7704G');
+  assert.ok(h.ok);
+  assert.deepEqual(repo.occurrences(h.value, { kind: 'testament', testament: 'NT' }, 'eng'), []);
+  assert.equal(repo.occurrences(h.value, { kind: 'testament', testament: 'OT' }, 'eng').length, 16);
+});
+
 const scope = (text: string, v: Versification): Scope => {
   const s = parseScope(text, v);
   assert.ok(s.ok);

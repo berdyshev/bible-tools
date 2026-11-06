@@ -6,7 +6,8 @@ import { fixtureDb } from '../helpers/fixture-db.ts';
 import { expectGolden } from '../helpers/golden.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
-const repo = createBibleRepo(fixtureDb());
+const db = fixtureDb();
+const repo = createBibleRepo(db);
 
 const RUTH_VERSES = [
   ['Ruth 1:1', 1],
@@ -63,6 +64,45 @@ void test('the default scope is the whole Old Testament', () => {
   assert.match(text, /^H7704G in the Old Testament: 16 occurrences in 13 verses/);
 });
 
+void test('G3056 in John 1 lists the verses with the Greek forms', () => {
+  const { text, structured } = run({ strong: 'G3056', scope: 'John 1' });
+  expectGolden('find_occurrences.G3056.John_1.txt', text);
+  assert.match(text, /^G3056 in John 1: \d+ occurrences in \d+ verses \(English numbering\)/);
+  const row = db.prepare("SELECT count(*) AS n FROM words WHERE strong = 'G3056' AND book = 'John'").get();
+  assert.equal(structured.total, row?.['n']);
+  assert.ok(structured.occurrences.every((o) => o.ref.startsWith('John 1:')));
+});
+
+void test('the default scope follows the language of the number', () => {
+  const greek = run({ strong: 'G3056' });
+  assert.match(greek.text, /^G3056 in the New Testament: /);
+  assert.equal(greek.structured.total, run({ strong: 'G3056', scope: 'NT' }).structured.total);
+  assert.equal(run({ strong: 'G3056', scope: 'all' }).structured.scope, 'the New Testament');
+  assert.equal(run({ strong: 'H7704G', scope: 'all' }).structured.scope, 'the Old Testament');
+  assert.equal(run({ strong: 'G3056', scope: 'John 1' }).structured.total, greek.structured.total);
+});
+
+void test('a number does not turn up in the other testament', () => {
+  assert.equal(
+    run({ strong: 'G3056', scope: 'OT' }).text,
+    'G3056 in the Old Testament: no occurrences (English numbering)',
+  );
+  assert.equal(run({ strong: 'H7704G', scope: 'NT' }).structured.total, 0);
+  assert.equal(run({ strong: 'G3056', scope: 'Ruth' }).structured.total, 0);
+});
+
+void test('New Testament scopes are labelled with English numbering even when Hebrew is asked for', () => {
+  for (const scope of ['NT', 'John', 'John 1']) {
+    const { text, structured } = run({ strong: 'G3056', scope, versification: 'heb' });
+    assert.match(text, /\(English numbering\)/, scope);
+    assert.equal(structured.versification, 'eng', scope);
+  }
+  assert.equal(
+    run({ strong: 'H7704G', scope: 'Ruth', versification: 'heb' }).structured.versification,
+    'heb',
+  );
+});
+
 void test('a chapter without the word is an empty result, not an error', () => {
   const { text, structured } = run({ strong: 'H7704G', scope: 'Ruth 3' });
   assert.equal(text, 'H7704G in Ruth 3: no occurrences (English numbering)');
@@ -79,7 +119,7 @@ void test('limit cuts the list and says how to continue', () => {
 
 void test('bad scope, bad number and unknown number are input errors with hints', () => {
   const cases = [
-    [{ strong: 'H7704G', scope: 'Ruth 1:2' }, /^Invalid scope "Ruth 1:2"\. Use one of: OT, /],
+    [{ strong: 'H7704G', scope: 'Ruth 1:2' }, /^Invalid scope "Ruth 1:2"\. Use one of: OT, NT, /],
     [{ strong: 'H7704G', scope: 'Ruth 9' }, /^Ruth has no chapter 9/],
     [{ strong: 'X1' }, /^Malformed Strong's number "X1"/],
     [{ strong: 'H9999' }, /^Strong's number "H9999" was not found/],

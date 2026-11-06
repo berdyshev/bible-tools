@@ -161,6 +161,9 @@ void test('resources return the same text as the tools', async () => {
     { uri: 'stepbible://verse/Ruth%201%3A1', tool: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
     { uri: 'stepbible://verse/Ruth.1.1', tool: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
     { uri: 'stepbible://strong/H7704G', tool: 'lookup_strong', arguments: { strong: 'H7704G' } },
+    { uri: 'stepbible://verse/John%201%3A1', tool: 'get_verse', arguments: { ref: 'John 1:1' } },
+    { uri: 'stepbible://verse/John.1.1', tool: 'get_verse', arguments: { ref: 'John 1:1' } },
+    { uri: 'stepbible://strong/G3056', tool: 'lookup_strong', arguments: { strong: 'G3056' } },
   ];
   for (const { uri, tool, arguments: args } of cases) {
     const { contents } = await client.readResource({ uri });
@@ -251,6 +254,18 @@ void test('word_study names the tools in order', async () => {
   );
   assert.match(text, /menu/);
   assert.match(text, /do not invent/i);
+});
+
+void test('the prompts do not say Hebrew or Old Testament and work for a Greek number and verse', async () => {
+  const study = await promptText('word_study', { strong: 'G3056' });
+  assert.match(study, /^Do a word study of the word G3056\./);
+  assert.match(study, /New Testament/);
+  const analysis = await promptText('verse_analysis', { ref: 'John 1:1' });
+  assert.match(analysis, /^Analyze the original text of John 1:1\./);
+  for (const text of [study.split('\n')[0], analysis.split('\n')[0]])
+    assert.doesNotMatch(text ?? '', /Hebrew/);
+  const { prompts } = await client.listPrompts();
+  for (const p of prompts) assert.match(p.description ?? '', /Greek/, p.name);
 });
 
 void test('verse_analysis names the tools in order', async () => {

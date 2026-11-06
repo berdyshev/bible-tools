@@ -32,12 +32,20 @@ const toolCalls = [
   { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'Ruth' } },
   { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'OT' } },
   { name: 'search_lexicon', arguments: { query: 'field' } },
+  { name: 'get_verse', arguments: { ref: 'John 1' } },
+  { name: 'get_verse', arguments: { ref: 'John 1:1', morphology: true } },
+  { name: 'get_names', arguments: { ref: 'John 1:1-30' } },
+  { name: 'lookup_strong', arguments: { strong: 'G3056' } },
+  { name: 'find_occurrences', arguments: { strong: 'G3056' } },
+  { name: 'search_lexicon', arguments: { query: 'field', language: 'greek' } },
 ];
 
 const resourceUris = [
   'stepbible://verse/Ruth%201%3A1',
   'stepbible://verse/Ruth%201',
   'stepbible://strong/H7704G',
+  'stepbible://verse/John%201',
+  'stepbible://strong/G3056',
 ];
 
 const outputs = async (): Promise<{ label: string; text: string }[]> => {

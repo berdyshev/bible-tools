@@ -5,16 +5,16 @@ const user = (text: string) => ({ role: 'user', content: { type: 'text', text } 
 
 const wordStudyText = (strong: string): string =>
   [
-    `Do a word study of the Hebrew word ${strong}.`,
+    `Do a word study of the word ${strong}.`,
     `1. Call lookup_strong with "${strong}". If it returns a menu of senses, pick the one that fits and call it again.`,
-    "2. Call find_occurrences with that Strong's number across the Old Testament.",
+    "2. Call find_occurrences with that Strong's number; it searches the Old Testament for a Hebrew number (H) and the New Testament for a Greek one (G).",
     '3. Call get_verse on two or three representative references from the results.',
     'Then summarize how the word is used. Base the summary only on what the tools returned; do not invent data.',
   ].join('\n');
 
 const verseAnalysisText = (ref: string): string =>
   [
-    `Analyze the Hebrew text of ${ref}.`,
+    `Analyze the original text of ${ref}.`,
     `1. Call get_verse with "${ref}".`,
     `2. Call get_names with "${ref}" to list the proper names.`,
     '3. Call lookup_strong on the key words to see their range of meanings.',
@@ -26,9 +26,12 @@ export const registerPrompts = (server: McpServer): void => {
     'word_study',
     {
       title: 'Word study',
-      description: 'Study one Hebrew word: its lexicon entry, where it occurs and how it is used.',
+      description: 'Study one Hebrew or Greek word: its lexicon entry, where it occurs and how it is used.',
       argsSchema: z.object({
-        strong: z.string().min(1).describe("Hebrew Strong's number, e.g. `H7704G` or `H1254`."),
+        strong: z
+          .string()
+          .min(1)
+          .describe("Hebrew or Greek Strong's number, e.g. `H7704G`, `H1254` or `G3056`."),
       }),
     },
     ({ strong }) => ({ messages: [user(wordStudyText(strong))] }),
@@ -37,9 +40,9 @@ export const registerPrompts = (server: McpServer): void => {
     'verse_analysis',
     {
       title: 'Verse analysis',
-      description: 'Analyze the Hebrew of a verse: its words, proper names and key terms.',
+      description: 'Analyze the Hebrew or Greek of a verse: its words, proper names and key terms.',
       argsSchema: z.object({
-        ref: z.string().min(1).describe('A verse reference, e.g. `Ruth 1:1`.'),
+        ref: z.string().min(1).describe('A verse reference, e.g. `Ruth 1:1` or `John 1:1`.'),
       }),
     },
     ({ ref }) => ({ messages: [user(verseAnalysisText(ref))] }),

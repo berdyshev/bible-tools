@@ -17,8 +17,8 @@ const attribution = (repo: BibleRepo): string => {
 
 export const instructions = (repo: BibleRepo): string =>
   [
-    "Word-level data for the Hebrew Old Testament: original text with transliteration, English gloss, Strong's numbers and morphology, a Hebrew lexicon, and proper names.",
-    'References look like "Ruth 1:2": an English book name or OSIS id, chapter, verse. Strong\'s numbers look like "H1254" or "H7704G" (the letter selects one sense).',
+    "Word-level data for the Hebrew Old Testament and the Greek New Testament: original text with transliteration, English gloss, Strong's numbers and morphology, Hebrew and Greek lexicons, and proper names.",
+    'References look like "Ruth 1:2" or "John 1:1": an English book name or OSIS id, chapter, verse. Strong\'s numbers look like "H1254", "H7704G" or "G3056" (H is Hebrew, G is Greek; the letter after the digits selects one sense).',
     attribution(repo),
   ].join('\n');
 

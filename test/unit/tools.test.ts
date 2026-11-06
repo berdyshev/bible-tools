@@ -60,8 +60,10 @@ void test('the Hebrew numbering is named in the header of verse tools', () => {
 
 void test('instructions state the data, the formats and the attribution with the data commit', () => {
   const text = instructions(repo);
-  assert.match(text, /Hebrew Old Testament/);
+  assert.match(text, /Hebrew Old Testament and the Greek New Testament/);
   assert.match(text, /"Ruth 1:2"/);
+  assert.match(text, /"John 1:1"/);
   assert.match(text, /"H7704G"/);
+  assert.match(text, /"G3056"/);
   assert.match(text, /STEPBible.*\(data commit fixture\).*Tyndale House.*CC BY 4\.0/);
 });

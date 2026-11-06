@@ -25,6 +25,20 @@ void test('get_names Ruth 1:6 labels the divine name', () => {
   assert.match(text, /divine name\/title/);
 });
 
+void test('get_names John 1:6 names the Greek original', () => {
+  const result = getNames.call({ ref: 'John 1:6' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('get_names.John_1_6.txt', text);
+  assert.match(text, /^John 1:6 \(English numbering\) — proper names \(Greek original\)\n/);
+});
+
+void test('get_names over a New Testament chapter merges names across verses', () => {
+  const text = textOf(getNames.call({ ref: 'John 1:40-42' }, repo));
+  assert.match(text, /^John 1:40-42 \(English numbering\) — proper names \(Greek original\)\n/);
+  assert.match(text, /Simon/);
+});
+
 void test('get_names Ruth 1 lists every name of the chapter once', () => {
   const result = getNames.call({ ref: 'Ruth 1' }, repo);
   assert.equal(result.isError, undefined);

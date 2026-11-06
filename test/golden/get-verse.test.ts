@@ -15,6 +15,23 @@ void test('get_verse Ruth 1:1 matches the golden output', () => {
   expectGolden('get_verse.Ruth_1_1.txt', textOf(result));
 });
 
+void test('get_verse John 1:1 matches the golden output', () => {
+  const result = getVerse.call({ ref: 'John 1:1' }, repo);
+  assert.equal(result.isError, undefined);
+  expectGolden('get_verse.John_1_1.txt', textOf(result));
+});
+
+void test('a Hebrew numbering request for the New Testament is answered in English numbering', () => {
+  const eng = textOf(getVerse.call({ ref: 'John 1:1' }, repo));
+  assert.equal(textOf(getVerse.call({ ref: 'John 1:1', versification: 'heb' }, repo)), eng);
+  assert.match(eng, /^John 1:1 \(English numbering\) — Greek;/);
+});
+
+void test('a New Testament chapter the fixture lacks is an error, a verse past John 1 too', () => {
+  assert.equal(failure('John 99:1'), 'John has no chapter 99. Use a chapter from 1 to 21');
+  assert.equal(failure('John 1:99'), 'John 1 has no verse 99. Use a verse from 1 to 51');
+});
+
 void test('get_verse Ruth 1:1 stays compact', () => {
   assert.ok(textOf(getVerse.call({ ref: 'Ruth 1:1' }, repo)).length < 2000);
 });

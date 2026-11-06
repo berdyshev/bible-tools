@@ -1,0 +1,18 @@
+John 1:1 (English numbering) — Greek; Strong's numbers per STEPBible
+1. En  G1722  In [the]  Ἐν
+2. archē  G0746  beginning  ἀρχῇ
+3. ēn  G1510  was  ἦν
+4. ho  G3588  the  ὁ
+5. logos  G3056  Word,  λόγος,
+6. kai  G2532  and  καὶ
+7. ho  G3588  the  ὁ
+8. logos  G3056  Word  λόγος
+9. ēn  G1510  was  ἦν
+10. pros  G4314  with  πρὸς
+11. ton  G3588  <the>  τὸν
+12. theon  G2316  God,  θεόν,
+13. kai  G2532  and  καὶ
+14. theos  G2316  God  θεὸς
+15. ēn  G1510  was  ἦν
+16. ho  G3588  the  ὁ
+17. logos  G3056  Word.  λόγος.

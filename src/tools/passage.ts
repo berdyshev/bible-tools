@@ -11,6 +11,10 @@ export const MAX_CHARS = 2000;
 export const numberingLabel = (versification: Versification): string =>
   versification === 'heb' ? 'Hebrew numbering' : 'English numbering';
 
+/** The language of a book's original text. */
+export const originalLanguage = (book: Book): 'Hebrew' | 'Greek' =>
+  book.testament === 'NT' ? 'Greek' : 'Hebrew';
+
 /** First and last verse of each chapter of `book`, as the span helpers expect it. */
 export const boundsIn =
   (repo: BibleRepo, book: Book, versification: Versification) =>

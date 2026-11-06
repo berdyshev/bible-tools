@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { baseText, isNestleAland, parseTagntLine, type TagntWord } from '../../src/ingest/tagnt.ts';
+import { isNestleAland } from '../../src/domain/text-type.ts';
+import { baseText, parseTagntLine, type TagntWord } from '../../src/ingest/tagnt.ts';
 
 const row = (ref: string, greek: string, strongMorph: string, rest: Partial<Record<number, string>> = {}) => {
   const cols = [

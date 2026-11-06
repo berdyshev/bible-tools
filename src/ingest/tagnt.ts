@@ -1,6 +1,7 @@
 import { normalizeBook } from '../domain/books.ts';
 import { err, ok } from '../domain/result.ts';
 import { strongBase } from '../domain/strong.ts';
+import { isNestleAland } from '../domain/text-type.ts';
 import type { ParseOutcome } from './issue.ts';
 import type { TahotWord } from './tahot.ts';
 
@@ -87,9 +88,6 @@ export const parseTagntLine = (rawLine: string): ParseOutcome<TagntWord> => {
     nameKind,
   });
 };
-
-/** True for the Nestlé-Aland text: the type contains N or n. */
-export const isNestleAland = (textType: string): boolean => /[Nn]/.test(textType);
 
 /**
  * The words of one verse that make up the base text: the Nestlé-Aland words; if the verse has none,

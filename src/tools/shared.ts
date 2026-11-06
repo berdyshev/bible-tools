@@ -16,7 +16,9 @@ export const versificationSchema = z
     error: 'versification must be "eng" (English/NRSV, default) or "heb" (Hebrew/Leningrad)',
   })
   .optional()
-  .describe('Verse numbering: "eng" (English/NRSV, default) or "heb" (Hebrew/Leningrad).');
+  .describe(
+    'Verse numbering: "eng" (English/NRSV, default) or "heb" (Hebrew/Leningrad). It only affects the Old Testament; New Testament references always use English numbering.',
+  );
 
 type Schema = z.ZodObject;
 type Args<In extends Schema> = z.infer<In>;

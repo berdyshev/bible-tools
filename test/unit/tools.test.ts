@@ -11,7 +11,7 @@ import { fixtureDb } from '../helpers/fixture-db.ts';
 const repo = createBibleRepo(fixtureDb());
 
 const tools = [
-  { tool: getVerse, name: 'get_verse', title: 'Hebrew words of a verse', parts: verseParts },
+  { tool: getVerse, name: 'get_verse', title: 'Original-language words of a verse', parts: verseParts },
   { tool: lookupStrong, name: 'lookup_strong', title: 'Hebrew lexicon entry', parts: strongParts },
   { tool: getNames, name: 'get_names', title: 'Proper names in a passage', parts: namesParts },
 ];

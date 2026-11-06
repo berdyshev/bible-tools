@@ -22,6 +22,7 @@ const word = (over: Partial<VerseWord>): VerseWord => ({
   strong: 'H1961',
   gloss: 'and/ he was',
   original: 'וַיְהִי',
+  textType: 'L',
   isProperName: false,
   nameKind: null,
   ...over,
@@ -36,6 +37,82 @@ void test('formats a header and one line per word with Hebrew last', () => {
     "Ruth 1:2 (English numbering) — Hebrew, read right to left; Strong's numbers per STEPBible",
     '1. va.Yehi  H1961  and/ he was  וַיְהִי',
     '2. va.Yehi  —  and/ he was  [name: place]  מוֹאָב',
+  ]);
+});
+
+const john = normalizeBook('John');
+assert.ok(john.ok);
+const johnRef: VerseRef = { kind: 'verse', book: john.value, chapter: 5, verse: 4, versification: 'eng' };
+const greek = (over: Partial<VerseWord>): VerseWord =>
+  word({
+    transliteration: 'En',
+    strong: 'G1722',
+    gloss: 'In [the]',
+    original: 'Ἐν',
+    textType: 'NKO',
+    ...over,
+  });
+
+void test('a Greek verse has a Greek header and the same line layout', () => {
+  const text = formatVerse(johnRef, [
+    greek({}),
+    greek({ position: 2, strong: 'G2424G', isProperName: true, nameKind: 'person', original: 'Ἰησοῦ' }),
+  ]);
+  assert.deepEqual(text.split('\n'), [
+    "John 5:4 (English numbering) — Greek; Strong's numbers per STEPBible",
+    '1. En  G1722  In [the]  Ἐν',
+    '2. En  G2424G  In [the]  [name: person]  Ἰησοῦ',
+  ]);
+});
+
+void test('a Greek verse without Nestlé-Aland words says it is shown from the traditional text', () => {
+  const note = 'Not in the Nestlé-Aland text; shown from the traditional text.';
+  for (const textType of ['KO', 'k', 'O']) {
+    assert.deepEqual(
+      formatVerse(johnRef, [greek({ textType })])
+        .split('\n')
+        .slice(0, 3),
+      [
+        "John 5:4 (English numbering) — Greek; Strong's numbers per STEPBible",
+        note,
+        '1. En  G1722  In [the]  Ἐν',
+      ],
+    );
+  }
+  for (const textType of ['NKO', 'no']) {
+    assert.ok(!formatVerse(johnRef, [greek({ textType: 'KO' }), greek({ textType })]).includes(note));
+  }
+  assert.ok(!formatVerse(johnRef, []).includes(note));
+});
+
+void test('the note is Greek only: Hebrew word types never contain N', () => {
+  assert.ok(!formatVerse(ref('eng'), [word({ textType: 'L' })]).includes('Nestlé'));
+  assert.ok(!formatVerse(ref('eng'), [word({ textType: 'K' })]).includes('Nestlé'));
+});
+
+const johnVerse = (n: number, textType: string): PassageVerse => ({
+  ref: { ...johnRef, verse: n },
+  words: [greek({ textType })],
+});
+
+void test('a passage puts the note under the sub-header of each verse that needs it', () => {
+  const span = spanOf(
+    (() => {
+      const p = parsePassage('John 5:3-4');
+      assert.ok(p.ok);
+      return p.value;
+    })(),
+    () => ({ first: 1, last: 47 }),
+  );
+  assert.ok(span.ok);
+  const text = formatPassage(span.value, [johnVerse(3, 'NKO'), johnVerse(4, 'KO')]);
+  assert.deepEqual(text.split('\n'), [
+    "John 5:3-4 (English numbering) — Greek; Strong's numbers per STEPBible",
+    'John 5:3',
+    '1. En  G1722  In [the]  Ἐν',
+    'John 5:4',
+    'Not in the Nestlé-Aland text; shown from the traditional text.',
+    '1. En  G1722  In [the]  Ἐν',
   ]);
 });
 

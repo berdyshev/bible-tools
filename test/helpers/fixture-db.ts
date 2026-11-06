@@ -10,14 +10,21 @@ const populate = (db: DatabaseSync): DatabaseSync => {
   createSchema(db);
   const report = load(
     db,
-    { tahot: lines('TAHOT-Ruth.txt'), tbesh: lines('TBESH.txt'), tipnr: lines('TIPNR.txt') },
+    {
+      tahot: lines('TAHOT-Ruth.txt'),
+      tagnt: lines('TAGNT-John1.txt'),
+      tbesh: [...lines('TBESH.txt'), ...lines('TBESG.txt')],
+      tipnr: lines('TIPNR.txt'),
+      hebrewMorphology: lines('TEHMC.txt'),
+      greekMorphology: lines('TEGMC.txt'),
+    },
     { stepbible_commit: 'fixture' },
   );
   if (report.issues.length > 0) throw new Error(`fixture data has unparsable lines: ${report.issues.length}`);
   return db;
 };
 
-/** In-memory database with the Ruth fixture; build it once per test file. */
+/** In-memory database with the Ruth and John 1 fixtures; build it once per test file. */
 export const fixtureDb = (): DatabaseSync => populate(new DatabaseSync(':memory:'));
 
 /** Writes the fixture database to `<dir>/fixture.sqlite` and returns its path. */

@@ -19,8 +19,18 @@ void test('fixture database holds the 19 words of Ruth 1:1 in order', () => {
   assert.deepEqual(words[13], { position: 14, strong: 'H7704G' });
 });
 
-void test('fixture database holds only Ruth', () => {
-  assert.deepEqual(rows('SELECT DISTINCT book FROM words'), [{ book: 'Ruth' }]);
+void test('fixture database holds only Ruth and John 1, Ruth first', () => {
+  assert.deepEqual(rows('SELECT DISTINCT book FROM words ORDER BY id'), [{ book: 'Ruth' }, { book: 'John' }]);
+  assert.deepEqual(rows("SELECT DISTINCT chapter FROM words WHERE book = 'John'"), [{ chapter: 1 }]);
+});
+
+void test('fixture database holds John 1:1 with 17 words and the Greek lexicon and morphology', () => {
+  assert.equal(rows("SELECT id FROM words WHERE book = 'John' AND chapter = 1 AND verse = 1").length, 17);
+  assert.deepEqual(rows("SELECT gloss FROM lexicon WHERE dstrong = 'G3056'"), [{ gloss: 'word' }]);
+  assert.deepEqual(
+    rows("SELECT language FROM morphology WHERE code IN ('HVqw3ms', 'V-AAI-3S') ORDER BY code"),
+    [{ language: 'hebrew' }, { language: 'greek' }],
+  );
 });
 
 void test('fixture database lists the senses of H7704', () => {

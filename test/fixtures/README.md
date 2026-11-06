@@ -3,8 +3,10 @@
 `raw/` holds an excerpt of the STEPBible data used by the tests, in the original file format.
 
 - `TAHOT-Ruth.txt`: the file's licence and field-description header, then every word line of Ruth.
-- `TBESH.txt`: the complete Hebrew lexicon, so every sense of a number and every prefix and suffix tag resolves.
-- `TIPNR.txt`: the proper-name rows whose Strong's number is the root of a word in Ruth, each preceded by its section header.
+- `TAGNT-John1.txt`: the file's licence and field-description header, then every word line of John 1.
+- `TBESH.txt`, `TBESG.txt`: the complete Hebrew and Greek lexicons, so every sense of a number and every prefix and suffix tag resolves.
+- `TEHMC.txt`, `TEGMC.txt`: the complete Hebrew and Greek morphology code tables.
+- `TIPNR.txt`: the proper-name rows whose Strong's number is the root of a word in Ruth or John 1, each preceded by its section header.
 
 ## Source and license
 

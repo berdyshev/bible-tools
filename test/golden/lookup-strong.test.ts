@@ -46,7 +46,7 @@ void test('a number with too many digits is malformed', () => {
 });
 
 void test('a well-formed but absent number is unknown', () => {
-  for (const strong of ['H9999', 'H7704Z', 'G0001']) {
+  for (const strong of ['H9999', 'H7704Z', 'G9999']) {
     const result = lookupStrong.call({ strong }, repo);
     assert.equal(result.isError, true, strong);
     assert.equal(

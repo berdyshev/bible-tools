@@ -315,12 +315,12 @@ const keys = (query: string, language?: 'hebrew' | 'greek', limit = 50) =>
   repo.searchLexicon(query, language, limit).map((e) => e.strong);
 
 void test('searchLexicon ranks whole-word gloss matches before meaning-only matches', () => {
-  const found = keys('field');
+  const found = keys('field', 'hebrew');
   assert.deepEqual(found.slice(0, 2), ['H1250B', 'H1251']);
   assert.ok(found.includes('H7704M'));
   assert.ok(found.includes('H7704G'));
   const glossHits = repo
-    .searchLexicon('field', undefined, 50)
+    .searchLexicon('field', 'hebrew', 50)
     .filter((e) => /\bfield\b/i.test(e.gloss))
     .map((e) => e.strong);
   assert.deepEqual(found.slice(0, glossHits.length), glossHits);
@@ -338,15 +338,22 @@ void test('searchLexicon prefers whole words to substrings and ignores case', ()
 
 void test('searchLexicon honours the limit, the language and empty queries', () => {
   assert.equal(keys('field', 'hebrew', 3).length, 3);
-  assert.deepEqual(keys('field', 'hebrew', 3), keys('field').slice(0, 3));
-  assert.deepEqual(keys('field', 'greek'), []);
+  assert.deepEqual(keys('field', 'hebrew', 3), keys('field', 'hebrew').slice(0, 3));
+  const greek = keys('field', 'greek');
+  assert.ok(greek.length > 0 && greek.every((k) => k.startsWith('G')));
+  assert.ok(greek.includes('G0068G'));
+  const both = keys('field');
+  assert.ok(both.some((k) => k.startsWith('H')) && both.some((k) => k.startsWith('G')));
   assert.deepEqual(keys('   '), []);
   assert.deepEqual(keys('zzzzqqq'), []);
 });
 
 void test('searchLexicon treats the query as text, not as a pattern', () => {
-  assert.deepEqual(keys('%'), []);
-  assert.deepEqual(keys('.*'), []);
+  assert.deepEqual(keys('%', 'hebrew'), []);
+  assert.deepEqual(keys('.*', 'hebrew'), []);
+  // Some Greek meanings really contain ".*"; only those may match.
+  const literal = repo.searchLexicon('.*', 'greek', 50);
+  assert.ok(literal.every((e) => (e.gloss + e.meaning).toLowerCase().includes('.*')));
   assert.deepEqual(keys("'; DROP TABLE lexicon; --"), []);
   assert.equal(repo.lexiconEntry('H7704G')?.strong, 'H7704G');
 });

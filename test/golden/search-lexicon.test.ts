@@ -9,7 +9,7 @@ import { textOf } from '../helpers/tool-text.ts';
 const repo = createBibleRepo(fixtureDb());
 
 void test('search_lexicon field lists whole-word glosses first and includes H7704G', () => {
-  const result = searchLexicon.call({ query: 'field' }, repo);
+  const result = searchLexicon.call({ query: 'field', language: 'hebrew' }, repo);
   assert.equal(result.isError, undefined);
   const text = textOf(result);
   expectGolden('search_lexicon.field.txt', text);

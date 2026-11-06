@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
+import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
+import { createSchema, load } from '../../src/ingest/load.ts';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import {
   descriptionParts,
@@ -44,8 +46,11 @@ void test('limit cuts the list and reports that more exist', () => {
   assert.equal(outputSchema.parse(result.structuredContent).more, true);
 });
 
-void test('a Greek search is empty and carries the note', () => {
-  const result = searchLexicon.call({ query: 'field', language: 'greek' }, repo);
+void test('a Greek search without Greek lexicon data is empty and carries the note', () => {
+  const noGreek = new DatabaseSync(':memory:');
+  createSchema(noGreek);
+  load(noGreek, { tahot: [], tbesh: [], tipnr: [] }, {});
+  const result = searchLexicon.call({ query: 'field', language: 'greek' }, createBibleRepo(noGreek));
   assert.equal(result.isError, undefined);
   assert.equal(textOf(result), 'Greek lexicon data is not loaded yet; only Hebrew entries can be searched.');
   const structured = outputSchema.parse(result.structuredContent);

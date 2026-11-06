@@ -36,6 +36,7 @@ after(async () => {
 void test('the tools are listed with read-only annotations', async () => {
   const { tools } = await client.listTools();
   assert.deepEqual(tools.map((t) => t.name).toSorted(), [
+    'explain_morphology',
     'find_occurrences',
     'get_names',
     'get_verse',

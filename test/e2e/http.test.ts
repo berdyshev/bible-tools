@@ -100,6 +100,7 @@ void test('an MCP client can initialize and list the tools over POST /mcp', asyn
   try {
     const { tools } = await client.listTools();
     assert.deepEqual(tools.map((t) => t.name).toSorted(), [
+      'explain_morphology',
       'find_occurrences',
       'get_names',
       'get_verse',

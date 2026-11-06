@@ -1,0 +1,4 @@
+HVqw3ms — Verb : Qal (Simple, Active) Consecutive Imperfect (Past/present Indicative) Third Singular Masculine
+Parsing: Function=Verb ; Stem=Qal (hence Action=Simple; Voice=Active); Form=Consecutive Imperfect (hence Tense=Past/present; Mood=Indicative); Person=Third; Gender=Masculine; Number=Singular
+Meaning: performing an ACTION OR ACTIVITY that is done, as completely as the preceding action, in the past or present by a male person or thing being discussed
+Example: he/it did or does rise

@@ -1,0 +1,4 @@
+V-AAI-3S — Verb Aorist Active Indicative 3rd Singular
+Parsing: Function=Verb; Tense=Aorist; Voice=Active; Mood=Indicative; Person=3rd; Number=Singular
+Meaning: an ACTION that happened - by a person or thing being discussed
+Example: _he/she/it taught _

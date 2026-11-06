@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { hint } from '../../src/domain/errors.ts';
-import { parseStrong } from '../../src/domain/strong.ts';
+import { parseStrong, strongBase } from '../../src/domain/strong.ts';
 
 void test('bare numbers normalize to a four-digit key without a sense', () => {
   for (const input of ['H7704', 'h7704', 'H07704', ' H7704 ']) {
@@ -43,6 +43,9 @@ void test('malformed input keeps the original text in the error', () => {
     'H0',
     'H0000',
     'H12345',
+    'H10000',
+    'G123456',
+    'G00000',
     'H-1',
     'H77 04',
     'H7704GG',
@@ -59,4 +62,29 @@ void test('malformed input keeps the original text in the error', () => {
   const r = parseStrong('nope');
   assert.ok(!r.ok);
   assert.match(hint(r.error), /^Malformed Strong's number "nope"/);
+});
+
+void test('five-digit Greek numbers keep all digits and a sense letter', () => {
+  const g = parseStrong('g20447');
+  assert.ok(g.ok);
+  assert.deepEqual(g.value, { lang: 'G', num: 20447, key: 'G20447' });
+  const lettered = parseStrong('G20001a');
+  assert.ok(lettered.ok);
+  assert.deepEqual(lettered.value, { lang: 'G', num: 20001, sense: 'A', key: 'G20001A' });
+  const padded = parseStrong('G03056');
+  assert.ok(padded.ok);
+  assert.equal(padded.value.key, 'G3056');
+});
+
+void test('Hebrew numbers stop at four digits', () => {
+  assert.ok(parseStrong('H9999').ok);
+  assert.ok(!parseStrong('H10000').ok);
+});
+
+void test('strongBase drops only a trailing sense letter', () => {
+  assert.equal(strongBase('H7704G'), 'H7704');
+  assert.equal(strongBase('H7704'), 'H7704');
+  assert.equal(strongBase('G20447'), 'G20447');
+  assert.equal(strongBase('G3004G'), 'G3004');
+  assert.equal(strongBase('G20001B'), 'G20001');
 });

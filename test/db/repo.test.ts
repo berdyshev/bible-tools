@@ -114,6 +114,29 @@ void test('senses lists every H7704 sense in file order', () => {
   assert.deepEqual(repo.senses('H9999'), []);
 });
 
+void test('senses matches a base of any width and never a longer number that starts the same', () => {
+  const db = new DatabaseSync(':memory:');
+  createSchema(db);
+  const ins = db.prepare(
+    `INSERT INTO lexicon (estrong, dstrong, relation, ustrong, original, transliteration, morph, gloss,
+       meaning_html, meaning)
+     VALUES (?, ?, '', ?, '', '', '', ?, '', '')`,
+  );
+  for (const key of ['G2000', 'G2000A', 'G2000B', 'G20001', 'G20001A', 'G2000A1', 'G3004G']) {
+    ins.run(key, key, key, key);
+  }
+  const lexicon = createBibleRepo(db);
+  assert.deepEqual(
+    lexicon.senses('G2000').map((e) => e.strong),
+    ['G2000', 'G2000A', 'G2000B'],
+  );
+  assert.deepEqual(
+    lexicon.senses('G20001').map((e) => e.strong),
+    ['G20001', 'G20001A'],
+  );
+  assert.deepEqual(lexicon.senses('G200'), []);
+});
+
 void test('lexiconEntry finds the exact key and gives the sense gloss', () => {
   const entry = repo.lexiconEntry('H7704G');
   assert.equal(entry?.gloss, 'land: country');

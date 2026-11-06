@@ -1,5 +1,6 @@
 import { normalizeBook } from '../domain/books.ts';
 import { err, ok } from '../domain/result.ts';
+import { strongBase } from '../domain/strong.ts';
 import type { ParseOutcome } from './issue.ts';
 
 export type NameKind = 'person' | 'place' | 'gentilic' | 'other';
@@ -103,7 +104,7 @@ export const parseTahotLine = (rawLine: string): ParseOutcome<TahotWord> => {
     gloss: cols[3] ?? '',
     strongRaw,
     strong,
-    strongBase: strong === null ? null : strong.slice(0, 5),
+    strongBase: strong === null ? null : strongBase(strong),
     prefixes: segs.slice(0, rootIdx),
     suffixes: segs.slice(rootIdx + 1),
     conjoined,

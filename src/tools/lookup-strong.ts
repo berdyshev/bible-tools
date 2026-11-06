@@ -1,6 +1,6 @@
 import { z } from 'zod/v4';
 import type { InputError } from '../domain/errors.ts';
-import { parseStrong } from '../domain/strong.ts';
+import { parseStrong, strongBase } from '../domain/strong.ts';
 import { err, ok } from '../domain/result.ts';
 import type { Result } from '../domain/result.ts';
 import type { BibleRepo } from '../data/repo.ts';
@@ -83,7 +83,7 @@ const lookup = (
   const parsed = parseStrong(input);
   if (!parsed.ok) return parsed;
   const { key, sense: letter } = parsed.value;
-  const base = key.slice(0, 5);
+  const base = strongBase(key);
   const senses = repo.senses(base);
 
   if (letter === undefined && senses.length > 1) {

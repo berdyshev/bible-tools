@@ -154,7 +154,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     lexiconRow,
   );
   const sensesByBase = query(
-    `SELECT ${LEXICON_COLUMNS} FROM lexicon WHERE substr(dstrong, 1, 5) = ? ORDER BY id`,
+    `SELECT ${LEXICON_COLUMNS} FROM lexicon WHERE dstrong = ? OR dstrong GLOB ? || '[A-Za-z]' ORDER BY id`,
     lexiconRow,
   );
   const boundsSchema = z.object({ first: z.number().nullable(), last: z.number().nullable() });
@@ -209,7 +209,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     },
     meta: (key) => metaByKey(key)[0]?.value ?? null,
     lexiconEntry: (key) => entryByKey(key)[0] ?? null,
-    senses: (base) => sensesByBase(base),
+    senses: (base) => sensesByBase(base, base),
     occurrences: (strong, scope, versification) => {
       const params: SQLInputValue[] = [strong.key];
       if (scope.kind === 'testament') params.push(...OT_IDS);

@@ -1,8 +1,9 @@
 # stepbible-mcp
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io/) server over
-[STEPBible](https://www.stepbible.org/) open data: the Hebrew Old Testament tagged with
-Strong's numbers and morphology, a Hebrew lexicon, and a database of proper names.
+[STEPBible](https://www.stepbible.org/) open data: the Hebrew Old Testament and the Greek New
+Testament tagged with Strong's numbers and morphology, Hebrew and Greek lexicons, explanations of the
+morphology codes, and a database of proper names.
 
 It is built for Bible translators, students of the original languages and people building
 agents that need grounded source-language data instead of guesses.
@@ -20,8 +21,8 @@ agents that need grounded source-language data instead of guesses.
 
 ```sh
 pnpm install
-pnpm data:fetch   # downloads the STEPBible files at the pinned revision into data/raw/
-pnpm data:build   # builds data/bible.sqlite
+pnpm data:fetch   # downloads the STEPBible files at the pinned revision into data/raw/ (about 115 MB)
+pnpm data:build   # builds data/bible.sqlite (about 130 MB, takes under a minute)
 ```
 
 The server reads `data/bible.sqlite` by default; set `STEPBIBLE_DB` to use another file.
@@ -29,23 +30,26 @@ If the file is missing the server prints one line telling you which commands to 
 
 ## Tools
 
-All tools are read-only and take English book names or OSIS ids (`Ruth`, `1Sam`). Verse
-numbers follow English (NRSV) versification by default; pass `"versification": "heb"` for
-the Hebrew (Leningrad) numbering.
+All tools are read-only and take English book names or OSIS ids (`Ruth`, `1Sam`, `John`, `1Cor`).
+Verse numbers follow English (NRSV) versification by default; pass `"versification": "heb"` for
+the Hebrew (Leningrad) numbering of the Old Testament. The New Testament has only English numbering.
 
 | Tool            | What it does                                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------- |
-| `get_verse`     | The Hebrew words of a verse, a range (`Ruth 1:1-5`, up to 10 verses) or a chapter, with transliteration, English gloss and Strong's numbers. Long passages are cut at a verse boundary with a hint for the next call. |
-| `lookup_strong` | The lexicon entry for one Hebrew Strong's number, or a menu of its senses.                   |
-| `get_names`     | The proper names (persons, places, divine names) in a verse, range or chapter, deduplicated by Strong's number, with kind, word positions per verse and Hebrew form. |
-| `find_occurrences` | Every occurrence of a Strong's number in a book, chapter or the whole Old Testament, with the word form at each. |
-| `search_lexicon` | Finds Hebrew lexicon entries by an English word in the gloss or meaning, to get a Strong's number. |
+| `get_verse`     | The original words of a verse, a range (`Ruth 1:1-5`, `John 1:1-5`, up to 10 verses) or a chapter: Hebrew for the Old Testament, Greek for the New Testament, with transliteration, English gloss and Strong's numbers. `morphology: true` adds each word's morphology code. Long passages are cut at a verse boundary with a hint for the next call. |
+| `lookup_strong` | The lexicon entry for one Hebrew or Greek Strong's number (`H7704G`, `G3056`), or a menu of its senses. A very long entry is shortened to the output budget. |
+| `get_names`     | The proper names (persons, places, gentilics, divine names) in a verse, range or chapter, deduplicated by Strong's number, with kind, word positions per verse and original form. |
+| `find_occurrences` | Every occurrence of a Strong's number in a book, chapter or whole testament (`OT`, `NT`), with the word form at each. A Greek word compounded with another counts under its first part only. |
+| `search_lexicon` | Finds Hebrew and Greek lexicon entries by an English word in the gloss or meaning, to get a Strong's number. |
+| `explain_morphology` | Explains a morphology code as `get_verse` shows it (`V-AAI-3S`, `HVqw3ms`, compounds such as `HC/Vqw3ms`): the grammatical elements, a plain phrase, the meaning and an example. |
 
 Example calls (tool arguments):
 
 ```json
 { "name": "get_verse", "arguments": { "ref": "Ruth 1:1" } }
+{ "name": "get_verse", "arguments": { "ref": "John 1:1", "morphology": true } }
 { "name": "lookup_strong", "arguments": { "strong": "H7704G" } }
+{ "name": "explain_morphology", "arguments": { "code": "V-AAI-3S" } }
 { "name": "get_names", "arguments": { "ref": "Ruth 1:2", "versification": "heb" } }
 ```
 
@@ -58,8 +62,8 @@ output as the matching tool). They are not listed, since there is nothing sensib
 
 | Template                  | Same as         | Example                         |
 | ------------------------- | --------------- | ------------------------------- |
-| `stepbible://verse/{ref}` | `get_verse`     | `stepbible://verse/Ruth%201%3A1` |
-| `stepbible://strong/{id}` | `lookup_strong` | `stepbible://strong/H7704G`     |
+| `stepbible://verse/{ref}` | `get_verse`     | `stepbible://verse/Ruth%201%3A1`, `stepbible://verse/John.1.1` |
+| `stepbible://strong/{id}` | `lookup_strong` | `stepbible://strong/H7704G`, `stepbible://strong/G3056` |
 
 `ref` is URL-encoded; `Ruth.1.1` is accepted too. Invalid input is a JSON-RPC error with the
 same hint the tools give.
@@ -68,7 +72,7 @@ same hint the tools give.
 
 | Prompt           | Argument | What it asks the model to do                                                                      |
 | ---------------- | -------- | ------------------------------------------------------------------------------------------------- |
-| `word_study`     | `strong` | `lookup_strong` (pick a sense if a menu comes back), `find_occurrences` over the Old Testament, `get_verse` on a few representative references, then summarize the usage without inventing data. |
+| `word_study`     | `strong` | `lookup_strong` (pick a sense if a menu comes back), `find_occurrences` over the Old Testament (Hebrew numbers) or the New Testament (Greek numbers), `get_verse` on a few representative references, then summarize the usage without inventing data. |
 | `verse_analysis` | `ref`    | `get_verse`, then `get_names`, then `lookup_strong` on the key words.                             |
 
 ## Use with Claude Desktop or Claude Code
@@ -159,8 +163,14 @@ Source code is TypeScript run directly by Node (type stripping), so there is no 
 Lexical and textual data comes from [STEPBible.org](https://www.stepbible.org/), Tyndale House,
 Cambridge ([STEPBible-Data](https://github.com/STEPBible/STEPBible-Data)), licensed under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source revision
-`5de0a47f35f0fc13dfe1430d104e5db8a4285f9c`, reformatted into SQLite. See
+`5de0a47f35f0fc13dfe1430d104e5db8a4285f9c`, reformatted into SQLite. The files used are TAHOT
+(Hebrew Old Testament), TAGNT (Greek New Testament), TBESH and TBESG (brief Hebrew and Greek
+lexicons), TIPNR (proper names) and TEHMC and TEGMC (morphology codes). See
 [DATA-LICENSE.md](DATA-LICENSE.md).
+
+The Greek text is an amalgam of several editions; one reading per verse is stored, the
+Nestlé-Aland text, or the traditional text for the few verses Nestlé-Aland omits. See
+[docs/adr/0005-greek-base-text.md](docs/adr/0005-greek-base-text.md).
 
 ## License
 

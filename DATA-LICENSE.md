@@ -6,8 +6,14 @@ published at <https://github.com/STEPBible/STEPBible-Data>.
 
 - License: [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
 - Source revision: `5de0a47f35f0fc13dfe1430d104e5db8a4285f9c`
+- Files used: TAHOT (Hebrew Old Testament), TAGNT (Greek New Testament), TBESH and
+  TBESG (brief Hebrew and Greek lexicons), TIPNR (proper names with all references),
+  TEHMC and TEGMC (expansions of the Hebrew and Greek morphology codes).
 - Changes: the original tab-separated files are parsed and reformatted into a
-  SQLite database. No lexical content is added or edited.
+  SQLite database. No lexical content is added or edited. From the amalgamated Greek
+  text, one reading per verse is selected (the Nestlé-Aland words, or the traditional
+  text for verses Nestlé-Aland lacks); the words themselves are unchanged. The
+  excerpts under `test/fixtures/raw/` are unchanged lines of these files.
 
 Any redistribution of the database, or of excerpts served by this project, must
 keep this attribution. The MIT license in `LICENSE` applies to the source code only.

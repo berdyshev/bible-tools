@@ -69,14 +69,13 @@ void test('rows before any header default to person; a space after the equals ru
   assert.equal(person[0]?.category, 'person');
 });
 
-void test('sub-rows, Greek rows, headers and other lines are dropped', () => {
+void test('sub-rows, headers and other lines are dropped', () => {
   const names = parseTipnr([
     '',
     'UnifiedName=uStrong\tDescription\tParents',
     '‖==================\t‖==================',
     PERSON_HEADER,
     SUBROW,
-    GREEK,
     '@Briefest= High Priest',
     '#Summary=H0001\tx',
     '(?) indicates a decision based on an ambiguity e.g. Jahdai@1Ch.2.47(?)\tTinyURL',
@@ -105,4 +104,22 @@ void test('accepts any iterable and ignores trailing carriage returns', () => {
     category: 'place',
     description: 'Moab',
   });
+});
+
+void test('rows with Greek Strong numbers are kept, with or without a sense letter', () => {
+  const names = parseTipnr([
+    PERSON_HEADER,
+    tab('Andrew@Mat.4.18-Act=G0406', 'Disciple of Jesus'),
+    tab('Elizabeth@Luk.1.5-=G1665G', 'Mother of John'),
+    GREEK,
+  ]);
+  assert.deepEqual(
+    names.map((n) => [n.uniqueName, n.dstrong, n.category]),
+    [
+      ['Andrew@Mat.4.18-Act', 'G0406', 'person'],
+      ['Elizabeth@Luk.1.5-', 'G1665G', 'person'],
+      ['Judah@Luk.3.30', 'G2455J', 'person'],
+    ],
+  );
+  assert.equal(names[0]?.description, 'Disciple of Jesus');
 });

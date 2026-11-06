@@ -106,7 +106,14 @@ void test('plain text drops tags, trims, and removes whitespace before line brea
 });
 
 void test('header and prose lines are skipped', () => {
-  for (const line of ['', 'eStrong\tdStrong = Unified', 'H\tx', 'Some prose\tH0001\tx', 'G0001\tG0001 =']) {
+  for (const line of [
+    '',
+    'eStrong\tdStrong = Unified',
+    'H\tx',
+    'Some prose\tH0001\tx',
+    'G123\tG123 =',
+    'G123456\tG123456 =',
+  ]) {
     const r = parseTbeshLine(line);
     assert.ok(r.ok, line);
     assert.equal(r.value, null, line);
@@ -120,4 +127,48 @@ void test('a Strong row with an unreadable dStrong column is an issue', () => {
     assert.ok(!r.ok, col);
     assert.deepEqual(r.error, { line, reason: 'malformed dStrong column' });
   }
+});
+
+// Literal rows from TBESG.
+const GREEK_MAIN = tab(
+  'G3056',
+  'G3056 =',
+  'G3056',
+  'λόγος',
+  'logos',
+  'G:N-M',
+  'word',
+  " <b>λόγος</b>, <BR />__I. a word: <ref='Mat.8.8'>Mat.8:8</ref> <BR />__II. speech",
+);
+const GREEK_SENSE = tab(
+  'G3004',
+  'G3004H = a Meaning of',
+  'G3004G',
+  'λέγω',
+  'legō',
+  'G:V',
+  'to say: call',
+  'x',
+);
+const FIVE_DIGITS = tab('G20001', 'G20001 =', 'G20001', 'ἀβατόομαι', 'abatoomai', '', 'be made desert');
+
+void test('a Greek row reads like a Hebrew one', () => {
+  const e = entry(GREEK_MAIN);
+  assert.deepEqual(
+    [e?.estrong, e?.dstrong, e?.relation, e?.ustrong, e?.original, e?.transliteration, e?.morph, e?.gloss],
+    ['G3056', 'G3056', '', 'G3056', 'λόγος', 'logos', 'G:N-M', 'word'],
+  );
+  const sense = entry(GREEK_SENSE);
+  assert.deepEqual([sense?.estrong, sense?.dstrong, sense?.relation], ['G3004', 'G3004H', 'a Meaning of']);
+});
+
+void test('five-digit Greek numbers are kept whole', () => {
+  const e = entry(FIVE_DIGITS);
+  assert.deepEqual([e?.estrong, e?.dstrong, e?.ustrong], ['G20001', 'G20001', 'G20001']);
+  assert.equal(e?.meaning, '');
+});
+
+void test('Greek meanings lose outline markers, reference tags and breaks', () => {
+  assert.equal(entry(GREEK_MAIN)?.meaning, 'λόγος,\nI. a word: Mat.8:8\nII. speech');
+  assert.equal(plain('__1. x __2. y'), '1. x 2. y');
 });

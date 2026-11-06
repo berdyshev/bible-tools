@@ -1,10 +1,11 @@
 import { err, ok } from '../domain/result.ts';
 import type { ParseOutcome } from './issue.ts';
 
+/** One row of a brief lexicon: TBESH (Hebrew) and TBESG (Greek) share this layout. */
 export type TbeshEntry = {
-  /** Extended Strong, e.g. "H0376". */
+  /** Extended Strong, e.g. "H0376" or "G20001". */
   readonly estrong: string;
-  /** Disambiguated Strong, e.g. "H0376G". */
+  /** Disambiguated Strong, e.g. "H0376G" or "G3004H". */
   readonly dstrong: string;
   /** Text after "=" in the dStrong column, e.g. "a Meaning of"; empty for a main entry. */
   readonly relation: string;
@@ -19,14 +20,16 @@ export type TbeshEntry = {
   readonly meaning: string;
 };
 
-const LINE_START_RE = /^H\d{4}[a-z]?\t/;
-const DSTRONG_RE = /^(H\d{4}[A-Za-z]?)\s*=?\s*(.*)$/;
+const LINE_START_RE = /^[HG]\d{4,5}[a-z]?\t/;
+const DSTRONG_RE = /^([HG]\d{4,5}[A-Za-z]?)\s*=?\s*(.*)$/;
 
 const stripHtml = (s: string): string =>
   s
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, '')
     .replace(/&nbsp;/g, ' ')
+    // Outline markers of the Greek meanings ("__1.").
+    .replace(/__/g, '')
     .replace(/[ \t]+\n/g, '\n')
     .trim();
 

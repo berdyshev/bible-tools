@@ -10,14 +10,14 @@ export type TipnrName = {
 };
 
 const SECTION_RE = /^\$=+\s*(PERSON|PLACE|OTHER)/;
-const NAME_RE = /^([^\s–$#@\t][^\t=]*@[^\t=]*)=(H\d{4}[A-Za-z]?)\t([^\t]*)/;
+const NAME_RE = /^([^\s–$#@\t][^\t=]*@[^\t=]*)=([HG]\d{4,5}[A-Za-z]?)\t([^\t]*)/;
 
 const categoryOf = (section: string): NameCategory =>
   section === 'PLACE' ? 'place' : section === 'OTHER' ? 'other' : 'person';
 
 /**
  * Folds over the file's lines: section headers set the category of the rows that follow.
- * Rows for non-Hebrew (Greek) Strong's numbers and all non-data lines are dropped.
+ * Rows with Hebrew and Greek Strong's numbers are kept; all non-data lines are dropped.
  */
 export const parseTipnr = (lines: Iterable<string>): TipnrName[] => {
   const names: TipnrName[] = [];

@@ -41,7 +41,7 @@ const cases: readonly (readonly [string, InputError, string])[] = [
   [
     'malformed_strong',
     { kind: 'malformed_strong', input: 'X12' },
-    'Malformed Strong\'s number "X12". Use H or G, then 1–4 digits (zero-padding optional) and an optional sense letter, e.g. "H1254" or "H7704G"',
+    'Malformed Strong\'s number "X12". Use H or G, then a number (up to 4 digits for H, 5 for G; zero-padding optional) and an optional sense letter, e.g. "H1254", "H7704G" or "G3056"',
   ],
   [
     'unknown_strong',

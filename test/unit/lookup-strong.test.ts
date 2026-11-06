@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { MAX_CHARS } from '../../src/tools/passage.ts';
 import { description, formatEntry, formatMenu, outputSchema } from '../../src/tools/lookup-strong.ts';
 
 const entry = {
@@ -45,4 +46,36 @@ void test('the description is generic', () => {
 void test('the output schema rejects an unknown kind', () => {
   assert.equal(outputSchema.safeParse({ kind: 'other', senses: [] }).success, false);
   assert.equal(outputSchema.safeParse({ kind: 'menu', senses: [] }).success, true);
+});
+
+const longMeaning = Array.from({ length: 400 }, (_, i) => `${i + 1}) sense number ${i + 1}`).join('\n');
+const others = [{ strong: 'H1234A', original: 'x', gloss: 'other' }];
+
+void test('a long meaning is cut at a line break and marked, within the budget', () => {
+  for (const senses of [[], others]) {
+    const text = formatEntry({ ...entry, meaning: longMeaning }, senses);
+    assert.ok(text.length <= MAX_CHARS, String(text.length));
+    assert.ok(text.length > MAX_CHARS - 40, 'uses the budget');
+    const lines = text.split('\n');
+    const marker = lines.indexOf('… (entry shortened)');
+    assert.ok(marker > 1);
+    const kept = lines.slice(1, marker);
+    assert.deepEqual(kept, longMeaning.split('\n').slice(0, kept.length), 'whole lines only');
+    assert.equal(lines.at(-1), senses.length === 0 ? '… (entry shortened)' : 'Other senses: H1234A «other»');
+  }
+});
+
+void test('a meaning that fits is untouched, even right at the limit', () => {
+  const head = 'H1234B  אבג  a.vag  [H:N-M]  «thing»';
+  const fits = 'x'.repeat(MAX_CHARS - head.length - 1);
+  const text = formatEntry({ ...entry, meaning: fits }, []);
+  assert.equal(text, `${head}\n${fits}`);
+  assert.equal(text.length, MAX_CHARS);
+  assert.ok(formatEntry({ ...entry, meaning: `${fits}x` }, []).endsWith('… (entry shortened)'));
+});
+
+void test('a long meaning without a line break is cut hard and marked', () => {
+  const text = formatEntry({ ...entry, meaning: 'y'.repeat(5000) }, []);
+  assert.ok(text.length <= MAX_CHARS);
+  assert.ok(text.endsWith('y\n… (entry shortened)'));
 });

@@ -98,7 +98,7 @@ void test('input errors reach the client with their hint', async () => {
     {
       name: 'lookup_strong',
       arguments: { strong: 'H99999' },
-      text: /^Malformed Strong's number "H99999"\. Use H or G, then 1–4 digits/,
+      text: /^Malformed Strong's number "H99999"\. Use H or G, then a number \(up to 4 digits for H, 5 for G;/,
     },
     {
       name: 'get_verse',

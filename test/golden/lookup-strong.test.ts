@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import { lookupStrong, outputSchema } from '../../src/tools/lookup-strong.ts';
+import { MAX_CHARS } from '../../src/tools/passage.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { expectGolden } from '../helpers/golden.ts';
 import { textOf } from '../helpers/tool-text.ts';
@@ -25,6 +26,37 @@ void test('an exact sense gives the entry with its other senses', () => {
   assert.equal(outputSchema.parse(result.structuredContent).kind, 'entry');
 });
 
+void test('a Greek entry matches the golden output, shortened to the output budget', () => {
+  const result = lookupStrong.call({ strong: 'G3056' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('lookup_strong.G3056.txt', text);
+  assert.ok(text.length <= MAX_CHARS);
+  assert.ok(text.endsWith('… (entry shortened)'));
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.equal(structured.kind, 'entry');
+  assert.ok((structured.entry?.meaning.length ?? 0) > MAX_CHARS);
+  assert.equal(structured.entry?.meaning.includes('entry shortened'), false);
+});
+
+void test('a Greek number with several senses returns a menu', () => {
+  const result = lookupStrong.call({ strong: 'G3004' }, repo);
+  assert.equal(result.isError, undefined);
+  expectGolden('lookup_strong.G3004.txt', textOf(result));
+  assert.deepEqual(
+    outputSchema.parse(result.structuredContent).senses.map((s) => s.strong),
+    ['G3004G', 'G3004H'],
+  );
+});
+
+void test('a five-digit Greek number is found with or without padding or a letter', () => {
+  for (const strong of ['G20001', 'g20001']) {
+    const result = lookupStrong.call({ strong }, repo);
+    assert.equal(result.isError, undefined, strong);
+    assert.match(textOf(result), /^G20001 /);
+  }
+});
+
 void test('padding and case do not matter', () => {
   const plain = textOf(lookupStrong.call({ strong: 'H7704G' }, repo));
   assert.equal(textOf(lookupStrong.call({ strong: ' h07704g ' }, repo)), plain);
@@ -37,11 +69,13 @@ void test('a bare number with one sense gives that entry without a menu', () => 
 });
 
 void test('a number with too many digits is malformed', () => {
+  for (const strong of ['G123456', 'H12345'])
+    assert.equal(lookupStrong.call({ strong }, repo).isError, true, strong);
   const result = lookupStrong.call({ strong: 'H99999' }, repo);
   assert.equal(result.isError, true);
   assert.equal(
     textOf(result),
-    'Malformed Strong\'s number "H99999". Use H or G, then 1–4 digits (zero-padding optional) and an optional sense letter, e.g. "H1254" or "H7704G"',
+    'Malformed Strong\'s number "H99999". Use H or G, then a number (up to 4 digits for H, 5 for G; zero-padding optional) and an optional sense letter, e.g. "H1254", "H7704G" or "G3056"',
   );
 });
 

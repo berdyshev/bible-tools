@@ -4,6 +4,7 @@ import { parseStrong, strongBase } from '../domain/strong.ts';
 import { err, ok } from '../domain/result.ts';
 import type { Result } from '../domain/result.ts';
 import type { BibleRepo } from '../data/repo.ts';
+import { MAX_CHARS } from './passage.ts';
 import { defineTool, describeTool } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
@@ -12,7 +13,7 @@ export const inputSchema = z.object({
     .string()
     .min(1)
     .describe(
-      "Hebrew Strong's number as shown by get_verse, e.g. `H1254` or `H7704G` (the letter selects one sense; " +
+      "Strong's number as shown by get_verse, Hebrew or Greek: e.g. `H1254`, `H7704G` or `G3056` (the letter selects one sense; " +
         'zero-padding is optional). A bare number with several senses returns a menu of them.',
     ),
 });
@@ -35,10 +36,9 @@ export const outputSchema = z.object({
 });
 
 export const descriptionParts: DescriptionParts = {
-  what: "Returns the lexicon entry (STEPBible TBESH, based on Brown-Driver-Briggs) for one Hebrew Strong's number: lemma, transliteration, part of speech, short gloss, the list of meanings and the other senses of the same word. Prefix tags such as H9003 (`in`) are explained too.",
-  when: 'Use it to explain the range of meanings of a Hebrew word and to justify a translation choice. Take the number from get_verse output; accepts `H0376`, `H376` and `H7704G` (the letter selects one sense).',
-  output:
-    'A bare number that has several senses returns a menu, one line per sense: `strong  lemma  «gloss»`; pick the sense get_verse shows for your verse and call again.',
+  what: "Returns the lexicon entry for one Hebrew or Greek Strong's number (STEPBible TBESH, based on Brown-Driver-Briggs, or TBESG, based on Abbott-Smith): lemma, transliteration, part of speech, short gloss, the list of meanings and the other senses of the same word. Prefix tags such as H9003 (`in`) are explained too.",
+  when: 'Use it to explain the range of meanings of a Hebrew or Greek word and to justify a translation choice. Take the number from get_verse output; accepts `H0376`, `H376`, `H7704G` and `G3056` (the letter selects one sense).',
+  output: `A bare number that has several senses returns a menu, one line per sense: \`strong  lemma  «gloss»\`; pick the sense get_verse shows for your verse and call again. A very long entry is cut at a line break to about ${MAX_CHARS} characters and ends with \`… (entry shortened)\`; the structured result keeps the full meaning.`,
   not: 'It does not show where else the word occurs and does not decide the meaning in context.',
 };
 
@@ -67,11 +67,25 @@ export const formatMenu = (base: string, senses: readonly LexiconSense[]): strin
     ...senses.map(senseLine),
   ].join('\n');
 
+const SHORTENED = '… (entry shortened)';
+
+/** `meaning` cut at the last line break that leaves room for the marker, so the result fits `budget`. */
+const shorten = (meaning: string, budget: number): string => {
+  if (meaning.length <= budget) return meaning;
+  const room = Math.max(budget - SHORTENED.length - 1, 0);
+  const lineBreak = meaning.lastIndexOf('\n', room);
+  const kept = lineBreak > 0 ? meaning.slice(0, lineBreak) : meaning.slice(0, room);
+  return `${kept.trimEnd()}\n${SHORTENED}`;
+};
+
+/** The entry as text, within `MAX_CHARS` unless the head and the other senses alone exceed it. */
 export const formatEntry = (entry: LexiconEntryView, others: readonly LexiconSense[]): string => {
   const head = `${entry.strong}  ${entry.original}  ${entry.transliteration}  [${entry.morph}]  «${entry.gloss}»`;
   const more =
     others.length === 0 ? [] : [`Other senses: ${others.map((o) => `${o.strong} «${o.gloss}»`).join('; ')}`];
-  return [head, cleanMeaning(entry.meaning), ...more].join('\n');
+  // The meaning shares the line budget with the head, the other senses and the line breaks around it.
+  const budget = MAX_CHARS - [head, ...more].join('\n').length - 1;
+  return [head, shorten(cleanMeaning(entry.meaning), budget), ...more].join('\n');
 };
 
 const sense = (s: LexiconSense) => ({ strong: s.strong, lemma: s.original, gloss: s.gloss });
@@ -114,7 +128,7 @@ const lookup = (
 
 export const lookupStrong = defineTool({
   name: 'lookup_strong',
-  title: 'Hebrew lexicon entry',
+  title: 'Lexicon entry',
   description,
   input: inputSchema,
   output: outputSchema,

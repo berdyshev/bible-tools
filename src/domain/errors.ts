@@ -41,7 +41,7 @@ export const hint = (e: InputError): string => {
     case 'range_not_supported':
       return `Ranges are not supported here: "${e.input}". Pass a single verse, e.g. "Ruth 1:1"`;
     case 'malformed_strong':
-      return `Malformed Strong's number "${e.input}". Use H or G, then 1–4 digits (zero-padding optional) and an optional sense letter, e.g. "H1254" or "H7704G"`;
+      return `Malformed Strong's number "${e.input}". Use H or G, then a number (up to 4 digits for H, 5 for G; zero-padding optional) and an optional sense letter, e.g. "H1254", "H7704G" or "G3056"`;
     case 'unknown_strong':
       return `Strong's number "${e.input}" was not found. Check the number or try search_lexicon`;
     case 'invalid_scope':

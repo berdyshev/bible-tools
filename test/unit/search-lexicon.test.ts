@@ -1,7 +1,5 @@
 import assert from 'node:assert/strict';
-import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
-import { createSchema, load } from '../../src/ingest/load.ts';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import {
   descriptionParts,
@@ -46,28 +44,29 @@ void test('limit cuts the list and reports that more exist', () => {
   assert.equal(outputSchema.parse(result.structuredContent).more, true);
 });
 
-void test('a Greek search without Greek lexicon data is empty and carries the note', () => {
-  const noGreek = new DatabaseSync(':memory:');
-  createSchema(noGreek);
-  load(noGreek, { tahot: [], tbesh: [], tipnr: [] }, {});
-  const result = searchLexicon.call({ query: 'field', language: 'greek' }, createBibleRepo(noGreek));
-  assert.equal(result.isError, undefined);
-  assert.equal(textOf(result), 'Greek lexicon data is not loaded yet; only Hebrew entries can be searched.');
-  const structured = outputSchema.parse(result.structuredContent);
-  assert.deepEqual(structured.results, []);
-  assert.equal(structured.note, textOf(result));
+const strongsOf = (args: Parameters<typeof searchLexicon.call>[0]): string[] =>
+  outputSchema.parse(searchLexicon.call(args, repo).structuredContent).results.map((r) => r.strong);
+
+void test('a Greek search lists only Greek entries, a Hebrew one only Hebrew entries', () => {
+  const greek = strongsOf({ query: 'field', language: 'greek' });
+  assert.ok(greek.length > 0 && greek.every((k) => k.startsWith('G')));
+  const hebrew = strongsOf({ query: 'field', language: 'hebrew' });
+  assert.ok(hebrew.length > 0 && hebrew.every((k) => k.startsWith('H')));
 });
 
-void test('a Hebrew search has no note and a blank query is rejected by the schema', () => {
-  const result = searchLexicon.call({ query: 'field', language: 'hebrew' }, repo);
-  assert.equal(outputSchema.parse(result.structuredContent).note, undefined);
+void test('without a language both are searched', () => {
+  const both = strongsOf({ query: 'field', limit: 100 });
+  assert.ok(both.some((k) => k.startsWith('H')) && both.some((k) => k.startsWith('G')));
+});
+
+void test('a blank query is rejected by the schema', () => {
   assert.equal(searchLexicon.input.safeParse({ query: '   ' }).success, false);
   assert.equal(searchLexicon.input.safeParse({ query: 'x', limit: 0 }).success, false);
 });
 
 void test('the tool is named, described and documents every input', () => {
   assert.equal(searchLexicon.name, 'search_lexicon');
-  assert.equal(searchLexicon.title, 'Search the Hebrew lexicon');
+  assert.equal(searchLexicon.title, 'Search the lexicon');
   for (const part of Object.values(descriptionParts)) assert.ok(part.length > 40, part);
   for (const field of Object.values(searchLexicon.input.shape)) {
     assert.ok((field.description ?? '').length > 20);
@@ -106,13 +105,11 @@ void test('more is false when the matches fit exactly, true when one more exists
   assert.equal(cut.results.length, 2);
 });
 
-void test('the Greek note appears only for an empty Greek result', () => {
-  const stub = { ...repo, searchLexicon: () => [entry('G1')] };
-  const found = searchLexicon.call({ query: 'x', language: 'greek' }, stub);
-  assert.equal(outputSchema.parse(found.structuredContent).note, undefined);
-  assert.match(textOf(found), /^1 lexicon entry for "x"/);
+void test('an empty result says nothing matches, whatever the language', () => {
   const empty = { ...repo, searchLexicon: () => [] };
-  const none = searchLexicon.call({ query: 'x', language: 'hebrew' }, empty);
-  assert.equal(outputSchema.parse(none.structuredContent).note, undefined);
-  assert.match(textOf(none), /^No lexicon entries match "x"/);
+  for (const language of ['greek', 'hebrew'] as const) {
+    const none = searchLexicon.call({ query: 'x', language }, empty);
+    assert.match(textOf(none), /^No lexicon entries match "x"/);
+    assert.deepEqual(outputSchema.parse(none.structuredContent), { query: 'x', results: [], more: false });
+  }
 });

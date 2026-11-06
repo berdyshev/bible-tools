@@ -16,7 +16,7 @@ export const inputSchema = z.object({
   language: z
     .enum(['hebrew', 'greek'])
     .optional()
-    .describe('Restrict the search to one language. Default: all loaded data (currently Hebrew only).'),
+    .describe('Restrict the search to Hebrew or Greek entries. Default: both.'),
   limit: z
     .number()
     .int()
@@ -30,14 +30,13 @@ export const outputSchema = z.object({
   query: z.string(),
   results: z.array(z.object({ strong: z.string(), gloss: z.string(), lemma: z.string() })),
   more: z.boolean(),
-  note: z.string().optional(),
 });
 
 export const descriptionParts: DescriptionParts = {
-  what: "Finds Hebrew lexicon entries (STEPBible TBESH) whose English gloss or list of meanings contains a word, and returns their Strong's numbers.",
-  when: "Use it to find the Strong's number for a concept (`field`, `kindness`) when you have no verse to read it from, or to see which Hebrew words share a meaning. Whole-word matches in the gloss come first.",
+  what: "Finds Hebrew and Greek lexicon entries (STEPBible TBESH, TBESG) whose English gloss or list of meanings contains a word, and returns their Strong's numbers.",
+  when: "Use it to find the Strong's number for a concept (`field`, `kindness`) when you have no verse to read it from, or to see which Hebrew or Greek words share a meaning. Whole-word matches in the gloss come first. Pass `language` to search one language only.",
   output:
-    'Output: one line per entry, best match first: `strong  «gloss»  lemma`. Pass a number to lookup_strong for the full entry. Greek is not loaded yet, so a Greek search returns nothing and says so.',
+    'Output: one line per entry, best match first: `strong  «gloss»  lemma`. Pass a number to lookup_strong for the full entry.',
   not: 'It searches the lexicon only, not Bible text, and does not show where a word occurs: use find_occurrences for that.',
 };
 
@@ -45,7 +44,7 @@ export const description = describeTool(descriptionParts);
 
 export type LexiconHit = { readonly strong: string; readonly gloss: string; readonly original: string };
 
-// The lemma comes last: a line that ends in Hebrew keeps its left-to-right layout in bidi-aware renderers.
+// The lemma comes last: a line that ends in Hebrew letters keeps its left-to-right layout in bidi-aware renderers.
 export const formatSearch = (query: string, hits: readonly LexiconHit[], more: boolean): string => {
   if (hits.length === 0) {
     return `No lexicon entries match "${query}". Try a shorter or different English word.`;
@@ -58,11 +57,9 @@ export const formatSearch = (query: string, hits: readonly LexiconHit[], more: b
   ].join('\n');
 };
 
-const GREEK_NOTE = 'Greek lexicon data is not loaded yet; only Hebrew entries can be searched.';
-
 export const searchLexicon = defineTool({
   name: 'search_lexicon',
-  title: 'Search the Hebrew lexicon',
+  title: 'Search the lexicon',
   description,
   input: inputSchema,
   output: outputSchema,
@@ -73,12 +70,7 @@ export const searchLexicon = defineTool({
     const entries = found.slice(0, max);
     const more = found.length > max;
     const hits = entries.map((e) => ({ strong: e.strong, gloss: e.gloss, original: e.original }));
-    const note = language === 'greek' && entries.length === 0 ? GREEK_NOTE : undefined;
-    const text = note ?? formatSearch(query, hits, more);
     const results = hits.map((h) => ({ strong: h.strong, gloss: h.gloss, lemma: h.original }));
-    return ok({
-      text,
-      structured: note === undefined ? { query, results, more } : { query, results, more, note },
-    });
+    return ok({ text: formatSearch(query, hits, more), structured: { query, results, more } });
   },
 });

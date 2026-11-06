@@ -22,3 +22,14 @@ void test('search_lexicon field lists whole-word glosses first and includes H770
   assert.equal(structured.more, true);
   assert.equal(structured.results.length, 20);
 });
+
+void test('search_lexicon field in Greek lists Greek entries with the lemma last', () => {
+  const result = searchLexicon.call({ query: 'field', language: 'greek' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('search_lexicon.field.greek.txt', text);
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.ok(structured.results.every((r) => r.strong.startsWith('G')));
+  assert.ok(structured.results.some((r) => r.strong === 'G0068G'));
+  assert.match(text, /\nG0068G {2}«field» {2}\S+$/m);
+});

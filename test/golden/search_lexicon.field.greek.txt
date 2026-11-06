@@ -1,0 +1,22 @@
+20+ lexicon entries for "field"
+G0068  «Field of»  ἀγρός
+G0068G  «field»  ἀγρός
+G0068H  «Field (of blood)»  ἀγρός
+G1091  «farm field»  γεώργιον
+G8353  «a field-mouse»  μυγαλῆ
+G8393  «a field prepared for plowing»  νέωμα
+G0129H  «(Field of) Blood»  αἷμα
+G2763H  «Potter (Field)»  κεραμεύς
+G5564H  «Field (of Blood)»  χωρίον
+G4702  «grainfield»  σπόριμος
+G6539  «plowed fields»  ἄρουρα
+G1096  «to be»  γίνομαι
+G20196  «be born»  γίγνομαι
+G3868  «to refuse/excuse»  παραιτέομαι
+G0114  «to reject»  ἀθετέω
+G0442  «human»  ἀνθρώπινος
+G1223  «through/because of»  διά
+G1275  «always»  διαπαντός
+G2192  «to have/be»  ἔχω
+G2193  «until»  ἕως
+More entries match; raise limit or use a more specific word.

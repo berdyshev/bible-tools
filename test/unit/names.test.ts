@@ -35,6 +35,19 @@ void test('merges conjoined parts of one name into a single group', () => {
   ]);
 });
 
+void test('a name is shown without the punctuation that follows it', () => {
+  const groups = groupNames([
+    input(word(1, { original: 'Ἰωάννης.', strong: 'G2491G' })),
+    input(word(2, { original: 'Ἰσαάκ·', strong: 'G2464', lemmaGloss: 'Isaac' })),
+    input(word(3, { original: 'Βηθ,', strong: 'G0001', conjoined: true, lemmaGloss: 'Beth' })),
+    input(word(4, { original: 'λεέμ;', strong: 'G0001', lemmaGloss: 'Beth' })),
+  ]);
+  assert.deepEqual(
+    groups.map((g) => g.original),
+    ['Ἰωάννης', 'Ἰσαάκ', 'Βηθ λεέμ'],
+  );
+});
+
 void test('does not merge adjacent words when the first is not conjoined', () => {
   const groups = groupNames([input(word(1)), input(word(2))]);
   assert.equal(groups.length, 1);

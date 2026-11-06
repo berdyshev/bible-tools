@@ -56,6 +56,21 @@ void test('groupByVerse folds repeats, keeps distinct forms and separates senses
   );
 });
 
+void test('groupByVerse ignores trailing punctuation when comparing forms', () => {
+  const hits = groupByVerse([
+    occ('Ruth', 1, 1, 'G3056', 'logos', 'λόγος,'),
+    occ('Ruth', 1, 1, 'G3056', 'logos', 'λόγος'),
+    occ('Ruth', 1, 1, 'G3056', 'logos', 'λόγος.'),
+    occ('Ruth', 1, 1, 'G3056', 'logou', 'λόγου·'),
+  ]);
+  assert.equal(hits.length, 1);
+  assert.equal(hits[0]?.count, 4);
+  assert.deepEqual(hits[0]?.forms, [
+    { transliteration: 'logos', original: 'λόγος' },
+    { transliteration: 'logou', original: 'λόγου' },
+  ]);
+});
+
 const group = (strong: string, gloss: string, hits: SenseGroup['hits']): SenseGroup => ({
   strong,
   gloss,

@@ -1,3 +1,5 @@
+import { stripTrailingPunctuation } from './punctuation.ts';
+
 export type NameKind = 'person' | 'place' | 'gentilic' | 'other';
 
 /** The parts of a proper-name word that grouping needs. */
@@ -62,7 +64,7 @@ export const groupNames = (inputs: readonly NameInput[]): NameGroup[] => {
     const kind = word.nameKind;
     if (kind === null) continue;
     if (open !== null && previousConjoined && open.strong === word.strong) {
-      open.original += ` ${word.original}`;
+      open.original += ` ${stripTrailingPunctuation(word.original)}`;
       open.transliteration += ` ${word.transliteration}`;
       open.positions.push(word.position);
     } else {
@@ -71,7 +73,7 @@ export const groupNames = (inputs: readonly NameInput[]): NameGroup[] => {
         name,
         strong: word.strong,
         kind,
-        original: word.original,
+        original: stripTrailingPunctuation(word.original),
         transliteration: word.transliteration,
         positions: [word.position],
         note: noteOf(name, kind, record),

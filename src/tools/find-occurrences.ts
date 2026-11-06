@@ -3,6 +3,7 @@ import type { Occurrence } from '../data/repo.ts';
 import { BOOK_IDS } from '../domain/books.ts';
 import { formatRef, parseScope } from '../domain/ref.ts';
 import type { Scope, VerseRef, Versification } from '../domain/ref.ts';
+import { stripTrailingPunctuation } from '../domain/punctuation.ts';
 import { err, ok } from '../domain/result.ts';
 import { parseStrong } from '../domain/strong.ts';
 import { MAX_CHARS, numberingLabel } from './passage.ts';
@@ -86,8 +87,10 @@ export const groupByVerse = (occurrences: readonly Occurrence[]): VerseHit[] => 
     const key = `${o.strong} ${verseKey(o.ref)}`;
     const hit = hits.get(key) ?? { ref: o.ref, strong: o.strong, count: 0, forms: [] };
     hit.count += 1;
-    if (!hit.forms.some((f) => f.original === o.original)) {
-      hit.forms.push({ transliteration: o.transliteration, original: o.original });
+    // Greek words carry the punctuation that follows them; it is not part of the form.
+    const original = stripTrailingPunctuation(o.original);
+    if (!hit.forms.some((f) => f.original === original)) {
+      hit.forms.push({ transliteration: o.transliteration, original });
     }
     hits.set(key, hit);
   }

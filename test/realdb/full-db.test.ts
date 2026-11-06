@@ -5,9 +5,13 @@ import { fileURLToPath } from 'node:url';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import type { BibleRepo } from '../../src/data/repo.ts';
 import { openDb } from '../../src/data/db.ts';
+import { BOOKS } from '../../src/domain/books.ts';
+import { explainMorphology, resolveMorphology } from '../../src/tools/explain-morphology.ts';
 import { findOccurrences, outputSchema } from '../../src/tools/find-occurrences.ts';
 import { getNames } from '../../src/tools/get-names.ts';
 import { getVerse } from '../../src/tools/get-verse.ts';
+import { lookupStrong, outputSchema as strongOutput } from '../../src/tools/lookup-strong.ts';
+import { MAX_CHARS } from '../../src/tools/passage.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
@@ -15,11 +19,23 @@ const dbPath =
   process.env['STEPBIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
 const skip = existsSync(dbPath) ? false : `no database at ${dbPath}; run pnpm data:fetch && pnpm data:build`;
 
+const idList = (testament: 'OT' | 'NT'): string =>
+  BOOKS.filter((b) => b.testament === testament)
+    .map((b) => `'${b.id}'`)
+    .join(', ');
+
 const summary = (r: BibleRepo) =>
   r.senses('H7704').map((s) => ({ strong: s.strong, original: s.original, gloss: s.gloss }));
 
 const full = skip === false ? openDb(dbPath) : null;
 const repo = full === null ? null : createBibleRepo(full);
+
+const scalar = (sql: string): number => {
+  assert.ok(full);
+  const value = Object.values(full.prepare(sql).get() ?? {})[0];
+  assert.equal(typeof value, 'number', sql);
+  return typeof value === 'number' ? value : -1;
+};
 
 const words = (text: string) =>
   text
@@ -47,9 +63,8 @@ void test('the H7704 senses match the fixture database', { skip }, () => {
 void test('the database holds the whole text at the pinned data revision', { skip }, () => {
   assert.ok(full);
   assert.ok(repo);
-  const row = full.prepare('SELECT COUNT(*) AS n FROM words').get();
-  const count = typeof row?.['n'] === 'number' ? row['n'] : 0;
-  assert.ok(count > 300_000 && count < 310_000, `unexpected word count ${count}`);
+  const count = scalar(`SELECT COUNT(*) FROM words WHERE book IN (${idList('OT')})`);
+  assert.ok(count > 300_000 && count < 310_000, `unexpected Old Testament word count ${count}`);
 
   const script = readFileSync(
     fileURLToPath(new URL('../../scripts/fetch-stepbible.ts', import.meta.url)),
@@ -93,4 +108,104 @@ void test('a chapter without a verse 0 rejects it', { skip }, () => {
   const result = getVerse.call({ ref: 'Ruth 1:0-2' }, repo);
   assert.equal(result.isError, true);
   assert.equal(textOf(result), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
+});
+
+void test('John 1:1 has 17 words, in Greek, in English numbering', { skip }, () => {
+  assert.ok(repo);
+  const text = textOf(getVerse.call({ ref: 'John 1:1' }, repo));
+  assert.match(text, /^John 1:1 \(English numbering\) — Greek; /);
+  assert.equal(text.split('\n').length - 1, 17);
+  assert.equal(scalar("SELECT COUNT(*) FROM words WHERE book = 'John' AND chapter = 1 AND verse = 1"), 17);
+});
+
+void test(
+  'the New Testament holds the Nestlé-Aland words plus the fallback verses, nothing else',
+  { skip },
+  () => {
+    const nt = idList('NT');
+    const total = scalar(`SELECT COUNT(*) FROM words WHERE book IN (${nt})`);
+    const nestle = scalar(
+      `SELECT COUNT(*) FROM words WHERE book IN (${nt}) AND (text_type LIKE '%N%' OR text_type LIKE '%n%')`,
+    );
+    assert.equal(nestle, 137_645);
+    assert.equal(total, 138_211);
+    assert.equal(
+      scalar(
+        `SELECT COUNT(*) FROM (SELECT book, chapter, verse FROM words WHERE book IN (${nt}) GROUP BY book, chapter, verse
+         HAVING SUM(text_type LIKE '%N%' OR text_type LIKE '%n%') > 0
+            AND SUM(NOT (text_type LIKE '%N%' OR text_type LIKE '%n%')) > 0)`,
+      ),
+      0,
+      'a verse mixes Nestlé-Aland and other words',
+    );
+    assert.equal(
+      scalar(
+        `SELECT COUNT(*) FROM words WHERE book IN (${nt}) AND (heb_chapter != chapter OR heb_verse != verse)`,
+      ),
+      0,
+    );
+  },
+);
+
+void test('John 8:7 is shown from the traditional text and says so', { skip }, () => {
+  assert.ok(repo);
+  const text = textOf(getVerse.call({ ref: 'John 8:7' }, repo));
+  assert.match(
+    text,
+    /^John 8:7 \(English numbering\) — Greek; [^\n]*\nNot in the Nestlé-Aland text; shown from the traditional text\.\n1\. /,
+  );
+  assert.doesNotMatch(textOf(getVerse.call({ ref: 'John 1:1' }, repo)), /Nestlé/);
+  assert.doesNotMatch(textOf(getVerse.call({ ref: 'Ruth 1:1' }, repo)), /Nestlé/);
+});
+
+void test('lookup_strong G3056 is cut to the budget but structured keeps the whole meaning', { skip }, () => {
+  assert.ok(repo);
+  const result = lookupStrong.call({ strong: 'G3056' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  assert.match(text, /^G3056 {2}\S+ {2}logos {2}\[G:N-M\] {2}«word»\n/);
+  assert.ok(text.length <= MAX_CHARS);
+  assert.ok(text.endsWith('… (entry shortened)'));
+  const meaning = strongOutput.parse(result.structuredContent).entry?.meaning ?? '';
+  assert.ok(meaning.length > MAX_CHARS);
+  assert.doesNotMatch(meaning, /entry shortened/);
+});
+
+void test('find_occurrences G3056 over the whole New Testament equals a direct count', { skip }, () => {
+  assert.ok(repo);
+  const expected = scalar("SELECT COUNT(*) FROM words WHERE strong_base = 'G3056'");
+  assert.ok(expected > 300, `unexpected count ${expected}`);
+  const result = findOccurrences.call({ strong: 'G3056', limit: 500 }, repo);
+  assert.equal(result.isError, undefined);
+  assert.equal(outputSchema.parse(result.structuredContent).total, expected);
+  assert.match(textOf(result), new RegExp(`^G3056 in the New Testament: ${expected} occurrences in `));
+  assert.ok(textOf(result).length <= MAX_CHARS);
+  const inOt = findOccurrences.call({ strong: 'G3056', scope: 'OT' }, repo);
+  assert.equal(outputSchema.parse(inOt.structuredContent).total, 0);
+});
+
+void test('explain_morphology knows V-AAI-3S and the Hebrew forms as get_verse shows them', { skip }, () => {
+  assert.ok(repo);
+  const greek = explainMorphology.call({ code: 'V-AAI-3S' }, repo);
+  assert.equal(greek.isError, undefined);
+  assert.match(textOf(greek), /^V-AAI-3S — Verb Aorist Active Indicative 3rd Singular\nParsing: /);
+  const shown = textOf(getVerse.call({ ref: 'Ruth 1:1', morphology: true }, repo));
+  assert.match(shown, /\n1\. va\/y\.Hi {2}H1961 {2}and\/ it was {2}Hc\/Vqw3ms {2}/);
+  assert.match(shown, /\n2\. bi\.\/Mei {2}H3117G {2}in\/ \[the\] days of {2}HR\/Ncmpc {2}/);
+  for (const code of ['Hc/Vqw3ms', 'HR/Ncmpc']) {
+    const result = explainMorphology.call({ code }, repo);
+    assert.equal(result.isError, undefined, code);
+    assert.equal(textOf(result).split('\n\n').length, 2, code);
+  }
+});
+
+void test('every distinct morphology code in the word table resolves, except the empty one', { skip }, () => {
+  assert.ok(full);
+  assert.ok(repo);
+  const rows = full.prepare('SELECT DISTINCT morph_raw AS code FROM words').all();
+  assert.ok(rows.length > 4000, `only ${rows.length} distinct codes`);
+  const unresolved = rows.map((r) => String(r['code'])).filter((code) => !resolveMorphology(repo, code).ok);
+  // 14 placeholder words ("[ ]" Ketiv/Qere slots) have no morphology in the source.
+  assert.deepEqual(unresolved, ['']);
+  assert.equal(scalar("SELECT COUNT(*) FROM words WHERE morph_raw = ''"), 14);
 });

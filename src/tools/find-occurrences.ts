@@ -36,7 +36,7 @@ export const inputSchema = z.object({
     ),
 });
 
-const formSchema = z.object({ transliteration: z.string(), hebrew: z.string() });
+const formSchema = z.object({ transliteration: z.string(), original: z.string() });
 
 export const outputSchema = z.object({
   strong: z.string(),
@@ -86,8 +86,8 @@ export const groupByVerse = (occurrences: readonly Occurrence[]): VerseHit[] => 
     const key = `${o.strong} ${verseKey(o.ref)}`;
     const hit = hits.get(key) ?? { ref: o.ref, strong: o.strong, count: 0, forms: [] };
     hit.count += 1;
-    if (!hit.forms.some((f) => f.hebrew === o.hebrew)) {
-      hit.forms.push({ transliteration: o.transliteration, hebrew: o.hebrew });
+    if (!hit.forms.some((f) => f.original === o.original)) {
+      hit.forms.push({ transliteration: o.transliteration, original: o.original });
     }
     hits.set(key, hit);
   }
@@ -120,8 +120,8 @@ const bookRuns = (hits: readonly VerseHit[]): VerseHit[][] => {
 // Latin text first and the Hebrew forms last on the line, so bidi-aware renderers keep it left-to-right.
 const bookLines = (hits: readonly VerseHit[]): string[] =>
   bookRuns(hits).map((run) => {
-    const hebrew = [...new Set(run.flatMap((h) => h.forms.map((f) => f.hebrew)))];
-    return `${run.map((h, i) => verseText(h, i === 0)).join(', ')} — ${hebrew.join(' ')}`;
+    const original = [...new Set(run.flatMap((h) => h.forms.map((f) => f.original)))];
+    return `${run.map((h, i) => verseText(h, i === 0)).join(', ')} — ${original.join(' ')}`;
   });
 
 export type OccurrenceView = {

@@ -16,7 +16,7 @@ export type TahotWord = {
   readonly position: number;
   /** L, Q(K), X, R, ... */
   readonly textType: string;
-  readonly hebrew: string;
+  readonly original: string;
   readonly transliteration: string;
   readonly gloss: string;
   /** dStrongs column verbatim, e.g. "H9003/{H3117G}". */
@@ -98,7 +98,7 @@ export const parseTahotLine = (rawLine: string): ParseOutcome<TahotWord> => {
     hebVerse: hv === undefined ? verse : Number(hv),
     position: Number(pos),
     textType,
-    hebrew: cols[1] ?? '',
+    original: cols[1] ?? '',
     transliteration: cols[2] ?? '',
     gloss: cols[3] ?? '',
     strongRaw,

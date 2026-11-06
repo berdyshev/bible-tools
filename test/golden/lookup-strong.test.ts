@@ -14,7 +14,7 @@ void test('a bare number with several senses returns the full sense menu', () =>
   expectGolden('lookup_strong.H7704.txt', textOf(result));
   assert.deepEqual(
     outputSchema.parse(result.structuredContent).senses,
-    repo.senses('H7704').map((e) => ({ strong: e.strong, lemma: e.hebrew, gloss: e.gloss })),
+    repo.senses('H7704').map((e) => ({ strong: e.strong, lemma: e.original, gloss: e.gloss })),
   );
 });
 

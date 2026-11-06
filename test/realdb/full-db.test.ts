@@ -16,7 +16,7 @@ const dbPath =
 const skip = existsSync(dbPath) ? false : `no database at ${dbPath}; run pnpm data:fetch && pnpm data:build`;
 
 const summary = (r: BibleRepo) =>
-  r.senses('H7704').map((s) => ({ strong: s.strong, hebrew: s.hebrew, gloss: s.gloss }));
+  r.senses('H7704').map((s) => ({ strong: s.strong, original: s.original, gloss: s.gloss }));
 
 const full = skip === false ? openDb(dbPath) : null;
 const repo = full === null ? null : createBibleRepo(full);

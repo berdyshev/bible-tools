@@ -41,7 +41,7 @@ export type VerseWord = {
   readonly transliteration: string;
   readonly strong: string | null;
   readonly gloss: string;
-  readonly hebrew: string;
+  readonly original: string;
   readonly isProperName: boolean;
   readonly nameKind: string | null;
 };
@@ -50,7 +50,7 @@ export type VerseWord = {
 // right-to-left by bidi-aware renderers and appears reversed.
 const formatWord = (w: VerseWord): string => {
   const name = w.isProperName ? `  [name: ${w.nameKind ?? 'unknown'}]` : '';
-  return `${w.position}. ${w.transliteration}  ${w.strong ?? '—'}  ${w.gloss}${name}  ${w.hebrew}`;
+  return `${w.position}. ${w.transliteration}  ${w.strong ?? '—'}  ${w.gloss}${name}  ${w.original}`;
 };
 
 const header = (label: string, versification: VerseRef['versification']): string => {

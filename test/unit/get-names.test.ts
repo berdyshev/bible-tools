@@ -21,7 +21,7 @@ const group = (over: Partial<NameGroup>): NameGroup => ({
   name: 'Naomi',
   strong: 'H5281',
   kind: 'person',
-  hebrew: 'נָעֳמִי',
+  original: 'נָעֳמִי',
   transliteration: 'no.o.Mi',
   positions: [6],
   note: null,
@@ -97,7 +97,7 @@ void test('a passage without names says so and names the numbering', () => {
 });
 
 const long = (n: number): NameVerse & { ref: VerseRef } =>
-  verse(n, [group({ name: `Name${n}`, strong: `H${n}`, hebrew: 'א'.repeat(900) })]);
+  verse(n, [group({ name: `Name${n}`, strong: `H${n}`, original: 'א'.repeat(900) })]);
 
 void test('a passage is cut before the verse that would pass 2000 characters', () => {
   const text = formatPassageNames(spanOfText('Ruth 1:1-9'), [long(1), long(2), long(3)]);
@@ -110,7 +110,7 @@ void test('a passage is cut before the verse that would pass 2000 characters', (
 });
 
 void test('the first verse is shown even when it alone passes the cap', () => {
-  const huge = verse(1, [group({ hebrew: 'א'.repeat(2500) })]);
+  const huge = verse(1, [group({ original: 'א'.repeat(2500) })]);
   const text = formatPassageNames(spanOfText('Ruth 1:1-3'), [
     huge,
     verse(2, [group({ name: 'Other', strong: 'H2' })]),

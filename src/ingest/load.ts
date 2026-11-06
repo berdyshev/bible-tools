@@ -26,7 +26,7 @@ CREATE TABLE words (
   heb_verse INTEGER NOT NULL,
   position INTEGER NOT NULL,
   text_type TEXT NOT NULL,
-  hebrew TEXT NOT NULL,
+  original TEXT NOT NULL,
   transliteration TEXT NOT NULL,
   gloss TEXT NOT NULL,
   strong_raw TEXT NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE lexicon (
   dstrong TEXT NOT NULL,
   relation TEXT NOT NULL,
   ustrong TEXT NOT NULL,
-  hebrew TEXT NOT NULL,
+  original TEXT NOT NULL,
   transliteration TEXT NOT NULL,
   morph TEXT NOT NULL,
   gloss TEXT NOT NULL,
@@ -116,13 +116,13 @@ export const load = (
 ): LoadReport => {
   const issues: ParseIssue[] = [];
   const insWord = db.prepare(
-    `INSERT INTO words (book, chapter, verse, heb_chapter, heb_verse, position, text_type, hebrew,
+    `INSERT INTO words (book, chapter, verse, heb_chapter, heb_verse, position, text_type, original,
        transliteration, gloss, strong_raw, strong, strong_base, prefixes, suffixes, conjoined, morph_raw,
        morph, lemma, lemma_gloss, expanded_raw, name_id, is_proper_name, name_kind)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
   const insLex = db.prepare(
-    `INSERT INTO lexicon (estrong, dstrong, relation, ustrong, hebrew, transliteration, morph, gloss,
+    `INSERT INTO lexicon (estrong, dstrong, relation, ustrong, original, transliteration, morph, gloss,
        meaning_html, meaning)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
@@ -141,7 +141,7 @@ export const load = (
         w.hebVerse,
         w.position,
         w.textType,
-        w.hebrew,
+        w.original,
         w.transliteration,
         w.gloss,
         w.strongRaw,
@@ -169,7 +169,7 @@ export const load = (
         e.dstrong,
         e.relation,
         e.ustrong,
-        e.hebrew,
+        e.original,
         e.transliteration,
         e.morph,
         e.gloss,

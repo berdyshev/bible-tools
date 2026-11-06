@@ -46,7 +46,7 @@ export const description = describeTool(descriptionParts);
 
 export type LexiconSense = {
   readonly strong: string;
-  readonly hebrew: string;
+  readonly original: string;
   readonly gloss: string;
 };
 
@@ -59,7 +59,7 @@ export type LexiconEntryView = LexiconSense & {
 /** TBESH meanings begin with the tail of the gloss (": country/field"); drop that separator. */
 const cleanMeaning = (meaning: string): string => meaning.trim().replace(/^:\s*/, '');
 
-const senseLine = (s: LexiconSense): string => `${s.strong}  ${s.hebrew}  «${s.gloss}»`;
+const senseLine = (s: LexiconSense): string => `${s.strong}  ${s.original}  «${s.gloss}»`;
 
 export const formatMenu = (base: string, senses: readonly LexiconSense[]): string =>
   [
@@ -68,13 +68,13 @@ export const formatMenu = (base: string, senses: readonly LexiconSense[]): strin
   ].join('\n');
 
 export const formatEntry = (entry: LexiconEntryView, others: readonly LexiconSense[]): string => {
-  const head = `${entry.strong}  ${entry.hebrew}  ${entry.transliteration}  [${entry.morph}]  «${entry.gloss}»`;
+  const head = `${entry.strong}  ${entry.original}  ${entry.transliteration}  [${entry.morph}]  «${entry.gloss}»`;
   const more =
     others.length === 0 ? [] : [`Other senses: ${others.map((o) => `${o.strong} «${o.gloss}»`).join('; ')}`];
   return [head, cleanMeaning(entry.meaning), ...more].join('\n');
 };
 
-const sense = (s: LexiconSense) => ({ strong: s.strong, lemma: s.hebrew, gloss: s.gloss });
+const sense = (s: LexiconSense) => ({ strong: s.strong, lemma: s.original, gloss: s.gloss });
 
 const lookup = (
   input: string,
@@ -101,7 +101,7 @@ const lookup = (
       kind: 'entry',
       entry: {
         strong: entry.strong,
-        lemma: entry.hebrew,
+        lemma: entry.original,
         transliteration: entry.transliteration,
         morph: entry.morph,
         gloss: entry.gloss,

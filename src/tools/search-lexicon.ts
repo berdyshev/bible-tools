@@ -43,7 +43,7 @@ export const descriptionParts: DescriptionParts = {
 
 export const description = describeTool(descriptionParts);
 
-export type LexiconHit = { readonly strong: string; readonly gloss: string; readonly hebrew: string };
+export type LexiconHit = { readonly strong: string; readonly gloss: string; readonly original: string };
 
 // The lemma comes last: a line that ends in Hebrew keeps its left-to-right layout in bidi-aware renderers.
 export const formatSearch = (query: string, hits: readonly LexiconHit[], more: boolean): string => {
@@ -53,7 +53,7 @@ export const formatSearch = (query: string, hits: readonly LexiconHit[], more: b
   const head = `${hits.length}${more ? '+' : ''} lexicon ${hits.length === 1 && !more ? 'entry' : 'entries'} for "${query}"`;
   return [
     head,
-    ...hits.map((h) => `${h.strong}  «${h.gloss}»  ${h.hebrew}`),
+    ...hits.map((h) => `${h.strong}  «${h.gloss}»  ${h.original}`),
     ...(more ? ['More entries match; raise limit or use a more specific word.'] : []),
   ].join('\n');
 };
@@ -72,10 +72,10 @@ export const searchLexicon = defineTool({
     const found = repo.searchLexicon(query, language, max + 1);
     const entries = found.slice(0, max);
     const more = found.length > max;
-    const hits = entries.map((e) => ({ strong: e.strong, gloss: e.gloss, hebrew: e.hebrew }));
+    const hits = entries.map((e) => ({ strong: e.strong, gloss: e.gloss, original: e.original }));
     const note = language === 'greek' && entries.length === 0 ? GREEK_NOTE : undefined;
     const text = note ?? formatSearch(query, hits, more);
-    const results = hits.map((h) => ({ strong: h.strong, gloss: h.gloss, lemma: h.hebrew }));
+    const results = hits.map((h) => ({ strong: h.strong, gloss: h.gloss, lemma: h.original }));
     return ok({
       text,
       structured: note === undefined ? { query, results, more } : { query, results, more, note },

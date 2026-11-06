@@ -3,7 +3,7 @@ export type NameKind = 'person' | 'place' | 'gentilic' | 'other';
 /** The parts of a proper-name word that grouping needs. */
 export type NameWord = {
   readonly position: number;
-  readonly hebrew: string;
+  readonly original: string;
   readonly transliteration: string;
   readonly gloss: string;
   readonly strong: string | null;
@@ -28,7 +28,7 @@ export type NameGroup = {
   readonly name: string;
   readonly strong: string | null;
   readonly kind: NameKind;
-  readonly hebrew: string;
+  readonly original: string;
   readonly transliteration: string;
   readonly positions: readonly number[];
   readonly note: string | null;
@@ -62,7 +62,7 @@ export const groupNames = (inputs: readonly NameInput[]): NameGroup[] => {
     const kind = word.nameKind;
     if (kind === null) continue;
     if (open !== null && previousConjoined && open.strong === word.strong) {
-      open.hebrew += ` ${word.hebrew}`;
+      open.original += ` ${word.original}`;
       open.transliteration += ` ${word.transliteration}`;
       open.positions.push(word.position);
     } else {
@@ -71,7 +71,7 @@ export const groupNames = (inputs: readonly NameInput[]): NameGroup[] => {
         name,
         strong: word.strong,
         kind,
-        hebrew: word.hebrew,
+        original: word.original,
         transliteration: word.transliteration,
         positions: [word.position],
         note: noteOf(name, kind, record),

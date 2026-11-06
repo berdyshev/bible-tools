@@ -29,12 +29,12 @@ const occ = (
   v: number,
   strong: string,
   translit: string,
-  hebrew: string,
+  original: string,
 ): Occurrence => ({
   ref: ref(id, c, v),
   position: 1,
   transliteration: translit,
-  hebrew,
+  original,
   strong,
 });
 
@@ -83,15 +83,15 @@ void test('formatOccurrences lists books on their own lines with Hebrew last and
       strong: 'H7704G',
       count: 2,
       forms: [
-        { transliteration: 'a', hebrew: 'א' },
-        { transliteration: 'b', hebrew: 'ב' },
+        { transliteration: 'a', original: 'א' },
+        { transliteration: 'b', original: 'ב' },
       ],
     },
-    { ref: ref('Ruth', 2, 3), strong: 'H7704G', count: 1, forms: [{ transliteration: 'a', hebrew: 'א' }] },
-    { ref: ref('1Sam', 4, 1), strong: 'H7704G', count: 1, forms: [{ transliteration: 'c', hebrew: 'ג' }] },
+    { ref: ref('Ruth', 2, 3), strong: 'H7704G', count: 1, forms: [{ transliteration: 'a', original: 'א' }] },
+    { ref: ref('1Sam', 4, 1), strong: 'H7704G', count: 1, forms: [{ transliteration: 'c', original: 'ג' }] },
   ]);
   const h = group('H7704B', 'land: soil', [
-    { ref: ref('Gen', 2, 5), strong: 'H7704B', count: 1, forms: [{ transliteration: 'd', hebrew: 'ד' }] },
+    { ref: ref('Gen', 2, 5), strong: 'H7704B', count: 1, forms: [{ transliteration: 'd', original: 'ד' }] },
   ]);
   assert.equal(
     formatOccurrences(view({ total: 5, verses: 4, bySense: true, groups: [h, g] })),
@@ -108,7 +108,7 @@ void test('formatOccurrences lists books on their own lines with Hebrew last and
 
 void test('formatOccurrences handles the singular, an exact sense, Hebrew numbering and the truncation hint', () => {
   const g = group('H7704G', 'x', [
-    { ref: ref('Ruth', 1, 6), strong: 'H7704G', count: 1, forms: [{ transliteration: 'a', hebrew: 'א' }] },
+    { ref: ref('Ruth', 1, 6), strong: 'H7704G', count: 1, forms: [{ transliteration: 'a', original: 'א' }] },
   ]);
   assert.equal(
     formatOccurrences(

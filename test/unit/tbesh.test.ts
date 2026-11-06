@@ -39,7 +39,7 @@ void test('main entry: columns map one-to-one and the relation is empty', () => 
   assert.equal(e?.dstrong, 'H0376G');
   assert.equal(e?.relation, '');
   assert.equal(e?.ustrong, 'H0376G');
-  assert.equal(e?.hebrew, 'אִישׁ');
+  assert.equal(e?.original, 'אִישׁ');
   assert.equal(e?.transliteration, 'ish');
   assert.equal(e?.morph, 'H:N-M');
   assert.equal(e?.gloss, 'man');
@@ -76,7 +76,7 @@ void test('missing trailing columns become empty strings', () => {
   const e = entry('H0001\tH0001G =');
   assert.equal(e?.estrong, 'H0001');
   assert.equal(e?.ustrong, '');
-  assert.equal(e?.hebrew, '');
+  assert.equal(e?.original, '');
   assert.equal(e?.transliteration, '');
   assert.equal(e?.morph, '');
   assert.equal(e?.gloss, '');

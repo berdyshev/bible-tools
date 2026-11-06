@@ -11,7 +11,7 @@ const idOf = (input: string): string | undefined => {
 void test('table has the 39 Old Testament books with unique ids and codes', () => {
   assert.equal(BOOKS.length, 39);
   assert.equal(new Set(BOOK_IDS).size, 39);
-  assert.equal(new Set(BOOKS.map((b) => b.tahotCode)).size, 39);
+  assert.equal(new Set(BOOKS.map((b) => b.sourceCode)).size, 39);
   assert.ok(BOOKS.every((b) => b.testament === 'OT'));
   assert.deepEqual(BOOK_IDS.slice(0, 3), ['Gen', 'Exod', 'Lev']);
   assert.equal(BOOK_IDS.at(-1), 'Mal');
@@ -20,7 +20,7 @@ void test('table has the 39 Old Testament books with unique ids and codes', () =
 void test('no spelling resolves to two different books', () => {
   const seen = new Map<string, string>();
   for (const b of BOOKS) {
-    for (const s of [b.id, b.name, b.tahotCode, ...b.aliases]) {
+    for (const s of [b.id, b.name, b.sourceCode, ...b.aliases]) {
       const k = s.toLowerCase().replace(/[\s.]+/g, '');
       assert.equal(seen.get(k) ?? b.id, b.id, `${s} is ambiguous`);
       seen.set(k, b.id);
@@ -32,7 +32,7 @@ void test('every book is found by its id, name and TAHOT code', () => {
   for (const b of BOOKS) {
     assert.equal(idOf(b.id), b.id);
     assert.equal(idOf(b.name), b.id);
-    assert.equal(idOf(b.tahotCode), b.id);
+    assert.equal(idOf(b.sourceCode), b.id);
   }
 });
 
@@ -76,7 +76,7 @@ void test('book metadata', () => {
   const ruth = normalizeBook('Ruth');
   assert.ok(ruth.ok);
   assert.equal(ruth.value.name, 'Ruth');
-  assert.equal(ruth.value.tahotCode, 'Rut');
+  assert.equal(ruth.value.sourceCode, 'Rut');
   assert.equal(ruth.value.chapters, 4);
   assert.equal(ruth.value.hebChapters, undefined);
   const joel = normalizeBook('Joel');

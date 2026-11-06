@@ -5,7 +5,7 @@ import type { NameGroup, NameInput, NameKind, NameRecord, NameWord } from '../..
 
 const word = (position: number, over: Partial<NameWord> = {}): NameWord => ({
   position,
-  hebrew: `h${position}`,
+  original: `h${position}`,
   transliteration: `t${position}`,
   gloss: 'g',
   strong: 'H0001',
@@ -27,7 +27,7 @@ void test('merges conjoined parts of one name into a single group', () => {
       name: 'Bethlehem',
       strong: 'H1035G',
       kind: 'place',
-      hebrew: 'h13 h14',
+      original: 'h13 h14',
       transliteration: 't13 t14',
       positions: [13, 14],
       note: null,
@@ -39,7 +39,7 @@ void test('does not merge adjacent words when the first is not conjoined', () =>
   const groups = groupNames([input(word(1)), input(word(2))]);
   assert.equal(groups.length, 1);
   assert.deepEqual(groups[0]?.positions, [1, 2]);
-  assert.equal(groups[0]?.hebrew, 'h1');
+  assert.equal(groups[0]?.original, 'h1');
 });
 
 void test('does not merge conjoined words with different Strong numbers', () => {
@@ -120,7 +120,7 @@ const group = (over: Partial<NameGroup>): NameGroup => ({
   name: 'Naomi',
   strong: 'H5281',
   kind: 'person',
-  hebrew: 'h',
+  original: 'h',
   transliteration: 't',
   positions: [1],
   note: null,
@@ -135,14 +135,14 @@ void test('mergeNames lists a name once per Strong number with every verse it st
       groups: [group({ positions: [6] }), group({ name: 'Moab', strong: 'H4124G', kind: 'place' })],
     },
     { chapter: 1, verse: 3, groups: [] },
-    { chapter: 1, verse: 8, groups: [group({ positions: [2, 3], hebrew: 'later' })] },
+    { chapter: 1, verse: 8, groups: [group({ positions: [2, 3], original: 'later' })] },
   ]);
   assert.deepEqual(merged, [
     {
       name: 'Naomi',
       strong: 'H5281',
       kind: 'person',
-      hebrew: 'h',
+      original: 'h',
       transliteration: 't',
       note: null,
       occurrences: [
@@ -154,7 +154,7 @@ void test('mergeNames lists a name once per Strong number with every verse it st
       name: 'Moab',
       strong: 'H4124G',
       kind: 'place',
-      hebrew: 'h',
+      original: 'h',
       transliteration: 't',
       note: null,
       occurrences: [{ chapter: 1, verse: 2, positions: [1] }],

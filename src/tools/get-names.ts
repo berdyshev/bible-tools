@@ -35,7 +35,7 @@ export const description = describeTool(descriptionParts);
 // Hebrew goes last on the line so bidi-aware renderers keep the line left-to-right.
 const formatName = (g: NameGroup): string => {
   const note = g.note === null ? '' : ` — ${g.note}`;
-  return `- ${g.name}  ${g.strong ?? '—'}  (${kindLabel(g.kind)})  ${g.transliteration}  words ${g.positions.join(',')}${note}  ${g.hebrew}`;
+  return `- ${g.name}  ${g.strong ?? '—'}  (${kindLabel(g.kind)})  ${g.transliteration}  words ${g.positions.join(',')}${note}  ${g.original}`;
 };
 
 export const formatNames = (ref: VerseRef, groups: readonly NameGroup[]): string => {
@@ -49,7 +49,7 @@ export const formatNames = (ref: VerseRef, groups: readonly NameGroup[]): string
 const formatPassageName = (g: PassageName): string => {
   const note = g.note === null ? '' : ` — ${g.note}`;
   const places = g.occurrences.map((o) => `${o.chapter}:${o.verse} w${o.positions.join(',')}`).join('; ');
-  return `- ${g.name}  ${g.strong ?? '—'}  (${kindLabel(g.kind)})  ${g.transliteration}  at ${places}${note}  ${g.hebrew}`;
+  return `- ${g.name}  ${g.strong ?? '—'}  (${kindLabel(g.kind)})  ${g.transliteration}  at ${places}${note}  ${g.original}`;
 };
 
 const renderPassage = (span: Span, verses: readonly NameVerse[]): string => {

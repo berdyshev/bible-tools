@@ -39,7 +39,7 @@ void test('verseWords returns Ruth 1:1 in text order with parsed fields', () => 
     hebVerse: 1,
     position: 10,
     textType: 'L',
-    hebrew: words[9]?.hebrew,
+    original: words[9]?.original,
     transliteration: 'mi./Beit',
     gloss: 'from/ Beth-',
     strongRaw: 'H9006/{H1035G}+',
@@ -56,7 +56,7 @@ void test('verseWords returns Ruth 1:1 in text order with parsed fields', () => 
     isProperName: true,
     nameKind: 'place',
   });
-  assert.equal(consonants(words[9]?.hebrew), 'מ/בית');
+  assert.equal(consonants(words[9]?.original), 'מ/בית');
   assert.equal(consonants(words[9]?.lemma), 'בית לחם');
   const plain = words[0];
   assert.equal(plain?.conjoined, false);
@@ -121,7 +121,7 @@ void test('lexiconEntry finds the exact key and gives the sense gloss', () => {
   assert.equal(entry?.extendedStrong, 'H7704B');
   assert.equal(entry?.unifiedStrong, 'H7704B');
   assert.equal(entry?.relation, 'a Meaning of');
-  assert.equal(consonants(entry?.hebrew), 'שדה');
+  assert.equal(consonants(entry?.original), 'שדה');
   assert.equal(entry?.transliteration, 'sa.deh');
   assert.equal(entry?.morph, 'H:N-M');
   assert.ok(entry?.meaning.startsWith(': country/field'));
@@ -160,8 +160,8 @@ const SAMUEL = [
     'HNpm',
     '{H3083H=יְהוֹנָתָן=Jonathan»Jonathan@1Sa.13.2-1Ch}',
   ],
-].map(([r = '', hebrew = '', gloss = '', strong = '', morph = '', expanded = '']) =>
-  [r, hebrew, 'tr', gloss, strong, morph, '', '', '', '', '', expanded].join('\t'),
+].map(([r = '', original = '', gloss = '', strong = '', morph = '', expanded = '']) =>
+  [r, original, 'tr', gloss, strong, morph, '', '', '', '', '', expanded].join('\t'),
 );
 
 void test('versification selects English or Hebrew numbering', () => {
@@ -230,11 +230,11 @@ void test('occurrences of an exact sense in a book come in text order with their
     ref: { kind: 'verse', book: rows[0]?.ref.book, chapter: 1, verse: 1, versification: 'eng' },
     position: 14,
     transliteration: 'bi/s.Dei',
-    hebrew: rows[0]?.hebrew,
+    original: rows[0]?.original,
     strong: 'H7704G',
   });
   assert.equal(rows[0]?.ref.book.id, 'Ruth');
-  assert.equal(consonants(rows[0]?.hebrew), 'ב/שדי');
+  assert.equal(consonants(rows[0]?.original), 'ב/שדי');
 });
 
 void test('occurrences in a chapter or the whole OT are narrowed by the scope', () => {

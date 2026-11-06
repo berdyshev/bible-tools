@@ -4,7 +4,7 @@ import { description, formatEntry, formatMenu, outputSchema } from '../../src/to
 
 const entry = {
   strong: 'H1234B',
-  hebrew: 'אבג',
+  original: 'אבג',
   gloss: 'thing',
   transliteration: 'a.vag',
   morph: 'H:N-M',
@@ -13,7 +13,7 @@ const entry = {
 
 void test('formats an entry with trimmed meaning and other senses', () => {
   assert.equal(
-    formatEntry(entry, [{ strong: 'H1234A', hebrew: 'x', gloss: 'other' }]),
+    formatEntry(entry, [{ strong: 'H1234A', original: 'x', gloss: 'other' }]),
     'H1234B  אבג  a.vag  [H:N-M]  «thing»\na thing; stuff\nOther senses: H1234A «other»',
   );
 });
@@ -31,7 +31,7 @@ void test('omits the other-senses line when there are none', () => {
 
 void test('formats a menu with one line per sense', () => {
   assert.equal(
-    formatMenu('H1234', [entry, { strong: 'H1234A', hebrew: 'x', gloss: 'other' }]),
+    formatMenu('H1234', [entry, { strong: 'H1234A', original: 'x', gloss: 'other' }]),
     'H1234 has 2 senses; pick the one get_verse shows for your verse and call again:\n' +
       'H1234B  אבג  «thing»\nH1234A  x  «other»',
   );

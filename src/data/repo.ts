@@ -18,7 +18,7 @@ const wordRow = z.object({
   hebVerse: z.number(),
   position: z.number(),
   textType: z.string(),
-  hebrew: z.string(),
+  original: z.string(),
   transliteration: z.string(),
   gloss: z.string(),
   strongRaw: z.string(),
@@ -41,7 +41,7 @@ const lexiconRow = z.object({
   extendedStrong: z.string(),
   unifiedStrong: z.string(),
   relation: z.string(),
-  hebrew: z.string(),
+  original: z.string(),
   transliteration: z.string(),
   morph: z.string(),
   gloss: z.string(),
@@ -66,12 +66,12 @@ const occurrenceRow = z.object({
   verse: z.number(),
   position: z.number(),
   transliteration: z.string(),
-  hebrew: z.string(),
+  original: z.string(),
   strong: z.string(),
 });
 
 /** One word of the Hebrew text (TAHOT), in English and Hebrew numbering. */
-export type HebrewWord = z.infer<typeof wordRow>;
+export type Word = z.infer<typeof wordRow>;
 /** One TBESH lexicon entry. */
 export type LexiconEntry = z.infer<typeof lexiconRow>;
 /** One TIPNR proper-name record. */
@@ -82,16 +82,16 @@ export type Occurrence = {
   readonly ref: VerseRef;
   readonly position: number;
   readonly transliteration: string;
-  readonly hebrew: string;
+  readonly original: string;
   /** Disambiguated key of the sense at this word, e.g. "H7704G". */
   readonly strong: string;
 };
 
 export interface BibleRepo {
   /** Words of a verse in text order, numbered by the reference's versification; empty if there are none. */
-  verseWords(ref: VerseRef): HebrewWord[];
+  verseWords(ref: VerseRef): Word[];
   /** Words of a verse that are proper names (persons, places, gentilics, divine names). */
-  nameWords(ref: VerseRef): HebrewWord[];
+  nameWords(ref: VerseRef): Word[];
   /** Entry for an exact disambiguated key such as "H7704G"; null if unknown. */
   lexiconEntry(key: string): LexiconEntry | null;
   /** Every sense of a base number such as "H7704", in file order. */
@@ -116,12 +116,12 @@ export interface BibleRepo {
 }
 
 const WORD_COLUMNS = `book, chapter, verse, heb_chapter AS hebChapter, heb_verse AS hebVerse, position,
-  text_type AS textType, hebrew, transliteration, gloss, strong_raw AS strongRaw, strong,
+  text_type AS textType, original, transliteration, gloss, strong_raw AS strongRaw, strong,
   strong_base AS strongBase, prefixes, suffixes, conjoined, morph, morph_raw AS morphRaw, lemma,
   lemma_gloss AS lemmaGloss, name_id AS nameId, is_proper_name AS isProperName, name_kind AS nameKind`;
 
 const LEXICON_COLUMNS = `dstrong AS strong, estrong AS extendedStrong, ustrong AS unifiedStrong, relation,
-  hebrew, transliteration, morph, gloss, meaning`;
+  original, transliteration, morph, gloss, meaning`;
 
 const escapeRegExp = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -190,7 +190,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     if (scope.kind === 'chapter') where.push(`${chapterCol} = ?`);
     // Rows are loaded in canonical book order, so id order is book, chapter, verse, position.
     return query(
-      `SELECT book, ${chapterCol} AS chapter, ${verseCol} AS verse, position, transliteration, hebrew, strong
+      `SELECT book, ${chapterCol} AS chapter, ${verseCol} AS verse, position, transliteration, original, strong
        FROM words WHERE ${where.join(' AND ')} ORDER BY id`,
       occurrenceRow,
     );
@@ -223,7 +223,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
         ref: { kind: 'verse', book: r.book, chapter: r.chapter, verse: r.verse, versification },
         position: r.position,
         transliteration: r.transliteration,
-        hebrew: r.hebrew,
+        original: r.original,
         strong: r.strong,
       }));
     },

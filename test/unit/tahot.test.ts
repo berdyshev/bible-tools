@@ -121,7 +121,7 @@ void test('prefix + root word: reference, columns and tags', () => {
   assert.equal(w?.book, 'Ruth');
   assert.deepEqual([w?.chapter, w?.verse, w?.hebChapter, w?.hebVerse, w?.position], [1, 1, 1, 1, 1]);
   assert.equal(w?.textType, 'L');
-  assert.equal(w?.hebrew, 'וַ/יְהִ֗י');
+  assert.equal(w?.original, 'וַ/יְהִ֗י');
   assert.equal(w?.transliteration, 'va/y.Hi');
   assert.equal(w?.gloss, 'and/ it was');
   assert.equal(w?.strongRaw, 'H9001/{H1961}');
@@ -251,7 +251,7 @@ void test('missing optional columns yield nulls and empty strings', () => {
   assert.equal(w?.strongBase, null);
   assert.equal(w?.morphRaw, '');
   assert.equal(w?.isProperName, false);
-  assert.equal(w?.hebrew, 'x');
+  assert.equal(w?.original, 'x');
   assert.equal(w?.lemma, null);
   assert.equal(w?.lemmaGloss, null);
   assert.equal(w?.gloss, '');

@@ -9,7 +9,7 @@ export type TbeshEntry = {
   /** Text after "=" in the dStrong column, e.g. "a Meaning of"; empty for a main entry. */
   readonly relation: string;
   readonly ustrong: string;
-  readonly hebrew: string;
+  readonly original: string;
   readonly transliteration: string;
   /** e.g. "N:N-M-P". */
   readonly morph: string;
@@ -42,7 +42,7 @@ export const parseTbeshLine = (rawLine: string): ParseOutcome<TbeshEntry> => {
     dstrong: m[1] ?? '',
     relation: (m[2] ?? '').trim(),
     ustrong: cols[2] ?? '',
-    hebrew: cols[3] ?? '',
+    original: cols[3] ?? '',
     transliteration: cols[4] ?? '',
     morph: cols[5] ?? '',
     gloss: cols[6] ?? '',

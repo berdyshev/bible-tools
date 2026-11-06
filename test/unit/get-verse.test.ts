@@ -21,7 +21,7 @@ const word = (over: Partial<VerseWord>): VerseWord => ({
   transliteration: 'va.Yehi',
   strong: 'H1961',
   gloss: 'and/ he was',
-  hebrew: 'וַיְהִי',
+  original: 'וַיְהִי',
   isProperName: false,
   nameKind: null,
   ...over,
@@ -30,7 +30,7 @@ const word = (over: Partial<VerseWord>): VerseWord => ({
 void test('formats a header and one line per word with Hebrew last', () => {
   const text = formatVerse(ref('eng'), [
     word({}),
-    word({ position: 2, strong: null, isProperName: true, nameKind: 'place', hebrew: 'מוֹאָב' }),
+    word({ position: 2, strong: null, isProperName: true, nameKind: 'place', original: 'מוֹאָב' }),
   ]);
   assert.deepEqual(text.split('\n'), [
     "Ruth 1:2 (English numbering) — Hebrew, read right to left; Strong's numbers per STEPBible",
@@ -70,10 +70,10 @@ const spanOfText = (input: string): Span => {
   return span.value;
 };
 
-const verses = (from: number, to: number, hebrew = 'א'): PassageVerse[] =>
+const verses = (from: number, to: number, original = 'א'): PassageVerse[] =>
   Array.from({ length: to - from + 1 }, (_, i) => ({
     ref: verseAt(1, from + i),
-    words: [word({ hebrew })],
+    words: [word({ original })],
   }));
 
 void test('a passage has one header, then each verse under its own sub-header', () => {

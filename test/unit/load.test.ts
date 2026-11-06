@@ -6,8 +6,14 @@ import { createSchema, load } from '../../src/ingest/load.ts';
 const tab = (...cols: string[]): string => cols.join('\t');
 const pad = (cols: string[]): string[] => [...cols, ...Array.from({ length: 17 - cols.length }, () => '')];
 
-const word = (ref: string, hebrew: string, gloss: string, strong: string, morph: string, expanded: string) =>
-  tab(...pad([ref, hebrew, 'tr', gloss, strong, morph, '', '', '', '', '', expanded]));
+const word = (
+  ref: string,
+  original: string,
+  gloss: string,
+  strong: string,
+  morph: string,
+  expanded: string,
+) => tab(...pad([ref, original, 'tr', gloss, strong, morph, '', '', '', '', '', expanded]));
 
 const WAYEHI = word(
   'Rut.1.1#01=L',
@@ -117,7 +123,7 @@ void test('load maps word fields to columns', () => {
     heb_verse: 2,
     position: 9,
     text_type: 'L',
-    hebrew: 'וְ/כִלְיוֹן',
+    original: 'וְ/כִלְיוֹן',
     transliteration: 'tr',
     gloss: 'and/ Kilion',
     strong_raw: 'H9002/{H3630}',

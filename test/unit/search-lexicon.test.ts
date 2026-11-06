@@ -10,7 +10,7 @@ import {
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
-const hit = (strong: string, gloss: string, hebrew: string) => ({ strong, gloss, hebrew });
+const hit = (strong: string, gloss: string, original: string) => ({ strong, gloss, original });
 
 void test('formatSearch puts the lemma last and counts the entries', () => {
   assert.equal(
@@ -83,7 +83,7 @@ const entry = (strong: string) => ({
   extendedStrong: strong,
   unifiedStrong: strong,
   relation: '',
-  hebrew: 'א',
+  original: 'א',
   transliteration: 't',
   morph: 'H:N',
   gloss: 'g',

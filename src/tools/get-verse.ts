@@ -29,6 +29,12 @@ export const inputSchema = z.object({
         '(`Ruth 1`; long passages are cut off with a hint for the next call).',
     ),
   versification: versificationSchema,
+  morphology: z
+    .boolean()
+    .optional()
+    .describe(
+      "Show each word's morphology code (e.g. `V-IAI-3S`, `HC/Vqw3ms`) before the original text, for explain_morphology. Default false.",
+    ),
 });
 
 export const descriptionParts: DescriptionParts = {
@@ -37,7 +43,7 @@ export const descriptionParts: DescriptionParts = {
     "transliteration, Strong's number, a literal English gloss and the original text; proper names are marked.",
   when: "Use it to see what stands behind a translated word, to justify a literal reading, or to get the Strong's numbers for lookup_strong.",
   output:
-    "Output: a header line, then one line per word in reading order: `position. transliteration  strong  gloss  [name: kind]  original`; in Hebrew '/' in a gloss separates prefix, root and suffix (e.g. `and/ name`). " +
+    "Output: a header line, then one line per word in reading order: `position. transliteration  strong  gloss  [name: kind]  original` (with `morphology: true` the morphology code is added before the original, e.g. `3. ēn  G1510  was  V-IAI-3S  ἦν`); in Hebrew '/' in a gloss separates prefix, root and suffix (e.g. `and/ name`). " +
     'A New Testament verse that the Nestlé-Aland text lacks (e.g. `John 5:4`) is shown from the traditional text and says so on a line after its heading. ' +
     `A range such as \`Ruth 1:1-5\` or a chapter such as \`Ruth 1\` is grouped by verse, each with a \`Ruth 1:2\` sub-header, and is capped at ${MAX_VERSES} verses and about ${MAX_CHARS} characters: a longer passage ends with \`truncated — call get_verse again with "Ruth 1:7-12"\`.`,
   not: 'It does not translate the verse and gives no definitions: use lookup_strong for meanings and get_names for a clean list of the names in a verse. There is no get_passage tool: pass a range to get_verse.',
@@ -54,15 +60,18 @@ export type VerseWord = {
   readonly original: string;
   /** STEPBible word type, e.g. "NKO"; only the Greek text's types say whether a word is Nestlé-Aland. */
   readonly textType: string;
+  /** Morphology code as the source gives it, e.g. "V-IAI-3S" or "HC/Vqw3ms". */
+  readonly morphRaw: string;
   readonly isProperName: boolean;
   readonly nameKind: string | null;
 };
 
 // Latin fields come first and the original text last: a line that starts with Hebrew letters is laid out
 // right-to-left by bidi-aware renderers and appears reversed.
-const formatWord = (w: VerseWord): string => {
+const formatWord = (w: VerseWord, morphology: boolean): string => {
   const name = w.isProperName ? `  [name: ${w.nameKind ?? 'unknown'}]` : '';
-  return `${w.position}. ${w.transliteration}  ${w.strong ?? '—'}  ${w.gloss}${name}  ${w.original}`;
+  const code = morphology ? `  ${w.morphRaw === '' ? '—' : w.morphRaw}` : '';
+  return `${w.position}. ${w.transliteration}  ${w.strong ?? '—'}  ${w.gloss}${name}${code}  ${w.original}`;
 };
 
 const header = (label: string, book: Book, versification: VerseRef['versification']): string => {
@@ -76,13 +85,13 @@ const NOT_IN_NA = 'Not in the Nestlé-Aland text; shown from the traditional tex
 const notInNestleAland = (book: Book, words: readonly VerseWord[]): boolean =>
   book.testament === 'NT' && words.length > 0 && !words.some((w) => isNestleAland(w.textType));
 
-const verseLines = (ref: VerseRef, words: readonly VerseWord[]): string[] => [
+const verseLines = (ref: VerseRef, words: readonly VerseWord[], morphology: boolean): string[] => [
   ...(notInNestleAland(ref.book, words) ? [NOT_IN_NA] : []),
-  ...words.map(formatWord),
+  ...words.map((w) => formatWord(w, morphology)),
 ];
 
-export const formatVerse = (ref: VerseRef, words: readonly VerseWord[]): string =>
-  [header(formatRef(ref), ref.book, ref.versification), ...verseLines(ref, words)].join('\n');
+export const formatVerse = (ref: VerseRef, words: readonly VerseWord[], morphology = false): string =>
+  [header(formatRef(ref), ref.book, ref.versification), ...verseLines(ref, words, morphology)].join('\n');
 
 /** A verse of a passage with its words. */
 export type PassageVerse = { readonly ref: VerseRef; readonly words: readonly VerseWord[] };
@@ -92,12 +101,12 @@ export type PassageVerse = { readonly ref: VerseRef; readonly words: readonly Ve
  * until the next one would pass the verse or character cap (the first is always shown); the output
  * then ends with the call that returns the rest.
  */
-export const formatPassage = (span: Span, verses: Iterable<PassageVerse>): string => {
+export const formatPassage = (span: Span, verses: Iterable<PassageVerse>, morphology = false): string => {
   const lines = [header(formatSpan(span), span.book, span.versification)];
   let length = lines[0]?.length ?? 0;
   let shown = 0;
   for (const { ref, words } of verses) {
-    const block = [formatRef(ref), ...verseLines(ref, words)].join('\n');
+    const block = [formatRef(ref), ...verseLines(ref, words, morphology)].join('\n');
     if (shown > 0 && (shown === MAX_VERSES || length + 1 + block.length > MAX_CHARS)) {
       lines.push(continuation('get_verse', span, ref));
       break;
@@ -122,17 +131,19 @@ export const getVerse = defineTool({
   title: 'Original-language words of a verse',
   description,
   input: inputSchema,
-  run: ({ ref, versification }, repo) => {
+  run: ({ ref, versification, morphology }, repo) => {
     const parsed = parsePassage(ref, versification ?? 'eng');
     if (!parsed.ok) return parsed;
     if (parsed.value.kind !== 'verse') {
       const span = spanOf(parsed.value, boundsIn(repo, parsed.value.book, parsed.value.versification));
-      return span.ok ? ok({ text: formatPassage(span.value, versesWithWords(repo, span.value)) }) : span;
+      return span.ok
+        ? ok({ text: formatPassage(span.value, versesWithWords(repo, span.value), morphology === true) })
+        : span;
     }
     const words = repo.verseWords(parsed.value);
     if (words.length === 0) {
       return err(missingVerse(repo, parsed.value));
     }
-    return ok({ text: formatVerse(parsed.value, words) });
+    return ok({ text: formatVerse(parsed.value, words, morphology === true) });
   },
 });

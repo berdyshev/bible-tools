@@ -23,6 +23,7 @@ const word = (over: Partial<VerseWord>): VerseWord => ({
   gloss: 'and/ he was',
   original: 'וַיְהִי',
   textType: 'L',
+  morphRaw: 'HC/Vqw3ms',
   isProperName: false,
   nameKind: null,
   ...over,
@@ -204,4 +205,66 @@ void test('the description states the range format, the cap and that get_passage
   assert.match(description, /2000 characters/);
   assert.match(description, /There is no get_passage tool/);
   assert.match(description, /truncated — call get_verse again with "Ruth 1:7-12"/);
+});
+
+void test('morphology adds the raw code after the gloss and name, before the original', () => {
+  const text = formatVerse(
+    johnRef,
+    [
+      greek({
+        position: 3,
+        transliteration: 'ēn',
+        strong: 'G1510',
+        gloss: 'was',
+        original: 'ἦν',
+        morphRaw: 'V-IAI-3S',
+      }),
+      greek({ position: 4, isProperName: true, nameKind: 'person', morphRaw: 'N-GSM-P' }),
+      greek({ position: 5, morphRaw: 'G1 + G2' }),
+    ],
+    true,
+  );
+  assert.deepEqual(text.split('\n').slice(1), [
+    '3. ēn  G1510  was  V-IAI-3S  ἦν',
+    '4. En  G1722  In [the]  [name: person]  N-GSM-P  Ἐν',
+    '5. En  G1722  In [the]  G1 + G2  Ἐν',
+  ]);
+});
+
+void test('Hebrew morphology is shown as the source gives it, an empty code as a dash', () => {
+  assert.equal(
+    formatVerse(ref('eng'), [word({ position: 1 }), word({ position: 2, morphRaw: '' })], true),
+    [
+      "Ruth 1:2 (English numbering) — Hebrew, read right to left; Strong's numbers per STEPBIBLE".replace(
+        'STEPBIBLE',
+        'STEPBible',
+      ),
+      '1. va.Yehi  H1961  and/ he was  HC/Vqw3ms  וַיְהִי',
+      '2. va.Yehi  H1961  and/ he was  —  וַיְהִי',
+    ].join('\n'),
+  );
+});
+
+void test('morphology is off by default, in a verse and in a passage', () => {
+  const words = [word({})];
+  assert.equal(formatVerse(ref('eng'), words), formatVerse(ref('eng'), words, false));
+  assert.doesNotMatch(formatVerse(ref('eng'), words), /Vqw3ms/);
+  const span = spanOf(
+    (() => {
+      const p = parsePassage('Ruth 1:2-3');
+      assert.ok(p.ok);
+      return p.value;
+    })(),
+    () => ({ first: 1, last: 22 }),
+  );
+  assert.ok(span.ok);
+  const passageVerses: PassageVerse[] = [{ ref: ref('eng'), words }];
+  assert.doesNotMatch(formatPassage(span.value, passageVerses), /Vqw3ms/);
+  assert.match(formatPassage(span.value, passageVerses, true), /and\/ he was {2}HC\/Vqw3ms {2}וַיְהִי/);
+});
+
+void test('the morphology input is an optional boolean', () => {
+  assert.ok(inputSchema.safeParse({ ref: 'John 1:1' }).success);
+  assert.ok(inputSchema.safeParse({ ref: 'John 1:1', morphology: true }).success);
+  assert.ok(!inputSchema.safeParse({ ref: 'John 1:1', morphology: 'yes' }).success);
 });

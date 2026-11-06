@@ -21,6 +21,22 @@ void test('get_verse John 1:1 matches the golden output', () => {
   expectGolden('get_verse.John_1_1.txt', textOf(result));
 });
 
+void test('get_verse John 1:1 with morphology matches the golden output', () => {
+  const result = getVerse.call({ ref: 'John 1:1', morphology: true }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('get_verse.John_1_1.morphology.txt', text);
+  assert.match(text, /\n3\. ēn {2}G1510 {2}was {2}V-IAI-3S {2}ἦν\n/);
+});
+
+void test('get_verse Ruth 1:1 with morphology shows the Hebrew codes and the default stays plain', () => {
+  const plain = textOf(getVerse.call({ ref: 'Ruth 1:1' }, repo));
+  const withCodes = textOf(getVerse.call({ ref: 'Ruth 1:1', morphology: true }, repo));
+  assert.match(withCodes, /\n1\. va\/y\.Hi {2}H1961 {2}and\/ it was {2}H\S*\/V\S+ {2}\S/);
+  assert.equal(textOf(getVerse.call({ ref: 'Ruth 1:1', morphology: false }, repo)), plain);
+  assert.doesNotMatch(plain, /Vqw3ms/);
+});
+
 void test('a Hebrew numbering request for the New Testament is answered in English numbering', () => {
   const eng = textOf(getVerse.call({ ref: 'John 1:1' }, repo));
   assert.equal(textOf(getVerse.call({ ref: 'John 1:1', versification: 'heb' }, repo)), eng);

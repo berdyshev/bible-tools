@@ -134,6 +134,57 @@ Requests to `/mcp` with any other `Host` or `Origin` answer `403`, so a public d
 The client IP is the socket address and `X-Forwarded-For` is not trusted, so behind a reverse proxy
 all clients share one rate limit.
 
+## Docker
+
+```sh
+docker build -t stepbible-mcp .
+docker run --rm -p 3000:3000 stepbible-mcp
+curl http://localhost:3000/health
+```
+
+The build downloads the STEPBible files at the pinned revision (about 115 MB) and builds the database
+inside the image, so it needs network access and takes a few minutes; the image is about 500 MB and
+holds no raw data files. The container runs as the unprivileged `node` user, listens on `PORT`
+(default 3000) and has a health check on `/health`. `docker stop` ends it cleanly with exit code 0.
+
+With the default `ALLOWED_HOSTS` only `localhost` is accepted in the `Host` header. Behind a domain,
+pass the hostname (comma-separated for several):
+
+```sh
+docker run --rm -p 3000:3000 -e ALLOWED_HOSTS=mcp.example.com stepbible-mcp
+```
+
+## Deploy on Render
+
+`render.yaml` is a blueprint for a Docker web service on Render's free tier.
+
+1. Push the repository to GitHub, GitLab or Bitbucket.
+2. In the Render dashboard choose **New > Blueprint** and select the repository. Render reads
+   `render.yaml`, builds the image and starts the service. Deploys are manual (`autoDeploy: false`).
+3. If the service name `stepbible-mcp` was already taken, Render appends a suffix. Then set
+   `ALLOWED_HOSTS` to the real hostname of the service (`<service>.onrender.com`) in the service's
+   environment settings; requests with another `Host` get `403`. `ALLOWED_ORIGINS` is `claude.ai` so
+   that Claude's web app may call the server from the browser.
+
+Render sets `PORT` itself and uses `/health` for its health check.
+
+Free-tier services sleep after 15 minutes without traffic, and the first request after that waits
+about a minute for a cold start. To avoid it, ping `https://<service>.onrender.com/health` every
+few minutes from an uptime monitor or a scheduled job. All clients share one rate limit of 60
+requests per minute, because behind Render's proxy the server only sees the proxy's address.
+
+## Use as a Claude connector
+
+Once the service is up, add it to Claude as a custom connector: in Claude's settings open
+**Connectors**, choose **Add custom connector**, enter a name and the URL
+
+```text
+https://<service>.onrender.com/mcp
+```
+
+and choose no sign-in, as the server needs no account or key. The same URL works for
+`claude mcp add --transport http stepbible https://<service>.onrender.com/mcp` in Claude Code.
+
 ## MCP Inspector
 
 ```sh

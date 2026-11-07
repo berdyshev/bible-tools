@@ -22,7 +22,7 @@ agents that need grounded source-language data instead of guesses.
 ```sh
 pnpm install
 pnpm data:fetch   # downloads the STEPBible files at the pinned revision into data/raw/ (about 115 MB)
-pnpm data:build   # builds data/bible.sqlite (about 130 MB, takes under a minute)
+pnpm data:build   # builds data/bible.sqlite (about 127 MB, takes under a minute)
 ```
 
 The server reads `data/bible.sqlite` by default; set `STEPBIBLE_DB` to use another file.
@@ -163,8 +163,9 @@ docker run --rm -p 3000:3000 -e ALLOWED_HOSTS=mcp.example.com stepbible-mcp
    `render.yaml`, builds the image and starts the service. Deploys are manual (`autoDeploy: false`).
 3. If the service name `stepbible-mcp` was already taken, Render appends a suffix. Then set
    `ALLOWED_HOSTS` to the real hostname of the service (`<service>.onrender.com`) in the service's
-   environment settings; requests with another `Host` get `403`. `ALLOWED_ORIGINS` is `claude.ai` so
-   that Claude's web app may call the server from the browser.
+   environment settings; requests with another `Host` get `403`. `ALLOWED_ORIGINS` is set to `claude.ai`:
+   a request that carries an `Origin` header is accepted only when the header's hostname is in that list,
+   and requests without an `Origin` header are not affected.
 
 Render sets `PORT` itself and uses `/health` for its health check.
 

@@ -59,6 +59,16 @@ const cases: readonly (readonly [string, InputError, string])[] = [
     'Morphology code "Xyz" (in "HC/Xyz") was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained',
   ],
   [
+    'scope_wrong_testament (Greek number)',
+    { kind: 'scope_wrong_testament', input: 'G3056', scope: 'OT', testament: 'NT' },
+    'Strong\'s number "G3056" is Greek and occurs only in the New Testament, but the scope "OT" is in the Old Testament. Use scope "NT", a New Testament book or chapter such as "John 1", or leave scope out',
+  ],
+  [
+    'scope_wrong_testament (Hebrew number)',
+    { kind: 'scope_wrong_testament', input: 'H7704G', scope: 'John', testament: 'OT' },
+    'Strong\'s number "H7704G" is Hebrew and occurs only in the Old Testament, but the scope "John" is in the New Testament. Use scope "OT", an Old Testament book or chapter such as "Ruth 2", or leave scope out',
+  ],
+  [
     'invalid_scope',
     { kind: 'invalid_scope', input: 'psalms', allowed: ['book', 'chapter', 'verse'] },
     'Invalid scope "psalms". Use one of: book, chapter, verse',

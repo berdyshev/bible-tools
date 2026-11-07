@@ -20,6 +20,13 @@ export type InputError =
   | { readonly kind: 'malformed_strong'; readonly input: string }
   | { readonly kind: 'unknown_strong'; readonly input: string }
   | { readonly kind: 'unknown_morph_code'; readonly input: string; readonly within?: string }
+  | {
+      readonly kind: 'scope_wrong_testament';
+      readonly input: string;
+      readonly scope: string;
+      /** The testament the number's language belongs to. */
+      readonly testament: 'OT' | 'NT';
+    }
   | { readonly kind: 'invalid_scope'; readonly input: string; readonly allowed: readonly string[] };
 
 const SHOWN_IDS = 3;
@@ -47,6 +54,10 @@ export const hint = (e: InputError): string => {
       return `Strong's number "${e.input}" was not found. Check the number or try search_lexicon`;
     case 'unknown_morph_code':
       return `Morphology code "${e.input}"${e.within === undefined ? '' : ` (in "${e.within}")`} was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained`;
+    case 'scope_wrong_testament':
+      return e.testament === 'NT'
+        ? `Strong's number "${e.input}" is Greek and occurs only in the New Testament, but the scope "${e.scope}" is in the Old Testament. Use scope "NT", a New Testament book or chapter such as "John 1", or leave scope out`
+        : `Strong's number "${e.input}" is Hebrew and occurs only in the Old Testament, but the scope "${e.scope}" is in the New Testament. Use scope "OT", an Old Testament book or chapter such as "Ruth 2", or leave scope out`;
     case 'invalid_scope':
       return `Invalid scope "${e.input}". Use one of: ${e.allowed.join(', ')}`;
     default:

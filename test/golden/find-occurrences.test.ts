@@ -103,13 +103,39 @@ void test('the default scope follows the language of the number', () => {
   assert.equal(run({ strong: 'G3056', scope: 'John 1' }).structured.total, greek.structured.total);
 });
 
-void test('a number does not turn up in the other testament', () => {
-  assert.equal(
-    run({ strong: 'G3056', scope: 'OT' }).text,
-    'G3056 in the Old Testament: no occurrences (English numbering)',
-  );
-  assert.equal(run({ strong: 'H7704G', scope: 'NT' }).structured.total, 0);
-  assert.equal(run({ strong: 'G3056', scope: 'Ruth' }).structured.total, 0);
+void test('a number in a scope of the other testament is an input error with a hint, not an empty result', () => {
+  for (const [args, pattern] of [
+    [
+      { strong: 'G3056', scope: 'OT' },
+      /^Strong's number "G3056" is Greek and occurs only in the New Testament, but the scope "OT" is in the Old Testament\. Use scope "NT"/,
+    ],
+    [{ strong: 'G3056', scope: 'Ruth' }, /but the scope "Ruth" is in the Old Testament/],
+    [{ strong: 'G3056', scope: 'Ruth 2' }, /but the scope "Ruth 2" is in the Old Testament/],
+    [
+      { strong: 'H7704G', scope: 'NT' },
+      /^Strong's number "H7704G" is Hebrew and occurs only in the Old Testament, but the scope "NT" is in the New Testament\. Use scope "OT"/,
+    ],
+    [{ strong: 'H7704G', scope: 'John' }, /but the scope "John" is in the New Testament/],
+    [{ strong: 'H7704', scope: 'New Testament' }, /but the scope "New Testament" is in the New Testament/],
+  ] as const) {
+    const result = findOccurrences.call(args, repo);
+    assert.equal(result.isError, true, JSON.stringify(args));
+    assert.match(textOf(result), pattern);
+  }
+});
+
+void test('the matching testament, or no scope, is still fine', () => {
+  for (const args of [
+    { strong: 'G3056', scope: 'NT' },
+    { strong: 'G3056', scope: 'John' },
+    { strong: 'G3056', scope: 'all' },
+    { strong: 'G3056' },
+    { strong: 'H7704G', scope: 'OT' },
+    { strong: 'H7704G', scope: 'Old Testament' },
+    { strong: 'H7704G', scope: 'Ruth' },
+  ]) {
+    assert.equal(findOccurrences.call(args, repo).isError, undefined, JSON.stringify(args));
+  }
 });
 
 void test('New Testament scopes are labelled with English numbering even when Hebrew is asked for', () => {
@@ -142,6 +168,10 @@ void test('bad scope, bad number and unknown number are input errors with hints'
   const cases = [
     [{ strong: 'H7704G', scope: 'Ruth 1:2' }, /^Invalid scope "Ruth 1:2"\. Use one of: OT, NT, /],
     [{ strong: 'H7704G', scope: 'Ruth 9' }, /^Ruth has no chapter 9/],
+    [
+      { strong: 'H7704G', scope: 'NT' },
+      /^Strong's number "H7704G" is Hebrew and occurs only in the Old Testament/,
+    ],
     [{ strong: 'X1' }, /^Malformed Strong's number "X1"/],
     [{ strong: 'H9999' }, /^Strong's number "H9999" was not found/],
     [{ strong: 'H7704Z' }, /^Strong's number "H7704Z" was not found/],

@@ -181,7 +181,8 @@ void test('find_occurrences G3056 over the whole New Testament equals a direct c
   assert.match(textOf(result), new RegExp(`^G3056 in the New Testament: ${expected} occurrences in `));
   assert.ok(textOf(result).length <= MAX_CHARS);
   const inOt = findOccurrences.call({ strong: 'G3056', scope: 'OT' }, repo);
-  assert.equal(outputSchema.parse(inOt.structuredContent).total, 0);
+  assert.equal(inOt.isError, true);
+  assert.match(textOf(inOt), /^Strong's number "G3056" is Greek and occurs only in the New Testament/);
 });
 
 void test('explain_morphology knows V-AAI-3S and the Hebrew forms as get_verse shows them', { skip }, () => {

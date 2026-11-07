@@ -23,7 +23,7 @@ export const inputSchema = z.object({
     .string()
     .optional()
     .describe(
-      'Where to look: a book (`Ruth`, `John`), a chapter (`Ruth 2`), `OT` for the whole Old Testament or `NT` for the whole New Testament. Default: `OT` for a Hebrew number, `NT` for a Greek one.',
+      'Where to look: a book (`Ruth`, `John`), a chapter (`Ruth 2`), `OT` for the whole Old Testament or `NT` for the whole New Testament. Default: `OT` for a Hebrew number, `NT` for a Greek one; a scope in the other testament is an error.',
     ),
   versification: versificationSchema,
   limit: z
@@ -171,8 +171,7 @@ export const formatOccurrences = (v: OccurrenceView): string => {
   return [head, ...body, ...tail].join('\n');
 };
 
-const isNewTestament = (s: Scope): boolean =>
-  s.kind === 'testament' ? s.testament === 'NT' : s.book.testament === 'NT';
+const testamentOf = (s: Scope): 'OT' | 'NT' => (s.kind === 'testament' ? s.testament : s.book.testament);
 
 const scopeLabel = (s: Scope): string => {
   switch (s.kind) {
@@ -214,8 +213,13 @@ export const findOccurrences = defineTool({
       versification ?? 'eng',
     );
     if (!where.ok) return where;
+    const testament = testamentOf(where.value);
+    // A Hebrew number cannot be in the New Testament, nor a Greek one in the Old: say so instead of "no occurrences".
+    if (testament !== wholeText) {
+      return err({ kind: 'scope_wrong_testament', input: strong, scope: scope ?? '', testament: wholeText });
+    }
     // The New Testament has only English numbering.
-    const numbering = isNewTestament(where.value) ? 'eng' : (versification ?? 'eng');
+    const numbering = testament === 'NT' ? 'eng' : (versification ?? 'eng');
     const { key, sense } = parsed.value;
     // A sense letter the lexicon lacks (G3700G, listed as G3700) still names the words that carry it.
     const known =

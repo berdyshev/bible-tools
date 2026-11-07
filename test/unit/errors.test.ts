@@ -49,6 +49,16 @@ const cases: readonly (readonly [string, InputError, string])[] = [
     'Strong\'s number "H99999" was not found. Check the number or try search_lexicon',
   ],
   [
+    'unknown_strong with the senses of its base',
+    { kind: 'unknown_strong', input: 'H7704Z', senses: ['H7704A', 'H7704G'] },
+    'Strong\'s number "H7704Z" was not found. Its base number has the senses H7704A, H7704G; use one of them or try search_lexicon',
+  ],
+  [
+    'unknown_strong with an empty list of senses',
+    { kind: 'unknown_strong', input: 'H9999Z', senses: [] },
+    'Strong\'s number "H9999Z" was not found. Check the number or try search_lexicon',
+  ],
+  [
     'unknown_morph_code',
     { kind: 'unknown_morph_code', input: 'Xyz' },
     'Morphology code "Xyz" was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained',

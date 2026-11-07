@@ -315,3 +315,24 @@ void test(
     }
   },
 );
+
+void test(
+  'an unknown sense letter is rejected with the real senses, while tags that occur keep working',
+  { skip },
+  () => {
+    assert.ok(repo);
+    const bad = findOccurrences.call({ strong: 'H7704Z' }, repo);
+    assert.equal(bad.isError, true);
+    assert.match(
+      textOf(bad),
+      /^Strong's number "H7704Z" was not found\. Its base number has the senses H7704A, /,
+    );
+    assert.equal(findOccurrences.call({ strong: 'G3056X' }, repo).isError, true);
+    for (const strong of ['G3700G', 'G3700H', 'H0430J']) {
+      assert.equal(findOccurrences.call({ strong }, repo).isError, undefined, strong);
+    }
+    // Present elsewhere in its testament, absent from this scope: an empty result.
+    const elsewhere = findOccurrences.call({ strong: 'H0430J', scope: 'Ruth' }, repo);
+    assert.equal(elsewhere.isError, undefined);
+  },
+);

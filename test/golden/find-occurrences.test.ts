@@ -86,7 +86,8 @@ void test('a sense letter the lexicon lacks still finds the words that carry it'
   const bare = run({ strong: 'G3700', scope: 'John 1' });
   assert.equal(bare.structured.total, 2);
   assert.deepEqual(bare.structured.senses, [{ strong: 'G3700G', gloss: 'to appear', count: 2 }]);
-  assert.equal(run({ strong: 'G3700H', scope: 'John 1' }).structured.total, 0);
+  // The tag occurs in the New Testament, so an empty scope is an empty result, not an error.
+  assert.equal(run({ strong: 'G3700G', scope: 'John 2' }).structured.total, 0);
 });
 
 void test('a number that the lexicon lists only as lettered senses finds its words', () => {
@@ -101,14 +102,43 @@ void test('a number that the lexicon lists only as lettered senses finds its wor
   );
   // The tag has no entry of its own, so its group has no gloss.
   assert.equal(bare.structured.senses[0]?.gloss, '');
-  const tagged = findOccurrences.call({ strong: 'G2453B', scope: 'John 1' }, repo);
-  assert.equal(tagged.isError, undefined);
-  assert.equal(outputSchema.parse(tagged.structuredContent).total, 0);
+  const typo = findOccurrences.call({ strong: 'G2453B', scope: 'John 1' }, repo);
+  assert.equal(typo.isError, true);
+  assert.match(textOf(typo), /Its base number has the senses G2453G;/);
 });
 
-void test('a sense letter the base number does not list is a known tag with no words', () => {
-  const { text } = run({ strong: 'H7704Z' });
-  assert.equal(text, 'H7704Z in the Old Testament: no occurrences (English numbering)');
+void test('a sense letter that no word carries is unknown, and the hint lists the senses of the base', () => {
+  const cases = [
+    [
+      { strong: 'H7704Z' },
+      'Strong\'s number "H7704Z" was not found. Its base number has the senses H7704A, H7704B, H7704G, H7704H, H7704I, H7704M; use one of them or try search_lexicon',
+    ],
+    [
+      { strong: 'G3056X' },
+      'Strong\'s number "G3056X" was not found. Its base number has the senses G3056; use one of them or try search_lexicon',
+    ],
+    [
+      { strong: 'G3700Z', scope: 'John 1' },
+      'Strong\'s number "G3700Z" was not found. Its base number has the senses G3700; use one of them or try search_lexicon',
+    ],
+    [{ strong: 'H9999Z' }, 'Strong\'s number "H9999Z" was not found. Check the number or try search_lexicon'],
+  ] as const;
+  for (const [args, expected] of cases) {
+    const result = findOccurrences.call(args, repo);
+    assert.equal(result.isError, true, JSON.stringify(args));
+    assert.equal(textOf(result), expected);
+  }
+});
+
+void test('a real sense with no word in the scope, or no word at all, is an empty result', () => {
+  assert.equal(
+    run({ strong: 'H7704M' }).text,
+    'H7704M in the Old Testament: no occurrences (English numbering)',
+  );
+  assert.equal(
+    run({ strong: 'H7704G', scope: 'Ruth 3' }).text,
+    'H7704G in Ruth 3: no occurrences (English numbering)',
+  );
 });
 
 void test('a sense letter without any entry stays unknown', () => {

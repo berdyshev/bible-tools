@@ -223,14 +223,24 @@ export const findOccurrences = defineTool({
     // The New Testament has only English numbering.
     const numbering = testament === 'NT' ? 'eng' : (versification ?? 'eng');
     const { key, sense } = parsed.value;
-    // A sense letter the lexicon lacks (G3700G listed as G3700, H0430J listed as H0430G, H, I) still names the words that carry it.
-    const known =
-      sense === undefined
-        ? repo.senses(key).length > 0
-        : repo.lexiconEntry(key) !== null || repo.senses(strongBase(key)).length > 0;
-    if (!known) return err({ kind: 'unknown_strong', input: strong });
+    if (sense === undefined && repo.senses(key).length === 0)
+      return err({ kind: 'unknown_strong', input: strong });
 
     const hits = groupByVerse(repo.occurrences(parsed.value, where.value, numbering));
+    // A sense letter the lexicon lacks (G3700G listed as G3700, H0430J as H0430G, H, I) still names the words
+    // that carry it. One that no word carries anywhere is a typo: list the senses the base really has.
+    if (
+      hits.length === 0 &&
+      sense !== undefined &&
+      repo.lexiconEntry(key) === null &&
+      repo.occurrences(parsed.value, { kind: 'testament', testament: wholeText }, numbering).length === 0
+    ) {
+      return err({
+        kind: 'unknown_strong',
+        input: strong,
+        senses: repo.senses(strongBase(key)).map((e) => e.strong),
+      });
+    }
     const groups = [...new Set(hits.map((h) => h.strong))].toSorted().map((s): SenseGroup => {
       const own = hits.filter((h) => h.strong === s);
       return {

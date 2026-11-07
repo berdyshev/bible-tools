@@ -18,7 +18,7 @@ export type InputError =
   | { readonly kind: 'invalid_range'; readonly input: string }
   | { readonly kind: 'range_not_supported'; readonly input: string }
   | { readonly kind: 'malformed_strong'; readonly input: string }
-  | { readonly kind: 'unknown_strong'; readonly input: string }
+  | { readonly kind: 'unknown_strong'; readonly input: string; readonly senses?: readonly string[] }
   | { readonly kind: 'unknown_morph_code'; readonly input: string; readonly within?: string }
   | {
       readonly kind: 'scope_wrong_testament';
@@ -51,7 +51,9 @@ export const hint = (e: InputError): string => {
     case 'malformed_strong':
       return `Malformed Strong's number "${e.input}". Use H or G, then a number (up to 4 digits for H, 5 for G; zero-padding optional) and an optional sense letter, e.g. "H1254", "H7704G" or "G3056"`;
     case 'unknown_strong':
-      return `Strong's number "${e.input}" was not found. Check the number or try search_lexicon`;
+      return e.senses === undefined || e.senses.length === 0
+        ? `Strong's number "${e.input}" was not found. Check the number or try search_lexicon`
+        : `Strong's number "${e.input}" was not found. Its base number has the senses ${e.senses.join(', ')}; use one of them or try search_lexicon`;
     case 'unknown_morph_code':
       return `Morphology code "${e.input}"${e.within === undefined ? '' : ` (in "${e.within}")`} was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained`;
     case 'scope_wrong_testament':

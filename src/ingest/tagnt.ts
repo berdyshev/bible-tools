@@ -5,9 +5,6 @@ import { isNestleAland } from '../domain/text-type.ts';
 import type { ParseOutcome } from './issue.ts';
 import type { TahotWord } from './tahot.ts';
 
-/** A Greek word in the same shape as a Hebrew one; the New Testament has a single numbering. */
-export type TagntWord = TahotWord;
-
 const LINE_START_RE = /^\w{3}\.\d+\.\d+/;
 // NRSV numbering is primary; a second numbering in {}, [] or () is ignored.
 const REF_RE = /^(\w{3})\.(\d+)\.(\d+)(?:[{[(]\d+\.\d+[}\])])?#(\d+)=(.+)$/;
@@ -31,7 +28,7 @@ const nameIdOf = (subMeaning: string): string | null => {
   return id.includes('@') ? id : null;
 };
 
-export const parseTagntLine = (rawLine: string): ParseOutcome<TagntWord> => {
+export const parseTagntLine = (rawLine: string): ParseOutcome<TahotWord> => {
   const line = rawLine.replace(/\r$/, '');
   if (!LINE_START_RE.test(line)) return ok(null);
   const cols = line.split('\t');

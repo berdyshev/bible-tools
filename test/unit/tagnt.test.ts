@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { isNestleAland } from '../../src/domain/text-type.ts';
-import { baseText, parseTagntLine, type TagntWord } from '../../src/ingest/tagnt.ts';
+import { baseText, parseTagntLine } from '../../src/ingest/tagnt.ts';
+import type { TahotWord } from '../../src/ingest/tahot.ts';
 
 const row = (ref: string, greek: string, strongMorph: string, rest: Partial<Record<number, string>> = {}) => {
   const cols = [
@@ -22,7 +23,7 @@ const row = (ref: string, greek: string, strongMorph: string, rest: Partial<Reco
   return [...cols, '', '', '', '', ''].join('\t');
 };
 
-const parse = (line: string): TagntWord => {
+const parse = (line: string): TahotWord => {
   const r = parseTagntLine(line);
   assert.ok(r.ok, JSON.stringify(r));
   assert.ok(r.value !== null);

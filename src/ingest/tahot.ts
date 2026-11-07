@@ -5,6 +5,7 @@ import type { ParseOutcome } from './issue.ts';
 
 export type NameKind = 'person' | 'place' | 'gentilic' | 'other';
 
+/** A word of the Hebrew text; the Greek parser returns the same shape, with equal English and Hebrew numbering. */
 export type TahotWord = {
   readonly book: string;
   /** English (NRSV) numbering: the primary reference in TAHOT. */

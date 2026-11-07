@@ -20,7 +20,7 @@ const TAGNT_FILES = ['TAGNT-Mat-Jhn.txt', 'TAGNT-Act-Rev.txt'];
 rmSync(DB_PATH, { force: true });
 const db = new DatabaseSync(DB_PATH);
 createSchema(db);
-const { counts, issues } = load(
+const { counts, issues, unlistedStrongs } = load(
   db,
   {
     tahot: TAHOT_FILES.flatMap(lines),
@@ -41,5 +41,8 @@ db.close();
 
 console.log(
   `words=${counts.words} lexicon=${counts.lexicon} names=${counts.names} morphology=${counts.morphology} issues=${issues.length}`,
+);
+console.log(
+  `strongs without a lexicon entry=${unlistedStrongs.length}${unlistedStrongs.length > 0 ? ` (${unlistedStrongs.slice(0, 10).join(', ')}${unlistedStrongs.length > 10 ? ', …' : ''})` : ''}`,
 );
 for (const i of issues.slice(0, 10)) console.log(`  ${i.reason}: ${i.line.slice(0, 80)}`);

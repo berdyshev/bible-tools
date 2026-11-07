@@ -33,6 +33,8 @@ export const outputSchema = z.object({
     })
     .optional(),
   senses: z.array(senseSchema),
+  /** Set when the entry shown is the base entry of a sense that has none of its own. */
+  note: z.string().optional(),
 });
 
 export const descriptionParts: DescriptionParts = {
@@ -78,11 +80,19 @@ const shorten = (meaning: string, budget: number): string => {
   return `${kept.trimEnd()}\n${SHORTENED}`;
 };
 
-/** The entry as text, within `MAX_CHARS` unless the head and the other senses alone exceed it. */
-export const formatEntry = (entry: LexiconEntryView, others: readonly LexiconSense[]): string => {
+/** The entry as text, within `MAX_CHARS` unless the head, the note and the other senses alone exceed it. */
+export const formatEntry = (
+  entry: LexiconEntryView,
+  others: readonly LexiconSense[],
+  note?: string,
+): string => {
   const head = `${entry.strong}  ${entry.original}  ${entry.transliteration}  [${entry.morph}]  «${entry.gloss}»`;
-  const more =
-    others.length === 0 ? [] : [`Other senses: ${others.map((o) => `${o.strong} «${o.gloss}»`).join('; ')}`];
+  const more = [
+    ...(note === undefined ? [] : [note]),
+    ...(others.length === 0
+      ? []
+      : [`Other senses: ${others.map((o) => `${o.strong} «${o.gloss}»`).join('; ')}`]),
+  ];
   // The meaning shares the line budget with the head, the other senses and the line breaks around it.
   const budget = MAX_CHARS - [head, ...more].join('\n').length - 1;
   return [head, shorten(cleanMeaning(entry.meaning), budget), ...more].join('\n');
@@ -106,11 +116,16 @@ const lookup = (
       structured: { kind: 'menu', senses: senses.map(sense) },
     });
   }
-  const entry = letter === undefined ? (senses[0] ?? null) : repo.lexiconEntry(key);
+  const exact = letter === undefined ? (senses[0] ?? null) : repo.lexiconEntry(key);
+  // TAGNT tags some words with a sense letter (G3700G) the lexicon lists only as the base number (G3700).
+  const fallback = exact === null && letter !== undefined ? repo.lexiconEntry(base) : null;
+  const entry = exact ?? fallback;
   if (entry === null) return err({ kind: 'unknown_strong', input });
+  const note =
+    fallback === null ? undefined : `${key} has no entry of its own; this is the entry of ${base}.`;
   const others = senses.filter((s) => s.strong !== entry.strong);
   return ok({
-    text: formatEntry(entry, others),
+    text: formatEntry(entry, others, note),
     structured: {
       kind: 'entry',
       entry: {
@@ -122,6 +137,7 @@ const lookup = (
         meaning: cleanMeaning(entry.meaning),
       },
       senses: others.map(sense),
+      ...(note === undefined ? {} : { note }),
     },
   });
 };

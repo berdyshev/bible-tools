@@ -39,6 +39,30 @@ void test('a Greek entry matches the golden output, shortened to the output budg
   assert.equal(structured.entry?.meaning.includes('entry shortened'), false);
 });
 
+void test('a sense letter the lexicon lacks shows the base entry with a note', () => {
+  const result = lookupStrong.call({ strong: 'G3700G' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('lookup_strong.G3700G.txt', text);
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.equal(structured.entry?.strong, 'G3700');
+  assert.equal(structured.note, 'G3700G has no entry of its own; this is the entry of G3700.');
+  assert.ok(text.includes(`\n${structured.note}`));
+  // The bare number and the base entry carry no note.
+  assert.equal(
+    outputSchema.parse(lookupStrong.call({ strong: 'G3700' }, repo).structuredContent).note,
+    undefined,
+  );
+});
+
+void test('a sense letter is still unknown when the base number has no entry either', () => {
+  for (const strong of ['G9999G', 'H7704Z', 'G0001Z']) {
+    const result = lookupStrong.call({ strong }, repo);
+    assert.equal(result.isError, true, strong);
+    assert.match(textOf(result), /was not found/);
+  }
+});
+
 void test('a Greek number with several senses returns a menu', () => {
   const result = lookupStrong.call({ strong: 'G3004' }, repo);
   assert.equal(result.isError, undefined);

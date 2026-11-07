@@ -79,3 +79,20 @@ void test('a long meaning without a line break is cut hard and marked', () => {
   assert.ok(text.length <= MAX_CHARS);
   assert.ok(text.endsWith('y\n… (entry shortened)'));
 });
+
+void test('a note about a base entry comes before the other senses and counts against the budget', () => {
+  const note = 'G3700G has no entry of its own; this is the entry of G3700.';
+  assert.equal(
+    formatEntry(entry, [{ strong: 'H1234A', original: 'x', gloss: 'other' }], note),
+    `H1234B  אבג  a.vag  [H:N-M]  «thing»\na thing; stuff\n${note}\nOther senses: H1234A «other»`,
+  );
+  assert.equal(formatEntry(entry, [], note), `H1234B  אבג  a.vag  [H:N-M]  «thing»\na thing; stuff\n${note}`);
+  const long = formatEntry({ ...entry, meaning: longMeaning }, others, note);
+  assert.ok(long.length <= MAX_CHARS);
+  assert.ok(long.includes(`\n${note}\n`));
+});
+
+void test('the output schema accepts an optional note', () => {
+  assert.ok(outputSchema.safeParse({ kind: 'entry', senses: [], note: 'n' }).success);
+  assert.ok(outputSchema.safeParse({ kind: 'entry', senses: [] }).success);
+});

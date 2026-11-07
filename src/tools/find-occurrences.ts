@@ -5,7 +5,7 @@ import { formatRef, parseScope } from '../domain/ref.ts';
 import type { Scope, VerseRef, Versification } from '../domain/ref.ts';
 import { stripTrailingPunctuation } from '../domain/punctuation.ts';
 import { err, ok } from '../domain/result.ts';
-import { parseStrong } from '../domain/strong.ts';
+import { parseStrong, strongBase } from '../domain/strong.ts';
 import { MAX_CHARS, numberingLabel } from './passage.ts';
 import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
@@ -217,16 +217,19 @@ export const findOccurrences = defineTool({
     // The New Testament has only English numbering.
     const numbering = isNewTestament(where.value) ? 'eng' : (versification ?? 'eng');
     const { key, sense } = parsed.value;
-    if (sense === undefined ? repo.senses(key).length === 0 : repo.lexiconEntry(key) === null) {
-      return err({ kind: 'unknown_strong', input: strong });
-    }
+    // A sense letter the lexicon lacks (G3700G, listed as G3700) still names the words that carry it.
+    const known =
+      sense === undefined
+        ? repo.senses(key).length > 0
+        : repo.lexiconEntry(key) !== null || repo.lexiconEntry(strongBase(key)) !== null;
+    if (!known) return err({ kind: 'unknown_strong', input: strong });
 
     const hits = groupByVerse(repo.occurrences(parsed.value, where.value, numbering));
     const groups = [...new Set(hits.map((h) => h.strong))].toSorted().map((s): SenseGroup => {
       const own = hits.filter((h) => h.strong === s);
       return {
         strong: s,
-        gloss: repo.lexiconEntry(s)?.gloss ?? '',
+        gloss: (repo.lexiconEntry(s) ?? repo.lexiconEntry(strongBase(s)))?.gloss ?? '',
         hits: own,
         count: own.reduce((n, h) => n + h.count, 0),
       };

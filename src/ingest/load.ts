@@ -28,6 +28,8 @@ export type LoadReport = {
     readonly morphology: number;
   };
   readonly issues: readonly ParseIssue[];
+  /** Root Strong's numbers used in words that have neither an exact nor a base lexicon entry, sorted. */
+  readonly unlistedStrongs: readonly string[];
 };
 
 export const createSchema = (db: DatabaseSync): void => {
@@ -263,5 +265,16 @@ export const load = (
     for (const [key, value] of Object.entries(meta)) insMeta.run(key, value);
   });
 
-  return { counts: { words, lexicon, names, morphology }, issues };
+  const unlistedStrongs = db
+    .prepare(
+      `SELECT DISTINCT strong FROM words
+       WHERE strong IS NOT NULL
+         AND strong NOT IN (SELECT dstrong FROM lexicon)
+         AND strong_base NOT IN (SELECT dstrong FROM lexicon)
+       ORDER BY strong`,
+    )
+    .all()
+    .map((row) => String(row['strong']));
+
+  return { counts: { words, lexicon, names, morphology }, issues, unlistedStrongs };
 };

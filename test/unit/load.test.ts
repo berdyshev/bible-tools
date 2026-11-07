@@ -324,3 +324,25 @@ void test('unreadable Greek lines are reported and the rest still loads', () => 
     ['malformed Strong/morphology column'],
   );
 });
+
+void test('the report lists root Strong numbers that have neither an exact nor a base lexicon entry', () => {
+  const db = fresh();
+  const listed = tab('H1961', 'H1961 =', 'H1961', 'x', 'y', 'H:V', 'be', 'm');
+  const base = tab('H3630', 'H3630 =', 'H3630', 'x', 'y', 'H:N', 'k', 'm');
+  const words = [
+    word('Rut.1.1#01=L', 'a', 'g', 'H9001/{H1961}', 'Hc/Vqw3ms', ''),
+    word('Rut.1.1#02=L', 'b', 'g', '{H3630G}', 'HNpm', ''),
+    word('Rut.1.1#03=L', 'c', 'g', '{H7704Z}', 'HNcfsa', ''),
+    word('Rut.1.1#04=L', 'd', 'g', '{H0001}', 'HNcfsa', ''),
+    word('Rut.1.1#05=L', 'e', 'g', 'H9001', 'Hc', ''),
+    word('Rut.1.1#06=L', 'f', 'g', '{H0001}', 'HNcfsa', ''),
+  ];
+  const report = run(db, words, [listed, base]);
+  assert.deepEqual(report.unlistedStrongs, ['H0001', 'H7704Z']);
+});
+
+void test('with a complete lexicon nothing is unlisted', () => {
+  const db = fresh();
+  const report = run(db, [WAYEHI], [tab('H1961', 'H1961 =', 'H1961', 'x', 'y', 'H:V', 'be', 'm')]);
+  assert.deepEqual(report.unlistedStrongs, []);
+});

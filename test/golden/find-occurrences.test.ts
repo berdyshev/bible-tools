@@ -73,6 +73,27 @@ void test('G3056 in John 1 lists the verses with the Greek forms', () => {
   assert.ok(structured.occurrences.every((o) => o.ref.startsWith('John 1:')));
 });
 
+void test('a sense letter the lexicon lacks still finds the words that carry it', () => {
+  const sense = run({ strong: 'G3700G', scope: 'John 1' });
+  assert.match(sense.text, /^G3700G in John 1: 2 occurrences in 2 verses/);
+  assert.deepEqual(
+    sense.structured.occurrences.map((o) => [o.ref, o.strong]),
+    [
+      ['John 1:39', 'G3700G'],
+      ['John 1:51', 'G3700G'],
+    ],
+  );
+  const bare = run({ strong: 'G3700', scope: 'John 1' });
+  assert.equal(bare.structured.total, 2);
+  assert.deepEqual(bare.structured.senses, [{ strong: 'G3700G', gloss: 'to appear', count: 2 }]);
+  assert.equal(run({ strong: 'G3700H', scope: 'John 1' }).structured.total, 0);
+});
+
+void test('a sense letter without any entry stays unknown', () => {
+  const result = findOccurrences.call({ strong: 'G9999G' }, repo);
+  assert.equal(result.isError, true);
+});
+
 void test('the default scope follows the language of the number', () => {
   const greek = run({ strong: 'G3056' });
   assert.match(greek.text, /^G3056 in the New Testament: /);

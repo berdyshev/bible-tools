@@ -236,3 +236,24 @@ void test('Aramaic compound codes are explained with Aramaic entries', { skip },
     );
   }
 });
+
+void test(
+  'G3700G, which TAGNT uses and the lexicon lists as G3700, can be looked up and counted',
+  { skip },
+  () => {
+    assert.ok(repo);
+    const lookup = lookupStrong.call({ strong: 'G3700G' }, repo);
+    assert.equal(lookup.isError, undefined);
+    assert.match(textOf(lookup), /^G3700 {2}\S+ {2}\S+ {2}\[G:V\] {2}«to appear»\n/);
+    assert.match(textOf(lookup), /\nG3700G has no entry of its own; this is the entry of G3700\./);
+    for (const [strong, expected] of [
+      ['G3700G', 29],
+      ['G3700H', 25],
+    ] as const) {
+      assert.equal(scalar(`SELECT COUNT(*) FROM words WHERE strong = '${strong}'`), expected);
+      const result = findOccurrences.call({ strong, limit: 500 }, repo);
+      assert.equal(result.isError, undefined, strong);
+      assert.equal(outputSchema.parse(result.structuredContent).total, expected, strong);
+    }
+  },
+);

@@ -188,6 +188,10 @@ void test('punctuation tags after a backslash are not suffixes', () => {
   assert.equal(w?.morph, 'Ncmpc');
 });
 
+void test('the backslash before punctuation is not part of the original text', () => {
+  assert.equal(word(SONS)?.original, 'בָנָֽי/ו׃');
+});
+
 void test('bracketed Hebrew reference keeps both numberings', () => {
   const w = word(HEB_REF);
   assert.equal(w?.book, '1Sam');

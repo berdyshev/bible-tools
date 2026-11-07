@@ -100,7 +100,8 @@ export const parseTahotLine = (rawLine: string): ParseOutcome<TahotWord> => {
     hebVerse: hv === undefined ? verse : Number(hv),
     position: Number(pos),
     textType,
-    original: cols[1] ?? '',
+    // '\' only marks where punctuation starts; '/' between prefix, root and suffix is kept.
+    original: (cols[1] ?? '').replaceAll('\\', ''),
     transliteration: cols[2] ?? '',
     gloss: cols[3] ?? '',
     strongRaw,

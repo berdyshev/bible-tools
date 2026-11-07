@@ -89,6 +89,28 @@ void test('a sense letter the lexicon lacks still finds the words that carry it'
   assert.equal(run({ strong: 'G3700H', scope: 'John 1' }).structured.total, 0);
 });
 
+void test('a number that the lexicon lists only as lettered senses finds its words', () => {
+  const bare = run({ strong: 'G2453', scope: 'John 1' });
+  assert.equal(
+    bare.text,
+    'G2453 in John 1: 1 occurrence in 1 verse (English numbering)\nG2453: 1 occurrence\nJohn 1:19 Ioudaioi — Ἰουδαῖοι',
+  );
+  assert.deepEqual(
+    bare.structured.senses.map((s) => s.strong),
+    ['G2453'],
+  );
+  // The tag has no entry of its own, so its group has no gloss.
+  assert.equal(bare.structured.senses[0]?.gloss, '');
+  const tagged = findOccurrences.call({ strong: 'G2453B', scope: 'John 1' }, repo);
+  assert.equal(tagged.isError, undefined);
+  assert.equal(outputSchema.parse(tagged.structuredContent).total, 0);
+});
+
+void test('a sense letter the base number does not list is a known tag with no words', () => {
+  const { text } = run({ strong: 'H7704Z' });
+  assert.equal(text, 'H7704Z in the Old Testament: no occurrences (English numbering)');
+});
+
 void test('a sense letter without any entry stays unknown', () => {
   const result = findOccurrences.call({ strong: 'G9999G' }, repo);
   assert.equal(result.isError, true);
@@ -174,7 +196,7 @@ void test('bad scope, bad number and unknown number are input errors with hints'
     ],
     [{ strong: 'X1' }, /^Malformed Strong's number "X1"/],
     [{ strong: 'H9999' }, /^Strong's number "H9999" was not found/],
-    [{ strong: 'H7704Z' }, /^Strong's number "H7704Z" was not found/],
+    [{ strong: 'H9999Z' }, /^Strong's number "H9999Z" was not found/],
   ] as const;
   for (const [args, pattern] of cases) {
     const result = findOccurrences.call(args, repo);

@@ -121,6 +121,20 @@ void test('formatOccurrences lists books on their own lines with Hebrew last and
   );
 });
 
+void test('a sense group without a gloss has no empty guillemets', () => {
+  const j = group('H0430J', '', [
+    { ref: ref('Gen', 1, 1), strong: 'H0430J', count: 2, forms: [{ transliteration: 'e', original: 'א' }] },
+  ]);
+  assert.equal(
+    formatOccurrences(view({ total: 2, verses: 1, bySense: true, groups: [j] })),
+    [
+      'H7704 in the Old Testament: 2 occurrences in 1 verse (English numbering)',
+      'H0430J: 2 occurrences',
+      'Genesis 1:1 e ×2 — א',
+    ].join('\n'),
+  );
+});
+
 void test('formatOccurrences handles the singular, an exact sense, Hebrew numbering and the truncation hint', () => {
   const g = group('H7704G', 'x', [
     { ref: ref('Ruth', 1, 6), strong: 'H7704G', count: 1, forms: [{ transliteration: 'a', original: 'א' }] },

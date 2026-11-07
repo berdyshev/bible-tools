@@ -55,8 +55,49 @@ void test('a sense letter the lexicon lacks shows the base entry with a note', (
   );
 });
 
+void test('a tag whose base number has only lettered senses gets the sense menu with a note', () => {
+  const result = lookupStrong.call({ strong: 'H0430J' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('lookup_strong.H0430J.txt', text);
+  assert.match(
+    text,
+    /^H0430J has no entry of its own; its base number H0430 has these senses\.\nH0430 has \d+ senses; /,
+  );
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.equal(structured.kind, 'menu');
+  assert.deepEqual(
+    structured.senses.map((s) => s.strong),
+    repo.senses('H0430').map((e) => e.strong),
+  );
+  assert.ok(structured.senses.length > 1);
+  assert.ok(!structured.senses.some((s) => s.strong === 'H0430J'));
+  assert.equal(structured.note, 'H0430J has no entry of its own; its base number H0430 has these senses.');
+});
+
+void test('a tag whose base number has exactly one sense shows that entry with a note', () => {
+  assert.deepEqual(
+    repo.senses('G2453').map((e) => e.strong),
+    ['G2453G'],
+  );
+  const result = lookupStrong.call({ strong: 'G2453B' }, repo);
+  assert.equal(result.isError, undefined);
+  const text = textOf(result);
+  expectGolden('lookup_strong.G2453B.txt', text);
+  const structured = outputSchema.parse(result.structuredContent);
+  assert.equal(structured.kind, 'entry');
+  assert.equal(structured.entry?.strong, 'G2453G');
+  assert.equal(structured.note, 'G2453B has no entry of its own; this is the entry of G2453G.');
+  // The bare number and the real sense need no note.
+  for (const strong of ['G2453', 'G2453G']) {
+    const plain = outputSchema.parse(lookupStrong.call({ strong }, repo).structuredContent);
+    assert.equal(plain.note, undefined, strong);
+    assert.equal(plain.entry?.strong, 'G2453G', strong);
+  }
+});
+
 void test('a sense letter is still unknown when the base number has no entry either', () => {
-  for (const strong of ['G9999G', 'H7704Z', 'G0001Z']) {
+  for (const strong of ['G9999G', 'H9999Z', 'G9998A']) {
     const result = lookupStrong.call({ strong }, repo);
     assert.equal(result.isError, true, strong);
     assert.match(textOf(result), /was not found/);
@@ -104,7 +145,7 @@ void test('a number with too many digits is malformed', () => {
 });
 
 void test('a well-formed but absent number is unknown', () => {
-  for (const strong of ['H9999', 'H7704Z', 'G9999']) {
+  for (const strong of ['H9999', 'H9999Z', 'G9999']) {
     const result = lookupStrong.call({ strong }, repo);
     assert.equal(result.isError, true, strong);
     assert.equal(

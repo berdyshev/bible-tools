@@ -158,7 +158,9 @@ export const formatOccurrences = (v: OccurrenceView): string => {
       ? `${v.strong} in ${v.scopeLabel}: no occurrences (${numbering})`
       : `${v.strong} in ${v.scopeLabel}: ${plural(v.total, 'occurrence')} in ${plural(v.verses, 'verse')} (${numbering})`;
   const body = v.groups.flatMap((g) => [
-    ...(v.bySense ? [`${g.strong} «${g.gloss}»: ${plural(g.count, 'occurrence')}`] : []),
+    ...(v.bySense
+      ? [`${g.strong}${g.gloss === '' ? '' : ` «${g.gloss}»`}: ${plural(g.count, 'occurrence')}`]
+      : []),
     ...bookLines(g.hits),
   ]);
   const tail =
@@ -221,11 +223,11 @@ export const findOccurrences = defineTool({
     // The New Testament has only English numbering.
     const numbering = testament === 'NT' ? 'eng' : (versification ?? 'eng');
     const { key, sense } = parsed.value;
-    // A sense letter the lexicon lacks (G3700G, listed as G3700) still names the words that carry it.
+    // A sense letter the lexicon lacks (G3700G listed as G3700, H0430J listed as H0430G, H, I) still names the words that carry it.
     const known =
       sense === undefined
         ? repo.senses(key).length > 0
-        : repo.lexiconEntry(key) !== null || repo.lexiconEntry(strongBase(key)) !== null;
+        : repo.lexiconEntry(key) !== null || repo.senses(strongBase(key)).length > 0;
     if (!known) return err({ kind: 'unknown_strong', input: strong });
 
     const hits = groupByVerse(repo.occurrences(parsed.value, where.value, numbering));

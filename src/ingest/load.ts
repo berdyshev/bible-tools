@@ -28,7 +28,7 @@ export type LoadReport = {
     readonly morphology: number;
   };
   readonly issues: readonly ParseIssue[];
-  /** Root Strong's numbers used in words that have neither an exact nor a base lexicon entry, sorted. */
+  /** Root Strong's numbers used in words that have no lexicon entry: not their own, not the base number's, no sense of the base. Sorted. */
   readonly unlistedStrongs: readonly string[];
 };
 
@@ -271,6 +271,7 @@ export const load = (
        WHERE strong IS NOT NULL
          AND strong NOT IN (SELECT dstrong FROM lexicon)
          AND strong_base NOT IN (SELECT dstrong FROM lexicon)
+         AND NOT EXISTS (SELECT 1 FROM lexicon WHERE dstrong GLOB words.strong_base || '[A-Za-z]')
        ORDER BY strong`,
     )
     .all()

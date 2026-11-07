@@ -273,3 +273,45 @@ void test('no lexicon meaning keeps an HTML entity, and G0048 reads with a real 
   assert.equal(scalar("SELECT COUNT(*) FROM lexicon WHERE dstrong = 'G0048' AND meaning LIKE '%(> %'"), 1);
   assert.equal(scalar("SELECT COUNT(*) FROM lexicon WHERE meaning_html LIKE '%&gt;%'"), 3);
 });
+
+void test(
+  'every Strong number the words use has a lexicon entry, its base entry or a sense of the base',
+  { skip },
+  () => {
+    assert.equal(
+      scalar(
+        `SELECT COUNT(*) FROM (SELECT DISTINCT strong FROM words w
+         WHERE strong IS NOT NULL
+           AND strong NOT IN (SELECT dstrong FROM lexicon)
+           AND strong_base NOT IN (SELECT dstrong FROM lexicon)
+           AND NOT EXISTS (SELECT 1 FROM lexicon WHERE dstrong GLOB w.strong_base || '[A-Za-z]'))`,
+      ),
+      0,
+    );
+  },
+);
+
+void test(
+  'H0430J and G2453, tags the lexicon lists only as other senses, can be looked up and counted',
+  { skip },
+  () => {
+    assert.ok(repo);
+    const menu = lookupStrong.call({ strong: 'H0430J' }, repo);
+    assert.equal(menu.isError, undefined);
+    assert.match(textOf(menu), /^H0430J has no entry of its own; its base number H0430 has these senses\.\n/);
+    for (const sense of ['H0430G', 'H0430H', 'H0430I'])
+      assert.match(textOf(menu), new RegExp(`\\n${sense} `));
+    const single = lookupStrong.call({ strong: 'G2453' }, repo);
+    assert.equal(single.isError, undefined);
+    assert.match(textOf(single), /^G2453G /);
+    for (const [strong, expected] of [
+      ['H0430J', 216],
+      ['G2453', 195],
+    ] as const) {
+      assert.equal(scalar(`SELECT COUNT(*) FROM words WHERE strong = '${strong}'`), expected, strong);
+      const result = findOccurrences.call({ strong, limit: 500 }, repo);
+      assert.equal(result.isError, undefined, strong);
+      assert.equal(outputSchema.parse(result.structuredContent).total, expected, strong);
+    }
+  },
+);

@@ -346,3 +346,17 @@ void test('with a complete lexicon nothing is unlisted', () => {
   const report = run(db, [WAYEHI], [tab('H1961', 'H1961 =', 'H1961', 'x', 'y', 'H:V', 'be', 'm')]);
   assert.deepEqual(report.unlistedStrongs, []);
 });
+
+void test('a sense letter the lexicon lacks counts as listed when the base number has senses', () => {
+  const db = fresh();
+  const senses = ['G', 'H', 'I'].map((l) =>
+    tab('H0430', `H0430${l} =`, `H0430${l}`, 'x', 'y', 'H:N', 'god', 'm'),
+  );
+  const words = [
+    word('Gen.1.1#01=L', 'a', 'g', '{H0430J}', 'HNcmpa', ''),
+    word('Gen.1.1#02=L', 'b', 'g', '{H0431}', 'HNcmpa', ''),
+    word('Gen.1.1#03=L', 'c', 'g', '{H0430}', 'HNcmpa', ''),
+  ];
+  const report = run(db, words, senses);
+  assert.deepEqual(report.unlistedStrongs, ['H0431']);
+});

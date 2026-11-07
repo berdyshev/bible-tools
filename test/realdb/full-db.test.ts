@@ -209,3 +209,30 @@ void test('every distinct morphology code in the word table resolves, except the
   assert.deepEqual(unresolved, ['']);
   assert.equal(scalar("SELECT COUNT(*) FROM words WHERE morph_raw = ''"), 14);
 });
+
+void test('Aramaic compound codes are explained with Aramaic entries', { skip }, () => {
+  assert.ok(full);
+  assert.ok(repo);
+  const haphel = explainMorphology.call({ code: 'AC/Vhp3ms' }, repo);
+  assert.equal(haphel.isError, undefined);
+  assert.match(textOf(haphel), /\n\nAVhp3ms — Verb : Haphel /);
+  assert.doesNotMatch(textOf(haphel), /Hiphil/);
+  const peal = explainMorphology.call({ code: 'AR/Vqcc' }, repo);
+  assert.match(textOf(peal), /\n\nAVqcc — Verb : Peal /);
+  assert.doesNotMatch(textOf(peal), /Qal/);
+  assert.match(textOf(explainMorphology.call({ code: 'HC/Vhp3ms' }, repo)), /HVhp3ms — Verb : Hiphil /);
+
+  const aramaic = full
+    .prepare("SELECT DISTINCT morph_raw AS code FROM words WHERE morph_raw GLOB 'A*/*'")
+    .all()
+    .map((r) => String(r['code']));
+  assert.ok(aramaic.length > 200, `only ${aramaic.length} Aramaic compounds`);
+  for (const code of aramaic) {
+    const resolved = resolveMorphology(repo, code);
+    assert.ok(resolved.ok, code);
+    assert.ok(
+      resolved.value.every((e) => e.code.startsWith('A')),
+      `${code} resolved to ${resolved.value.map((e) => e.code).join(', ')}`,
+    );
+  }
+});

@@ -40,11 +40,8 @@ export const descriptionParts: DescriptionParts = {
 
 export const description = describeTool(descriptionParts);
 
-/** Hebrew and Aramaic parts of a compound lack the language letter that opens the whole code. */
-const PREFIXES = ['', 'H', 'A'] as const;
-
-const lookup = (repo: BibleRepo, code: string): MorphologyEntry | null => {
-  for (const prefix of PREFIXES) {
+const lookup = (repo: BibleRepo, code: string, prefixes: readonly string[]): MorphologyEntry | null => {
+  for (const prefix of prefixes) {
     const entry = repo.morphologyCode(`${prefix}${code}`);
     if (entry !== null) return entry;
   }
@@ -59,16 +56,27 @@ const unknown = (input: string, within?: string): InputError =>
     ? { kind: 'unknown_morph_code', input }
     : { kind: 'unknown_morph_code', input, within };
 
-/** The entries for a code: the whole code if it is one, otherwise each part of a compound in order. */
+/**
+ * The entries for a code: the whole code if it is one, otherwise each part of a compound in order. Later
+ * Hebrew and Aramaic parts lack the language letter that opens the first part, and the same letters
+ * stand for different stems in the two languages (`Vhp3ms` is Hiphil in `HVhp3ms` and Haphel in
+ * `AVhp3ms`), so the first part decides which letter the rest take.
+ */
 export const resolveMorphology = (repo: BibleRepo, code: string): Result<MorphologyEntry[], InputError> => {
-  const whole = lookup(repo, code);
+  const whole = lookup(repo, code, ['', 'H', 'A']);
   if (whole !== null) return ok([whole]);
   const parts = code.split(PART_SEPARATOR).map((p) => p.trim());
   if (parts.length < 2) return err(unknown(code));
   const entries: MorphologyEntry[] = [];
+  let later: readonly string[] = ['', 'H', 'A'];
   for (const part of parts) {
-    const entry = part === '' ? null : lookup(repo, part);
+    const entry = part === '' ? null : lookup(repo, part, later);
     if (entry === null) return err(unknown(part, code));
+    if (entries.length === 0) {
+      // The letter that opens a Hebrew (`H`) or Aramaic (`A`) code; Greek codes have none.
+      const letter = entry.language === 'hebrew' ? entry.code.slice(0, 1) : null;
+      later = letter === null ? [''] : [letter, ''];
+    }
     entries.push(entry);
   }
   return ok(entries);

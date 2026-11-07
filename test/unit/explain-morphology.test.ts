@@ -69,6 +69,59 @@ void test('an Aramaic part is found after the Hebrew spelling fails', () => {
   );
 });
 
+const sameLetters = new Map(
+  [
+    'HC',
+    'AC',
+    'HR',
+    'AR',
+    'HVhp3ms',
+    'AVhp3ms',
+    'HVqcc',
+    'AVqcc',
+    'HNcmsa',
+    'ANcmsa',
+    'V-AAI-3S',
+    'P-1NS',
+    'CONJ',
+  ].map((c) => [c, entry(c, { summary: c.startsWith('A') ? `Aramaic ${c}` : `other ${c}` })] as const),
+);
+const bothLanguages: BibleRepo = { ...stub, morphologyCode: (code) => sameLetters.get(code) ?? null };
+
+const summariesOf = (input: string): string[] => {
+  const r = resolveMorphology(bothLanguages, input);
+  assert.ok(r.ok, input);
+  return r.value.map((e) => e.code);
+};
+
+void test('later parts of an Aramaic compound take the Aramaic letter, not the Hebrew one', () => {
+  assert.deepEqual(summariesOf('AC/Vhp3ms'), ['AC', 'AVhp3ms']);
+  assert.deepEqual(summariesOf('AR/Vqcc'), ['AR', 'AVqcc']);
+  assert.deepEqual(summariesOf('AR/C/Ncmsa'), ['AR', 'AC', 'ANcmsa']);
+  assert.deepEqual(summariesOf('HC/Vhp3ms'), ['HC', 'HVhp3ms']);
+  assert.deepEqual(summariesOf('HR/Vqcc'), ['HR', 'HVqcc']);
+});
+
+void test('the letter of the first part also decides the part after a Ketiv and Qere separator', () => {
+  assert.deepEqual(summariesOf('AVhp3ms//Ncmsa'), ['AVhp3ms', 'ANcmsa']);
+  assert.deepEqual(summariesOf('HVhp3ms//Ncmsa'), ['HVhp3ms', 'HNcmsa']);
+});
+
+void test('a first part without a letter is Hebrew and its letter carries on', () => {
+  assert.deepEqual(summariesOf('C/Vhp3ms'), ['HC', 'HVhp3ms']);
+});
+
+void test('a later part with its own letter is still found', () => {
+  assert.deepEqual(summariesOf('AC/HVhp3ms'), ['AC', 'HVhp3ms']);
+});
+
+void test('Greek compounds look every part up as written', () => {
+  assert.deepEqual(summariesOf('P-1NS + CONJ'), ['P-1NS', 'CONJ']);
+  // After a Greek first part a bare Hebrew-looking part is not given a letter.
+  const r = resolveMorphology(bothLanguages, 'P-1NS + C');
+  assert.ok(!r.ok);
+});
+
 void test('an unknown whole code, or any unknown part, is an error naming it', () => {
   assert.deepEqual(codesOf('Xyz'), '{"kind":"unknown_morph_code","input":"Xyz"}');
   assert.deepEqual(codesOf('HC/Xyz'), '{"kind":"unknown_morph_code","input":"Xyz","within":"HC/Xyz"}');

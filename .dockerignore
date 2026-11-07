@@ -1,0 +1,9 @@
+# Send only what the image needs.
+*
+!src
+!scripts
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
+!LICENSE
+!DATA-LICENSE.md

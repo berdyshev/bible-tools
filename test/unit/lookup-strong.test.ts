@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { MAX_CHARS } from '../../src/tools/passage.ts';
-import { description, formatEntry, formatMenu, outputSchema } from '../../src/tools/lookup-strong.ts';
+import {
+  description,
+  descriptionParts,
+  formatEntry,
+  formatMenu,
+  outputSchema,
+} from '../../src/tools/lookup-strong.ts';
 
 const entry = {
   strong: 'H1234B',
@@ -95,4 +101,11 @@ void test('a note about a base entry comes before the other senses and counts ag
 void test('the output schema accepts an optional note', () => {
   assert.ok(outputSchema.safeParse({ kind: 'entry', senses: [], note: 'n' }).success);
   assert.ok(outputSchema.safeParse({ kind: 'entry', senses: [] }).success);
+});
+
+void test('the description says what an unlisted sense letter shows', () => {
+  assert.match(
+    descriptionParts.output,
+    /does not list.*entry of the base number.*menu of the base number's senses.*note/,
+  );
 });

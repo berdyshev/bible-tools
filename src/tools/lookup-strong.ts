@@ -40,7 +40,7 @@ export const outputSchema = z.object({
 export const descriptionParts: DescriptionParts = {
   what: "Returns the lexicon entry for one Hebrew or Greek Strong's number (STEPBible TBESH, based on Brown-Driver-Briggs, or TBESG, based on Abbott-Smith): lemma, transliteration, part of speech, short gloss, the list of meanings and the other senses of the same word. Prefix tags such as H9003 (`in`) are explained too.",
   when: 'Use it to explain the range of meanings of a Hebrew or Greek word and to justify a translation choice. Take the number from get_verse output; accepts `H0376`, `H376`, `H7704G` and `G3056` (the letter selects one sense).',
-  output: `A bare number that has several senses returns a menu, one line per sense: \`strong  lemma  «gloss»\`; pick the sense get_verse shows for your verse and call again. A very long entry is cut at a line break to about ${MAX_CHARS} characters and ends with \`… (entry shortened)\`; the structured result keeps the full meaning.`,
+  output: `A bare number that has several senses returns a menu, one line per sense: \`strong  lemma  «gloss»\`; pick the sense get_verse shows for your verse and call again. A sense letter the lexicon does not list (for example \`G3700G\`) shows the entry of the base number, or the menu of the base number's senses when it has no entry of its own, under a note saying so. A very long entry is cut at a line break to about ${MAX_CHARS} characters and ends with \`… (entry shortened)\`; the structured result keeps the full meaning.`,
   not: 'It does not show where else the word occurs and does not decide the meaning in context.',
 };
 

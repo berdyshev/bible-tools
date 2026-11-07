@@ -51,10 +51,11 @@ const lookup = (repo: BibleRepo, code: string, prefixes: readonly string[]): Mor
 // "//" separates the Ketiv and Qere readings, "/" the parts of a Hebrew word, " + " the Greek words in one.
 const PART_SEPARATOR = /\/\/|\/|\s\+\s/;
 
-const unknown = (input: string, within?: string): InputError =>
-  within === undefined
-    ? { kind: 'unknown_morph_code', input }
-    : { kind: 'unknown_morph_code', input, within };
+const unknown = (input: string, within?: string): InputError => ({
+  kind: 'unknown_morph_code',
+  input,
+  ...(within === undefined ? {} : { within }),
+});
 
 /**
  * The entries for a code: the whole code if it is one, otherwise each part of a compound in order. Later

@@ -209,6 +209,26 @@ pnpm inspect            # open the MCP Inspector
 
 Source code is TypeScript run directly by Node (type stripping), so there is no build step.
 
+## Alternatives
+
+Other MCP servers cover similar ground. This comparison is based on each project's README and
+repository page as of 2026-11-07; the source code was not read, so claims about behaviour are the
+projects' own.
+
+| Project | Strengths compared with this server | Trade-offs |
+| ------- | ----------------------------------- | ---------- |
+| [jeremymikkelsen/bible-translation-mcp](https://github.com/jeremymikkelsen/bible-translation-mcp) | More than 100 English and other translations through the HelloAO API, side-by-side comparison, word-aligned interlinear against the unfoldingWord literal text, full-text search of the texts. | Translations need network access to a third-party API. Greek and Hebrew texts and lexicons are unfoldingWord's, licensed CC BY-SA 4.0 (code MIT). No proper-name tool is listed. |
+| [NoveltyDreams/textual-criticism-mcp](https://github.com/NoveltyDreams/textual-criticism-mcp) | Syntax and morphology search over Text-Fabric corpora (BHSA, Nestle 1904) and textual variants with manuscript and edition support, which this server does not have: it stores one Greek reading per verse. | A Python package that downloads about 300 MB of corpora on first use; its README mentions no hosted option. |
+| [Divine-Creative-Ministries/bible-cli](https://github.com/Divine-Creative-Ministries/bible-cli) | Far broader: 25 read-only tools on a hosted endpoint (35 locally), translation comparison, cross-references, clause-level syntax search, a Bible-study workflow for agents, and import of licensed translations. It uses the same STEPBible Hebrew, Greek and proper-name data plus further lexicons. | A much larger surface and a bigger tool list for a model to choose from. Its code licence is listed by GitHub as "other"; check it before reuse. |
+| [nirajagarwal/bible-mcp](https://github.com/nirajagarwal/bible-mcp) | The widest corpus: English translations, the Septuagint, 600,000+ tagged original-language words, full lexicon entries, cross-references, people and places, early Christian writings and semantic search, with a hosted endpoint. | A database of about 400 MB. Its code is under PolyForm Noncommercial 1.0.0 and its derived data is CC BY-NC, so it cannot be used commercially. |
+
+What this server offers instead: a small, read-only set of six tools over STEPBible data only, with
+every output bounded to about 2,000 characters and a hint for the next call; both Testaments with
+Strong's numbers, morphology and an explanation of every morphology code; proper names with their
+kinds; MIT code and CC BY data that can be used and redeployed freely; and a single Docker image
+with a health check and a Render blueprint. It has no English Bible text, no text search, no
+cross-references, no syntax trees and no textual variants.
+
 ## Data and attribution
 
 Lexical and textual data comes from [STEPBible.org](https://www.stepbible.org/), Tyndale House,

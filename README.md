@@ -160,7 +160,7 @@ docker run --rm -p 3000:3000 -e ALLOWED_HOSTS=mcp.example.com stepbible-mcp
 
 1. Push the repository to GitHub, GitLab or Bitbucket.
 2. In the Render dashboard choose **New > Blueprint** and select the repository. Render reads
-   `render.yaml`, builds the image and starts the service. Deploys are manual (`autoDeploy: false`).
+   `render.yaml`, builds the image and starts the service. A push to `main` deploys once CI has passed (`autoDeployTrigger: checksPass`).
 3. If the service name `stepbible-mcp` was already taken, Render appends a suffix. Then set
    `ALLOWED_HOSTS` to the real hostname of the service (`<service>.onrender.com`) in the service's
    environment settings; requests with another `Host` get `403`. `ALLOWED_ORIGINS` is set to `claude.ai`:

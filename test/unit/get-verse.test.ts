@@ -97,16 +97,8 @@ const johnVerse = (n: number, textType: string): PassageVerse => ({
 });
 
 void test('a passage puts the note under the sub-header of each verse that needs it', () => {
-  const span = spanOf(
-    (() => {
-      const p = parsePassage('John 5:3-4');
-      assert.ok(p.ok);
-      return p.value;
-    })(),
-    () => ({ first: 1, last: 47 }),
-  );
-  assert.ok(span.ok);
-  const text = formatPassage(span.value, [johnVerse(3, 'NKO'), johnVerse(4, 'KO')]);
+  const span = spanOfText('John 5:3-4');
+  const text = formatPassage(span, [johnVerse(3, 'NKO'), johnVerse(4, 'KO')]);
   assert.deepEqual(text.split('\n'), [
     "John 5:3-4 (English numbering) — Greek; Strong's numbers per STEPBible",
     'John 5:3',
@@ -249,18 +241,10 @@ void test('morphology is off by default, in a verse and in a passage', () => {
   const words = [word({})];
   assert.equal(formatVerse(ref('eng'), words), formatVerse(ref('eng'), words, false));
   assert.doesNotMatch(formatVerse(ref('eng'), words), /Vqw3ms/);
-  const span = spanOf(
-    (() => {
-      const p = parsePassage('Ruth 1:2-3');
-      assert.ok(p.ok);
-      return p.value;
-    })(),
-    () => ({ first: 1, last: 22 }),
-  );
-  assert.ok(span.ok);
+  const span = spanOfText('Ruth 1:2-3');
   const passageVerses: PassageVerse[] = [{ ref: ref('eng'), words }];
-  assert.doesNotMatch(formatPassage(span.value, passageVerses), /Vqw3ms/);
-  assert.match(formatPassage(span.value, passageVerses, true), /and\/ he was {2}HC\/Vqw3ms {2}וַיְהִי/);
+  assert.doesNotMatch(formatPassage(span, passageVerses), /Vqw3ms/);
+  assert.match(formatPassage(span, passageVerses, true), /and\/ he was {2}HC\/Vqw3ms {2}וַיְהִי/);
 });
 
 void test('the morphology input is an optional boolean', () => {

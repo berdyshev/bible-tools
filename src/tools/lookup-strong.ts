@@ -119,21 +119,18 @@ const lookup = (
   const exact = letter === undefined ? (senses[0] ?? null) : repo.lexiconEntry(key);
   // TAGNT tags some words with a sense letter the lexicon does not list: G3700G, where the lexicon has
   // only the base number G3700, or H0430J, where it has the senses H0430G, H0430H and H0430I.
-  const stand = exact === null && letter !== undefined ? repo.lexiconEntry(base) : null;
-  if (exact === null && stand === null && letter !== undefined && senses.length > 1) {
+  const unlisted = exact === null && letter !== undefined;
+  const baseEntry = unlisted ? (senses.find((s) => s.strong === base) ?? null) : null;
+  if (unlisted && baseEntry === null && senses.length > 1) {
     const note = `${key} has no entry of its own; its base number ${base} has these senses.`;
     return ok({
       text: `${note}\n${formatMenu(base, senses)}`,
       structured: { kind: 'menu', senses: senses.map(sense), note },
     });
   }
-  const only = exact === null && stand === null && letter !== undefined ? (senses[0] ?? null) : null;
-  const entry = exact ?? stand ?? only;
+  const entry = exact ?? baseEntry ?? (unlisted ? (senses[0] ?? null) : null);
   if (entry === null) return err({ kind: 'unknown_strong', input });
-  const note =
-    stand === null && only === null
-      ? undefined
-      : `${key} has no entry of its own; this is the entry of ${entry.strong}.`;
+  const note = unlisted ? `${key} has no entry of its own; this is the entry of ${entry.strong}.` : undefined;
   const others = senses.filter((s) => s.strong !== entry.strong);
   return ok({
     text: formatEntry(entry, others, note),

@@ -7,6 +7,6 @@ services:
     autoDeploy: false
     envVars:
       - key: ALLOWED_HOSTS
-        value: stepbible-mcp.onrender.com
+        value: stepbible-mcp.onrender.com,stepbible.way-truth-life.org
       - key: ALLOWED_ORIGINS
         value: claude.ai

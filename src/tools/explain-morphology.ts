@@ -6,7 +6,7 @@ import type { Result } from '../domain/result.ts';
 import { defineTool, describeTool } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
 
-export const MAX_CODE_LENGTH = 80;
+const MAX_CODE_LENGTH = 80;
 
 export const inputSchema = z.object({
   code: z

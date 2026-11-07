@@ -45,10 +45,7 @@ export const parseTagntLine = (rawLine: string): ParseOutcome<TagntWord> => {
   if (word === null) return issue(line, 'malformed word column');
 
   const parts = (cols[3] ?? '').split(' + ').map((p) => PART_RE.exec(p));
-  const first = parts[0];
-  if (first === null || first === undefined || parts.some((p) => p === null)) {
-    return issue(line, 'malformed Strong/morphology column');
-  }
+  if (parts.some((p) => p === null)) return issue(line, 'malformed Strong/morphology column');
   const strongs = parts.map((p) => p?.[1] ?? '');
   const morphs = parts.map((p) => p?.[2] ?? '');
   const strong = strongs[0] ?? '';

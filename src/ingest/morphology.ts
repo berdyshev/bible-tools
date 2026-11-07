@@ -1,4 +1,4 @@
-export type MorphologyLanguage = 'hebrew' | 'greek';
+type MorphologyLanguage = 'hebrew' | 'greek';
 
 /** One full morphology code with its explanation, from TEHMC (Hebrew) or TEGMC (Greek). */
 export type MorphologyCode = {

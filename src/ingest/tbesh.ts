@@ -23,11 +23,28 @@ export type TbeshEntry = {
 const LINE_START_RE = /^[HG]\d{4,5}[a-z]?\t/;
 const DSTRONG_RE = /^([HG]\d{4,5}[A-Za-z]?)\s*=?\s*(.*)$/;
 
+const NAMED_ENTITIES: ReadonlyMap<string, string> = new Map([
+  ['nbsp', ' '],
+  ['lt', '<'],
+  ['gt', '>'],
+  ['amp', '&'],
+  ['quot', '"'],
+  ['apos', "'"],
+]);
+
+/** One entity, decoded in a single pass so that `&amp;lt;` becomes `&lt;` and not `<`. */
+const decodeEntity = (entity: string, name: string): string => {
+  const numeric = /^#(?:x([0-9a-f]+)|(\d+))$/i.exec(name);
+  if (numeric === null) return NAMED_ENTITIES.get(name.toLowerCase()) ?? entity;
+  const code = numeric[1] === undefined ? Number(numeric[2]) : Number.parseInt(numeric[1], 16);
+  return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : entity;
+};
+
 const stripHtml = (s: string): string =>
   s
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/g, ' ')
+    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, decodeEntity)
     // Outline markers of the Greek meanings ("__1.").
     .replace(/__/g, '')
     .replace(/[ \t]+\n/g, '\n')

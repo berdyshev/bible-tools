@@ -257,3 +257,18 @@ void test(
     }
   },
 );
+
+void test('no lexicon meaning keeps an HTML entity, and G0048 reads with a real ">"', { skip }, () => {
+  assert.ok(full);
+  assert.equal(
+    scalar("SELECT COUNT(*) FROM lexicon WHERE meaning LIKE '%&gt;%' OR meaning LIKE '%&lt;%'"),
+    0,
+  );
+  assert.equal(
+    scalar("SELECT COUNT(*) FROM lexicon WHERE meaning LIKE '%&amp;%' OR meaning LIKE '%&quot;%'"),
+    0,
+  );
+  assert.equal(scalar("SELECT COUNT(*) FROM lexicon WHERE meaning GLOB '*&#[0-9]*;*'"), 0);
+  assert.equal(scalar("SELECT COUNT(*) FROM lexicon WHERE dstrong = 'G0048' AND meaning LIKE '%(> %'"), 1);
+  assert.equal(scalar("SELECT COUNT(*) FROM lexicon WHERE meaning_html LIKE '%&gt;%'"), 3);
+});

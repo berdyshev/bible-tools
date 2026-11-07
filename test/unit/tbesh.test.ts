@@ -172,3 +172,29 @@ void test('Greek meanings lose outline markers, reference tags and breaks', () =
   assert.equal(entry(GREEK_MAIN)?.meaning, 'λόγος,\nI. a word: Mat.8:8\nII. speech');
   assert.equal(plain('__1. x __2. y'), '1. x 2. y');
 });
+
+void test('HTML entities in a meaning are decoded', () => {
+  assert.equal(plain('ἁγνίζω (&gt; ἁγνός)'), 'ἁγνίζω (> ἁγνός)');
+  assert.equal(plain('a &lt; b &amp; c &quot;d&quot; &#39;e&#39; &apos;f&apos;'), `a < b & c "d" 'e' 'f'`);
+  assert.equal(plain('&#955;&#x3BB;&#X3bb;'), 'λλλ');
+  assert.equal(plain('x&nbsp;y'), 'x y');
+});
+
+void test('entities are decoded once, after the tags are removed', () => {
+  assert.equal(plain('&amp;lt;'), '&lt;');
+  assert.equal(plain('&amp;gt;b&amp;gt;'), '&gt;b&gt;');
+  assert.equal(plain('&lt;b&gt;bold&lt;/b&gt;'), '<b>bold</b>');
+  assert.equal(plain('<b>&gt;</b>'), '>');
+});
+
+void test('unknown or invalid entities are left as they are', () => {
+  for (const text of ['&foo;', '&#0;', '&#x110000;', '&#99999999;', '&gt', 'AT&T', '&;']) {
+    assert.equal(plain(text), text, text);
+  }
+});
+
+void test('the stored HTML keeps its entities', () => {
+  const e = entry(tab('H0001', 'H0001G =', 'H0001G', 'a', 'b', 'c', 'd', 'x &gt; y'));
+  assert.equal(e?.meaningHtml, 'x &gt; y');
+  assert.equal(e?.meaning, 'x > y');
+});

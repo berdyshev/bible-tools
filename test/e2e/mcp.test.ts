@@ -40,6 +40,7 @@ void test('the tools are listed with read-only annotations', async () => {
     'find_occurrences',
     'get_names',
     'get_original',
+    'get_translation',
     'lookup_strong',
     'search_lexicon',
   ]);
@@ -50,9 +51,14 @@ void test('the tools are listed with read-only annotations', async () => {
   }
 });
 
+void test('the server is named bible-sources', () => {
+  assert.equal(client.getServerVersion()?.name, 'bible-sources');
+});
+
 void test('descriptions stay generic', async () => {
   const { tools } = await client.listTools();
-  for (const t of tools) {
+  // get_translation names the translations it serves.
+  for (const t of tools.filter((tool) => tool.name !== 'get_translation')) {
     assert.doesNotMatch(t.description ?? '', /German|Russian|Elberfelder|RBO|project name table/i, t.name);
   }
 });
@@ -63,6 +69,7 @@ void test('successful calls are not errors and carry structured content where de
 
   const calls = [
     { name: 'get_original', arguments: { ref: 'Ruth 1:1' } },
+    { name: 'get_translation', arguments: { ref: 'Ruth 1:1', version: 'kjv' } },
     { name: 'get_names', arguments: { ref: 'Ruth 1:2' } },
     { name: 'lookup_strong', arguments: { strong: 'H7704' } },
     { name: 'lookup_strong', arguments: { strong: 'H7704G' } },
@@ -100,6 +107,16 @@ void test('input errors reach the client with their hint', async () => {
       name: 'lookup_strong',
       arguments: { strong: 'H99999' },
       text: /^Malformed Strong's number "H99999"\. Use H or G, then a number \(up to 4 digits for H, 5 for G;/,
+    },
+    {
+      name: 'get_translation',
+      arguments: { ref: 'Ruth 1:1', version: 'niv' },
+      text: /version must be one of "kjv" .*"darby" .*"elb1905" .*"ohienko" .*"rst" /,
+    },
+    {
+      name: 'get_translation',
+      arguments: { ref: '3John 1:15', version: 'kjv' },
+      text: /^3 John 1 has no verse 15\. Use a verse from 1 to 14$/,
     },
     {
       name: 'get_original',

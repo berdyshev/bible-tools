@@ -38,6 +38,13 @@ const toolCalls = [
   { name: 'lookup_strong', arguments: { strong: 'G3056' } },
   { name: 'find_occurrences', arguments: { strong: 'G3056' } },
   { name: 'search_lexicon', arguments: { query: 'field', language: 'greek' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'kjv' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'darby' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'elb1905' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'ohienko' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'rst' } },
+  { name: 'get_translation', arguments: { ref: 'Numbers 7:1-10', version: 'kjv' } },
+  { name: 'get_translation', arguments: { ref: 'Psalms 3', version: 'rst' } },
 ];
 
 const resourceUris = [

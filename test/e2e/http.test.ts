@@ -104,6 +104,7 @@ void test('an MCP client can initialize and list the tools over POST /mcp', asyn
       'find_occurrences',
       'get_names',
       'get_original',
+      'get_translation',
       'lookup_strong',
       'search_lexicon',
     ]);

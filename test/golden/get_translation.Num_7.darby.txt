@@ -1,0 +1,12 @@
+Numbers 7:1-89 — Darby (Darby translation), KJV numbering; [..] = words added by the translator; *God = El, +God = Eloah, *word = imrah, *..* = emphatic in the original
+7:1 And it came to pass on the day that Moses had completed the setting up of the tabernacle, and had anointed it, and hallowed it, and all the furniture thereof, and the altar and all its utensils, and had anointed them, and hallowed them,
+7:2 that the princes of Israel, the heads of their fathers' houses, the princes of the tribes, they that were over them that had been numbered, offered;
+7:3 and they brought their offering before Jehovah, six covered waggons, and twelve oxen; a waggon for two princes, and an ox for each; and they presented them before the tabernacle.
+7:4 And Jehovah spoke to Moses, saying,
+7:5 Take it of them, and they shall be for the performance of the service of the tent of meeting, and thou shalt give them unto the Levites, to each according to his service.
+7:6 And Moses took the waggons and the oxen, and gave them to the Levites.
+7:7 Two waggons and four oxen he gave to the sons of Gershon, according to their service;
+7:8 and four waggons and eight oxen he gave to the sons of Merari, according to their service, --under the hand of Ithamar the son of Aaron the priest.
+7:9 But unto the sons of Kohath he gave none, for the service of the sanctuary was upon them: they bore [what they carried] upon the shoulder.
+7:10 And the princes presented the dedication-gift of the altar on the day that it was anointed; and the princes presented their offering before the altar.
+truncated — call get_translation again with "Numbers 7:11-89"

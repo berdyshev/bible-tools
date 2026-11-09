@@ -184,10 +184,66 @@ const normalizeGerelb = (lines: string[]): string[] => {
     throw new Error('gerelb Mark 16:9 / John 8:11 changed');
   for (const i of [...mark, ...john]) lines[i] = bracketWholeVerse(lines[i] ?? '');
   const balanced = balanceAddedWords(lines);
+  const renumbered = correctHebrewTags(lines);
   return [
+    `<WTHc:v> tags set from the Hebrew verse map (HEB_TO_KJV) where the module's disagreed or were missing in a tagged chapter, a leading tag wherever the line starts in a Hebrew verse other than its KJV number: ${describeLines(renumbered)}`,
     'Mark 16:9-20 and John 7:53-8:11: the <FI> opened at Mark 16:9 and closed at John 8:11 is set per verse',
     `<FI> spans crossing verse lines closed at the line end and reopened on the next line: ${describeLines(balanced)}`,
   ];
+};
+
+const WTH_RE = /<WTH(\d+):(\d+)> ?/g;
+
+/**
+ * The module's `<WTHc:v>` (Hebrew numbering) tags are partly wrong (Job 40:1-41:34 follow another division,
+ * 2Kgs 12:1 says 12:1 for Hebrew 12:2, Num 30:1 has only a mid-line tag although the line starts in Hebrew
+ * 30:2). In every Old Testament chapter that has a tag, outside the Psalms, each line gets the tags of the
+ * Hebrew verses it holds (`hebrewOf`): a leading tag if the first differs from the KJV number, a mid-line tag
+ * for a second one at the position the module put its mid-line tag. In the Psalms only
+ * tagged lines are corrected. Returns the indexes of the lines changed.
+ */
+const correctHebrewTags = (lines: string[]): number[] => {
+  const tagged = new Set<string>();
+  lines.forEach((line, i) => {
+    const ref = refAt(i);
+    if (ref !== null && line.includes('<WTH')) tagged.add(`${ref.book.id} ${ref.chapter}`);
+  });
+  const changed: number[] = [];
+  lines.forEach((line, i) => {
+    const ref = refAt(i);
+    if (ref === null || ref.book.testament !== 'OT') return;
+    const hasTag = line.includes('<WTH');
+    if (!hasTag && (ref.book.id === 'Ps' || !tagged.has(`${ref.book.id} ${ref.chapter}`))) return;
+    const hebrew = hebrewOf(ref.book, ref.chapter, ref.verse);
+    let text = '';
+    let mid = -1;
+    let last = 0;
+    for (const m of line.matchAll(WTH_RE)) {
+      const before = line.slice(last, m.index);
+      text += before;
+      if (text.replace(/<[^<>]*>/g, '').trim() !== '') {
+        if (mid < 0) mid = text.length;
+        if (!text.endsWith(' ')) text += ' ';
+      }
+      last = m.index + m[0].length;
+    }
+    text += line.slice(last);
+    const [first, second] = hebrew;
+    // An untagged line holding two Hebrew verses has no known place for the second tag: left as it is.
+    if (!hasTag && second !== undefined) return;
+    if (first === undefined || hebrew.length > 2)
+      throw new Error(`gerelb ${lineName(i)}: Hebrew ${hebrew.join(', ')}`);
+    if (second !== undefined && mid < 0)
+      throw new Error(`gerelb ${lineName(i)}: no place for <WTH${second}>`);
+    if (second !== undefined && mid >= 0)
+      text = `${text.slice(0, mid)}<WTH${second}> ${text.slice(mid).trimStart()}`;
+    const out = first === `${ref.chapter}:${ref.verse}` ? text : `<WTH${first}> ${text}`;
+    if (out !== line) {
+      lines[i] = out;
+      changed.push(i);
+    }
+  });
+  return changed;
 };
 
 const normalizeDarby = (lines: string[]): string[] => {
@@ -497,6 +553,27 @@ const KJV_NUMBERED = new Set(
   OHIENKO_KJV_NUMBERED.flatMap((r) => parseRange(r).map((x) => key(x.book, x.chapter, x.verse))),
 );
 const MISSING = new Set(OHIENKO_MISSING);
+
+const KJV_TO_HEB = new Map<string, string[]>();
+for (const [heb, targets] of HEB_MAP) {
+  for (const t of targets) {
+    const k = key(bookById(heb.split(' ')[0] ?? ''), t.chapter, t.verse);
+    KJV_TO_HEB.set(k, [...(KJV_TO_HEB.get(k) ?? []), heb.split(' ')[1] ?? '']);
+  }
+}
+
+const verseOrder = (cv: string): number => {
+  const [c = 0, v = 0] = cv.split(':').map(Number);
+  return c * 1000 + v;
+};
+
+/** The Hebrew verses (`c:v`, in order) a KJV Old Testament verse holds. */
+const hebrewOf = (book: Book, chapter: number, verse: number): string[] => {
+  const mapped = KJV_TO_HEB.get(key(book, chapter, verse)) ?? [];
+  const hebCount = HEB_COUNTS.get(`${book.id} ${chapter}`) ?? versesOf(book)[chapter - 1] ?? 0;
+  const same = verse <= hebCount && !HEB_MAP.has(key(book, chapter, verse)) ? [`${chapter}:${verse}`] : [];
+  return [...same, ...mapped].toSorted((a, b) => verseOrder(a) - verseOrder(b));
+};
 
 const ownCount = (book: Book, chapter: number): number => {
   const name = `${book.id} ${chapter}`;

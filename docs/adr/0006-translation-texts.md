@@ -38,8 +38,10 @@ Provenance, quoted from each module's metadata:
 The script brings every module to one format: KJV slots, and the version's own numbers as `(c:v)` markers at the start of a line or mid-line, the way the RST module writes them. The edits are listed with exact counts in `MANIFEST.json` (`edits`):
 
 - `ohienko`: the module puts Ohienko's own verse numbers on the KJV grid, with empty trailing slots and overflow glued onto the last slot of a chapter (`Gen 32:1` holds KJV 31:55; `Joel 3:21` holds Hos 14:1 and all of Hebrew Joel 4). The script re-slots it onto KJV numbering and adds `(c:v)` markers where Ohienko's numbering differs.
-- `rst`: `Song 1`, `Ps 90:1-6` and `Isa 3:19-26` re-slotted where the module's text is shifted off its KJV slot (Song 1 by one verse: the Synodal text has no superscription).
+- `rst`: `Song 1`, `Ps 90:1-6` and `Isa 3:19-26` re-slotted where the module's text is shifted off its KJV slot (Song 1 by one verse: the module lacks the superscription verse, so KJV 1:1 is empty).
 - `elb1905`: `<FI>` brackets balanced per verse line, so that `Mark 16:9-20` and `John 7:53-8:11` are bracketed verse by verse; the original opens a bracket at Mark 16:9 and never closes it until John 8:11.
+  Its `<WTHc:v>` (Hebrew numbering) tags are checked against the Hebrew verse map the script uses for Ohienko (`HEB_TO_KJV`, from the STEPBible word table) and set from it where they disagree: `Job 40:1-41:34` (another verse division, one verse behind from 41:10), `2Kgs 12:1` (12:1 for Hebrew 12:2), `Ps 13:6`, `Eccl 6:12`, `Isa 7:25`, `2Kgs 15:38`. In a chapter that has tags, untagged lines whose Hebrew number differs get one (`Deut 29:3-29`, `2Kgs 12:2-21`), and a line that starts in another Hebrew verse gets a leading tag instead of only a mid-line one (`Num 30:1` = Hebrew 30:2).
+- `darby`: `<FI>` brackets balanced per verse line (`John 5:3-4`, `Acts 24:6-8` cross verse lines) and the nested pair in `Rom 9:28` flattened.
 
 ## Alternatives
 

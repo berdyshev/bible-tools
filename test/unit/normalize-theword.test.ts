@@ -140,3 +140,16 @@ void test('Elberfelder brackets Mark 16:9-20 and John 7:53-8:11 verse by verse',
 void test('the KJV module is copied without edits', () => {
   assert.deepEqual(manifest.modules.find((m) => m.file === 'kjv.ont')?.edits, []);
 });
+
+void test('Elberfelder Hebrew-number tags follow the Hebrew verse map', () => {
+  const elb = lines('gerelb.ont');
+  assert.ok(verse(elb, 'Num 30:1').startsWith('<WTH30:2> Und Mose redete'));
+  assert.ok(verse(elb, 'Job 41:9').startsWith('<WTH41:1> '));
+  assert.ok(verse(elb, 'Job 41:10').startsWith('<WTH41:2> '));
+  assert.equal(verse(elb, 'Job 40:1').includes('<WTH'), false);
+  assert.ok(verse(elb, '2Kgs 11:21').startsWith('<WTH12:1> '));
+  assert.ok(verse(elb, '2Kgs 12:1').startsWith('<WTH12:2> '));
+  assert.ok(verse(elb, '2Kgs 12:21').startsWith('<WTH12:22> '));
+  assert.ok(verse(elb, '1Sam 20:42').includes('auf ewig!<WTH21:1> Und David'));
+  assert.ok(verse(elb, 'Lev 6:1').startsWith('<WTH5:20> '));
+});

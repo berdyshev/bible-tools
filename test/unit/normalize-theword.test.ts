@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { z } from 'zod/v4';
@@ -52,16 +52,24 @@ void test('original windows-1251 and windows-1252 bytes decode to Cyrillic, umla
   assert.equal(decodeOriginal(new TextEncoder().encode('\uFEFFid=b9'), 'utf-8'), 'id=b9');
 });
 
-void test('a fresh normalization reproduces the committed modules and the manifest checksums', () => {
-  const outputs = normalizeAll();
-  assert.deepEqual(
-    outputs.map((o) => o.entry.sha256),
-    manifest.modules.map((m) => m.sha256),
-  );
-  for (const o of outputs) {
-    assert.deepEqual(readFileSync(`${DIR}${o.spec.file}`), Buffer.from(o.bytes), o.spec.file);
-  }
-});
+// The original modules are kept out of git (their sha256 is in MANIFEST.json); without them this check is skipped.
+const originals = `${DIR}original/`;
+const skipFresh = existsSync(originals) ? false : `no original modules in ${originals}`;
+
+void test(
+  'a fresh normalization reproduces the committed modules and the manifest checksums',
+  { skip: skipFresh },
+  () => {
+    const outputs = normalizeAll();
+    assert.deepEqual(
+      outputs.map((o) => o.entry.sha256),
+      manifest.modules.map((m) => m.sha256),
+    );
+    for (const o of outputs) {
+      assert.deepEqual(readFileSync(`${DIR}${o.spec.file}`), Buffer.from(o.bytes), o.spec.file);
+    }
+  },
+);
 
 void test('every normalized module has one line per KJV verse', () => {
   for (const { file } of manifest.modules) assert.equal(lines(file).length, KJV_LINES, file);

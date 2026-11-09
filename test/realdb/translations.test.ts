@@ -27,7 +27,7 @@ const scalar = (sql: string, ...params: string[]): number => {
 void test('all five translations are loaded from their checked modules', { skip }, () => {
   assert.ok(repo);
   assert.deepEqual(
-    repo.translations().map((t) => t.version),
+    repo.translations().map((t) => t.id),
     [...VERSION_IDS],
   );
   assert.equal(
@@ -131,36 +131,28 @@ void test('no own number equals its KJV slot', { skip }, () => {
   );
 });
 
+void test('Elberfelder shows no verse numbers of its own', { skip }, () => {
+  assert.equal(
+    scalar("SELECT count(*) FROM translation_verses WHERE version = 'elb1905' AND native_ref IS NOT NULL"),
+    0,
+  );
+});
+
 void test(
-  'Elberfelder own numbers in the Old Testament are the Hebrew verses of their KJV slot',
+  'verses a translation omits come out as their number alone, the psalm hint only for a titled psalm',
   { skip },
   () => {
-    assert.ok(full);
-    // KJV and the English numbering of the word table agree in the Old Testament except for psalm titles,
-    // which are verse 0 there and part of verse 1 in KJV.
-    const hebrew = new Map<string, Set<number>>();
-    const ot = new Set(BOOKS.filter((b) => b.testament === 'OT').map((b) => b.id));
-    for (const r of full
-      .prepare('SELECT DISTINCT book, chapter, verse, heb_chapter AS hc, heb_verse AS hv FROM words')
-      .all()) {
-      const book = String(r['book']);
-      if (!ot.has(book)) continue;
-      const key = `${book} ${Number(r['chapter'])}:${Math.max(1, Number(r['verse']))}`;
-      const set = hebrew.get(key) ?? new Set<number>();
-      set.add(Number(r['hc']) * 1000 + Number(r['hv']));
-      hebrew.set(key, set);
+    assert.ok(repo);
+    const call = (ref: string, version: (typeof VERSION_IDS)[number]) =>
+      textOf(getTranslation.call({ ref, version }, repo));
+    for (const ref of ['Matt 23:14', 'Acts 8:37']) {
+      assert.equal(call(ref, 'elb1905').split('\n')[1], ref.split(' ')[1], ref);
     }
-    const wrong: string[] = [];
-    let checked = 0;
-    for (const r of nativeRows()) {
-      if (r.version !== 'elb1905' || !ot.has(r.book)) continue;
-      const set = hebrew.get(`${r.book} ${r.chapter}:${r.verse}`);
-      const { first, last } = endpoints(r.nativeRef);
-      checked++;
-      if (set === undefined || !set.has(first) || !set.has(last))
-        wrong.push(`${r.book} ${r.chapter}:${r.verse} ${r.nativeRef}`);
-    }
-    assert.ok(checked > 200, `${checked} checked`);
-    assert.deepEqual(wrong, []);
+    assert.equal(
+      scalar("SELECT count(*) FROM translation_verses WHERE text LIKE '%gehört nicht zum ursprünglichen%'"),
+      0,
+    );
+    assert.match(call('Ps 3:0', 'kjv'), /a psalm title is part of verse 1/);
+    assert.doesNotMatch(call('Ps 1:0', 'kjv'), /psalm title/);
   },
 );

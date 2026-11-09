@@ -17,7 +17,7 @@ const spanFor = (ref: string): Span => {
 
 void test('translations lists the five versions in their fixed order with their markers', () => {
   assert.deepEqual(
-    repo.translations().map((t) => [t.version, t.label, t.bracketMeaning !== null, t.hasNotes]),
+    repo.translations().map((t) => [t.id, t.label, t.bracketMeaning !== null, t.hasNotes]),
     [
       ['kjv', 'KJV', true, true],
       ['darby', 'Darby', true, false],
@@ -48,6 +48,6 @@ void test("translationVerses carries the version's own number", () => {
     repo.translationVerses('rst', spanFor('Num 13:1-2')).map((r) => r.nativeRef),
     ['13:2', '13:3'],
   );
-  assert.equal(repo.translationVerses('elb1905', spanFor('Lev 6:1'))[0]?.nativeRef, '5:20');
+  assert.equal(repo.translationVerses('elb1905', spanFor('Lev 6:1'))[0]?.nativeRef, null);
   assert.equal(repo.translationVerses('kjv', spanFor('Lev 6:1'))[0]?.nativeRef, null);
 });

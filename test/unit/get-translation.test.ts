@@ -11,12 +11,13 @@ import { textOf } from '../helpers/tool-text.ts';
 const repo = createBibleRepo(fixtureDb());
 
 const META: TranslationMeta = {
-  version: 'rst',
+  id: 'rst',
   label: 'RST',
   title: 'Russian Synodal',
   language: 'rus',
   licence: 'public domain',
   attribution: 'test',
+  markers: null,
   bracketMeaning: 'words added by the translators',
   hasNotes: false,
 };
@@ -46,7 +47,7 @@ void test('the header names the span, the version, KJV numbering and the bracket
 
 void test('the legend lists only the markers the version uses', () => {
   const span = spanFor('Ruth 1:1');
-  const first = (meta: TranslationMeta) => formatTranslation(span, meta, []).split('\n')[0];
+  const first = (meta: TranslationMeta) => formatTranslation(span, meta, [verse(1, 1, 'a')]).split('\n')[0];
   assert.equal(first({ ...META, bracketMeaning: null }), 'Ruth 1:1 — RST (Russian Synodal), KJV numbering');
   assert.equal(
     first({ ...META, hasNotes: true }),
@@ -58,20 +59,26 @@ void test('the legend lists only the markers the version uses', () => {
   );
 });
 
-void test("the version's own number ends the line, a verse it lacks is a dash", () => {
+void test("the version's own number ends the line, a verse it lacks is its number alone", () => {
   const text = formatTranslation(spanFor('Num 13:1-3'), META, [
     verse(13, 1, 'И сказал', '13:2'),
     verse(13, 3, 'И послал', '13:3-4'),
   ]);
-  assert.deepEqual(text.split('\n').slice(1), [
+  assert.deepEqual(text.split('\n'), [
+    'Numbers 13:1-3 — RST (Russian Synodal), KJV numbering; [..] = words added by the translators; a verse number with no text = a verse this translation omits or joins to another',
     '13:1 И сказал  [RST 13:2]',
-    '13:2 —',
+    '13:2',
     '13:3 И послал  [RST 13:3-4]',
   ]);
 });
 
-void test('a single verse the version lacks is a dash, not an error', () => {
-  assert.equal(formatTranslation(spanFor('Acts 8:37'), META, []).split('\n')[1], '8:37 —');
+void test('a single verse the version lacks is its number alone, not an error', () => {
+  assert.equal(formatTranslation(spanFor('Acts 8:37'), META, []).split('\n')[1], '8:37');
+});
+
+void test('the legend explains a verse number with no text only when the passage has one', () => {
+  const header = formatTranslation(spanFor('Num 13:1'), META, [verse(13, 1, 'a')]).split('\n')[0] ?? '';
+  assert.doesNotMatch(header, /no text/);
 });
 
 void test('a passage stops after ten verses with the call for the rest', () => {
@@ -154,7 +161,8 @@ void test('a cut passage reserves room for the continuation line, so it never pa
 });
 
 void test('the last verse of a passage needs no room for a continuation', () => {
-  const header = formatTranslation(spanFor('Ruth 1:1-2'), META, []).split('\n')[0] ?? '';
+  const header =
+    formatTranslation(spanFor('Ruth 1:1-2'), META, [verse(1, 1, 'x'), verse(1, 2, 'y')]).split('\n')[0] ?? '';
   // Two verse lines that fill the budget exactly.
   const size = Math.floor((2000 - header.length - 2) / 2) - '1:1 '.length;
   const rest = 2000 - header.length - 2 - 2 * ('1:1 '.length + size);
@@ -167,10 +175,17 @@ void test('the last verse of a passage needs no room for a continuation', () => 
 });
 
 void test('verses KJV numbering lacks point to where KJV has them', () => {
+  // The fixture has no Psalms words; Psalm 3 has a title (verse 0 in the English numbering), Psalm 1 none.
+  const psalms: BibleRepo = {
+    ...repo,
+    verseBounds: (ref) => (ref.book.id === 'Ps' ? { first: ref.chapter === 3 ? 0 : 1, last: 8 } : null),
+  };
+  const failureIn = (ref: string) => textOf(getTranslation.call({ ref, version: 'kjv' }, psalms));
   assert.equal(
-    failure('Ps 3:0'),
+    failureIn('Ps 3:0'),
     'Psalms 3 has no verse 0. Use a verse from 1 to 8. In KJV numbering a psalm title is part of verse 1: use "Psalms 3:1"',
   );
+  assert.equal(failureIn('Ps 1:0'), 'Psalms 1 has no verse 0. Use a verse from 1 to 6');
   assert.equal(
     failure('Rev 12:18'),
     'Revelation 12 has no verse 18. Use a verse from 1 to 17. In KJV numbering this sentence opens Revelation 13:1: use "Revelation 13:1"',

@@ -3,7 +3,7 @@ import { z } from 'zod/v4';
 import { normalizeBook, BOOKS } from '../domain/books.ts';
 import type { Span, VerseBounds, VerseRef, Scope, Versification } from '../domain/ref.ts';
 import type { Strong } from '../domain/strong.ts';
-import { VERSION_IDS, type VersionId } from '../domain/versions.ts';
+import { VERSION_IDS, VERSIONS, type Version, type VersionId } from '../domain/versions.ts';
 
 const bool = z.number().transform((n) => n === 1);
 const tags = z
@@ -82,11 +82,6 @@ const occurrenceRow = z.object({
 
 const translationMetaRow = z.object({
   version: z.enum(VERSION_IDS),
-  label: z.string(),
-  title: z.string(),
-  language: z.string(),
-  licence: z.string(),
-  attribution: z.string(),
   bracketMeaning: z.string().nullable(),
   hasNotes: bool,
 });
@@ -98,8 +93,11 @@ const translationVerseRow = z.object({
   text: z.string(),
 });
 
-/** A translation loaded into the database: its names, licence and the markers its text uses. */
-export type TranslationMeta = z.infer<typeof translationMetaRow>;
+/** A translation loaded into the database: its names and licence, and the markers its text uses. */
+export type TranslationMeta = Version & {
+  readonly bracketMeaning: string | null;
+  readonly hasNotes: boolean;
+};
 /** One verse of a translation, in KJV numbering, with the module's own number when it differs. */
 export type TranslationVerse = z.infer<typeof translationVerseRow>;
 
@@ -151,7 +149,7 @@ export interface BibleRepo {
   /** First TIPNR record for a disambiguated key; null if the key names no proper noun. */
   tipnr(dstrong: string): TipnrRecord | null;
   /** The translations in the database, in `VERSION_IDS` order. */
-  translations(): TranslationMeta[];
+  translations(): readonly TranslationMeta[];
   /** The verses of `version` within `span` (KJV numbering) that the translation has, in text order. */
   translationVerses(version: VersionId, span: Span): TranslationVerse[];
 }
@@ -229,8 +227,7 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
   );
 
   const translationMetas = query(
-    `SELECT version, label, title, language, licence, attribution, bracket_meaning AS bracketMeaning,
-       has_notes AS hasNotes FROM translation_meta`,
+    'SELECT version, bracket_meaning AS bracketMeaning, has_notes AS hasNotes FROM translation_meta',
     translationMetaRow,
   );
   // A row-value range on the primary key (version, book, chapter, verse) is an index range scan.
@@ -261,6 +258,8 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
       occurrenceRow,
     );
   };
+
+  let translationList: readonly TranslationMeta[] | undefined;
 
   return {
     verseWords: (ref) =>
@@ -321,8 +320,16 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     },
     morphologyCode: (code) => morphologyByCode(code)[0] ?? null,
     tipnr: (dstrong) => tipnrByKey(dstrong)[0] ?? null,
-    translations: () =>
-      translationMetas().toSorted((a, b) => VERSION_IDS.indexOf(a.version) - VERSION_IDS.indexOf(b.version)),
+    translations: () => {
+      // The database is read-only, so the list is read once.
+      translationList ??= VERSIONS.flatMap((v) => {
+        const row = translationMetas().find((m) => m.version === v.id);
+        return row === undefined
+          ? []
+          : [{ ...v, bracketMeaning: row.bracketMeaning, hasNotes: row.hasNotes }];
+      });
+      return translationList;
+    },
     translationVerses: (version, { book, start, end }) =>
       translationRange(version, book.id, start.chapter, start.verse, end.chapter, end.verse),
   };

@@ -119,7 +119,6 @@ void test('kjv: a note is inline after its anchor as ⸨…⸩', () => {
     {
       text: 'And God saw the light, that [it was] good: and God divided the light from the darkness. ⸨the light from…: Heb. between the light and between the darkness⸩',
       nativeRefs: [],
-      startsWithRef: false,
     },
   );
   assert.equal(
@@ -128,13 +127,6 @@ void test('kjv: a note is inline after its anchor as ⸨…⸩', () => {
       kjv,
     ),
     'The grace of the Lord Jesus Christ, and the love of God, and the communion of the Holy Ghost, [be] with you all. Amen. ⸨The second epistle to the Corinthians was written from Philippi, a city of Macedonia, by Titus and Lucas.⸩',
-  );
-});
-
-void test('a note can be dropped by the rules', () => {
-  assert.equal(
-    text('the darkness<WH2822>.<RF>the light from…: Heb. between<Rf>', { ...kjv, notes: 'drop' }),
-    'the darkness.',
   );
 });
 
@@ -243,47 +235,10 @@ void test('stars and plus signs are kept as the module marks them', () => {
   assert.equal(text('a *b* +c', kjv), 'a *b* +c');
 });
 
-void test('gerelb: a leading <WTH> tag is a native ref at the line start', () => {
-  assert.deepEqual(cleanVerse('<WTH5:20> Und Jehova redete zu Mose und sprach:', gerelb), {
-    text: 'Und Jehova redete zu Mose und sprach:',
-    nativeRefs: ['5:20'],
-    startsWithRef: true,
-  });
-});
-
-void test('gerelb: a leading and a mid-line <WTG> tag give two native refs', () => {
-  assert.deepEqual(
-    cleanVerse(
-      '<WTG12:18> Und ich stand auf dem Sande des Meeres.<WTG13:1> Und ich sah aus dem Meere ein Tier aufsteigen, welches zehn Hörner und sieben Köpfe hatte, und auf seinen Hörnern zehn Diademe, und auf seinen Köpfen Namen der Lästerung.',
-      gerelb,
-    ),
-    {
-      text: 'Und ich stand auf dem Sande des Meeres. Und ich sah aus dem Meere ein Tier aufsteigen, welches zehn Hörner und sieben Köpfe hatte, und auf seinen Hörnern zehn Diademe, und auf seinen Köpfen Namen der Lästerung.',
-      nativeRefs: ['12:18', '13:1'],
-      startsWithRef: true,
-    },
-  );
-});
-
-void test('gerelb: a mid-line tag only does not start the line', () => {
-  assert.deepEqual(
-    cleanVerse(
-      'sondern ich hoffe, dich bald zu sehen, und wir wollen mündlich miteinander reden.<WTG1:15> Friede dir! Es grüßen dich die Freunde. Grüße die Freunde mit Namen.<CM>',
-      gerelb,
-    ),
-    {
-      text: 'sondern ich hoffe, dich bald zu sehen, und wir wollen mündlich miteinander reden. Friede dir! Es grüßen dich die Freunde. Grüße die Freunde mit Namen.',
-      nativeRefs: ['1:15'],
-      startsWithRef: false,
-    },
-  );
-});
-
-void test('WT tags are dropped without a ref when the rules do not collect them', () => {
+void test('WT tags are dropped without a ref', () => {
   assert.deepEqual(cleanVerse('<WTH5:20> Und Jehova', kjv), {
     text: 'Und Jehova',
     nativeRefs: [],
-    startsWithRef: false,
   });
 });
 
@@ -328,7 +283,6 @@ void test('rst: a leading (c:v) is a native ref removed from the text', () => {
   assert.deepEqual(cleanVerse('(13:2) И сказал Господь Моисею, говоря:', rst), {
     text: 'И сказал Господь Моисею, говоря:',
     nativeRefs: ['13:2'],
-    startsWithRef: true,
   });
   assert.deepEqual(
     cleanVerse(
@@ -348,7 +302,6 @@ void test('rst: a title between a leading and a mid-line ref keeps its text', ()
     {
       text: 'Начальнику хора. На восьмиструнном. Псалом Давида. Спаси, Господи, ибо не стало праведного, ибо нет верных между сынами человеческими.',
       nativeRefs: ['11:1', '11:2'],
-      startsWithRef: true,
     },
   );
   assert.deepEqual(
@@ -369,7 +322,6 @@ void test('rst: a mid-line ref after a title does not start the line', () => {
     {
       text: 'Псалом Давида, когда он бежал от Авессалома, сына своего. Господи! как умножились враги мои! Многие восстают на меня',
       nativeRefs: ['3:2'],
-      startsWithRef: false,
     },
   );
   assert.deepEqual(
@@ -380,7 +332,6 @@ void test('rst: a mid-line ref after a title does not start the line', () => {
     {
       text: "И сказал Ионафан Давиду: иди с миром; а в чем клялись мы оба именем Господа, говоря: 'Господь да будет между мною и между тобою и между семенем моим и семенем твоим', то да будет на веки. И встал [Давид] и пошел, а Ионафан возвратился в город.",
       nativeRefs: ['20:43'],
-      startsWithRef: false,
     },
   );
 });
@@ -391,8 +342,7 @@ void test('rst: parentheses without chapter:verse are text, not refs', () => {
     '(Миха) сказал: вы взяли богов моих, которых я сделал, и священника, и ушли; чего еще более? как же вы говорите: что тебе?',
     'И сказала ему жена его: ты все еще тверд в непорочности твоей! похули Бога и умри. (1)',
   ];
-  for (const line of cases)
-    assert.deepEqual(cleanVerse(line, rst), { text: line, nativeRefs: [], startsWithRef: false });
+  for (const line of cases) assert.deepEqual(cleanVerse(line, rst), { text: line, nativeRefs: [] });
 });
 
 void test('rst: the module’s own brackets are kept as they are', () => {
@@ -406,7 +356,6 @@ void test('ukrio: normalized (c:v) markers are native refs; carets are kept with
   assert.deepEqual(cleanVerse('(5:20) І Господь промовляв до Мойсея, говорячи:', ukrio), {
     text: 'І Господь промовляв до Мойсея, говорячи:',
     nativeRefs: ['5:20'],
-    startsWithRef: true,
   });
   assert.equal(text('a ^^b^^', ukrio), 'a ^^b^^');
 });
@@ -415,13 +364,12 @@ void test('paren refs are text when the rules do not collect them', () => {
   assert.deepEqual(cleanVerse('(13:2) And', kjv), {
     text: '(13:2) And',
     nativeRefs: [],
-    startsWithRef: false,
   });
 });
 
 void test('an empty line cleans to empty text', () => {
-  assert.deepEqual(cleanVerse('', ukrio), { text: '', nativeRefs: [], startsWithRef: false });
-  assert.deepEqual(cleanVerse('<CM>', kjv), { text: '', nativeRefs: [], startsWithRef: false });
+  assert.deepEqual(cleanVerse('', ukrio), { text: '', nativeRefs: [] });
+  assert.deepEqual(cleanVerse('<CM>', kjv), { text: '', nativeRefs: [] });
 });
 
 void test('an unclosed note keeps its text to the end of the line', () => {
@@ -469,15 +417,11 @@ void test('nativeRange: no marker gives null, one leading marker its number', ()
 
 void test('nativeRange: a leading and a mid-line marker give a range', () => {
   assert.equal(nativeRange(cleanVerse('(11:1) ^^Псалом^^ (11:2) Господи!', rst)), '11:1-2');
-  assert.equal(
-    nativeRange(cleanVerse('<WTG12:18> Und ich stand.<WTG13:1> Und ich sah', gerelb)),
-    '12:18-13:1',
-  );
+  assert.equal(nativeRange(cleanVerse('(12:18) И я стал. (13:1) И увидел', rst)), '12:18-13:1');
 });
 
 void test('nativeRange: text before a mid-line first marker gets no number', () => {
   assert.equal(nativeRange(cleanVerse('^^Псалом Давида^^ (3:2) Господи!', rst)), '3:2');
-  assert.equal(nativeRange(cleanVerse('reden.<WTG1:15> Friede dir!', gerelb)), '1:15');
   assert.equal(nativeRange(cleanVerse('Text. (30:2) А (30:3) Б', ukrio)), '30:2-3');
 });
 
@@ -490,7 +434,6 @@ void test('a marker right after a stripped title marker still starts the line', 
   assert.deepEqual(cleanVerse('^^(3:1) Псалом^^ (3:2) Господи!', rst), {
     text: 'Псалом Господи!',
     nativeRefs: ['3:1', '3:2'],
-    startsWithRef: true,
   });
 });
 
@@ -498,4 +441,11 @@ void test('an unmatched close keeps the module’s own brackets and a note', () 
   assert.equal(text('что [это] хорошо<Fi> и', rst), '[что [это] хорошо] и');
   assert.equal(text('word.<RF>Heb. [x]<Rf> more<Fi>', kjv), '[word. ⸨Heb. [x]⸩ more]');
   assert.equal(text('a <FI>b<Fi> c<Fi> d', darby), '[a b c] d');
+});
+
+void test('gerelb: verse-number tags are dropped without a native ref', () => {
+  assert.deepEqual(cleanVerse('<WTG12:18> Und ich stand.<WTG13:1> Und ich sah', gerelb), {
+    text: 'Und ich stand. Und ich sah',
+    nativeRefs: [],
+  });
 });

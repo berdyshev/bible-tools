@@ -403,11 +403,6 @@ void test('loadTranslation stores cleaned verses with their own numbers and skip
   );
   assert.deepEqual(row(db, 'SELECT * FROM translation_meta'), {
     version: 'darby',
-    label: 'Darby',
-    title: 'Darby translation',
-    language: 'eng',
-    licence: 'public domain',
-    attribution: version('darby').attribution,
     bracket_meaning: 'words added by the translator',
     has_notes: 0,
     sha256: 'abc',
@@ -458,4 +453,29 @@ void test('loadTranslation stores no own number when it equals the KJV slot', ()
       { verse: 33, native_ref: null },
     ],
   );
+});
+
+void test("loadTranslation skips the Elberfelder editor's remark that stands in place of an omitted verse", () => {
+  const db = fresh();
+  const count = loadTranslation(db, {
+    version: version('elb1905'),
+    rules: MODULE_RULES.gerelb,
+    sha256: 'abc',
+    lines: [
+      {
+        book: 'Matt',
+        chapter: 23,
+        verse: 14,
+        line: '(Dieser Vers gehört nicht zum ursprünglichen Text des Matthäusevangeliums.)',
+      },
+      {
+        book: 'Acts',
+        chapter: 8,
+        verse: 37,
+        line: '(Dieser Vers gehört nicht zum ursprünglichen Text der Apostelgeschichte).',
+      },
+      { book: 'Acts', chapter: 8, verse: 38, line: 'Und er hieß den Wagen halten.' },
+    ],
+  });
+  assert.equal(count, 1);
 });

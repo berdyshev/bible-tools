@@ -116,11 +116,6 @@ CREATE TABLE translation_verses (
 
 CREATE TABLE translation_meta (
   version TEXT PRIMARY KEY,
-  label TEXT NOT NULL,
-  title TEXT NOT NULL,
-  language TEXT NOT NULL,
-  licence TEXT NOT NULL,
-  attribution TEXT NOT NULL,
   bracket_meaning TEXT,
   has_notes INTEGER NOT NULL,
   sha256 TEXT NOT NULL
@@ -144,8 +139,9 @@ export type TranslationInput = {
   readonly lines: Iterable<TranslationLine>;
 };
 
-// A slot the module leaves empty, or Darby's `- - -` for a verse it omits.
-const ABSENT_RE = /^(?:-(?: -)*)?$/;
+// A slot the module leaves empty, Darby's `- - -` for a verse it omits, or the Elberfelder module editor's
+// remark in place of an omitted verse (Matt 23:14, Acts 8:37).
+const ABSENT_RE = /^(?:-(?: -)*|\(Dieser Vers gehört nicht zum ursprünglichen Text [^()]*\)\.?)?$/u;
 
 /**
  * Stores a translation's verses, cleaned, with each line's own verse number when the module marks one that
@@ -172,21 +168,10 @@ export const loadTranslation = (db: DatabaseSync, input: TranslationInput): numb
       insVerse.run(version.id, book, chapter, verse, nativeRef, clean.text);
       count++;
     }
+    // Names and licence stay in versions.ts; the database keeps what the text itself shows.
     db.prepare(
-      `INSERT INTO translation_meta (version, label, title, language, licence, attribution, bracket_meaning,
-         has_notes, sha256)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    ).run(
-      version.id,
-      version.label,
-      version.title,
-      version.language,
-      version.licence,
-      version.attribution,
-      brackets ? rules.bracketMeaning : null,
-      notes ? 1 : 0,
-      input.sha256,
-    );
+      'INSERT INTO translation_meta (version, bracket_meaning, has_notes, sha256) VALUES (?, ?, ?, ?)',
+    ).run(version.id, brackets ? rules.bracketMeaning : null, notes ? 1 : 0, input.sha256);
     return count;
   });
 };

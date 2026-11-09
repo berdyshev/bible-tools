@@ -62,8 +62,8 @@ const parseMeta = (lines: readonly string[]): Record<string, string> => {
   return meta;
 };
 
-/** A native verse-number marker: `<WTHc:v>` / `<WTGc:v>` tags, or plain `(c:v)` in the text. */
-export type NativeRefPattern = 'wt-tag' | 'paren';
+/** A native verse-number marker: plain `(c:v)` in the text. */
+export type NativeRefPattern = 'paren';
 
 /** A plain-text marker the module puts around or before words. */
 export type StripMarker =
@@ -77,8 +77,6 @@ export type ModuleRules = {
   /** What `[…]` means in the cleaned text (from `<FI>…<Fi>` or the module's own brackets), or null. */
   readonly bracketMeaning: string | null;
   readonly nativeRefPatterns: readonly NativeRefPattern[];
-  /** `<RF>…<Rf>` notes: kept inline as ` ⸨…⸩`, or dropped. */
-  readonly notes: 'inline' | 'drop';
   readonly stripMarkers: readonly StripMarker[];
 };
 
@@ -90,31 +88,27 @@ export const MODULE_RULES: Readonly<Record<ModuleId, ModuleRules>> = {
   kjv: {
     bracketMeaning: 'words added by the translators',
     nativeRefPatterns: [],
-    notes: 'inline',
     stripMarkers: [],
   },
   darby: {
     bracketMeaning: 'words added by the translator',
     nativeRefPatterns: [],
-    notes: 'inline',
     stripMarkers: [],
   },
   gerelb: {
     bracketMeaning: 'readings of the traditional text that the critical text omits',
-    nativeRefPatterns: ['wt-tag'],
-    notes: 'inline',
+    // The <WTH>/<WTG> tags mark only some of the verses numbered differently, so none is shown.
+    nativeRefPatterns: [],
     stripMarkers: ['trailing-dash'],
   },
   rst: {
     bracketMeaning: 'words added by the translators',
     nativeRefPatterns: ['paren'],
-    notes: 'inline',
     stripMarkers: ['title-carets'],
   },
   ukrio: {
     bracketMeaning: null,
     nativeRefPatterns: ['paren'],
-    notes: 'inline',
     stripMarkers: [],
   },
 };
@@ -132,12 +126,9 @@ export const VERSION_MODULE: Readonly<Record<VersionId, ModuleId>> = {
 export type CleanVerse = {
   readonly text: string;
   readonly nativeRefs: readonly string[];
-  /** True when the first native ref precedes all text of the line. */
-  readonly startsWithRef: boolean;
 };
 
 const TOKEN_RE = /<([^<>]*)>|[^<]+|</g;
-const WT_RE = /^WT[HG](\d+):(\d+)$/;
 const PAREN_REF_RE = /\((\d+):(\d+)\)/g;
 // Brackets made from `<FI>…<Fi>`, kept apart from the module's own `[`/`]` until the line is done.
 const FI_OPEN = '\uE000';
@@ -150,14 +141,8 @@ const FI_MARK_RE = /[\uE000\uE001]/g;
  * markers are collected and removed; every other tag is dropped and its content kept.
  */
 export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
-  const wtRefs = rules.nativeRefPatterns.includes('wt-tag');
   const parenRefs = rules.nativeRefPatterns.includes('paren');
   const nativeRefs: string[] = [];
-  let startsWithRef = false;
-  const addRef = (chapter: string, verse: string, before: string): void => {
-    if (nativeRefs.length === 0) startsWithRef = before.trim() === '';
-    nativeRefs.push(`${chapter}:${verse}`);
-  };
 
   let out = '';
   let depth = 0;
@@ -170,8 +155,8 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
       }
       let text = token;
       if (parenRefs) {
-        text = text.replace(PAREN_REF_RE, (_m: string, c: string, v: string, at: number) => {
-          addRef(c, v, out + stripText(text.slice(0, at), rules.stripMarkers));
+        text = text.replace(PAREN_REF_RE, (_m: string, c: string, v: string) => {
+          nativeRefs.push(`${c}:${v}`);
           return '';
         });
       }
@@ -181,7 +166,7 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
     if (tag === 'RF') {
       note = '';
     } else if (tag === 'Rf') {
-      out += closeNote(note, rules);
+      out += closeNote(note);
       note = null;
     } else if (note !== null) {
       // Tags inside a note are dropped.
@@ -195,15 +180,12 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
       } else {
         out = `${FI_OPEN}${out.replace(FI_MARK_RE, '')}${FI_CLOSE}`;
       }
-    } else {
-      const wt = WT_RE.exec(tag);
-      if (wt !== null && wtRefs) addRef(wt[1] ?? '', wt[2] ?? '', out);
     }
   }
-  if (note !== null) out += closeNote(note, rules);
+  if (note !== null) out += closeNote(note);
   if (depth > 0) out += FI_CLOSE;
   const text = out.replaceAll(FI_OPEN, '[').replaceAll(FI_CLOSE, ']');
-  return { text: tidy(text, rules.stripMarkers), nativeRefs, startsWithRef };
+  return { text: tidy(text, rules.stripMarkers), nativeRefs };
 };
 
 /**
@@ -221,9 +203,9 @@ export const nativeRange = (clean: CleanVerse): string | null => {
   return firstChapter === lastChapter ? `${first}-${lastVerse ?? ''}` : `${first}-${last}`;
 };
 
-const closeNote = (note: string | null, rules: ModuleRules): string => {
+const closeNote = (note: string | null): string => {
   const body = (note ?? '').replace(/\s+/g, ' ').trim();
-  return rules.notes === 'inline' && body !== '' ? ` ⸨${body}⸩` : '';
+  return body !== '' ? ` ⸨${body}⸩` : '';
 };
 
 const stripText = (text: string, markers: readonly StripMarker[]): string => {

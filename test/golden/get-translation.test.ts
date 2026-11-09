@@ -64,9 +64,10 @@ void test('the Elberfelder legend says its brackets are traditional-text reading
   );
 });
 
-void test('Elberfelder carries its Hebrew and Greek verse numbers', () => {
-  assert.match(call('Lev 6:1', 'elb1905'), /  \[Elb1905 5:20\]$/);
-  assert.match(call('Rev 13:1', 'elb1905'), /  \[Elb1905 12:18-13:1\]$/);
+void test('Elberfelder shows no verse numbers of its own', () => {
+  for (const ref of ['Lev 6:1', 'Rev 13:1', '3John 1:14']) {
+    assert.doesNotMatch(call(ref, 'elb1905'), /\[Elb1905 /, ref);
+  }
 });
 
 void test('a psalm starts at verse 1 with its title, never at verse 0', () => {
@@ -76,8 +77,13 @@ void test('a psalm starts at verse 1 with its title, never at verse 0', () => {
   assert.ok(!lines.some((l) => l.startsWith('3:0')));
 });
 
-void test('a verse the version lacks is a dash', () => {
-  assert.equal(call('Acts 8:37', 'darby').split('\n')[1], '8:37 —');
+void test('a verse the version lacks is its number alone, explained in the legend', () => {
+  const [header, line] = call('Acts 8:37', 'darby').split('\n');
+  assert.match(
+    header ?? '',
+    /; a verse number with no text = a verse this translation omits or joins to another$/,
+  );
+  assert.equal(line, '8:37');
 });
 
 void test('a parenthesis without chapter and verse is text, not a native number', () => {

@@ -115,7 +115,7 @@ fresh server instance and no session is kept.
 
 | Endpoint      | Purpose                                                                     |
 | ------------- | --------------------------------------------------------------------------- |
-| `POST /mcp`   | MCP messages. Limited to 60 requests per minute per client IP (`429` above) |
+| `POST /mcp`   | MCP messages. `RATE_LIMIT` per minute for all clients (`429` above)         |
 | `GET /health` | Liveness probe: `{"status":"ok"}`, with no rate limit or header checks      |
 
 `GET` and `DELETE` on `/mcp` answer `405`, as there are no sessions to open or close.
@@ -126,13 +126,15 @@ fresh server instance and no session is kept.
 | `STEPBIBLE_DB`    | `data/bible.sqlite`         | Database file                                  |
 | `ALLOWED_HOSTS`   | localhost, 127.0.0.1, [::1] | Comma-separated hostnames accepted in `Host`   |
 | `ALLOWED_ORIGINS` | localhost, 127.0.0.1, [::1] | Comma-separated hostnames accepted in `Origin` |
+| `RATE_LIMIT`      | `600`                       | Requests per minute to `/mcp`, for all clients |
 
 Requests to `/mcp` with any other `Host` or `Origin` answer `403`, so a public deployment must set
 `ALLOWED_HOSTS` to its hostname; `/health` keeps answering `200` either way. Requests without an
 `Origin` are accepted, as non-browser clients do not send one.
 
-The client IP is the socket address and `X-Forwarded-For` is not trusted, so behind a reverse proxy
-all clients share one rate limit.
+The rate limit is global, not per client IP: behind a reverse proxy the socket address is the
+proxy's, and every claude.ai connector calls from Anthropic's addresses anyway. Forwarded headers
+(`X-Forwarded-For`, `CF-Connecting-IP`) are not trusted.
 
 ## Docker
 
@@ -171,8 +173,8 @@ Render sets `PORT` itself and uses `/health` for its health check.
 
 Free-tier services sleep after 15 minutes without traffic, and the first request after that waits
 about a minute for a cold start. To avoid it, ping `https://<service>.onrender.com/health` every
-few minutes from an uptime monitor or a scheduled job. All clients share one rate limit of 60
-requests per minute, because behind Render's proxy the server only sees the proxy's address.
+few minutes from an uptime monitor or a scheduled job. All clients share one rate limit of
+`RATE_LIMIT` requests per minute (600 by default).
 
 ## Use as a Claude connector
 

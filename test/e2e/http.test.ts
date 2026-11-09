@@ -32,10 +32,10 @@ const freePort = (): Promise<number> =>
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
-const start = async (): Promise<Running> => {
+const start = async (extraEnv: Record<string, string> = {}): Promise<Running> => {
   const port = await freePort();
   const child = spawn('node', ['--disable-warning=ExperimentalWarning', HTTP], {
-    env: { ...process.env, PORT: String(port), STEPBIBLE_DB: dbPath },
+    env: { ...process.env, PORT: String(port), STEPBIBLE_DB: dbPath, ...extraEnv },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   running.push(child);
@@ -143,9 +143,9 @@ void test('GET and DELETE on /mcp are not allowed in stateless mode', async () =
   }
 });
 
-void test('the 61st request within a minute gets 429 with Retry-After', async () => {
-  const server = await start();
-  for (let i = 1; i <= 60; i++) {
+void test('the request over RATE_LIMIT within a minute gets 429 with Retry-After', async () => {
+  const server = await start({ RATE_LIMIT: '5' });
+  for (let i = 1; i <= 5; i++) {
     const res = await post(server.base);
     assert.notEqual(res.status, 429, `request ${i}`);
     await res.arrayBuffer();

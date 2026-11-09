@@ -436,3 +436,26 @@ void test('loadTranslation records a native ref range, notes, and no legend for 
   });
   assert.equal(scalar(db, "SELECT has_notes FROM translation_meta WHERE version = 'kjv'"), 1);
 });
+
+void test('loadTranslation stores no own number when it equals the KJV slot', () => {
+  const db = fresh();
+  loadTranslation(db, {
+    version: version('rst'),
+    rules: MODULE_RULES.rst,
+    sha256: 'abc',
+    lines: [
+      { book: '2Cor', chapter: 11, verse: 33, line: '(11:33) и я в корзине спущен был' },
+      { book: '2Cor', chapter: 11, verse: 32, line: '(11:31) В Дамаске' },
+    ],
+  });
+  assert.deepEqual(
+    db
+      .prepare('SELECT verse, native_ref FROM translation_verses ORDER BY verse')
+      .all()
+      .map((r) => ({ ...r })),
+    [
+      { verse: 32, native_ref: '11:31' },
+      { verse: 33, native_ref: null },
+    ],
+  );
+});

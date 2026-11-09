@@ -148,8 +148,8 @@ export type TranslationInput = {
 const ABSENT_RE = /^(?:-(?: -)*)?$/;
 
 /**
- * Stores a translation's verses, cleaned, with each line's own verse number when the module marks one.
- * Slots without text are not stored. Returns the number of verses stored.
+ * Stores a translation's verses, cleaned, with each line's own verse number when the module marks one that
+ * differs from the KJV slot. Slots without text are not stored. Returns the number of verses stored.
  */
 export const loadTranslation = (db: DatabaseSync, input: TranslationInput): number => {
   const { version, rules } = input;
@@ -166,7 +166,10 @@ export const loadTranslation = (db: DatabaseSync, input: TranslationInput): numb
       if (ABSENT_RE.test(clean.text)) continue;
       brackets ||= clean.text.includes('[');
       notes ||= clean.text.includes('⸨');
-      insVerse.run(version.id, book, chapter, verse, nativeRange(clean), clean.text);
+      // A number equal to the KJV slot tells the reader nothing.
+      const own = nativeRange(clean);
+      const nativeRef = own === `${chapter}:${verse}` ? null : own;
+      insVerse.run(version.id, book, chapter, verse, nativeRef, clean.text);
       count++;
     }
     db.prepare(

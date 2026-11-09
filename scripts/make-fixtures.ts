@@ -1,7 +1,12 @@
-// Writes the test excerpt (Ruth and John 1) of the STEPBible data from data/raw/ into test/fixtures/raw/.
+// Writes the test excerpt (Ruth and John 1) of the STEPBible data from data/raw/ into test/fixtures/raw/,
+// and an excerpt of each theWord module in data/theword/ into test/fixtures/theword/<version>.tsv.
 // Usage: node scripts/make-fixtures.ts   (requires pnpm data:fetch first)
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { normalizeBook } from '../src/domain/books.ts';
+import { kjvBounds, lineIndex } from '../src/domain/kjv.ts';
+import { parseManifest } from '../src/ingest/manifest.ts';
+import { decodeModule } from '../src/ingest/theword.ts';
 import { parseTagntLine } from '../src/ingest/tagnt.ts';
 import { parseTahotLine } from '../src/ingest/tahot.ts';
 
@@ -68,3 +73,51 @@ for (const line of lines('TIPNR.txt')) {
   tipnr.push(line);
 }
 write('TIPNR.txt', tipnr);
+
+// theWord modules: `book chapter verse raw-line` rows for the verses the tests use.
+const THEWORD = fileURLToPath(new URL('../data/theword/', import.meta.url));
+const THEWORD_OUT = fileURLToPath(new URL('../test/fixtures/theword/', import.meta.url));
+const EXCERPT: readonly (readonly [book: string, chapter: number, from?: number, to?: number])[] = [
+  ['Ruth', 1],
+  ['Ruth', 2],
+  ['Ruth', 3],
+  ['Ruth', 4],
+  ['Lev', 6, 1, 1],
+  ['Num', 7],
+  ['Num', 13, 1, 3],
+  ['Judg', 16, 9, 9],
+  ['1Sam', 20, 42, 42],
+  ['Ps', 3],
+  ['Ps', 23, 1, 1],
+  ['Prov', 4, 27, 27],
+  ['Mal', 4, 1, 1],
+  ['Matt', 5, 22, 22],
+  ['Acts', 8, 37, 37],
+  ['Acts', 15, 34, 34],
+  ['Rom', 16, 25, 25],
+  ['2Cor', 13, 12, 14],
+  ['3John', 1, 14, 14],
+  ['Rev', 12, 17, 17],
+  ['Rev', 13, 1, 1],
+];
+mkdirSync(THEWORD_OUT, { recursive: true });
+const manifest = parseManifest(readFileSync(`${THEWORD}MANIFEST.json`, 'utf8'));
+for (const entry of manifest.modules) {
+  const decoded = decodeModule(readFileSync(`${THEWORD}${entry.file}`), entry.encoding);
+  if (!decoded.ok) throw new Error(`${entry.file}: ${decoded.error.found} verse lines`);
+  const rows: string[] = [];
+  for (const [id, chapter, from, to] of EXCERPT) {
+    const book = normalizeBook(id);
+    if (!book.ok) throw new Error(`unknown book ${id}`);
+    const last = to ?? kjvBounds(book.value)(chapter)?.last ?? 0;
+    for (let verse = from ?? 1; verse <= last; verse++) {
+      const index = lineIndex(book.value, chapter, verse);
+      const line = index === null ? undefined : decoded.value.lines[index];
+      if (line === undefined) throw new Error(`${id} ${chapter}:${verse} is not a KJV verse`);
+      if (line.includes('\t')) throw new Error(`${entry.file} ${id} ${chapter}:${verse} contains a tab`);
+      rows.push([book.value.id, chapter, verse, line].join('\t'));
+    }
+  }
+  writeFileSync(`${THEWORD_OUT}${entry.version}.tsv`, `${rows.join('\n')}\n`);
+  console.log(`theword/${entry.version}.tsv  ${rows.length} lines`);
+}

@@ -5,6 +5,7 @@ import {
   decodeModule,
   decodeText,
   MODULE_RULES,
+  nativeRange,
   type ModuleRules,
 } from '../../src/ingest/theword.ts';
 
@@ -492,4 +493,28 @@ void test('an ellipsis keeps the space before it, except right after a bracket',
     ),
     'if from a thread even to a sandal-thong, yes, if of all that is thine, I take [anything]...; that thou mayest not say, I have made Abram rich;',
   );
+});
+
+void test('nativeRange: no marker gives null, one leading marker its number', () => {
+  assert.equal(nativeRange(cleanVerse('В начале сотворил Бог', rst), 1, 1), null);
+  assert.equal(nativeRange(cleanVerse('(13:2) И сказал Господь', rst), 13, 1), '13:2');
+});
+
+void test('nativeRange: a leading and a mid-line marker give a range', () => {
+  assert.equal(nativeRange(cleanVerse('(11:1) ^^Псалом^^ (11:2) Господи!', rst), 12, 1), '11:1-2');
+  assert.equal(
+    nativeRange(cleanVerse('<WTG12:18> Und ich stand.<WTG13:1> Und ich sah', gerelb), 13, 1),
+    '12:18-13:1',
+  );
+});
+
+void test('nativeRange: a mid-line marker only starts the range at the slot number', () => {
+  assert.equal(nativeRange(cleanVerse('^^Псалом Давида^^ (3:2) Господи!', rst), 3, 1), '3:1-2');
+  assert.equal(nativeRange(cleanVerse('reden.<WTG1:15> Friede dir!', gerelb), 1, 14), '1:14-15');
+  assert.equal(nativeRange(cleanVerse('Text.<WTH21:1> Und David', gerelb), 20, 42), '20:42-21:1');
+});
+
+void test('nativeRange: parentheses without chapter and verse are not markers', () => {
+  assert.equal(nativeRange(cleanVerse('(Между тем один скрытно сидел у нее.) И сказала', rst), 16, 9), null);
+  assert.equal(nativeRange(cleanVerse('(Миха) сказал', rst), 18, 24), null);
 });

@@ -1,9 +1,11 @@
 import type { DatabaseSync } from 'node:sqlite';
+import type { Version } from '../domain/versions.ts';
 import type { ParseIssue, ParseOutcome } from './issue.ts';
 import { parseMorphologyCodes, type MorphologyCode } from './morphology.ts';
 import { baseText, parseTagntLine } from './tagnt.ts';
 import { parseTahotLine, type TahotWord } from './tahot.ts';
 import { parseTbeshLine } from './tbesh.ts';
+import { cleanVerse, nativeRange, type ModuleRules } from './theword.ts';
 import { parseTipnr } from './tipnr.ts';
 
 export type LoadInput = {
@@ -101,7 +103,89 @@ CREATE TABLE morphology (
 );
 
 CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+
+CREATE TABLE translation_verses (
+  version TEXT NOT NULL,
+  book TEXT NOT NULL,
+  chapter INTEGER NOT NULL,
+  verse INTEGER NOT NULL,
+  native_ref TEXT,
+  text TEXT NOT NULL,
+  PRIMARY KEY (version, book, chapter, verse)
+) WITHOUT ROWID;
+
+CREATE TABLE translation_meta (
+  version TEXT PRIMARY KEY,
+  label TEXT NOT NULL,
+  title TEXT NOT NULL,
+  language TEXT NOT NULL,
+  licence TEXT NOT NULL,
+  attribution TEXT NOT NULL,
+  bracket_meaning TEXT,
+  has_notes INTEGER NOT NULL,
+  sha256 TEXT NOT NULL
+);
 `);
+};
+
+/** One verse slot of a translation module: its KJV reference and the raw line. */
+export type TranslationLine = {
+  readonly book: string;
+  readonly chapter: number;
+  readonly verse: number;
+  readonly line: string;
+};
+
+export type TranslationInput = {
+  readonly version: Version;
+  readonly rules: ModuleRules;
+  /** sha256 of the module file the lines come from. */
+  readonly sha256: string;
+  readonly lines: Iterable<TranslationLine>;
+};
+
+// A slot the module leaves empty, or Darby's `- - -` for a verse it omits.
+const ABSENT_RE = /^(?:-(?: -)*)?$/;
+
+/**
+ * Stores a translation's verses, cleaned, with each line's own verse number when the module marks one.
+ * Slots without text are not stored. Returns the number of verses stored.
+ */
+export const loadTranslation = (db: DatabaseSync, input: TranslationInput): number => {
+  const { version, rules } = input;
+  const insVerse = db.prepare(
+    `INSERT INTO translation_verses (version, book, chapter, verse, native_ref, text)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+  );
+  return inTransaction(db, () => {
+    let count = 0;
+    let brackets = false;
+    let notes = false;
+    for (const { book, chapter, verse, line } of input.lines) {
+      const clean = cleanVerse(line, rules);
+      if (ABSENT_RE.test(clean.text)) continue;
+      brackets ||= clean.text.includes('[');
+      notes ||= clean.text.includes('⸨');
+      insVerse.run(version.id, book, chapter, verse, nativeRange(clean, chapter, verse), clean.text);
+      count++;
+    }
+    db.prepare(
+      `INSERT INTO translation_meta (version, label, title, language, licence, attribution, bracket_meaning,
+         has_notes, sha256)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).run(
+      version.id,
+      version.label,
+      version.title,
+      version.language,
+      version.licence,
+      version.attribution,
+      brackets ? rules.bracketMeaning : null,
+      notes ? 1 : 0,
+      input.sha256,
+    );
+    return count;
+  });
 };
 
 const inTransaction = <T>(db: DatabaseSync, body: () => T): T => {

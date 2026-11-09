@@ -1,5 +1,6 @@
 import { KJV_LINES } from '../domain/kjv.ts';
 import { err, ok, type Result } from '../domain/result.ts';
+import type { VersionId } from '../domain/versions.ts';
 
 /** Text encodings of the supplied theWord modules. */
 export type ModuleEncoding = 'windows-1251' | 'windows-1252' | 'utf-8';
@@ -137,6 +138,15 @@ export const MODULE_RULES: Readonly<Record<ModuleId, ModuleRules>> = {
   },
 };
 
+/** The module each `get_translation` version is read from. */
+export const VERSION_MODULE: Readonly<Record<VersionId, ModuleId>> = {
+  kjv: 'kjv',
+  darby: 'darby',
+  elb1905: 'gerelb',
+  ohienko: 'ukrio',
+  rst: 'rst',
+};
+
 /** A verse line as plain text, with the module's own verse numbers (`c:v`) in line order. */
 export type CleanVerse = {
   readonly text: string;
@@ -208,6 +218,21 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
   if (note !== null) out += closeNote(note, rules);
   if (depth > 0) out += ']';
   return { text: tidy(out, rules.stripMarkers), nativeRefs, startsWithRef };
+};
+
+/**
+ * The module's own number for a cleaned line in slot `chapter:verse`, or null if the line has no marker:
+ * `13:2`, or a range (`3:1-2`, `12:18-13:1`) from the first number to the last. A line whose first marker
+ * follows text starts at the slot's number.
+ */
+export const nativeRange = (clean: CleanVerse, chapter: number, verse: number): string | null => {
+  const last = clean.nativeRefs.at(-1);
+  if (last === undefined) return null;
+  const first = clean.startsWithRef ? (clean.nativeRefs[0] ?? last) : `${chapter}:${verse}`;
+  if (first === last) return first;
+  const [firstChapter] = first.split(':');
+  const [lastChapter, lastVerse] = last.split(':');
+  return firstChapter === lastChapter ? `${first}-${lastVerse ?? ''}` : `${first}-${last}`;
 };
 
 const closeNote = (note: string | null, rules: ModuleRules): string => {

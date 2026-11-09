@@ -7,7 +7,7 @@ RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 
-# Downloads the STEPBible files at the pinned revision and builds the database.
+# Downloads the STEPBible files at the pinned revision and builds the database with the vendored translations.
 FROM node:24.12-slim AS build
 WORKDIR /app
 RUN corepack enable
@@ -15,6 +15,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY scripts ./scripts
 COPY src ./src
+COPY data/theword ./data/theword
 RUN pnpm data:fetch && pnpm data:build
 
 FROM node:24.12-slim

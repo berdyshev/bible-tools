@@ -78,6 +78,7 @@ write('TIPNR.txt', tipnr);
 const THEWORD = fileURLToPath(new URL('../data/theword/', import.meta.url));
 const THEWORD_OUT = fileURLToPath(new URL('../test/fixtures/theword/', import.meta.url));
 const EXCERPT: readonly (readonly [book: string, chapter: number, from?: number, to?: number])[] = [
+  ['Gen', 1, 9, 9],
   ['Ruth', 1],
   ['Ruth', 2],
   ['Ruth', 3],

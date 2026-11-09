@@ -16,8 +16,8 @@ const call = (ref: string, version: VersionId): string => {
 };
 
 const goldens: readonly (readonly [ref: string, version: VersionId])[] = [
-  ['Ruth 1:1', 'kjv'],
-  ['Ruth 1:1', 'darby'],
+  ['Gen 1:9', 'kjv'],
+  ['Gen 1:9', 'darby'],
   ['Ruth 1:1', 'elb1905'],
   ['Ruth 1:1', 'ohienko'],
   ['Ruth 1:1', 'rst'],
@@ -53,8 +53,8 @@ void test('KJV shows added words in brackets and its marginal notes inline', () 
   const text = call('Ruth 1:1', 'kjv');
   assert.match(text, /; \[\.\.\] = words added by the translators; ⸨\.\.⸩ = note$/m);
   assert.match(text, /⸨[^⸩]+⸩/);
-  assert.match(call('Ruth 1:2', 'kjv'), /\[was\]/);
-  assert.match(call('Ruth 1:1', 'darby'), /\[[^\]]+\]/);
+  assert.match(call('Gen 1:9', 'kjv'), /\[land\]/);
+  assert.match(call('Gen 1:9', 'darby'), /\[[^\]]+\]/);
 });
 
 void test('the Elberfelder legend says its brackets are traditional-text readings', () => {

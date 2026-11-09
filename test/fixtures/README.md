@@ -20,7 +20,7 @@ Lines are copied unchanged; only a subset of the lines is kept.
 `theword/<version>.tsv` holds lines of the theWord translation modules in `data/theword/` (the
 normalized modules listed in `data/theword/MANIFEST.json`), one row per verse:
 `book<TAB>chapter<TAB>verse<TAB>raw line`, KJV numbering, the raw line decoded to UTF-8 but otherwise
-unchanged. Verses kept: Ruth 1-4, Lev 6:1, Num 7, Num 13:1-3, Judg 16:9, 1Sam 20:42, Ps 3, Ps 23:1,
+unchanged. Verses kept: Gen 1:9, Ruth 1-4, Lev 6:1, Num 7, Num 13:1-3, Judg 16:9, 1Sam 20:42, Ps 3, Ps 23:1,
 Prov 4:27, Mal 4:1, Matt 5:22, Acts 8:37, Acts 15:34, Rom 16:25, 2Cor 13:12-14, 3John 1:14, Rev 12:17,
 Rev 13:1.
 

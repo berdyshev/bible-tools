@@ -7770,7 +7770,7 @@ Und Jonathan rief dem Knaben nach: Schnell, eile, stehe nicht still! Und der Kna
 Der Knabe aber wußte um nichts; nur Jonathan und David wußten um die Sache.
 Und Jonathan gab seine Waffen seinem Knaben und sprach zu ihm: Gehe, bringe sie in die Stadt.
 Der Knabe ging, und David machte sich auf von der Südseite her und fiel auf sein Antlitz zur Erde und beugte sich dreimal nieder; und sie küßten einander und weinten miteinander, bis David über die Maßen weinte.
-Und Jonathan sprach zu David: Gehe hin in Frieden! Es sei, wie wir beide im Namen Jehovas geschworen haben, als wir sagten: Jehova sei zwischen mir und dir und zwischen meinem Samen und deinem Samen auf ewig!<WTH21:1> Und David machte sich auf und ging hinweg; Jonathan aber kam in die Stadt.<CM>
+<WTH20:42> Und Jonathan sprach zu David: Gehe hin in Frieden! Es sei, wie wir beide im Namen Jehovas geschworen haben, als wir sagten: Jehova sei zwischen mir und dir und zwischen meinem Samen und deinem Samen auf ewig!<WTH21:1> Und David machte sich auf und ging hinweg; Jonathan aber kam in die Stadt.<CM>
 Und David kam nach Nob, zu Ahimelech, dem Priester. Und Ahimelech kam David ängstlich entgegen und sprach zu ihm: Warum bist du allein, und niemand ist bei dir?
 Und David sprach zu dem Priester Ahimelech: Der König hat mir eine Sache geboten; und er sprach zu mir: Niemand soll irgendwie um die Sache wissen, in der ich dich sende und die ich dir geboten habe! Und die Knaben habe ich an den und den Ort beschieden.
 Und nun, was ist unter deiner Hand? Gib fünf Brote in meine Hand, oder was sich vorfindet.
@@ -9521,7 +9521,7 @@ Und das Übrige der Geschichte Ahabs und alles, was er getan und das elfenbeiner
 Und Ahab legte sich zu seinen Vätern. Und Ahasja, sein Sohn, ward König an seiner Statt.<CM>
 Und Josaphat, der Sohn Asas, wurde König über Juda im vierten Jahre Ahabs, des Königs von Israel.
 Josaphat war fünfunddreißig Jahre alt, als er König wurde, und er regierte fünfundzwanzig Jahre zu Jerusalem; und er Name seiner Mutter war Asuba, die Tochter Schilchis.
-Und er wandelte auf allen Wegen seines Vaters Asa; er wich nicht davon, indem er tat, was recht war in den Augen Jehovas.<WTH22:44> Nur die Höhen wichen nicht: das Volk opferte und räucherte noch auf den Höhen.
+<WTH22:43> Und er wandelte auf allen Wegen seines Vaters Asa; er wich nicht davon, indem er tat, was recht war in den Augen Jehovas.<WTH22:44> Nur die Höhen wichen nicht: das Volk opferte und räucherte noch auf den Höhen.
 <WTH22:45> Und Josaphat hatte Frieden mit dem König von Israel.
 <WTH22:46> Und das Übrige der Geschichte Josaphats, und seine Macht, die er ausgeübt, und wie er gestritten hat, ist das nicht geschrieben in dem Buche der Chronika der Könige von Juda?
 <WTH22:47> Auch den Rest der Buhler, der in den Tagen seines Vaters Asa übriggeblieben war, schaffte er aus dem Lande hinweg.
@@ -30670,7 +30670,7 @@ Deshalb, wenn ich komme, will ich seiner Werke gedenken, die er tut, indem er mi
 Geliebter, ahme nicht das Böse nach, sondern das Gute. Wer Gutes tut, ist aus Gott; wer Böses tut, hat Gott nicht gesehen.<CM>
 Dem Demetrius wird Zeugnis gegeben von allen und von der Wahrheit selbst; aber auch wir geben Zeugnis, und du weißt, daß unser Zeugnis wahr ist.
 Ich hätte dir vieles zu schreiben, aber ich will dir nicht mit Tinte und Feder schreiben,
-sondern ich hoffe, dich bald zu sehen, und wir wollen mündlich miteinander reden.<WTG1:15> Friede dir! Es grüßen dich die Freunde. Grüße die Freunde mit Namen.<CM>
+<WTG1:14> sondern ich hoffe, dich bald zu sehen, und wir wollen mündlich miteinander reden.<WTG1:15> Friede dir! Es grüßen dich die Freunde. Grüße die Freunde mit Namen.<CM>
 Judas, Knecht Jesu Christi und Bruder des Jakobus, den in Gott, dem Vater, geliebten und in Jesu Christo bewahrten Berufenen:
 Barmherzigkeit und Friede und Liebe sei euch vermehrt! <CM>
 Geliebte, indem ich allen Fleiß anwandte, euch über unser gemeinsames Heil zu schreiben, war ich genötigt, euch zu schreiben und zu ermahnen, für den einmal den Heiligen überlieferten Glauben zu kämpfen.
@@ -31116,4 +31116,4 @@ about=German Darby Unrevidierte Elberfelder 1905,\
 <p><p>Public Domain
 normalized.by=scripts/normalize-theword.ts (stepbible-mcp): one line per KJV verse, see MANIFEST.json
 normalized.from.sha256=123ae1a06a6a4fcabbf80ed9156cb5917ca16cf83ae4ccab0918f53d7a60909d
-normalized.edits=<WTHc:v> tags set from the Hebrew verse map (HEB_TO_KJV) where the module's disagreed or were missing in a tagged chapter, a leading tag wherever the line starts in a Hebrew verse other than its KJV number: Num 30:1, Deut 29:2-29, 1Sam 20:42, 2Kgs 12:1-21, 2Kgs 15:38, Job 40:1-41:8, Job 41:10-34, Ps 13:6, Eccl 6:12, Isa 7:25; Mark 16:9-20 and John 7:53-8:11: the <FI> opened at Mark 16:9 and closed at John 8:11 is set per verse; <FI> spans crossing verse lines closed at the line end and reopened on the next line: Mark 9:45-46, John 5:3-4, John 10:12-13, Acts 24:6-8
+normalized.edits=<WTHc:v> tags set from the Hebrew verse map (HEB_TO_KJV) where the module's disagreed or were missing in a tagged chapter, a leading tag wherever the line starts in a Hebrew verse other than its KJV number: Num 30:1, Deut 29:2-29, 1Sam 20:42, 2Kgs 12:1-21, 2Kgs 15:38, Job 40:1-41:8, Job 41:10-34, Ps 13:6, Eccl 6:12, Isa 7:25; Mark 16:9-20 and John 7:53-8:11: the <FI> opened at Mark 16:9 and closed at John 8:11 is set per verse; <FI> spans crossing verse lines closed at the line end and reopened on the next line: Mark 9:45-46, John 5:3-4, John 10:12-13, Acts 24:6-8; leading own number added where a line had only mid-line markers: 1Sam 20:42, 1Kgs 22:43, 3John 1:14

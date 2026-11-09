@@ -35,7 +35,7 @@
     {
       "version": "elb1905",
       "file": "gerelb.ont",
-      "sha256": "d6fd062c93c50a721a0fd0405c2bd7d62f3430dd65f8b3507cded7c2ed0c24cb",
+      "sha256": "0a97516c5639e5e809aab67414dabed62784412dacfa8b33d7f643d4812a00ec",
       "original": {
         "file": "original/gerelb.ont",
         "sha256": "123ae1a06a6a4fcabbf80ed9156cb5917ca16cf83ae4ccab0918f53d7a60909d",
@@ -48,13 +48,14 @@
       "edits": [
         "<WTHc:v> tags set from the Hebrew verse map (HEB_TO_KJV) where the module's disagreed or were missing in a tagged chapter, a leading tag wherever the line starts in a Hebrew verse other than its KJV number: Num 30:1, Deut 29:2-29, 1Sam 20:42, 2Kgs 12:1-21, 2Kgs 15:38, Job 40:1-41:8, Job 41:10-34, Ps 13:6, Eccl 6:12, Isa 7:25",
         "Mark 16:9-20 and John 7:53-8:11: the <FI> opened at Mark 16:9 and closed at John 8:11 is set per verse",
-        "<FI> spans crossing verse lines closed at the line end and reopened on the next line: Mark 9:45-46, John 5:3-4, John 10:12-13, Acts 24:6-8"
+        "<FI> spans crossing verse lines closed at the line end and reopened on the next line: Mark 9:45-46, John 5:3-4, John 10:12-13, Acts 24:6-8",
+        "leading own number added where a line had only mid-line markers: 1Sam 20:42, 1Kgs 22:43, 3John 1:14"
       ]
     },
     {
       "version": "ohienko",
       "file": "ukrio.ont",
-      "sha256": "0bd9b4d0fff3be409eb8a1921f76b966c111bb8fee91a77ab90889983df846bd",
+      "sha256": "434bbc6f6ffe678fc513c7587621c022945d17b19cd6e41d3907428fea6d5685",
       "original": {
         "file": "original/ukrio.ont",
         "sha256": "52ef01798b60a4c68edf650402698434db12ea2c58250c5bbcc3937a414d1f6f",
@@ -70,13 +71,14 @@
         "duplicated verse removed from the start of Ps 41:13 (copy of Job 41:26), Joel 3:21 (copy of Hos 14:1), Amos 3:5 (copy of Joel 3:5)",
         "verses absent from the module: Ohienko Ps 7:2, Ps 51:2, Ps 52:2",
         "Phil 1:16-17: Ohienko verse order swapped to the KJV order",
-        "empty lines: none"
+        "empty lines: none",
+        "leading own number added where a line had only mid-line markers: 1Sam 20:42, 1Kgs 18:33, 1Kgs 20:2, Ps 3:1, Ps 4:1, Ps 5:1, Ps 6:1, Ps 8:1, Ps 9:1, Ps 12:1, Ps 13:1, Ps 18:1, Ps 19:1, Ps 20:1, Ps 21:1, Ps 22:1, Ps 30:1, Ps 31:1, Ps 34:1, Ps 36:1, Ps 38:1, Ps 39:1, Ps 40:1, Ps 41:1, Ps 42:1, Ps 44:1, Ps 45:1, Ps 46:1, Ps 47:1, Ps 48:1, Ps 49:1, Ps 51:1, Ps 52:1, Ps 53:1, Ps 54:1, Ps 55:1, Ps 56:1, Ps 57:1, Ps 58:1, Ps 59:1, Ps 60:1, Ps 61:1, Ps 62:1, Ps 63:1, Ps 64:1, Ps 65:1, Ps 67:1, Ps 68:1, Ps 69:1, Ps 70:1, Ps 75:1, Ps 76:1, Ps 77:1, Ps 80:1, Ps 81:1, Ps 83:1, Ps 84:1, Ps 85:1, Ps 88:1, Ps 89:1, Ps 92:1, Ps 102:1, Ps 108:1, Ps 140:1, Ps 142:1, 3John 1:14"
       ]
     },
     {
       "version": "rst",
       "file": "rst.ont",
-      "sha256": "80de706cb588c54227c967c1e22ca663fd6c89672a77e2ce8acdc294f02ced93",
+      "sha256": "ac993832c93926c3eb2448714fb4aafb9a909d30d162dec10b9a739f2e8b0db7",
       "original": {
         "file": "original/rst.ont",
         "sha256": "1636b2b217156d9db30dce8db06200ec9cebaeb5bbf9a49aeab4c63d4084fdf3",
@@ -89,7 +91,8 @@
       "edits": [
         "Song 1: the module lacks the title verse 1:1 and holds KJV 1:2-17 in lines 1:1-17 (1:17 split over two lines); moved up one line, KJV 1:1 left empty",
         "Ps 90:1-6: lines hold Synodal 89:1-6 by number (title alone in 89:1, KJV 90:5-6 in 89:6); joined and split onto the KJV verses",
-        "Isa 3:19-26: KJV 3:19-20 in one line and 3:26 over two lines, the lines between shifted by one; re-slotted"
+        "Isa 3:19-26: KJV 3:19-20 in one line and 3:26 over two lines, the lines between shifted by one; re-slotted",
+        "leading own number added where a line had only mid-line markers: 1Sam 20:42, Ps 3:1, Ps 4:1, Ps 5:1, Ps 6:1, Ps 7:1, Ps 8:1, Ps 9:1, 3John 1:14"
       ]
     }
   ]

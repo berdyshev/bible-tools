@@ -884,6 +884,39 @@ const cleanLength = (line: string): number =>
     .replace(/<[^<>]*>/g, '')
     .trim().length;
 
+const MARKER_RE: Readonly<Record<'paren' | 'wt-tag', RegExp>> = {
+  paren: /\(\d+:\d+\)/,
+  'wt-tag': /<WT[HG]\d+:\d+>/,
+};
+
+/**
+ * Gives every line whose first own-number marker follows text a leading marker with its KJV number, so a
+ * reader never has to infer the number of the part before the first marker. After the edits above that part
+ * is always in the verse of the KJV number (Ohienko lines get a leading marker whenever it differs, the
+ * Elberfelder tags follow the Hebrew map, and the RST lines concerned are psalm titles, 1Sam 20:42, 3John 1:14).
+ */
+const addLeadingMarkers = (lines: string[], style: 'paren' | 'wt-tag'): number[] => {
+  const changed: number[] = [];
+  lines.forEach((line, i) => {
+    const m = MARKER_RE[style].exec(line);
+    if (
+      m === null ||
+      line
+        .slice(0, m.index)
+        .replace(/<[^<>]*>/g, '')
+        .trim() === ''
+    )
+      return;
+    const ref = refAt(i);
+    if (ref === null) return;
+    const number = `${ref.chapter}:${ref.verse}`;
+    const tag = ref.book.testament === 'OT' ? 'WTH' : 'WTG';
+    lines[i] = style === 'paren' ? `(${number}) ${line}` : `<${tag}${number}> ${line}`;
+    changed.push(i);
+  });
+  return changed;
+};
+
 type ManifestEntry = {
   readonly version: VersionId;
   readonly file: string;
@@ -928,6 +961,20 @@ export const normalizeAll = (): Output[] => {
     weight: kjv.map((l, i) => Math.max((cleanLength(l) + cleanLength(darby[i] ?? '')) / 2, 10)),
   };
   edit('ukrio.ont', (lines) => normalizeOhienko(lines, context));
+  for (const [file, style] of [
+    ['gerelb.ont', 'wt-tag'],
+    ['rst.ont', 'paren'],
+    ['ukrio.ont', 'paren'],
+  ] as const) {
+    const result = results.get(file);
+    if (result === undefined) continue;
+    const led = addLeadingMarkers(result.lines, style);
+    if (led.length > 0) {
+      result.edits.push(
+        `leading own number added where a line had only mid-line markers: ${describeLines(led)}`,
+      );
+    }
+  }
 
   return SPECS.map((spec) => {
     const { bytes: originalBytes, module } = get(spec.file);

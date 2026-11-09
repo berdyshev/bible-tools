@@ -92,7 +92,7 @@ void test('Ohienko lines hold the KJV verse, with Ohienko’s own number where i
     ['Gen 32:1', '(32:2) А Яків пішов на дорогу свою.'],
     ['Lev 6:1', '(5:20) І Господь промовляв до Мойсея'],
     ['Lev 6:8', '(6:1) І Господь промовляв до Мойсея'],
-    ['Ps 3:1', 'Псалом Давидів, як він утікав був від перед Авесаломом, своїм сином. (3:2) Господи,'],
+    ['Ps 3:1', '(3:1) Псалом Давидів, як він утікав був від перед Авесаломом, своїм сином. (3:2) Господи,'],
     ['Ps 3:2', '(3:3) Багато-хто кажуть про душу мою'],
     ['Ps 116:10', '(116:1) Я вірив, коли говорив'],
     ['Joel 2:28', '(3:1) І буде потому, виллю Я Духа Свого на кожне тіло'],
@@ -150,6 +150,29 @@ void test('Elberfelder Hebrew-number tags follow the Hebrew verse map', () => {
   assert.ok(verse(elb, '2Kgs 11:21').startsWith('<WTH12:1> '));
   assert.ok(verse(elb, '2Kgs 12:1').startsWith('<WTH12:2> '));
   assert.ok(verse(elb, '2Kgs 12:21').startsWith('<WTH12:22> '));
+  assert.ok(verse(elb, '1Sam 20:42').startsWith('<WTH20:42> '));
   assert.ok(verse(elb, '1Sam 20:42').includes('auf ewig!<WTH21:1> Und David'));
   assert.ok(verse(elb, 'Lev 6:1').startsWith('<WTH5:20> '));
+});
+
+void test('a line with a mid-line own number also starts with one', () => {
+  for (const [file, re] of [
+    ['rst.ont', /\(\d+:\d+\)/],
+    ['ukrio.ont', /\(\d+:\d+\)/],
+    ['gerelb.ont', /<WT[HG]\d+:\d+>/],
+  ] as const) {
+    lines(file).forEach((line, i) => {
+      const m = re.exec(line);
+      if (m !== null)
+        assert.equal(
+          line
+            .slice(0, m.index)
+            .replace(/<[^<>]*>/g, '')
+            .trim(),
+          '',
+          `${file} line ${i + 1}`,
+        );
+    });
+  }
+  assert.ok(verse(lines('rst.ont'), 'Ps 3:1').startsWith('(3:1) ^^Псалом Давида'));
 });

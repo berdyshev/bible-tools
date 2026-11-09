@@ -5,7 +5,7 @@ import { registerResources } from './resources.ts';
 import { explainMorphology } from './tools/explain-morphology.ts';
 import { findOccurrences } from './tools/find-occurrences.ts';
 import { getNames } from './tools/get-names.ts';
-import { getVerse } from './tools/get-verse.ts';
+import { getOriginal } from './tools/get-original.ts';
 import { lookupStrong } from './tools/lookup-strong.ts';
 import { searchLexicon } from './tools/search-lexicon.ts';
 import type { Registrable } from './tools/shared.ts';
@@ -24,7 +24,7 @@ export const instructions = (repo: BibleRepo): string =>
   ].join('\n');
 
 const tools: readonly Registrable[] = [
-  getVerse,
+  getOriginal,
   lookupStrong,
   getNames,
   findOccurrences,

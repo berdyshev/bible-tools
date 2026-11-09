@@ -103,11 +103,11 @@ void test('an MCP client can initialize and list the tools over POST /mcp', asyn
       'explain_morphology',
       'find_occurrences',
       'get_names',
-      'get_verse',
+      'get_original',
       'lookup_strong',
       'search_lexicon',
     ]);
-    const verse = await client.callTool({ name: 'get_verse', arguments: { ref: 'Ruth 1:1' } });
+    const verse = await client.callTool({ name: 'get_original', arguments: { ref: 'Ruth 1:1' } });
     assert.notEqual(verse.isError, true);
   } finally {
     await client.close();

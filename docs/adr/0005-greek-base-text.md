@@ -34,9 +34,9 @@ Measured on the pinned data revision:
 
 The 40 verses include `Matthew 17:21`, `Matthew 23:14`, `Mark 15:28`, `Mark 16:9-20`, `Luke 23:17`, `John 5:4`, `John 7:53-8:11`, `Acts 8:37` and `Romans 16:24`. Rule 3 is not reached on this data; it keeps a verse from vanishing if a later revision has one.
 
-`get_verse` shows the line `Not in the Nestlé-Aland text; shown from the traditional text.` right after the heading of such a verse. The condition is that none of the verse's stored words has an `N` or `n` type, so it needs no extra column. Old Testament verses never get the note: Hebrew word types contain no `N`.
+`get_original` shows the line `Not in the Nestlé-Aland text; shown from the traditional text.` right after the heading of such a verse. The condition is that none of the verse's stored words has an `N` or `n` type, so it needs no extra column. Old Testament verses never get the note: Hebrew word types contain no `N`.
 
-Word text is stored as the source gives it, trailing punctuation included (`λόγος,`). `get_verse` prints it unchanged; `find_occurrences` and `get_names` strip trailing marks when they compare or show forms.
+Word text is stored as the source gives it, trailing punctuation included (`λόγος,`). `get_original` prints it unchanged; `find_occurrences` and `get_names` strip trailing marks when they compare or show forms.
 
 ## Alternatives
 

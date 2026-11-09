@@ -39,7 +39,7 @@ void test('the tools are listed with read-only annotations', async () => {
     'explain_morphology',
     'find_occurrences',
     'get_names',
-    'get_verse',
+    'get_original',
     'lookup_strong',
     'search_lexicon',
   ]);
@@ -62,7 +62,7 @@ void test('successful calls are not errors and carry structured content where de
   const declared = (name: string) => tools.find((t) => t.name === name)?.outputSchema !== undefined;
 
   const calls = [
-    { name: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
+    { name: 'get_original', arguments: { ref: 'Ruth 1:1' } },
     { name: 'get_names', arguments: { ref: 'Ruth 1:2' } },
     { name: 'lookup_strong', arguments: { strong: 'H7704' } },
     { name: 'lookup_strong', arguments: { strong: 'H7704G' } },
@@ -82,17 +82,17 @@ void test('successful calls are not errors and carry structured content where de
 void test('input errors reach the client with their hint', async () => {
   const cases = [
     {
-      name: 'get_verse',
+      name: 'get_original',
       arguments: { ref: 'Руфь 1:2' },
       text: /^Unknown book "Руфь"\. Use English OSIS ids or names: /,
     },
     {
-      name: 'get_verse',
+      name: 'get_original',
       arguments: { ref: 'Ruth 99:1' },
       text: /^Ruth has no chapter 99\. Use a chapter from 1 to 4$/,
     },
     {
-      name: 'get_verse',
+      name: 'get_original',
       arguments: { ref: 'Ruth 1:5-2' },
       text: /^Range "Ruth 1:5-2" ends before it starts/,
     },
@@ -102,7 +102,7 @@ void test('input errors reach the client with their hint', async () => {
       text: /^Malformed Strong's number "H99999"\. Use H or G, then a number \(up to 4 digits for H, 5 for G;/,
     },
     {
-      name: 'get_verse',
+      name: 'get_original',
       arguments: { ref: 'Ruth 1:2', versification: 'lxx' },
       text: /versification must be "eng" \(English\/NRSV, default\) or "heb" \(Hebrew\/Leningrad\)/,
     },
@@ -133,7 +133,7 @@ void test('a failing repository gives a generic error and the details go to stde
     logged.push(args);
   };
   try {
-    const result = await failing.callTool({ name: 'get_verse', arguments: { ref: 'Ruth 1:2' } });
+    const result = await failing.callTool({ name: 'get_original', arguments: { ref: 'Ruth 1:2' } });
     assert.equal(result.isError, true);
     assert.doesNotMatch(textOf(result), /secret/);
     assert.match(textOf(result), /Internal error/);
@@ -160,11 +160,11 @@ void test('resource templates are listed and not enumerated', async () => {
 
 void test('resources return the same text as the tools', async () => {
   const cases = [
-    { uri: 'stepbible://verse/Ruth%201%3A1', tool: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
-    { uri: 'stepbible://verse/Ruth.1.1', tool: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
+    { uri: 'stepbible://verse/Ruth%201%3A1', tool: 'get_original', arguments: { ref: 'Ruth 1:1' } },
+    { uri: 'stepbible://verse/Ruth.1.1', tool: 'get_original', arguments: { ref: 'Ruth 1:1' } },
     { uri: 'stepbible://strong/H7704G', tool: 'lookup_strong', arguments: { strong: 'H7704G' } },
-    { uri: 'stepbible://verse/John%201%3A1', tool: 'get_verse', arguments: { ref: 'John 1:1' } },
-    { uri: 'stepbible://verse/John.1.1', tool: 'get_verse', arguments: { ref: 'John 1:1' } },
+    { uri: 'stepbible://verse/John%201%3A1', tool: 'get_original', arguments: { ref: 'John 1:1' } },
+    { uri: 'stepbible://verse/John.1.1', tool: 'get_original', arguments: { ref: 'John 1:1' } },
     { uri: 'stepbible://strong/G3056', tool: 'lookup_strong', arguments: { strong: 'G3056' } },
   ];
   for (const { uri, tool, arguments: args } of cases) {
@@ -246,7 +246,7 @@ void test('prompts are listed with their arguments', async () => {
 void test('word_study names the tools in order', async () => {
   const text = await promptText('word_study', { strong: 'H7704G' });
   assert.match(text, /H7704G/);
-  const order = ['lookup_strong', 'find_occurrences', 'get_verse'].map((tool) => text.indexOf(tool));
+  const order = ['lookup_strong', 'find_occurrences', 'get_original'].map((tool) => text.indexOf(tool));
   assert.ok(
     order.every((i) => i >= 0),
     text,
@@ -274,7 +274,7 @@ void test('the prompts do not say Hebrew or Old Testament and work for a Greek n
 void test('verse_analysis names the tools in order', async () => {
   const text = await promptText('verse_analysis', { ref: 'Ruth 1:1' });
   assert.match(text, /Ruth 1:1/);
-  const order = ['get_verse', 'get_names', 'lookup_strong'].map((tool) => text.indexOf(tool));
+  const order = ['get_original', 'get_names', 'lookup_strong'].map((tool) => text.indexOf(tool));
   assert.ok(
     order.every((i) => i >= 0),
     text,

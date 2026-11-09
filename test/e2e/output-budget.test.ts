@@ -22,9 +22,9 @@ after(async () => {
 });
 
 const toolCalls = [
-  { name: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
-  { name: 'get_verse', arguments: { ref: 'Ruth 1:1-3' } },
-  { name: 'get_verse', arguments: { ref: 'Ruth 1' } },
+  { name: 'get_original', arguments: { ref: 'Ruth 1:1' } },
+  { name: 'get_original', arguments: { ref: 'Ruth 1:1-3' } },
+  { name: 'get_original', arguments: { ref: 'Ruth 1' } },
   { name: 'lookup_strong', arguments: { strong: 'H7704' } },
   { name: 'lookup_strong', arguments: { strong: 'H7704G' } },
   { name: 'get_names', arguments: { ref: 'Ruth 1:2' } },
@@ -32,8 +32,8 @@ const toolCalls = [
   { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'Ruth' } },
   { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'OT' } },
   { name: 'search_lexicon', arguments: { query: 'field' } },
-  { name: 'get_verse', arguments: { ref: 'John 1' } },
-  { name: 'get_verse', arguments: { ref: 'John 1:1', morphology: true } },
+  { name: 'get_original', arguments: { ref: 'John 1' } },
+  { name: 'get_original', arguments: { ref: 'John 1:1', morphology: true } },
   { name: 'get_names', arguments: { ref: 'John 1:1-30' } },
   { name: 'lookup_strong', arguments: { strong: 'G3056' } },
   { name: 'find_occurrences', arguments: { strong: 'G3056' } },

@@ -45,8 +45,8 @@ export const descriptionParts: DescriptionParts = {
   output:
     "Output: a header line, then one line per word in reading order: `position. transliteration  strong  gloss  [name: kind]  original` (with `morphology: true` the morphology code is added before the original, e.g. `3. ēn  G1510  was  V-IAI-3S  ἦν`); in Hebrew '/' in a gloss separates prefix, root and suffix (e.g. `and/ name`). " +
     'A New Testament verse that the Nestlé-Aland text lacks (e.g. `John 5:4`) is shown from the traditional text and says so on a line after its heading. ' +
-    `A range such as \`Ruth 1:1-5\` or a chapter such as \`Ruth 1\` is grouped by verse, each with a \`Ruth 1:2\` sub-header, and is capped at ${MAX_VERSES} verses and about ${MAX_CHARS} characters: a longer passage ends with \`truncated — call get_verse again with "Ruth 1:7-12"\`.`,
-  not: 'It does not translate the verse and gives no definitions: use lookup_strong for meanings and get_names for a clean list of the names in a verse. There is no get_passage tool: pass a range to get_verse.',
+    `A range such as \`Ruth 1:1-5\` or a chapter such as \`Ruth 1\` is grouped by verse, each with a \`Ruth 1:2\` sub-header, and is capped at ${MAX_VERSES} verses and about ${MAX_CHARS} characters: a longer passage ends with \`truncated — call get_original again with "Ruth 1:7-12"\`.`,
+  not: 'It does not translate the verse and gives no definitions: use lookup_strong for meanings and get_names for a clean list of the names in a verse. There is no get_passage tool: pass a range to get_original.',
 };
 
 export const description = describeTool(descriptionParts);
@@ -108,7 +108,7 @@ export const formatPassage = (span: Span, verses: Iterable<PassageVerse>, morpho
   for (const { ref, words } of verses) {
     const block = [formatRef(ref), ...verseLines(ref, words, morphology)].join('\n');
     if (shown > 0 && (shown === MAX_VERSES || length + 1 + block.length > MAX_CHARS)) {
-      lines.push(continuation('get_verse', span, ref));
+      lines.push(continuation('get_original', span, ref));
       break;
     }
     lines.push(block);
@@ -126,8 +126,8 @@ function* versesWithWords(repo: BibleRepo, span: Span): Generator<PassageVerse> 
   }
 }
 
-export const getVerse = defineTool({
-  name: 'get_verse',
+export const getOriginal = defineTool({
+  name: 'get_original',
   title: 'Original-language words of a verse',
   description,
   input: inputSchema,

@@ -36,18 +36,18 @@ the Hebrew (Leningrad) numbering of the Old Testament. The New Testament has onl
 
 | Tool            | What it does                                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------- |
-| `get_verse`     | The original words of a verse, a range (`Ruth 1:1-5`, `John 1:1-5`, up to 10 verses) or a chapter: Hebrew for the Old Testament, Greek for the New Testament, with transliteration, English gloss and Strong's numbers. `morphology: true` adds each word's morphology code. Long passages are cut at a verse boundary with a hint for the next call. |
+| `get_original`     | The original words of a verse, a range (`Ruth 1:1-5`, `John 1:1-5`, up to 10 verses) or a chapter: Hebrew for the Old Testament, Greek for the New Testament, with transliteration, English gloss and Strong's numbers. `morphology: true` adds each word's morphology code. Long passages are cut at a verse boundary with a hint for the next call. |
 | `lookup_strong` | The lexicon entry for one Hebrew or Greek Strong's number (`H7704G`, `G3056`), or a menu of its senses. A very long entry is shortened to the output budget. |
 | `get_names`     | The proper names (persons, places, gentilics, divine names) in a verse, range or chapter, deduplicated by Strong's number, with kind, word positions per verse and original form. |
 | `find_occurrences` | Every occurrence of a Strong's number in a book, chapter or whole testament (`OT`, `NT`), with the word form at each. A Greek word compounded with another counts under its first part only. |
 | `search_lexicon` | Finds Hebrew and Greek lexicon entries by an English word in the gloss or meaning, to get a Strong's number. |
-| `explain_morphology` | Explains a morphology code as `get_verse` shows it (`V-AAI-3S`, `HVqw3ms`, compounds such as `HC/Vqw3ms`): the grammatical elements, a plain phrase, the meaning and an example. |
+| `explain_morphology` | Explains a morphology code as `get_original` shows it (`V-AAI-3S`, `HVqw3ms`, compounds such as `HC/Vqw3ms`): the grammatical elements, a plain phrase, the meaning and an example. |
 
 Example calls (tool arguments):
 
 ```json
-{ "name": "get_verse", "arguments": { "ref": "Ruth 1:1" } }
-{ "name": "get_verse", "arguments": { "ref": "John 1:1", "morphology": true } }
+{ "name": "get_original", "arguments": { "ref": "Ruth 1:1" } }
+{ "name": "get_original", "arguments": { "ref": "John 1:1", "morphology": true } }
 { "name": "lookup_strong", "arguments": { "strong": "H7704G" } }
 { "name": "explain_morphology", "arguments": { "code": "V-AAI-3S" } }
 { "name": "get_names", "arguments": { "ref": "Ruth 1:2", "versification": "heb" } }
@@ -62,7 +62,7 @@ output as the matching tool). They are not listed, since there is nothing sensib
 
 | Template                  | Same as         | Example                         |
 | ------------------------- | --------------- | ------------------------------- |
-| `stepbible://verse/{ref}` | `get_verse`     | `stepbible://verse/Ruth%201%3A1`, `stepbible://verse/John.1.1` |
+| `stepbible://verse/{ref}` | `get_original`     | `stepbible://verse/Ruth%201%3A1`, `stepbible://verse/John.1.1` |
 | `stepbible://strong/{id}` | `lookup_strong` | `stepbible://strong/H7704G`, `stepbible://strong/G3056` |
 
 `ref` is URL-encoded; `Ruth.1.1` is accepted too. Invalid input is a JSON-RPC error with the
@@ -72,8 +72,8 @@ same hint the tools give.
 
 | Prompt           | Argument | What it asks the model to do                                                                      |
 | ---------------- | -------- | ------------------------------------------------------------------------------------------------- |
-| `word_study`     | `strong` | `lookup_strong` (pick a sense if a menu comes back), `find_occurrences` over the Old Testament (Hebrew numbers) or the New Testament (Greek numbers), `get_verse` on a few representative references, then summarize the usage without inventing data. |
-| `verse_analysis` | `ref`    | `get_verse`, then `get_names`, then `lookup_strong` on the key words.                             |
+| `word_study`     | `strong` | `lookup_strong` (pick a sense if a menu comes back), `find_occurrences` over the Old Testament (Hebrew numbers) or the New Testament (Greek numbers), `get_original` on a few representative references, then summarize the usage without inventing data. |
+| `verse_analysis` | `ref`    | `get_original`, then `get_names`, then `lookup_strong` on the key words.                             |
 
 ## Use with Claude Desktop or Claude Code
 

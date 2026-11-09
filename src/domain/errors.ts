@@ -55,7 +55,7 @@ export const hint = (e: InputError): string => {
         ? `Strong's number "${e.input}" was not found. Check the number or try search_lexicon`
         : `Strong's number "${e.input}" was not found. Its base number has the senses ${e.senses.join(', ')}; use one of them or try search_lexicon`;
     case 'unknown_morph_code':
-      return `Morphology code "${e.input}"${e.within === undefined ? '' : ` (in "${e.within}")`} was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained`;
+      return `Morphology code "${e.input}"${e.within === undefined ? '' : ` (in "${e.within}")`} was not found. Use a full code as get_original shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained`;
     case 'scope_wrong_testament':
       return e.testament === 'NT'
         ? `Strong's number "${e.input}" is Greek and occurs only in the New Testament, but the scope "${e.scope}" is in the Old Testament. Use scope "NT", a New Testament book or chapter such as "John 1", or leave scope out`

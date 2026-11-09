@@ -3,8 +3,8 @@ import { test } from 'node:test';
 import { normalizeBook } from '../../src/domain/books.ts';
 import { parsePassage, spanOf } from '../../src/domain/ref.ts';
 import type { Span, VerseRef } from '../../src/domain/ref.ts';
-import { description, formatPassage, formatVerse, inputSchema } from '../../src/tools/get-verse.ts';
-import type { PassageVerse, VerseWord } from '../../src/tools/get-verse.ts';
+import { description, formatPassage, formatVerse, inputSchema } from '../../src/tools/get-original.ts';
+import type { PassageVerse, VerseWord } from '../../src/tools/get-original.ts';
 
 const book = normalizeBook('Ruth');
 assert.ok(book.ok);
@@ -159,7 +159,7 @@ void test('a passage has one header, then each verse under its own sub-header', 
 void test('a passage stops at the verse cap and names the rest', () => {
   const lines = formatPassage(spanOfText('Ruth 1:1-12'), verses(1, 12)).split('\n');
   assert.equal(lines.filter((l) => /^Ruth 1:\d+$/.test(l)).length, 10);
-  assert.equal(lines.at(-1), 'truncated — call get_verse again with "Ruth 1:11-12"');
+  assert.equal(lines.at(-1), 'truncated — call get_original again with "Ruth 1:11-12"');
   const exact = formatPassage(spanOfText('Ruth 1:1-10'), verses(1, 10));
   assert.ok(!exact.includes('truncated'));
 });
@@ -171,7 +171,7 @@ void test('a passage stops before the verse that would pass the character cap', 
   assert.ok(text.includes('\nRuth 1:1\n'));
   assert.ok(text.includes('\nRuth 1:2\n'));
   assert.ok(!text.includes('\nRuth 1:3\n'));
-  assert.ok(text.endsWith('truncated — call get_verse again with "Ruth 1:3"'));
+  assert.ok(text.endsWith('truncated — call get_original again with "Ruth 1:3"'));
   const first = formatPassage(spanOfText('Ruth 1:1-3'), verses(1, 3, 'א'.repeat(2500)));
   assert.ok(first.includes('\nRuth 1:1\n'));
   assert.ok(first.endsWith('"Ruth 1:2-3"'));
@@ -196,7 +196,7 @@ void test('the description states the range format, the cap and that get_passage
   assert.match(description, /10 verses/);
   assert.match(description, /2000 characters/);
   assert.match(description, /There is no get_passage tool/);
-  assert.match(description, /truncated — call get_verse again with "Ruth 1:7-12"/);
+  assert.match(description, /truncated — call get_original again with "Ruth 1:7-12"/);
 });
 
 void test('morphology adds the raw code after the gloss and name, before the original', () => {

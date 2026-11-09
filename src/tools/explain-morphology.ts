@@ -15,7 +15,7 @@ export const inputSchema = z.object({
     .min(1)
     .max(MAX_CODE_LENGTH)
     .describe(
-      'A morphology code as get_verse shows it with `morphology: true`: Greek `V-AAI-3S`, Hebrew `HVqw3ms`. ' +
+      'A morphology code as get_original shows it with `morphology: true`: Greek `V-AAI-3S`, Hebrew `HVqw3ms`. ' +
         'A compound is explained part by part: `HC/Vqw3ms`, `HR/Ncmpc`, `P-1NS + CONJ`, `HVqp3ms//Ncmsa`.',
     ),
 });
@@ -32,7 +32,7 @@ export const outputSchema = z.object({ parts: z.array(partSchema) });
 
 export const descriptionParts: DescriptionParts = {
   what: 'Explains a Hebrew or Greek morphology code (STEPBible TEHMC, TEGMC): the grammatical elements it stands for, a plain phrase for the form, what the form expresses and an example of how it might be translated.',
-  when: 'Use it on the code that get_verse shows for a word when called with `morphology: true`, to read the tense, voice, mood, person, number, stem or state of the word. Hebrew codes work with or without the leading `H`.',
+  when: 'Use it on the code that get_original shows for a word when called with `morphology: true`, to read the tense, voice, mood, person, number, stem or state of the word. Hebrew codes work with or without the leading `H`.',
   output:
     'Output: per code, a line `code — summary`, then `Parsing:`, `Meaning:` and `Example:` lines where the source has them. A compound code (`HC/Vqw3ms` with a prefix, `HVqp3ms//Ncmsa` with a Qere reading, `P-1NS + CONJ` for two Greek words in one) gives one block per part, separated by a blank line.',
   not: 'It does not look at any verse and does not explain the brief lexical codes of the lexicons such as `G:N-M`; use lookup_strong for the lexicon entry.',

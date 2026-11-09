@@ -233,10 +233,10 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
        has_notes AS hasNotes FROM translation_meta`,
     translationMetaRow,
   );
-  // Chapters have fewer than 1000 verses, so chapter * 1000 + verse orders a book's verses.
+  // A row-value range on the primary key (version, book, chapter, verse) is an index range scan.
   const translationRange = query(
     `SELECT chapter, verse, native_ref AS nativeRef, text FROM translation_verses
-     WHERE version = ? AND book = ? AND chapter * 1000 + verse BETWEEN ? AND ?
+     WHERE version = ? AND book = ? AND (chapter, verse) BETWEEN (?, ?) AND (?, ?)
      ORDER BY chapter, verse`,
     translationVerseRow,
   );
@@ -324,6 +324,6 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     translations: () =>
       translationMetas().toSorted((a, b) => VERSION_IDS.indexOf(a.version) - VERSION_IDS.indexOf(b.version)),
     translationVerses: (version, { book, start, end }) =>
-      translationRange(version, book.id, start.chapter * 1000 + start.verse, end.chapter * 1000 + end.verse),
+      translationRange(version, book.id, start.chapter, start.verse, end.chapter, end.verse),
   };
 };

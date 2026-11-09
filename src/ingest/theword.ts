@@ -216,6 +216,10 @@ const stripText = (text: string, markers: readonly StripMarker[]): string => {
   return result;
 };
 
+// A space before punctuation (`acacia[-wood] ,`, `кликав .Вернися`); a letter glued after it gets a space.
+// An ellipsis (`...`, `…`) keeps its space: Darby and Elberfelder set ` ...For` for a break in speech.
+const SPACED_PUNCT_RE = /\s+([,;:!?]|\.(?!\.))(\p{L})?/gu;
+
 const tidy = (text: string, markers: readonly StripMarker[]): string => {
   let result = text
     .replace(/\s+/g, ' ')
@@ -224,6 +228,9 @@ const tidy = (text: string, markers: readonly StripMarker[]): string => {
     .replace(/\[\]/g, '')
     .replace(/\]\s+(?=[,.;:!?])/g, ']')
     .replace(/\s+/g, ' ')
+    .replace(SPACED_PUNCT_RE, (_m: string, punct: string, letter: string | undefined) =>
+      letter === undefined ? punct : `${punct} ${letter}`,
+    )
     .trim();
   if (markers.includes('trailing-dash')) result = result.replace(/\s+-$/, '');
   return result;

@@ -449,3 +449,32 @@ void test('an unclosed note keeps its text to the end of the line', () => {
 void test('a stray < is kept as text', () => {
   assert.equal(text('a < b', ukrio), 'a < b');
 });
+
+void test('the space before punctuation is removed and a glued letter after it gets one', () => {
+  assert.equal(
+    text(
+      'І побіг він до Ілія та й сказав: Ось я, бо ти кликав мене. А той відказав: Я не кликав .Вернися, лягай. І він пішов і ліг.',
+      ukrio,
+    ),
+    'І побіг він до Ілія та й сказав: Ось я, бо ти кликав мене. А той відказав: Я не кликав. Вернися, лягай. І він пішов і ліг.',
+  );
+  assert.equal(text('a , b ; c : d ! e ?', ukrio), 'a, b; c: d! e?');
+  assert.equal(text('word :next', ukrio), 'word: next');
+  assert.equal(text('1.Chr.18.4, Gr. mouth', kjv), '1.Chr.18.4, Gr. mouth');
+});
+
+void test('an ellipsis keeps the space before it, except right after a bracket', () => {
+  const lines = [
+    'And Adam knew his wife again, and she bore a son, and called his name Seth: ...For God has appointed me another seed instead of Abel, because Cain has slain him.',
+    'Und nun, wenn du ihre Sünde vergeben wolltest! ...Wenn aber nicht, so lösche mich doch aus deinem Buche, das du geschrieben hast.',
+  ];
+  for (const line of lines) assert.equal(text(line, darby), line);
+  assert.equal(text('und dann …Wenn', gerelb), 'und dann …Wenn');
+  assert.equal(
+    text(
+      'if from a thread even to a sandal-thong, yes, if of all that is thine, I take <FI>anything<Fi> ...; that thou mayest not say, I have made Abram rich;',
+      darby,
+    ),
+    'if from a thread even to a sandal-thong, yes, if of all that is thine, I take [anything]...; that thou mayest not say, I have made Abram rich;',
+  );
+});

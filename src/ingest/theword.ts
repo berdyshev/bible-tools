@@ -2,9 +2,6 @@ import { KJV_LINES } from '../domain/kjv.ts';
 import { err, ok, type Result } from '../domain/result.ts';
 import type { VersionId } from '../domain/versions.ts';
 
-/** Text encodings of the supplied theWord modules. */
-export type ModuleEncoding = 'windows-1251' | 'windows-1252' | 'utf-8';
-
 /** A decoded theWord Bible module: one line per KJV verse slot, then `key=value` metadata. */
 export type TheWordModule = {
   readonly meta: Readonly<Record<string, string>>;
@@ -23,22 +20,13 @@ export type ModuleIssue = {
 // The first metadata line: a key, then `=`.
 const META_KEY_RE = /^[\w.#-]+\s*=/;
 
-/** Decodes module bytes to text, without the BOM. `windows-1252` bytes 0x80-0x9F follow WHATWG, not Latin-1. */
-export const decodeText = (bytes: Uint8Array, encoding: ModuleEncoding): string => {
-  const decoded = new TextDecoder(encoding).decode(bytes);
-  return (encoding === 'windows-1252' ? fixC1(decoded) : decoded).replace(/^\uFEFF/, '');
-};
-
 /**
- * Decodes a theWord module. Lines end in CRLF (a lone CR becomes a space); a BOM is dropped. The first
+ * Decodes a UTF-8 theWord module. Lines end in CRLF (a lone CR becomes a space); a BOM is dropped. The first
  * 31 102 lines are verses, then a blank line, then metadata: `key=value`, a trailing `\` continues the value
  * on the next line, `#` lines are comments and a repeated key keeps every value, one per line.
  */
-export const decodeModule = (
-  bytes: Uint8Array,
-  encoding: ModuleEncoding,
-): Result<TheWordModule, ModuleIssue> => {
-  const text = decodeText(bytes, encoding);
+export const decodeModule = (bytes: Uint8Array): Result<TheWordModule, ModuleIssue> => {
+  const text = new TextDecoder('utf-8').decode(bytes).replace(/^\uFEFF/, '');
   const all = text.split('\r\n').map((line) => line.replaceAll('\r', ' '));
   if (all.length <= KJV_LINES || all[KJV_LINES] !== '') {
     const separator = all.findIndex((line, i) => line === '' && META_KEY_RE.test(all[i + 1] ?? ''));
@@ -46,13 +34,6 @@ export const decodeModule = (
   }
   return ok({ meta: parseMeta(all.slice(KJV_LINES + 1)), lines: all.slice(0, KJV_LINES) });
 };
-
-// WHATWG windows-1252 for bytes 0x80-0x9F. Node 24 decodes `windows-1252` as Latin-1, so 0x85 would
-// become the control U+0085 instead of `…`.
-const WINDOWS_1252_C1 = '€\u0081‚ƒ„…†‡ˆ‰Š‹Œ\u008DŽ\u008F\u0090‘’“”•–—˜™š›œ\u009DžŸ';
-
-const fixC1 = (text: string): string =>
-  text.replace(/[\u0080-\u009F]/g, (c) => WINDOWS_1252_C1[c.charCodeAt(0) - 0x80] ?? c);
 
 const parseMeta = (lines: readonly string[]): Record<string, string> => {
   const meta: Record<string, string> = {};

@@ -56,7 +56,7 @@ for (const version of VERSIONS) {
   if (sha256 !== entry.sha256) {
     throw new Error(`${entry.file}: sha256 ${sha256} does not match MANIFEST.json (${entry.sha256})`);
   }
-  const decoded = decodeModule(bytes, entry.encoding);
+  const decoded = decodeModule(bytes);
   if (!decoded.ok) {
     throw new Error(`${entry.file}: ${decoded.error.found} verse lines, expected ${decoded.error.expected}`);
   }

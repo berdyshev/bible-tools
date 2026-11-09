@@ -3,7 +3,6 @@ import { test } from 'node:test';
 import {
   cleanVerse,
   decodeModule,
-  decodeText,
   MODULE_RULES,
   nativeRange,
   type ModuleRules,
@@ -11,16 +10,6 @@ import {
 
 const LINES = 31_102;
 const ascii = (text: string): Uint8Array => new TextEncoder().encode(text);
-const concat = (...parts: Uint8Array[]): Uint8Array => {
-  const out = new Uint8Array(parts.reduce((n, p) => n + p.length, 0));
-  let at = 0;
-  for (const p of parts) {
-    out.set(p, at);
-    at += p.length;
-  }
-  return out;
-};
-
 /** A module with `verses` verse lines (line n reads `v<n>`), a blank line and `meta`, all CRLF. */
 const moduleText = (verses: number, meta: readonly string[]): string =>
   [...Array.from({ length: verses }, (_, i) => `v${i + 1}`), '', ...meta].join('\r\n');
@@ -28,7 +17,7 @@ const moduleText = (verses: number, meta: readonly string[]): string =>
 const META = ['id=b9', 'lang=eng', 'short.title=KJV'];
 
 void test('a module splits into 31 102 verse lines and its metadata', () => {
-  const m = decodeModule(ascii(`${moduleText(LINES, META)}\r\n`), 'utf-8');
+  const m = decodeModule(ascii(`${moduleText(LINES, META)}\r\n`));
   assert.ok(m.ok);
   assert.equal(m.value.lines.length, LINES);
   assert.equal(m.value.lines[0], 'v1');
@@ -37,63 +26,41 @@ void test('a module splits into 31 102 verse lines and its metadata', () => {
 });
 
 void test('a module without a trailing newline decodes the same', () => {
-  const m = decodeModule(ascii(moduleText(LINES, META)), 'utf-8');
+  const m = decodeModule(ascii(moduleText(LINES, META)));
   assert.ok(m.ok);
   assert.equal(m.value.meta['short.title'], 'KJV');
 });
 
 void test('empty verse lines stay as empty slots', () => {
   const text = moduleText(LINES, META).replace('\r\nv3\r\n', '\r\n\r\n');
-  const m = decodeModule(ascii(text), 'utf-8');
+  const m = decodeModule(ascii(text));
   assert.ok(m.ok);
   assert.deepEqual(m.value.lines.slice(0, 4), ['v1', 'v2', '', 'v4']);
 });
 
 void test('a BOM is dropped and a lone CR becomes a space', () => {
-  const m = decodeModule(ascii(`﻿${moduleText(LINES, META).replace('v2', 'a\rb')}`), 'utf-8');
+  const m = decodeModule(ascii(`﻿${moduleText(LINES, META).replace('v2', 'a\rb')}`));
   assert.ok(m.ok);
   assert.equal(m.value.lines[0], 'v1');
   assert.equal(m.value.lines[1], 'a b');
 });
 
-void test('windows-1251 and windows-1252 bytes decode to Cyrillic, umlauts and the ellipsis', () => {
-  const rest = ascii(`\r\n${moduleText(LINES - 1, META)}`);
-  // "Бог" in windows-1251.
-  const ru = decodeModule(concat(Uint8Array.from([0xc1, 0xee, 0xe3]), rest), 'windows-1251');
-  assert.ok(ru.ok);
-  assert.equal(ru.value.lines[0], 'Бог');
-  // "Hörner…" in windows-1252: 0xF6 = ö, 0x85 = U+2026.
-  const de = decodeModule(
-    concat(ascii('H'), Uint8Array.from([0xf6]), ascii('rner'), Uint8Array.from([0x85]), rest),
-    'windows-1252',
-  );
-  assert.ok(de.ok);
-  assert.equal(de.value.lines[0], 'Hörner…');
-  // The rest of 0x80-0x9F follows windows-1252 too, not Latin-1; undefined bytes stay as they are.
-  const c1 = decodeModule(concat(Uint8Array.from([0x80, 0x93, 0x94, 0x9f, 0x81]), rest), 'windows-1252');
-  assert.ok(c1.ok);
-  assert.equal(c1.value.lines[0], '€“”Ÿ\u0081');
-});
-
-void test('decodeText maps the 256 byte values to 256 distinct characters, so a module can be re-encoded', () => {
-  const all = Uint8Array.from({ length: 256 }, (_, i) => i);
-  for (const encoding of ['windows-1251', 'windows-1252'] as const) {
-    assert.equal(new Set(decodeText(all, encoding)).size, 256, encoding);
-  }
-  assert.equal(decodeText(Uint8Array.from([0x85]), 'windows-1252'), '…');
-  assert.equal(decodeText(ascii('\uFEFFid=b9\r\n'), 'utf-8'), 'id=b9\r\n');
+void test('a module decodes as UTF-8', () => {
+  const m = decodeModule(ascii(`Бог Hörner…\r\n${moduleText(LINES - 1, META)}`));
+  assert.ok(m.ok);
+  assert.equal(m.value.lines[0], 'Бог Hörner…');
 });
 
 void test('a module with the wrong number of verse lines is an error that counts them', () => {
-  assert.deepEqual(decodeModule(ascii(moduleText(LINES - 1, META)), 'utf-8'), {
+  assert.deepEqual(decodeModule(ascii(moduleText(LINES - 1, META))), {
     ok: false,
     error: { kind: 'verse_count', expected: LINES, found: LINES - 1 },
   });
-  assert.deepEqual(decodeModule(ascii(moduleText(LINES + 1, META)), 'utf-8'), {
+  assert.deepEqual(decodeModule(ascii(moduleText(LINES + 1, META))), {
     ok: false,
     error: { kind: 'verse_count', expected: LINES, found: LINES + 1 },
   });
-  assert.deepEqual(decodeModule(ascii('v1\r\nv2'), 'utf-8'), {
+  assert.deepEqual(decodeModule(ascii('v1\r\nv2')), {
     ok: false,
     error: { kind: 'verse_count', expected: LINES, found: 2 },
   });
@@ -112,7 +79,7 @@ void test('metadata continues a value after a trailing backslash, skips comments
     '    This work is public domain.',
     'description=Russian Synodal Text 1876 ',
   ];
-  const m = decodeModule(ascii(moduleText(LINES, meta)), 'utf-8');
+  const m = decodeModule(ascii(moduleText(LINES, meta)));
   assert.ok(m.ok);
   assert.deepEqual(m.value.meta, {
     id: 'b9',

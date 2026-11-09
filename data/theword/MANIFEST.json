@@ -1,0 +1,95 @@
+{
+  "modules": [
+    {
+      "version": "kjv",
+      "file": "kjv.ont",
+      "sha256": "1454e5adc83cccbab32328a070ca725bd427453e2ad68c0526a74e0e8f4249a5",
+      "original": {
+        "file": "original/kjv.ont",
+        "sha256": "f94d7f3572294d90f0a73d95d3972e6f413d39ac770cd14c6ea528d91574c1a8",
+        "encoding": "windows-1252"
+      },
+      "theWordId": "b9",
+      "versionDate": "2020-05-30",
+      "licence": "This is the King James Version of the Holy Bible (also known as the Authorized Version). This work is public domain, except in the United Kingdom, where it is governed by Crown copyright.",
+      "brackets": "words added by the translators (<FI>…<Fi>)",
+      "edits": []
+    },
+    {
+      "version": "darby",
+      "file": "darby.ont",
+      "sha256": "ac98bb63cf035ad8c4d4b5a2c25ff9533b004be64496bba8189f61b28c7306b7",
+      "original": {
+        "file": "original/darby.ont",
+        "sha256": "a8e3616ccc32adc6f6baf2a3acf227bf9bfec4655e3399a1c765bcf07de0e3dd",
+        "encoding": "utf-8"
+      },
+      "theWordId": "b25",
+      "versionDate": "2009-06-15",
+      "licence": "A literal translation of the Old Testament (1890) and the New Testament  (1884) <p>By John Nelson Darby (1800-82) <p><p>Printed copy available from, Bible Truth Publishers, P.O. Box, 649, Addison, Illinois, 60101. <p>Public Domain - Copy Freely",
+      "brackets": "words added by the translator (<FI>…<Fi>)",
+      "edits": [
+        "<FI> spans crossing verse lines closed at the line end and reopened on the next line, nested <FI> flattened: John 5:3-4, Acts 24:6-8, Rom 9:28"
+      ]
+    },
+    {
+      "version": "elb1905",
+      "file": "gerelb.ont",
+      "sha256": "6d962175f52ff224bda466e999966776169821818c08c2e0cb67cf0a6b67afa0",
+      "original": {
+        "file": "original/gerelb.ont",
+        "sha256": "123ae1a06a6a4fcabbf80ed9156cb5917ca16cf83ae4ccab0918f53d7a60909d",
+        "encoding": "windows-1252"
+      },
+      "theWordId": "b50",
+      "versionDate": "2009-06-15",
+      "licence": "German Darby Unrevidierte Elberfelder 1905, <p>Copyright by R. Bockhaus Verlages <p><p>Public Domain",
+      "brackets": "readings of the traditional text that the critical text omits (<FI>…<Fi>)",
+      "edits": [
+        "Mark 16:9-20 and John 7:53-8:11: the <FI> opened at Mark 16:9 and closed at John 8:11 is set per verse",
+        "<FI> spans crossing verse lines closed at the line end and reopened on the next line: Mark 9:45-46, John 5:3-4, John 10:12-13, Acts 24:6-8"
+      ]
+    },
+    {
+      "version": "ohienko",
+      "file": "ukrio.ont",
+      "sha256": "0bd9b4d0fff3be409eb8a1921f76b966c111bb8fee91a77ab90889983df846bd",
+      "original": {
+        "file": "original/ukrio.ont",
+        "sha256": "52ef01798b60a4c68edf650402698434db12ea2c58250c5bbcc3937a414d1f6f",
+        "encoding": "windows-1251"
+      },
+      "theWordId": "b145",
+      "versionDate": "2009-09-25",
+      "licence": "The Ivan Ogienko Ukrainian Bible of 1930<br><br>This work is in the public domain.",
+      "brackets": null,
+      "edits": [
+        "verses re-slotted from Ohienko's own numbering (Hebrew-style in the Old Testament) onto the KJV verses; (c:v) gives Ohienko's number where it differs, at the line start or mid-line where a KJV verse holds two Ohienko verses (1967 lines changed)",
+        "slots holding several verses split at verse boundaries: 106",
+        "duplicated verse removed from the start of Ps 41:13 (copy of Job 41:26), Joel 3:21 (copy of Hos 14:1), Amos 3:5 (copy of Joel 3:5)",
+        "verses absent from the module: Ohienko Ps 7:2, Ps 51:2, Ps 52:2",
+        "Phil 1:16-17: Ohienko verse order swapped to the KJV order",
+        "empty lines: none"
+      ]
+    },
+    {
+      "version": "rst",
+      "file": "rst.ont",
+      "sha256": "80de706cb588c54227c967c1e22ca663fd6c89672a77e2ce8acdc294f02ced93",
+      "original": {
+        "file": "original/rst.ont",
+        "sha256": "1636b2b217156d9db30dce8db06200ec9cebaeb5bbf9a49aeab4c63d4084fdf3",
+        "encoding": "windows-1251"
+      },
+      "theWordId": "b113",
+      "versionDate": "2009-06-15",
+      "licence": "1876 Russian Synodal Text",
+      "brackets": "words added by the translators ([…] in the text)",
+      "edits": [
+        "Song 1: the module lacks the title verse 1:1 and holds KJV 1:2-17 in lines 1:1-17 (1:17 split over two lines); moved up one line, KJV 1:1 left empty",
+        "Ps 90:1-6: lines hold Synodal 89:1-6 by number (title alone in 89:1, KJV 90:5-6 in 89:6); joined and split onto the KJV verses",
+        "Isa 3:19-26: KJV 3:19-20 in one line and 3:26 over two lines, the lines between shifted by one; re-slotted"
+      ]
+    }
+  ]
+}

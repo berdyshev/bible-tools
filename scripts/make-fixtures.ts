@@ -103,7 +103,7 @@ const EXCERPT: readonly (readonly [book: string, chapter: number, from?: number,
 mkdirSync(THEWORD_OUT, { recursive: true });
 const manifest = parseManifest(readFileSync(`${THEWORD}MANIFEST.json`, 'utf8'));
 for (const entry of manifest.modules) {
-  const decoded = decodeModule(readFileSync(`${THEWORD}${entry.file}`), entry.encoding);
+  const decoded = decodeModule(readFileSync(`${THEWORD}${entry.file}`));
   if (!decoded.ok) throw new Error(`${entry.file}: ${decoded.error.found} verse lines`);
   const rows: string[] = [];
   for (const [id, chapter, from, to] of EXCERPT) {

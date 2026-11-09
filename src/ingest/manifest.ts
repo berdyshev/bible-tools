@@ -8,7 +8,6 @@ const moduleEntry = z.object({
   /** The normalized module, relative to `data/theword/`. */
   file: z.string().min(1),
   sha256,
-  encoding: z.enum(['windows-1251', 'windows-1252', 'utf-8']),
 });
 
 /** `data/theword/MANIFEST.json`: the vendored theWord modules and their checksums. */

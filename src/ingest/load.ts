@@ -166,7 +166,7 @@ export const loadTranslation = (db: DatabaseSync, input: TranslationInput): numb
       if (ABSENT_RE.test(clean.text)) continue;
       brackets ||= clean.text.includes('[');
       notes ||= clean.text.includes('⸨');
-      insVerse.run(version.id, book, chapter, verse, nativeRange(clean, chapter, verse), clean.text);
+      insVerse.run(version.id, book, chapter, verse, nativeRange(clean), clean.text);
       count++;
     }
     db.prepare(

@@ -463,25 +463,39 @@ void test('an ellipsis keeps the space before it, except right after a bracket',
 });
 
 void test('nativeRange: no marker gives null, one leading marker its number', () => {
-  assert.equal(nativeRange(cleanVerse('В начале сотворил Бог', rst), 1, 1), null);
-  assert.equal(nativeRange(cleanVerse('(13:2) И сказал Господь', rst), 13, 1), '13:2');
+  assert.equal(nativeRange(cleanVerse('В начале сотворил Бог', rst)), null);
+  assert.equal(nativeRange(cleanVerse('(13:2) И сказал Господь', rst)), '13:2');
 });
 
 void test('nativeRange: a leading and a mid-line marker give a range', () => {
-  assert.equal(nativeRange(cleanVerse('(11:1) ^^Псалом^^ (11:2) Господи!', rst), 12, 1), '11:1-2');
+  assert.equal(nativeRange(cleanVerse('(11:1) ^^Псалом^^ (11:2) Господи!', rst)), '11:1-2');
   assert.equal(
-    nativeRange(cleanVerse('<WTG12:18> Und ich stand.<WTG13:1> Und ich sah', gerelb), 13, 1),
+    nativeRange(cleanVerse('<WTG12:18> Und ich stand.<WTG13:1> Und ich sah', gerelb)),
     '12:18-13:1',
   );
 });
 
-void test('nativeRange: a mid-line marker only starts the range at the slot number', () => {
-  assert.equal(nativeRange(cleanVerse('^^Псалом Давида^^ (3:2) Господи!', rst), 3, 1), '3:1-2');
-  assert.equal(nativeRange(cleanVerse('reden.<WTG1:15> Friede dir!', gerelb), 1, 14), '1:14-15');
-  assert.equal(nativeRange(cleanVerse('Text.<WTH21:1> Und David', gerelb), 20, 42), '20:42-21:1');
+void test('nativeRange: text before a mid-line first marker gets no number', () => {
+  assert.equal(nativeRange(cleanVerse('^^Псалом Давида^^ (3:2) Господи!', rst)), '3:2');
+  assert.equal(nativeRange(cleanVerse('reden.<WTG1:15> Friede dir!', gerelb)), '1:15');
+  assert.equal(nativeRange(cleanVerse('Text. (30:2) А (30:3) Б', ukrio)), '30:2-3');
 });
 
 void test('nativeRange: parentheses without chapter and verse are not markers', () => {
-  assert.equal(nativeRange(cleanVerse('(Между тем один скрытно сидел у нее.) И сказала', rst), 16, 9), null);
-  assert.equal(nativeRange(cleanVerse('(Миха) сказал', rst), 18, 24), null);
+  assert.equal(nativeRange(cleanVerse('(Между тем один скрытно сидел у нее.) И сказала', rst)), null);
+  assert.equal(nativeRange(cleanVerse('(Миха) сказал', rst)), null);
+});
+
+void test('a marker right after a stripped title marker still starts the line', () => {
+  assert.deepEqual(cleanVerse('^^(3:1) Псалом^^ (3:2) Господи!', rst), {
+    text: 'Псалом Господи!',
+    nativeRefs: ['3:1', '3:2'],
+    startsWithRef: true,
+  });
+});
+
+void test('an unmatched close keeps the module’s own brackets and a note', () => {
+  assert.equal(text('что [это] хорошо<Fi> и', rst), '[что [это] хорошо] и');
+  assert.equal(text('word.<RF>Heb. [x]<Rf> more<Fi>', kjv), '[word. ⸨Heb. [x]⸩ more]');
+  assert.equal(text('a <FI>b<Fi> c<Fi> d', darby), '[a b c] d');
 });

@@ -422,7 +422,7 @@ void test('loadTranslation records a native ref range, notes, and no legend for 
     sha256: 'abc',
     lines: [{ book: 'Ps', chapter: 3, verse: 1, line: '^^Псалом Давида.^^ (3:2) Господи!' }],
   });
-  assert.equal(scalar(db, 'SELECT native_ref FROM translation_verses'), '3:1-2');
+  assert.equal(scalar(db, 'SELECT native_ref FROM translation_verses'), '3:2');
   assert.equal(scalar(db, 'SELECT text FROM translation_verses'), 'Псалом Давида. Господи!');
   assert.equal(scalar(db, 'SELECT bracket_meaning FROM translation_meta'), null);
 

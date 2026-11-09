@@ -132,13 +132,17 @@ export const VERSION_MODULE: Readonly<Record<VersionId, ModuleId>> = {
 export type CleanVerse = {
   readonly text: string;
   readonly nativeRefs: readonly string[];
-  /** True when the first native ref precedes all text; otherwise the line starts at its own slot number. */
+  /** True when the first native ref precedes all text of the line. */
   readonly startsWithRef: boolean;
 };
 
 const TOKEN_RE = /<([^<>]*)>|[^<]+|</g;
 const WT_RE = /^WT[HG](\d+):(\d+)$/;
 const PAREN_REF_RE = /\((\d+):(\d+)\)/g;
+// Brackets made from `<FI>…<Fi>`, kept apart from the module's own `[`/`]` until the line is done.
+const FI_OPEN = '\uE000';
+const FI_CLOSE = '\uE001';
+const FI_MARK_RE = /[\uE000\uE001]/g;
 
 /**
  * Cleans one verse line. `<FI>…<Fi>` becomes `[…]` per line (an unmatched `<FI>` brackets to the end of
@@ -167,7 +171,7 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
       let text = token;
       if (parenRefs) {
         text = text.replace(PAREN_REF_RE, (_m: string, c: string, v: string, at: number) => {
-          addRef(c, v, out + text.slice(0, at));
+          addRef(c, v, out + stripText(text.slice(0, at), rules.stripMarkers));
           return '';
         });
       }
@@ -182,14 +186,14 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
     } else if (note !== null) {
       // Tags inside a note are dropped.
     } else if (tag === 'FI') {
-      if (depth === 0) out += '[';
+      if (depth === 0) out += FI_OPEN;
       depth++;
     } else if (tag === 'Fi') {
       if (depth > 0) {
         depth--;
-        if (depth === 0) out += ']';
+        if (depth === 0) out += FI_CLOSE;
       } else {
-        out = `[${out.replace(/[[\]]/g, '')}]`;
+        out = `${FI_OPEN}${out.replace(FI_MARK_RE, '')}${FI_CLOSE}`;
       }
     } else {
       const wt = WT_RE.exec(tag);
@@ -197,19 +201,20 @@ export const cleanVerse = (line: string, rules: ModuleRules): CleanVerse => {
     }
   }
   if (note !== null) out += closeNote(note, rules);
-  if (depth > 0) out += ']';
-  return { text: tidy(out, rules.stripMarkers), nativeRefs, startsWithRef };
+  if (depth > 0) out += FI_CLOSE;
+  const text = out.replaceAll(FI_OPEN, '[').replaceAll(FI_CLOSE, ']');
+  return { text: tidy(text, rules.stripMarkers), nativeRefs, startsWithRef };
 };
 
 /**
- * The module's own number for a cleaned line in slot `chapter:verse`, or null if the line has no marker:
- * `13:2`, or a range (`3:1-2`, `12:18-13:1`) from the first number to the last. A line whose first marker
- * follows text starts at the slot's number.
+ * The module's own numbers for a cleaned line, or null if the line has no marker: `13:2`, or a range from the
+ * first marker to the last (`3:1-2`, `12:18-13:1`). Text before a mid-line first marker gets no number: the
+ * module does not give one, and it may continue the previous verse rather than start at the slot's number.
  */
-export const nativeRange = (clean: CleanVerse, chapter: number, verse: number): string | null => {
+export const nativeRange = (clean: CleanVerse): string | null => {
+  const first = clean.nativeRefs[0];
   const last = clean.nativeRefs.at(-1);
-  if (last === undefined) return null;
-  const first = clean.startsWithRef ? (clean.nativeRefs[0] ?? last) : `${chapter}:${verse}`;
+  if (first === undefined || last === undefined) return null;
   if (first === last) return first;
   const [firstChapter] = first.split(':');
   const [lastChapter, lastVerse] = last.split(':');

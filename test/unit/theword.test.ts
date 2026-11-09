@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { cleanVerse, decodeModule, MODULE_RULES, type ModuleRules } from '../../src/ingest/theword.ts';
+import {
+  cleanVerse,
+  decodeModule,
+  decodeText,
+  MODULE_RULES,
+  type ModuleRules,
+} from '../../src/ingest/theword.ts';
 
 const LINES = 31_102;
 const ascii = (text: string): Uint8Array => new TextEncoder().encode(text);
@@ -66,6 +72,15 @@ void test('windows-1251 and windows-1252 bytes decode to Cyrillic, umlauts and t
   const c1 = decodeModule(concat(Uint8Array.from([0x80, 0x93, 0x94, 0x9f, 0x81]), rest), 'windows-1252');
   assert.ok(c1.ok);
   assert.equal(c1.value.lines[0], '€“”Ÿ\u0081');
+});
+
+void test('decodeText maps the 256 byte values to 256 distinct characters, so a module can be re-encoded', () => {
+  const all = Uint8Array.from({ length: 256 }, (_, i) => i);
+  for (const encoding of ['windows-1251', 'windows-1252'] as const) {
+    assert.equal(new Set(decodeText(all, encoding)).size, 256, encoding);
+  }
+  assert.equal(decodeText(Uint8Array.from([0x85]), 'windows-1252'), '…');
+  assert.equal(decodeText(ascii('\uFEFFid=b9\r\n'), 'utf-8'), 'id=b9\r\n');
 });
 
 void test('a module with the wrong number of verse lines is an error that counts them', () => {

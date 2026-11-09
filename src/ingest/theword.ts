@@ -22,6 +22,12 @@ export type ModuleIssue = {
 // The first metadata line: a key, then `=`.
 const META_KEY_RE = /^[\w.#-]+\s*=/;
 
+/** Decodes module bytes to text, without the BOM. `windows-1252` bytes 0x80-0x9F follow WHATWG, not Latin-1. */
+export const decodeText = (bytes: Uint8Array, encoding: ModuleEncoding): string => {
+  const decoded = new TextDecoder(encoding).decode(bytes);
+  return (encoding === 'windows-1252' ? fixC1(decoded) : decoded).replace(/^\uFEFF/, '');
+};
+
 /**
  * Decodes a theWord module. Lines end in CRLF (a lone CR becomes a space); a BOM is dropped. The first
  * 31 102 lines are verses, then a blank line, then metadata: `key=value`, a trailing `\` continues the value
@@ -31,8 +37,7 @@ export const decodeModule = (
   bytes: Uint8Array,
   encoding: ModuleEncoding,
 ): Result<TheWordModule, ModuleIssue> => {
-  const decoded = new TextDecoder(encoding).decode(bytes);
-  const text = (encoding === 'windows-1252' ? fixC1(decoded) : decoded).replace(/^﻿/, '');
+  const text = decodeText(bytes, encoding);
   const all = text.split('\r\n').map((line) => line.replaceAll('\r', ' '));
   if (all.length <= KJV_LINES || all[KJV_LINES] !== '') {
     const separator = all.findIndex((line, i) => line === '' && META_KEY_RE.test(all[i + 1] ?? ''));

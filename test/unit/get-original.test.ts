@@ -165,8 +165,9 @@ void test('a passage stops at the verse cap and names the rest', () => {
 });
 
 void test('a passage stops before the verse that would pass the character cap', () => {
-  // Each verse block is about 900 characters, so two do not fit under 2000 with the header.
-  const wide = 'א'.repeat(900);
+  // Each verse block is about 850 characters: two fit under 2000 with the header and the continuation line,
+  // three do not.
+  const wide = 'א'.repeat(850);
   const text = formatPassage(spanOfText('Ruth 1:1-3'), verses(1, 3, wide));
   assert.ok(text.includes('\nRuth 1:1\n'));
   assert.ok(text.includes('\nRuth 1:2\n'));
@@ -175,6 +176,13 @@ void test('a passage stops before the verse that would pass the character cap', 
   const first = formatPassage(spanOfText('Ruth 1:1-3'), verses(1, 3, 'א'.repeat(2500)));
   assert.ok(first.includes('\nRuth 1:1\n'));
   assert.ok(first.endsWith('"Ruth 1:2-3"'));
+});
+
+void test('a cut passage leaves room for its continuation line', () => {
+  for (let size = 600; size <= 1000; size += 5) {
+    const text = formatPassage(spanOfText('Ruth 1:1-3'), verses(1, 3, 'א'.repeat(size)));
+    assert.ok(text.length <= 2000, `${size}: ${text.length}`);
+  }
 });
 
 void test('a passage that fits exactly under the character cap is not cut', () => {

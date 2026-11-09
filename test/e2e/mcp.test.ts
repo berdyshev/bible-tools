@@ -116,7 +116,7 @@ void test('input errors reach the client with their hint', async () => {
     {
       name: 'get_translation',
       arguments: { ref: '3John 1:15', version: 'kjv' },
-      text: /^3 John 1 has no verse 15\. Use a verse from 1 to 14$/,
+      text: /^3 John 1 has no verse 15\. Use a verse from 1 to 14\. In KJV numbering this verse is part of 3 John 1:14/,
     },
     {
       name: 'get_original',

@@ -3,14 +3,12 @@ import type { BibleRepo, TranslationMeta, TranslationVerse } from '../data/repo.
 import { kjvBounds } from '../domain/kjv.ts';
 import { formatSpan, parsePassage, spanOf, spanVerses } from '../domain/ref.ts';
 import type { Span } from '../domain/ref.ts';
-import { ok } from '../domain/result.ts';
+import type { InputError } from '../domain/errors.ts';
+import { err, ok } from '../domain/result.ts';
 import { VERSION_IDS, VERSIONS, type VersionId } from '../domain/versions.ts';
-import { MAX_CHARS, continuation } from './passage.ts';
+import { MAX_CHARS, MAX_VERSES, cappedPassage, type VerseBlock } from './passage.ts';
 import { defineTool, describeTool } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
-
-/** A passage longer than this is cut off at a verse boundary. */
-const MAX_VERSES = 10;
 
 const versionList = VERSIONS.map((v) => `"${v.id}" (${v.title})`).join(', ');
 
@@ -30,7 +28,7 @@ export const inputSchema = z.object({
 
 export const descriptionParts: DescriptionParts = {
   what:
-    'Returns the text of a verse, verse range or chapter in one public-domain translation: King James Version, Darby, Elberfelder 1905 (German), Ohienko (Ukrainian) or Russian Synodal, ' +
+    'Returns the text of a verse, verse range or chapter in one public-domain or freely licensed translation: King James Version, Darby, Elberfelder 1905 (German), Ohienko (Ukrainian) or Russian Synodal, ' +
     'always in KJV verse numbering; where the translation numbers a verse differently, its own number is added at the end of the line.',
   when: 'Use it to compare how a translation renders a passage; call it once per version you need, since each call returns a single version.',
   output:
@@ -66,9 +64,8 @@ const verseLine = (chapter: number, verse: number, row: TranslationVerse | undef
 };
 
 /**
- * A passage in one translation, one line per verse. Verses are shown until the next one would pass the
- * verse or character cap (the first is always shown); the output then ends with the call that returns
- * the rest.
+ * A passage in one translation, one line per verse, within the verse and character caps; a cut passage
+ * ends with the call that returns the rest.
  */
 export const formatTranslation = (
   span: Span,
@@ -76,20 +73,34 @@ export const formatTranslation = (
   verses: readonly TranslationVerse[],
 ): string => {
   const byRef = new Map(verses.map((v) => [`${v.chapter}:${v.verse}`, v]));
-  const lines = [header(span, meta)];
-  let length = lines[0]?.length ?? 0;
-  let shown = 0;
+  return cappedPassage('get_translation', span, header(span, meta), blocksOf(span, byRef, meta.label));
+};
+
+function* blocksOf(
+  span: Span,
+  byRef: ReadonlyMap<string, TranslationVerse>,
+  label: string,
+): Generator<VerseBlock> {
   for (const ref of spanVerses(span, kjvBounds(span.book))) {
-    const line = verseLine(ref.chapter, ref.verse, byRef.get(`${ref.chapter}:${ref.verse}`), meta.label);
-    if (shown > 0 && (shown === MAX_VERSES || length + 1 + line.length > MAX_CHARS)) {
-      lines.push(continuation('get_translation', span, ref));
-      break;
-    }
-    lines.push(line);
-    length += 1 + line.length;
-    shown++;
+    const row = byRef.get(`${ref.chapter}:${ref.verse}`);
+    yield { ref, text: verseLine(ref.chapter, ref.verse, row, label) };
   }
-  return lines.join('\n');
+}
+
+/** Where a verse that KJV numbering lacks stands in it; the cases where the English numbering of get_original has it. */
+const kjvNote = (e: InputError): InputError => {
+  if (e.kind !== 'verse_out_of_range') return e;
+  const ref = `${e.book} ${e.chapter}:${e.verse}`;
+  if (e.book === 'Psalms' && e.verse === 0)
+    return {
+      ...e,
+      note: `In KJV numbering a psalm title is part of verse 1: use "${e.book} ${e.chapter}:1"`,
+    };
+  if (ref === 'Revelation 12:18')
+    return { ...e, note: 'In KJV numbering this sentence opens Revelation 13:1: use "Revelation 13:1"' };
+  if (ref === '3 John 1:15')
+    return { ...e, note: 'In KJV numbering this verse is part of 3 John 1:14: use "3 John 1:14"' };
+  return e;
 };
 
 const metaOf = (repo: BibleRepo, version: VersionId): TranslationMeta => {
@@ -107,7 +118,7 @@ export const getTranslation = defineTool({
     const parsed = parsePassage(ref, 'eng');
     if (!parsed.ok) return parsed;
     const span = spanOf(parsed.value, kjvBounds(parsed.value.book));
-    if (!span.ok) return span;
+    if (!span.ok) return err(kjvNote(span.error));
     const meta = metaOf(repo, version);
     return ok({ text: formatTranslation(span.value, meta, repo.translationVerses(version, span.value)) });
   },

@@ -113,7 +113,6 @@ void test('reference errors get the same hints as get_original, with KJV verse c
   );
   assert.equal(failure('Ruth 9:1'), 'Ruth has no chapter 9. Use a chapter from 1 to 4');
   assert.equal(failure('Ruth 1:99'), 'Ruth 1 has no verse 99. Use a verse from 1 to 22');
-  assert.equal(failure('3John 1:15'), '3 John 1 has no verse 15. Use a verse from 1 to 14');
   assert.equal(
     failure('Ruth 1:5-2'),
     'Range "Ruth 1:5-2" ends before it starts. Use an ascending range, e.g. "Ruth 1:1-5"',
@@ -122,7 +121,6 @@ void test('reference errors get the same hints as get_original, with KJV verse c
 
 void test('KJV numbering accepts verses NRSV lacks and has no Psalm verse 0', () => {
   assert.equal(getTranslation.call({ ref: '2Cor 13:14', version: 'kjv' }, repo).isError, undefined);
-  assert.equal(failure('Ps 3:0'), 'Psalms 3 has no verse 0. Use a verse from 1 to 8');
   assert.match(textOf(getTranslation.call({ ref: 'Ps 3', version: 'rst' }, repo)), /^Psalms 3:1-8 .*\n3:1 /);
 });
 
@@ -145,4 +143,41 @@ void test('a database without the version is an internal error', () => {
   } finally {
     console.error = original;
   }
+});
+
+void test('a cut passage reserves room for the continuation line, so it never passes the cap', () => {
+  for (let size = 400; size <= 1000; size += 3) {
+    const rows = [1, 2, 3, 4].map((v) => verse(1, v, 'x'.repeat(size)));
+    const text = formatTranslation(spanFor('Ruth 1:1-4'), META, rows);
+    assert.ok(text.length <= 2000, `${size}: ${text.length}`);
+  }
+});
+
+void test('the last verse of a passage needs no room for a continuation', () => {
+  const header = formatTranslation(spanFor('Ruth 1:1-2'), META, []).split('\n')[0] ?? '';
+  // Two verse lines that fill the budget exactly.
+  const size = Math.floor((2000 - header.length - 2) / 2) - '1:1 '.length;
+  const rest = 2000 - header.length - 2 - 2 * ('1:1 '.length + size);
+  const text = formatTranslation(spanFor('Ruth 1:1-2'), META, [
+    verse(1, 1, 'x'.repeat(size)),
+    verse(1, 2, 'y'.repeat(size + rest)),
+  ]);
+  assert.equal(text.length, 2000);
+  assert.ok(!text.includes('truncated'));
+});
+
+void test('verses KJV numbering lacks point to where KJV has them', () => {
+  assert.equal(
+    failure('Ps 3:0'),
+    'Psalms 3 has no verse 0. Use a verse from 1 to 8. In KJV numbering a psalm title is part of verse 1: use "Psalms 3:1"',
+  );
+  assert.equal(
+    failure('Rev 12:18'),
+    'Revelation 12 has no verse 18. Use a verse from 1 to 17. In KJV numbering this sentence opens Revelation 13:1: use "Revelation 13:1"',
+  );
+  assert.equal(
+    failure('3John 1:15'),
+    '3 John 1 has no verse 15. Use a verse from 1 to 14. In KJV numbering this verse is part of 3 John 1:14: use "3 John 1:14"',
+  );
+  assert.equal(failure('Ruth 1:23'), 'Ruth 1 has no verse 23. Use a verse from 1 to 22');
 });

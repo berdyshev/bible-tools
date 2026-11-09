@@ -4,7 +4,7 @@ A read-only [Model Context Protocol](https://modelcontextprotocol.io/) server ov
 [STEPBible](https://www.stepbible.org/) open data: the Hebrew Old Testament and the Greek New
 Testament tagged with Strong's numbers and morphology, Hebrew and Greek lexicons, explanations of the
 morphology codes, and a database of proper names. Alongside them it serves the verse text of five
-public-domain translations (KJV, Darby, Elberfelder 1905, Ohienko, Russian Synodal) in KJV numbering.
+public-domain or freely licensed translations (KJV, Darby, Elberfelder 1905, Ohienko, Russian Synodal) in KJV numbering.
 The server announces itself as `bible-sources`.
 
 It is built for Bible translators, students of the original languages and people building
@@ -231,7 +231,7 @@ projects' own.
 | [Divine-Creative-Ministries/bible-cli](https://github.com/Divine-Creative-Ministries/bible-cli) | Far broader: 25 read-only tools on a hosted endpoint (35 locally), translation comparison, cross-references, clause-level syntax search, a Bible-study workflow for agents, and import of licensed translations. It uses the same STEPBible Hebrew, Greek and proper-name data plus further lexicons. | A much larger surface and a bigger tool list for a model to choose from. Its code licence is listed by GitHub as "other"; check it before reuse. |
 | [nirajagarwal/bible-mcp](https://github.com/nirajagarwal/bible-mcp) | The widest corpus: English translations, the Septuagint, 600,000+ tagged original-language words, full lexicon entries, cross-references, people and places, early Christian writings and semantic search, with a hosted endpoint. | A database of about 400 MB. Its code is under PolyForm Noncommercial 1.0.0 and its derived data is CC BY-NC, so it cannot be used commercially. |
 
-What this server offers instead: a small, read-only set of seven tools over STEPBible data and five public-domain translations, with
+What this server offers instead: a small, read-only set of seven tools over STEPBible data and five public-domain or freely licensed translations, with
 every output bounded to about 2,000 characters and a hint for the next call; both Testaments with
 Strong's numbers, morphology and an explanation of every morphology code; proper names with their
 kinds; MIT code and openly licensed data that can be used and redeployed with attribution; and a single

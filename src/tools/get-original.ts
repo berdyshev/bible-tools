@@ -7,17 +7,16 @@ import { isNestleAland } from '../domain/text-type.ts';
 import type { Book } from '../domain/books.ts';
 import {
   MAX_CHARS,
+  MAX_VERSES,
   boundsIn,
-  continuation,
+  cappedPassage,
   missingVerse,
   numberingLabel,
   originalLanguage,
 } from './passage.ts';
 import { defineTool, describeTool, versificationSchema } from './shared.ts';
 import type { DescriptionParts } from './shared.ts';
-
-/** A passage longer than this is cut off at a verse boundary. */
-const MAX_VERSES = 10;
+import type { VerseBlock } from './passage.ts';
 
 export const inputSchema = z.object({
   ref: z
@@ -97,26 +96,22 @@ export const formatVerse = (ref: VerseRef, words: readonly VerseWord[], morpholo
 export type PassageVerse = { readonly ref: VerseRef; readonly words: readonly VerseWord[] };
 
 /**
- * A passage grouped by verse, each verse under its own `Ruth 1:2` line. Verses are taken from `verses`
- * until the next one would pass the verse or character cap (the first is always shown); the output
- * then ends with the call that returns the rest.
+ * A passage grouped by verse, each verse under its own `Ruth 1:2` line, within the verse and character
+ * caps; a cut passage ends with the call that returns the rest.
  */
-export const formatPassage = (span: Span, verses: Iterable<PassageVerse>, morphology = false): string => {
-  const lines = [header(formatSpan(span), span.book, span.versification)];
-  let length = lines[0]?.length ?? 0;
-  let shown = 0;
+export const formatPassage = (span: Span, verses: Iterable<PassageVerse>, morphology = false): string =>
+  cappedPassage(
+    'get_original',
+    span,
+    header(formatSpan(span), span.book, span.versification),
+    blocksOf(verses, morphology),
+  );
+
+function* blocksOf(verses: Iterable<PassageVerse>, morphology: boolean): Generator<VerseBlock> {
   for (const { ref, words } of verses) {
-    const block = [formatRef(ref), ...verseLines(ref, words, morphology)].join('\n');
-    if (shown > 0 && (shown === MAX_VERSES || length + 1 + block.length > MAX_CHARS)) {
-      lines.push(continuation('get_original', span, ref));
-      break;
-    }
-    lines.push(block);
-    length += 1 + block.length;
-    shown++;
+    yield { ref, text: [formatRef(ref), ...verseLines(ref, words, morphology)].join('\n') };
   }
-  return lines.join('\n');
-};
+}
 
 function* versesWithWords(repo: BibleRepo, span: Span): Generator<PassageVerse> {
   const last = boundsIn(repo, span.book, span.versification);

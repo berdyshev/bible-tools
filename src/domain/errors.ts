@@ -14,6 +14,8 @@ export type InputError =
       readonly verse: number;
       readonly min: number;
       readonly max: number;
+      /** Where the text has the verse instead, e.g. under another numbering; a full sentence. */
+      readonly note?: string;
     }
   | { readonly kind: 'invalid_range'; readonly input: string }
   | { readonly kind: 'range_not_supported'; readonly input: string }
@@ -43,7 +45,7 @@ export const hint = (e: InputError): string => {
     case 'chapter_out_of_range':
       return `${e.book} has no chapter ${e.chapter}. Use a chapter from 1 to ${e.max}`;
     case 'verse_out_of_range':
-      return `${e.book} ${e.chapter} has no verse ${e.verse}. Use a verse from ${e.min} to ${e.max}`;
+      return `${e.book} ${e.chapter} has no verse ${e.verse}. Use a verse from ${e.min} to ${e.max}${e.note === undefined ? '' : `. ${e.note}`}`;
     case 'invalid_range':
       return `Range "${e.input}" ends before it starts. Use an ascending range, e.g. "Ruth 1:1-5"`;
     case 'range_not_supported':
@@ -55,7 +57,7 @@ export const hint = (e: InputError): string => {
         ? `Strong's number "${e.input}" was not found. Check the number or try search_lexicon`
         : `Strong's number "${e.input}" was not found. Its base number has the senses ${e.senses.join(', ')}; use one of them or try search_lexicon`;
     case 'unknown_morph_code':
-      return `Morphology code "${e.input}"${e.within === undefined ? '' : ` (in "${e.within}")`} was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained`;
+      return `Morphology code "${e.input}"${e.within === undefined ? '' : ` (in "${e.within}")`} was not found. Use a full code as get_original shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained`;
     case 'scope_wrong_testament':
       return e.testament === 'NT'
         ? `Strong's number "${e.input}" is Greek and occurs only in the New Testament, but the scope "${e.scope}" is in the Old Testament. Use scope "NT", a New Testament book or chapter such as "John 1", or leave scope out`

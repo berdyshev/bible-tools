@@ -61,12 +61,12 @@ const cases: readonly (readonly [string, InputError, string])[] = [
   [
     'unknown_morph_code',
     { kind: 'unknown_morph_code', input: 'Xyz' },
-    'Morphology code "Xyz" was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained',
+    'Morphology code "Xyz" was not found. Use a full code as get_original shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained',
   ],
   [
     'unknown_morph_code in a compound',
     { kind: 'unknown_morph_code', input: 'Xyz', within: 'HC/Xyz' },
-    'Morphology code "Xyz" (in "HC/Xyz") was not found. Use a full code as get_verse shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained',
+    'Morphology code "Xyz" (in "HC/Xyz") was not found. Use a full code as get_original shows it with morphology: true, e.g. "V-AAI-3S" or "HVqw3ms"; brief lexical codes such as "G:N-M" are not explained',
   ],
   [
     'scope_wrong_testament (Greek number)',

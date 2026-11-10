@@ -1,4 +1,4 @@
-H7704 has 6 senses; pick the one get_verse shows for your verse and call again:
+H7704 has 6 senses; pick the one get_original shows for your verse and call again:
 H7704A  שָׂדַי  «Sirion»
 H7704B  שָׂדֶה  «land: soil»
 H7704G  שָׂדֶה  «land: country»

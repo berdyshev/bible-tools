@@ -39,7 +39,7 @@ void test('omits the other-senses line when there are none', () => {
 void test('formats a menu with one line per sense', () => {
   assert.equal(
     formatMenu('H1234', [entry, { strong: 'H1234A', original: 'x', gloss: 'other' }]),
-    'H1234 has 2 senses; pick the one get_verse shows for your verse and call again:\n' +
+    'H1234 has 2 senses; pick the one get_original shows for your verse and call again:\n' +
       'H1234B  אבג  «thing»\nH1234A  x  «other»',
   );
 });

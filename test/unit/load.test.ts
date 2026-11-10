@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
-import { createSchema, load } from '../../src/ingest/load.ts';
+import { VERSIONS } from '../../src/domain/versions.ts';
+import { createSchema, load, loadTranslation } from '../../src/ingest/load.ts';
+import { MODULE_RULES } from '../../src/ingest/theword.ts';
 
 const tab = (...cols: string[]): string => cols.join('\t');
 const pad = (cols: string[]): string[] => [...cols, ...Array.from({ length: 17 - cols.length }, () => '')];
@@ -93,6 +95,8 @@ void test('createSchema creates the tables and the Strong index', () => {
     'names',
     'morphology',
     'meta',
+    'translation_verses',
+    'translation_meta',
     'idx_words_strong',
     'idx_words_ref',
     'idx_words_href',
@@ -359,4 +363,119 @@ void test('a sense letter the lexicon lacks counts as listed when the base numbe
   ];
   const report = run(db, words, senses);
   assert.deepEqual(report.unlistedStrongs, ['H0431']);
+});
+
+const version = (id: string) => {
+  const v = VERSIONS.find((candidate) => candidate.id === id);
+  assert.ok(v);
+  return v;
+};
+
+void test('loadTranslation stores cleaned verses with their own numbers and skips absent slots', () => {
+  const db = fresh();
+  const count = loadTranslation(db, {
+    version: version('darby'),
+    rules: MODULE_RULES.darby,
+    sha256: 'abc',
+    lines: [
+      { book: 'Acts', chapter: 8, verse: 36, line: 'And as they went <FI>on<Fi> the way<CM>' },
+      { book: 'Acts', chapter: 8, verse: 37, line: '- - -' },
+      { book: 'Acts', chapter: 8, verse: 38, line: '' },
+      { book: 'Acts', chapter: 8, verse: 39, line: '-' },
+    ],
+  });
+  assert.equal(count, 1);
+  assert.deepEqual(
+    db
+      .prepare('SELECT version, book, chapter, verse, native_ref, text FROM translation_verses')
+      .all()
+      .map((r) => ({ ...r })),
+    [
+      {
+        version: 'darby',
+        book: 'Acts',
+        chapter: 8,
+        verse: 36,
+        native_ref: null,
+        text: 'And as they went [on] the way',
+      },
+    ],
+  );
+  assert.deepEqual(row(db, 'SELECT * FROM translation_meta'), {
+    version: 'darby',
+    bracket_meaning: 'words added by the translator',
+    has_notes: 0,
+    sha256: 'abc',
+  });
+});
+
+void test('loadTranslation records a native ref range, notes, and no legend for brackets the text lacks', () => {
+  const db = fresh();
+  loadTranslation(db, {
+    version: version('rst'),
+    rules: MODULE_RULES.rst,
+    sha256: 'abc',
+    lines: [{ book: 'Ps', chapter: 3, verse: 1, line: '^^Псалом Давида.^^ (3:2) Господи!' }],
+  });
+  assert.equal(scalar(db, 'SELECT native_ref FROM translation_verses'), '3:2');
+  assert.equal(scalar(db, 'SELECT text FROM translation_verses'), 'Псалом Давида. Господи!');
+  assert.equal(scalar(db, 'SELECT bracket_meaning FROM translation_meta'), null);
+
+  loadTranslation(db, {
+    version: version('kjv'),
+    rules: MODULE_RULES.kjv,
+    sha256: 'abc',
+    lines: [
+      { book: 'Ruth', chapter: 1, verse: 1, line: 'the judges ruled<WH8199>,<RF>ruled: Heb. judged<Rf>' },
+    ],
+  });
+  assert.equal(scalar(db, "SELECT has_notes FROM translation_meta WHERE version = 'kjv'"), 1);
+});
+
+void test('loadTranslation stores no own number when it equals the KJV slot', () => {
+  const db = fresh();
+  loadTranslation(db, {
+    version: version('rst'),
+    rules: MODULE_RULES.rst,
+    sha256: 'abc',
+    lines: [
+      { book: '2Cor', chapter: 11, verse: 33, line: '(11:33) и я в корзине спущен был' },
+      { book: '2Cor', chapter: 11, verse: 32, line: '(11:31) В Дамаске' },
+    ],
+  });
+  assert.deepEqual(
+    db
+      .prepare('SELECT verse, native_ref FROM translation_verses ORDER BY verse')
+      .all()
+      .map((r) => ({ ...r })),
+    [
+      { verse: 32, native_ref: '11:31' },
+      { verse: 33, native_ref: null },
+    ],
+  );
+});
+
+void test("loadTranslation skips the Elberfelder editor's remark that stands in place of an omitted verse", () => {
+  const db = fresh();
+  const count = loadTranslation(db, {
+    version: version('elb1905'),
+    rules: MODULE_RULES.gerelb,
+    sha256: 'abc',
+    lines: [
+      {
+        book: 'Matt',
+        chapter: 23,
+        verse: 14,
+        line: '(Dieser Vers gehört nicht zum ursprünglichen Text des Matthäusevangeliums.)',
+      },
+      {
+        book: 'Acts',
+        chapter: 8,
+        verse: 37,
+        line: '(Dieser Vers gehört nicht zum ursprünglichen Text der Apostelgeschichte).',
+      },
+      { book: 'Acts', chapter: 8, verse: 38, line: 'Und er hieß den Wagen halten.' },
+    ],
+  });
+  assert.equal(count, 1);
 });

@@ -174,7 +174,7 @@ void test('an unknown code is an error with the fix hint', () => {
   assert.equal(result.isError, true);
   assert.match(
     textOf(result),
-    /^Morphology code "G:N-M" was not found\. Use a full code as get_verse shows it/,
+    /^Morphology code "G:N-M" was not found\. Use a full code as get_original shows it/,
   );
 });
 

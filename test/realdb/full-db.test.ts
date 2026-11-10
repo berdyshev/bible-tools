@@ -9,14 +9,13 @@ import { BOOKS } from '../../src/domain/books.ts';
 import { explainMorphology, resolveMorphology } from '../../src/tools/explain-morphology.ts';
 import { findOccurrences, outputSchema } from '../../src/tools/find-occurrences.ts';
 import { getNames } from '../../src/tools/get-names.ts';
-import { getVerse } from '../../src/tools/get-verse.ts';
+import { getOriginal } from '../../src/tools/get-original.ts';
 import { lookupStrong, outputSchema as strongOutput } from '../../src/tools/lookup-strong.ts';
 import { MAX_CHARS } from '../../src/tools/passage.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
-const dbPath =
-  process.env['STEPBIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
+const dbPath = process.env['BIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
 const skip = existsSync(dbPath) ? false : `no database at ${dbPath}; run pnpm data:fetch && pnpm data:build`;
 
 const idList = (testament: 'OT' | 'NT'): string =>
@@ -46,8 +45,8 @@ const words = (text: string) =>
 // English 1 Samuel 20:42 is Hebrew 20:42 followed by Hebrew 21:1, so the latter is its tail.
 void test('Hebrew 1Sam 21:1 is the tail of English 1Sam 20:42', { skip }, () => {
   assert.ok(repo);
-  const eng = words(textOf(getVerse.call({ ref: '1Sam 20:42' }, repo)));
-  const heb = words(textOf(getVerse.call({ ref: '1Sam 21:1', versification: 'heb' }, repo)));
+  const eng = words(textOf(getOriginal.call({ ref: '1Sam 20:42' }, repo)));
+  const heb = words(textOf(getOriginal.call({ ref: '1Sam 21:1', versification: 'heb' }, repo)));
   assert.ok(heb.length > 0 && heb.length < eng.length);
   assert.deepEqual(eng.slice(-heb.length), heb);
   assert.match(heb[0] ?? '', /^va\/i\.Ya\.kom {2}H6965B /);
@@ -89,9 +88,9 @@ void test('find_occurrences counts the whole OT like a direct count of the word 
   assert.ok(textOf(result).length <= 2000);
 });
 
-void test('get_verse on a psalm chapter starts with its superscription at verse 0', { skip }, () => {
+void test('get_original on a psalm chapter starts with its superscription at verse 0', { skip }, () => {
   assert.ok(repo);
-  const text = textOf(getVerse.call({ ref: 'Ps 3' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'Ps 3' }, repo));
   assert.match(text, /^Psalms 3:0-8 \(English numbering\)/);
   assert.match(text, /\nPsalms 3:0\n1\. miz\.Mor {2}H4210 /);
   assert.match(text, /\nPsalms 3:1\n/);
@@ -105,14 +104,14 @@ void test('get_names on a psalm chapter lists David from the superscription', { 
 
 void test('a chapter without a verse 0 rejects it', { skip }, () => {
   assert.ok(repo);
-  const result = getVerse.call({ ref: 'Ruth 1:0-2' }, repo);
+  const result = getOriginal.call({ ref: 'Ruth 1:0-2' }, repo);
   assert.equal(result.isError, true);
   assert.equal(textOf(result), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
 });
 
 void test('John 1:1 has 17 words, in Greek, in English numbering', { skip }, () => {
   assert.ok(repo);
-  const text = textOf(getVerse.call({ ref: 'John 1:1' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'John 1:1' }, repo));
   assert.match(text, /^John 1:1 \(English numbering\) — Greek; /);
   assert.equal(text.split('\n').length - 1, 17);
   assert.equal(scalar("SELECT COUNT(*) FROM words WHERE book = 'John' AND chapter = 1 AND verse = 1"), 17);
@@ -149,13 +148,13 @@ void test(
 
 void test('John 8:7 is shown from the traditional text and says so', { skip }, () => {
   assert.ok(repo);
-  const text = textOf(getVerse.call({ ref: 'John 8:7' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'John 8:7' }, repo));
   assert.match(
     text,
     /^John 8:7 \(English numbering\) — Greek; [^\n]*\nNot in the Nestlé-Aland text; shown from the traditional text\.\n1\. /,
   );
-  assert.doesNotMatch(textOf(getVerse.call({ ref: 'John 1:1' }, repo)), /Nestlé/);
-  assert.doesNotMatch(textOf(getVerse.call({ ref: 'Ruth 1:1' }, repo)), /Nestlé/);
+  assert.doesNotMatch(textOf(getOriginal.call({ ref: 'John 1:1' }, repo)), /Nestlé/);
+  assert.doesNotMatch(textOf(getOriginal.call({ ref: 'Ruth 1:1' }, repo)), /Nestlé/);
 });
 
 void test('lookup_strong G3056 is cut to the budget but structured keeps the whole meaning', { skip }, () => {
@@ -185,20 +184,24 @@ void test('find_occurrences G3056 over the whole New Testament equals a direct c
   assert.match(textOf(inOt), /^Strong's number "G3056" is Greek and occurs only in the New Testament/);
 });
 
-void test('explain_morphology knows V-AAI-3S and the Hebrew forms as get_verse shows them', { skip }, () => {
-  assert.ok(repo);
-  const greek = explainMorphology.call({ code: 'V-AAI-3S' }, repo);
-  assert.equal(greek.isError, undefined);
-  assert.match(textOf(greek), /^V-AAI-3S — Verb Aorist Active Indicative 3rd Singular\nParsing: /);
-  const shown = textOf(getVerse.call({ ref: 'Ruth 1:1', morphology: true }, repo));
-  assert.match(shown, /\n1\. va\/y\.Hi {2}H1961 {2}and\/ it was {2}Hc\/Vqw3ms {2}/);
-  assert.match(shown, /\n2\. bi\.\/Mei {2}H3117G {2}in\/ \[the\] days of {2}HR\/Ncmpc {2}/);
-  for (const code of ['Hc/Vqw3ms', 'HR/Ncmpc']) {
-    const result = explainMorphology.call({ code }, repo);
-    assert.equal(result.isError, undefined, code);
-    assert.equal(textOf(result).split('\n\n').length, 2, code);
-  }
-});
+void test(
+  'explain_morphology knows V-AAI-3S and the Hebrew forms as get_original shows them',
+  { skip },
+  () => {
+    assert.ok(repo);
+    const greek = explainMorphology.call({ code: 'V-AAI-3S' }, repo);
+    assert.equal(greek.isError, undefined);
+    assert.match(textOf(greek), /^V-AAI-3S — Verb Aorist Active Indicative 3rd Singular\nParsing: /);
+    const shown = textOf(getOriginal.call({ ref: 'Ruth 1:1', morphology: true }, repo));
+    assert.match(shown, /\n1\. va\/y\.Hi {2}H1961 {2}and\/ it was {2}Hc\/Vqw3ms {2}/);
+    assert.match(shown, /\n2\. bi\.\/Mei {2}H3117G {2}in\/ \[the\] days of {2}HR\/Ncmpc {2}/);
+    for (const code of ['Hc/Vqw3ms', 'HR/Ncmpc']) {
+      const result = explainMorphology.call({ code }, repo);
+      assert.equal(result.isError, undefined, code);
+      assert.equal(textOf(result).split('\n\n').length, 2, code);
+    }
+  },
+);
 
 void test('every distinct morphology code in the word table resolves, except the empty one', { skip }, () => {
   assert.ok(full);

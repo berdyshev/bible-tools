@@ -17,7 +17,7 @@ export const inputSchema = z.object({
     .string()
     .min(1)
     .describe(
-      "Hebrew or Greek Strong's number as shown by get_verse, e.g. `H7704G` (one sense), `H7704` (all senses, grouped by sense) or `G3056`. Zero-padding is optional.",
+      "Hebrew or Greek Strong's number as shown by get_original, e.g. `H7704G` (one sense), `H7704` (all senses, grouped by sense) or `G3056`. Zero-padding is optional.",
     ),
   scope: z
     .string()
@@ -54,10 +54,10 @@ export const outputSchema = z.object({
 
 export const descriptionParts: DescriptionParts = {
   what: "Lists every occurrence of one Hebrew or Greek Strong's number (STEPBible TAHOT, TAGNT) in a book, a chapter or a whole testament: a count, then the verses with the word form at each, grouped by book. A Greek word that is compounded with another counts under its first part only.",
-  when: "Use it to check how consistently a term is rendered across a passage: take the Strong's number from get_verse, list its occurrences, and compare the contexts. A bare number such as `H7704` includes all senses and groups them by sense; `H7704G` selects one.",
+  when: "Use it to check how consistently a term is rendered across a passage: take the Strong's number from get_original, list its occurrences, and compare the contexts. A bare number such as `H7704` includes all senses and groups them by sense; `H7704G` selects one.",
   output:
     'Output: a count header (`H7704G in Ruth: 16 occurrences in 13 verses`), then one line per book: `Ruth 1:1 transliteration, 1:2 …` with `×2` for a verse where the word repeats and the original forms at the end. A long list is cut with a hint on how to narrow the scope or continue.',
-  not: "It matches the Strong's number only, not English text or related words; use search_lexicon to find a number by meaning and lookup_strong for its definition. It gives no verse text: use get_verse for that.",
+  not: "It matches the Strong's number only, not English text or related words; use search_lexicon to find a number by meaning and lookup_strong for its definition. It gives no verse text: use get_original for that.",
 };
 
 export const description = describeTool(descriptionParts);

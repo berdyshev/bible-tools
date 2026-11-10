@@ -1,4 +1,6 @@
-# 0003. Verse ranges in get_verse
+# 0003. Verse ranges in get_original
+
+> Renamed from `get_verse` to `get_original` (a translations tool was added; the old name was ambiguous).
 
 ## Status
 
@@ -10,10 +12,10 @@ Checking a term across a passage with a single-verse tool takes one call per ver
 
 ## Decision
 
-- `get_verse` accepts a verse (`Ruth 1:2`), a range (`Ruth 1:1-5`, or across chapters, `Ruth 1:20-2:3`) or a whole chapter (`Ruth 1`). There is no separate `get_passage` tool.
+- `get_original` accepts a verse (`Ruth 1:2`), a range (`Ruth 1:1-5`, or across chapters, `Ruth 1:20-2:3`) or a whole chapter (`Ruth 1`). There is no separate `get_passage` tool.
 - A range must ascend; a descending range is an input error with a fix hint.
 - Output of a range or chapter is grouped by verse, each verse under a `Ruth 1:2` sub-header, with the same word-line format as a single verse. A single verse keeps its existing output.
-- Output is capped at 10 verses and 2,000 characters. The cap is applied at a verse boundary and the first verse is always returned. A cut-off passage ends with `truncated — call get_verse again with "Ruth 1:7-12"`, naming the remainder of the requested passage.
+- Output is capped at 10 verses and 2,000 characters. The cap is applied at a verse boundary and the first verse is always returned. A cut-off passage ends with `truncated — call get_original again with "Ruth 1:7-12"`, naming the remainder of the requested passage.
 - The description documents the range format, the cap and the absence of `get_passage`.
 
 ## Alternatives

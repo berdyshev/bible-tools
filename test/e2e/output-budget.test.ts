@@ -22,9 +22,9 @@ after(async () => {
 });
 
 const toolCalls = [
-  { name: 'get_verse', arguments: { ref: 'Ruth 1:1' } },
-  { name: 'get_verse', arguments: { ref: 'Ruth 1:1-3' } },
-  { name: 'get_verse', arguments: { ref: 'Ruth 1' } },
+  { name: 'get_original', arguments: { ref: 'Ruth 1:1' } },
+  { name: 'get_original', arguments: { ref: 'Ruth 1:1-3' } },
+  { name: 'get_original', arguments: { ref: 'Ruth 1' } },
   { name: 'lookup_strong', arguments: { strong: 'H7704' } },
   { name: 'lookup_strong', arguments: { strong: 'H7704G' } },
   { name: 'get_names', arguments: { ref: 'Ruth 1:2' } },
@@ -32,20 +32,29 @@ const toolCalls = [
   { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'Ruth' } },
   { name: 'find_occurrences', arguments: { strong: 'H7704G', scope: 'OT' } },
   { name: 'search_lexicon', arguments: { query: 'field' } },
-  { name: 'get_verse', arguments: { ref: 'John 1' } },
-  { name: 'get_verse', arguments: { ref: 'John 1:1', morphology: true } },
+  { name: 'get_original', arguments: { ref: 'John 1' } },
+  { name: 'get_original', arguments: { ref: 'John 1:1', morphology: true } },
   { name: 'get_names', arguments: { ref: 'John 1:1-30' } },
   { name: 'lookup_strong', arguments: { strong: 'G3056' } },
   { name: 'find_occurrences', arguments: { strong: 'G3056' } },
   { name: 'search_lexicon', arguments: { query: 'field', language: 'greek' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'kjv' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'darby' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'elb1905' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'ohienko' } },
+  { name: 'get_translation', arguments: { ref: 'Ruth 1', version: 'rst' } },
+  { name: 'get_translation', arguments: { ref: 'Numbers 7:1-10', version: 'kjv' } },
+  { name: 'get_translation', arguments: { ref: 'Psalms 3', version: 'rst' } },
 ];
 
 const resourceUris = [
-  'stepbible://verse/Ruth%201%3A1',
-  'stepbible://verse/Ruth%201',
-  'stepbible://strong/H7704G',
-  'stepbible://verse/John%201',
-  'stepbible://strong/G3056',
+  'bible://original/Ruth%201%3A1',
+  'bible://original/Ruth%201',
+  'bible://strong/H7704G',
+  'bible://original/John%201',
+  'bible://strong/G3056',
+  'bible://translation/kjv/Ruth%201',
+  'bible://translation/rst/Ruth%201',
 ];
 
 const outputs = async (): Promise<{ label: string; text: string }[]> => {

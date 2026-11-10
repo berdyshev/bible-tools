@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createBibleRepo } from '../../src/data/repo.ts';
 import { explainMorphology, outputSchema } from '../../src/tools/explain-morphology.ts';
-import { getVerse } from '../../src/tools/get-verse.ts';
+import { getOriginal } from '../../src/tools/get-original.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { expectGolden } from '../helpers/golden.ts';
 import { textOf } from '../helpers/tool-text.ts';
@@ -21,7 +21,7 @@ void test('explain_morphology V-AAI-3S matches the golden output', () => {
   expectGolden('explain_morphology.V-AAI-3S.txt', textOf(result));
 });
 
-void test('a Hebrew code works without its letter, and compounds as get_verse shows them', () => {
+void test('a Hebrew code works without its letter, and compounds as get_original shows them', () => {
   assert.equal(
     textOf(explainMorphology.call({ code: 'Vqw3ms' }, repo)),
     textOf(explainMorphology.call({ code: 'HVqw3ms' }, repo)),
@@ -49,16 +49,16 @@ void test('a Hebrew code works without its letter, and compounds as get_verse sh
   );
 });
 
-/** The morphology code of each word line of a get_verse result with `morphology: true`. */
+/** The morphology code of each word line of a get_original result with `morphology: true`. */
 const codesShown = (ref: string): string[] => {
-  const text = textOf(getVerse.call({ ref, morphology: true }, repo));
+  const text = textOf(getOriginal.call({ ref, morphology: true }, repo));
   return text
     .split('\n')
     .filter((line) => /^\d+\. /.test(line))
     .map((line) => line.split('  ').at(-2) ?? '');
 };
 
-void test('every code get_verse shows for Ruth 1 and John 1 is explained, end to end', () => {
+void test('every code get_original shows for Ruth 1 and John 1 is explained, end to end', () => {
   for (const ref of ['Ruth 1:1-3', 'Ruth 1:20-22', 'John 1:1', 'John 1:14', 'John 1:42']) {
     const codes = codesShown(ref);
     assert.ok(codes.length > 0, ref);

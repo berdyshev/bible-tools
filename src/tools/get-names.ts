@@ -34,7 +34,7 @@ export const descriptionParts: DescriptionParts = {
     'Output: a header line, then one line per name: `- name  strong  (kind)  transliteration  words positions [— description]  original`. ' +
     "For a range such as `Ruth 1:1-5` or a chapter such as `Ruth 1`, names are deduplicated by Strong's number and each lists its places as `at 1:2 w6; 1:5 w1,2` (verse, word positions). " +
     `A passage is capped at about ${MAX_CHARS} characters: a longer one is cut at a verse boundary and ends with \`truncated — call get_names again with "Ruth 1:7-12"\`.`,
-  not: 'It does not give forms of the names in other languages; use get_verse for the full word-by-word text.',
+  not: 'It does not give forms of the names in other languages; use get_original for the full word-by-word text.',
 };
 
 export const description = describeTool(descriptionParts);

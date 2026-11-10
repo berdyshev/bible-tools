@@ -1,3 +1,3 @@
-G3004 has 2 senses; pick the one get_verse shows for your verse and call again:
+G3004 has 2 senses; pick the one get_original shows for your verse and call again:
 G3004G  λέγω  «to say»
 G3004H  λέγω  «to say: call»

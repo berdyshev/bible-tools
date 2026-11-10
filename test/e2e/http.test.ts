@@ -35,7 +35,7 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 const start = async (extraEnv: Record<string, string> = {}): Promise<Running> => {
   const port = await freePort();
   const child = spawn('node', ['--disable-warning=ExperimentalWarning', HTTP], {
-    env: { ...process.env, PORT: String(port), STEPBIBLE_DB: dbPath, ...extraEnv },
+    env: { ...process.env, PORT: String(port), BIBLE_DB: dbPath, ...extraEnv },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   running.push(child);
@@ -77,7 +77,7 @@ const post = (base: string, headers: Record<string, string> = {}): Promise<Respo
 let main: Running;
 
 before(async () => {
-  dir = mkdtempSync(join(tmpdir(), 'stepbible-http-'));
+  dir = mkdtempSync(join(tmpdir(), 'bible-http-'));
   dbPath = buildFixtureDbFile(dir);
   main = await start();
 });
@@ -103,11 +103,12 @@ void test('an MCP client can initialize and list the tools over POST /mcp', asyn
       'explain_morphology',
       'find_occurrences',
       'get_names',
-      'get_verse',
+      'get_original',
+      'get_translation',
       'lookup_strong',
       'search_lexicon',
     ]);
-    const verse = await client.callTool({ name: 'get_verse', arguments: { ref: 'Ruth 1:1' } });
+    const verse = await client.callTool({ name: 'get_original', arguments: { ref: 'Ruth 1:1' } });
     assert.notEqual(verse.isError, true);
   } finally {
     await client.close();

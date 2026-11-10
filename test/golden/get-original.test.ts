@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createBibleRepo } from '../../src/data/repo.ts';
-import { getVerse } from '../../src/tools/get-verse.ts';
+import { getOriginal } from '../../src/tools/get-original.ts';
 import { fixtureDb } from '../helpers/fixture-db.ts';
 import { psalmDb } from '../helpers/psalm-fixture.ts';
 import { expectGolden } from '../helpers/golden.ts';
@@ -9,37 +9,37 @@ import { textOf } from '../helpers/tool-text.ts';
 
 const repo = createBibleRepo(fixtureDb());
 
-void test('get_verse Ruth 1:1 matches the golden output', () => {
-  const result = getVerse.call({ ref: 'Ruth 1:1' }, repo);
+void test('get_original Ruth 1:1 matches the golden output', () => {
+  const result = getOriginal.call({ ref: 'Ruth 1:1' }, repo);
   assert.equal(result.isError, undefined);
-  expectGolden('get_verse.Ruth_1_1.txt', textOf(result));
+  expectGolden('get_original.Ruth_1_1.txt', textOf(result));
 });
 
-void test('get_verse John 1:1 matches the golden output', () => {
-  const result = getVerse.call({ ref: 'John 1:1' }, repo);
+void test('get_original John 1:1 matches the golden output', () => {
+  const result = getOriginal.call({ ref: 'John 1:1' }, repo);
   assert.equal(result.isError, undefined);
-  expectGolden('get_verse.John_1_1.txt', textOf(result));
+  expectGolden('get_original.John_1_1.txt', textOf(result));
 });
 
-void test('get_verse John 1:1 with morphology matches the golden output', () => {
-  const result = getVerse.call({ ref: 'John 1:1', morphology: true }, repo);
+void test('get_original John 1:1 with morphology matches the golden output', () => {
+  const result = getOriginal.call({ ref: 'John 1:1', morphology: true }, repo);
   assert.equal(result.isError, undefined);
   const text = textOf(result);
-  expectGolden('get_verse.John_1_1.morphology.txt', text);
+  expectGolden('get_original.John_1_1.morphology.txt', text);
   assert.match(text, /\n3\. ēn {2}G1510 {2}was {2}V-IAI-3S {2}ἦν\n/);
 });
 
-void test('get_verse Ruth 1:1 with morphology shows the Hebrew codes and the default stays plain', () => {
-  const plain = textOf(getVerse.call({ ref: 'Ruth 1:1' }, repo));
-  const withCodes = textOf(getVerse.call({ ref: 'Ruth 1:1', morphology: true }, repo));
+void test('get_original Ruth 1:1 with morphology shows the Hebrew codes and the default stays plain', () => {
+  const plain = textOf(getOriginal.call({ ref: 'Ruth 1:1' }, repo));
+  const withCodes = textOf(getOriginal.call({ ref: 'Ruth 1:1', morphology: true }, repo));
   assert.match(withCodes, /\n1\. va\/y\.Hi {2}H1961 {2}and\/ it was {2}H\S*\/V\S+ {2}\S/);
-  assert.equal(textOf(getVerse.call({ ref: 'Ruth 1:1', morphology: false }, repo)), plain);
+  assert.equal(textOf(getOriginal.call({ ref: 'Ruth 1:1', morphology: false }, repo)), plain);
   assert.doesNotMatch(plain, /Vqw3ms/);
 });
 
 void test('a Hebrew numbering request for the New Testament is answered in English numbering', () => {
-  const eng = textOf(getVerse.call({ ref: 'John 1:1' }, repo));
-  assert.equal(textOf(getVerse.call({ ref: 'John 1:1', versification: 'heb' }, repo)), eng);
+  const eng = textOf(getOriginal.call({ ref: 'John 1:1' }, repo));
+  assert.equal(textOf(getOriginal.call({ ref: 'John 1:1', versification: 'heb' }, repo)), eng);
   assert.match(eng, /^John 1:1 \(English numbering\) — Greek;/);
 });
 
@@ -48,12 +48,12 @@ void test('a New Testament chapter the fixture lacks is an error, a verse past J
   assert.equal(failure('John 1:99'), 'John 1 has no verse 99. Use a verse from 1 to 51');
 });
 
-void test('get_verse Ruth 1:1 stays compact', () => {
-  assert.ok(textOf(getVerse.call({ ref: 'Ruth 1:1' }, repo)).length < 2000);
+void test('get_original Ruth 1:1 stays compact', () => {
+  assert.ok(textOf(getOriginal.call({ ref: 'Ruth 1:1' }, repo)).length < 2000);
 });
 
 const failure = (ref: string): string => {
-  const result = getVerse.call({ ref }, repo);
+  const result = getOriginal.call({ ref }, repo);
   assert.equal(result.isError, true);
   return textOf(result);
 };
@@ -73,14 +73,14 @@ void test('a verse out of range gets the last verse', () => {
   assert.equal(failure('Ruth 1:99'), 'Ruth 1 has no verse 99. Use a verse from 1 to 22');
 });
 
-void test('get_verse Ruth 1:1-3 matches the golden output', () => {
-  const result = getVerse.call({ ref: 'Ruth 1:1-3' }, repo);
+void test('get_original Ruth 1:1-3 matches the golden output', () => {
+  const result = getOriginal.call({ ref: 'Ruth 1:1-3' }, repo);
   assert.equal(result.isError, undefined);
-  expectGolden('get_verse.Ruth_1_1-3.txt', textOf(result));
+  expectGolden('get_original.Ruth_1_1-3.txt', textOf(result));
 });
 
 void test('a short range is grouped by verse under sub-headers', () => {
-  const lines = textOf(getVerse.call({ ref: 'Ruth 1:3-4' }, repo)).split('\n');
+  const lines = textOf(getOriginal.call({ ref: 'Ruth 1:3-4' }, repo)).split('\n');
   assert.equal(
     lines[0],
     "Ruth 1:3-4 (English numbering) — Hebrew, read right to left; Strong's numbers per STEPBible",
@@ -91,28 +91,28 @@ void test('a short range is grouped by verse under sub-headers', () => {
 });
 
 void test('a range over the character cap stops at a verse boundary with the next call', () => {
-  const text = textOf(getVerse.call({ ref: 'Ruth 1:1-3' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'Ruth 1:1-3' }, repo));
   assert.ok(text.length <= 2000);
-  assert.ok(text.endsWith('\ntruncated — call get_verse again with "Ruth 1:2-3"'));
+  assert.ok(text.endsWith('\ntruncated — call get_original again with "Ruth 1:2-3"'));
   assert.ok(!text.includes('\nRuth 1:2\n'));
 });
 
 void test('a whole chapter returns the first chunk and a continuation to its end', () => {
-  const text = textOf(getVerse.call({ ref: 'Ruth 1' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'Ruth 1' }, repo));
   assert.match(text, /^Ruth 1:1-22 \(English numbering\)/);
   assert.ok(text.length <= 2000);
-  assert.ok(text.endsWith('truncated — call get_verse again with "Ruth 1:2-22"'));
+  assert.ok(text.endsWith('truncated — call get_original again with "Ruth 1:2-22"'));
 });
 
 void test('following the continuation hint returns the next verses', () => {
-  const text = textOf(getVerse.call({ ref: 'Ruth 1:2-22' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'Ruth 1:2-22' }, repo));
   assert.match(text, /^Ruth 1:2-22 /);
   assert.match(text, /\nRuth 1:2\n[^]*\nRuth 1:3\n/);
-  assert.ok(text.endsWith('truncated — call get_verse again with "Ruth 1:4-22"'));
+  assert.ok(text.endsWith('truncated — call get_original again with "Ruth 1:4-22"'));
 });
 
 void test('a range may cross a chapter boundary', () => {
-  const text = textOf(getVerse.call({ ref: 'Ruth 1:22-2:2', versification: 'heb' }, repo));
+  const text = textOf(getOriginal.call({ ref: 'Ruth 1:22-2:2', versification: 'heb' }, repo));
   assert.match(text, /^Ruth 1:22-2:2 \(Hebrew numbering\)/);
   assert.match(text, /\nRuth 2:1\n/);
 });
@@ -136,7 +136,7 @@ void test('a chapter the text does not have is an error', () => {
 const psalms = createBibleRepo(psalmDb());
 
 void test('a chapter with a superscription starts at verse 0', () => {
-  const text = textOf(getVerse.call({ ref: 'Ps 3' }, psalms));
+  const text = textOf(getOriginal.call({ ref: 'Ps 3' }, psalms));
   assert.match(text, /^Psalms 3:0-2 \(English numbering\)/);
   assert.match(text, /\nPsalms 3:0\n1\. [^\n]+\n/);
   assert.match(text, /\nPsalms 3:1\n/);
@@ -144,7 +144,7 @@ void test('a chapter with a superscription starts at verse 0', () => {
 });
 
 void test('verse 0 is a verse of a chapter that has it and an error elsewhere', () => {
-  assert.match(textOf(getVerse.call({ ref: 'Ps 3:0' }, psalms)), /^Psalms 3:0 /);
+  assert.match(textOf(getOriginal.call({ ref: 'Ps 3:0' }, psalms)), /^Psalms 3:0 /);
   assert.equal(failure('Ruth 1:0-2'), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
   assert.equal(failure('Ruth 1:0'), 'Ruth 1 has no verse 0. Use a verse from 1 to 22');
 });

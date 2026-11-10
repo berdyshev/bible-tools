@@ -30,15 +30,17 @@ const hostnames = z
 const env = z
   .object({
     PORT: z.coerce.number().int().min(0).max(65535).default(3000),
-    STEPBIBLE_DB: z
-      .string()
-      .min(1)
-      .default(fileURLToPath(new URL('../data/bible.sqlite', import.meta.url))),
+    BIBLE_DB: z.string().min(1).optional(),
+    // The name before the project became bible-tools.
+    STEPBIBLE_DB: z.string().min(1).optional(),
     ALLOWED_HOSTS: hostnames,
     ALLOWED_ORIGINS: hostnames,
     RATE_LIMIT: z.coerce.number().int().min(1).default(600),
   })
   .parse(process.env);
+
+const dbPath =
+  env.BIBLE_DB ?? env.STEPBIBLE_DB ?? fileURLToPath(new URL('../data/bible.sqlite', import.meta.url));
 
 const allowedHosts = env.ALLOWED_HOSTS ?? localhostAllowedHostnames();
 const allowedOrigins = env.ALLOWED_ORIGINS ?? localhostAllowedOrigins();
@@ -55,7 +57,7 @@ const openOrExit = (path: string): DatabaseSync => {
   }
 };
 
-const db = openOrExit(env.STEPBIBLE_DB);
+const db = openOrExit(dbPath);
 const repo = createBibleRepo(db);
 const handler = createMcpHandler(() => createServer({ repo }), {
   onerror: (e) => console.error('mcp handle error:', e.message),
@@ -106,11 +108,11 @@ const server = createHttpServer((req, res) => {
 });
 
 server.listen(env.PORT, '0.0.0.0', () => {
-  console.error(`stepbible MCP server listening on :${env.PORT}`);
+  console.error(`bible-tools MCP server listening on :${env.PORT}`);
 });
 
 const shutdown = (signal: string): void => {
-  console.error(`stepbible MCP server stopping on ${signal}`);
+  console.error(`bible-tools MCP server stopping on ${signal}`);
   setTimeout(() => {
     server.closeAllConnections();
     process.exit(1);

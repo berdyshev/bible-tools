@@ -1,7 +1,9 @@
 import { ProtocolError, ProtocolErrorCode, ResourceTemplate } from '@modelcontextprotocol/server';
 import type { CallToolResult, McpServer, ReadResourceResult, Variables } from '@modelcontextprotocol/server';
+import { z } from 'zod/v4';
 import type { BibleRepo } from './data/repo.ts';
-import { getVerse } from './tools/get-verse.ts';
+import { getOriginal } from './tools/get-original.ts';
+import { getTranslation, inputSchema as translationInput } from './tools/get-translation.ts';
 import { lookupStrong } from './tools/lookup-strong.ts';
 
 /** `Ruth.1.1` (OSIS style) is read as `Ruth 1:1`; anything else is passed on unchanged. */
@@ -34,27 +36,49 @@ const asRead = (uri: URL, result: CallToolResult): ReadResourceResult => {
 
 export const registerResources = (server: McpServer, repo: BibleRepo): void => {
   server.registerResource(
-    'verse',
-    new ResourceTemplate('stepbible://verse/{ref}', { list: undefined }),
+    'original',
+    new ResourceTemplate('bible://original/{ref}', { list: undefined }),
     {
       title: 'Original-language words of a verse',
       description:
-        'The Hebrew (Old Testament) or Greek (New Testament) words of one verse, as returned by get_verse. `ref` is URL-encoded, e.g. ' +
-        '`stepbible://verse/Ruth%201%3A1` or `stepbible://verse/John%201%3A1`; `Ruth.1.1` is accepted too.',
+        'The Hebrew (Old Testament) or Greek (New Testament) words of one verse, as returned by get_original. `ref` is URL-encoded, e.g. ' +
+        '`bible://original/Ruth%201%3A1` or `bible://original/John%201%3A1`; `Ruth.1.1` is accepted too.',
       mimeType: 'text/plain',
     },
-    (uri, variables) => asRead(uri, getVerse.call({ ref: normalizeRef(variable(variables, 'ref')) }, repo)),
+    (uri, variables) =>
+      asRead(uri, getOriginal.call({ ref: normalizeRef(variable(variables, 'ref')) }, repo)),
   );
   server.registerResource(
     'strong',
-    new ResourceTemplate('stepbible://strong/{id}', { list: undefined }),
+    new ResourceTemplate('bible://strong/{id}', { list: undefined }),
     {
       title: 'Lexicon entry',
       description:
         "The lexicon entry of one Hebrew or Greek Strong's number, as returned by lookup_strong, e.g. " +
-        '`stepbible://strong/H7704G` or `stepbible://strong/G3056`.',
+        '`bible://strong/H7704G` or `bible://strong/G3056`.',
       mimeType: 'text/plain',
     },
     (uri, variables) => asRead(uri, lookupStrong.call({ strong: variable(variables, 'id') }, repo)),
+  );
+  server.registerResource(
+    'translation',
+    new ResourceTemplate('bible://translation/{version}/{ref}', { list: undefined }),
+    {
+      title: 'Translation of a passage',
+      description:
+        'One translation of a verse or passage in KJV numbering, as returned by get_translation. `version` is ' +
+        `${translationInput.shape.version.options.map((v) => `\`${v}\``).join(', ')}; \`ref\` is URL-encoded, e.g. ` +
+        '`bible://translation/kjv/Ruth%201%3A1` or `bible://translation/rst/John.1.1`.',
+      mimeType: 'text/plain',
+    },
+    (uri, variables) => {
+      const args = translationInput.safeParse({
+        ref: normalizeRef(variable(variables, 'ref')),
+        version: variable(variables, 'version'),
+      });
+      if (!args.success)
+        throw new ProtocolError(ProtocolErrorCode.InvalidParams, z.prettifyError(args.error));
+      return asRead(uri, getTranslation.call(args.data, repo));
+    },
   );
 };

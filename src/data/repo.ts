@@ -1,8 +1,9 @@
 import type { DatabaseSync, SQLInputValue } from 'node:sqlite';
 import { z } from 'zod/v4';
 import { normalizeBook, BOOKS } from '../domain/books.ts';
-import type { VerseBounds, VerseRef, Scope, Versification } from '../domain/ref.ts';
+import type { Span, VerseBounds, VerseRef, Scope, Versification } from '../domain/ref.ts';
 import type { Strong } from '../domain/strong.ts';
+import { VERSION_IDS, VERSIONS, type Version, type VersionId } from '../domain/versions.ts';
 
 const bool = z.number().transform((n) => n === 1);
 const tags = z
@@ -79,6 +80,27 @@ const occurrenceRow = z.object({
   strong: z.string(),
 });
 
+const translationMetaRow = z.object({
+  version: z.enum(VERSION_IDS),
+  bracketMeaning: z.string().nullable(),
+  hasNotes: bool,
+});
+
+const translationVerseRow = z.object({
+  chapter: z.number(),
+  verse: z.number(),
+  nativeRef: z.string().nullable(),
+  text: z.string(),
+});
+
+/** A translation loaded into the database: its names and licence, and the markers its text uses. */
+export type TranslationMeta = Version & {
+  readonly bracketMeaning: string | null;
+  readonly hasNotes: boolean;
+};
+/** One verse of a translation, in KJV numbering, with the module's own number when it differs. */
+export type TranslationVerse = z.infer<typeof translationVerseRow>;
+
 /** One word of the Hebrew text (TAHOT), in English and Hebrew numbering. */
 export type Word = z.infer<typeof wordRow>;
 /** One TBESH lexicon entry. */
@@ -126,6 +148,10 @@ export interface BibleRepo {
   morphologyCode(code: string): MorphologyEntry | null;
   /** First TIPNR record for a disambiguated key; null if the key names no proper noun. */
   tipnr(dstrong: string): TipnrRecord | null;
+  /** The translations in the database, in `VERSION_IDS` order. */
+  translations(): readonly TranslationMeta[];
+  /** The verses of `version` within `span` (KJV numbering) that the translation has, in text order. */
+  translationVerses(version: VersionId, span: Span): TranslationVerse[];
 }
 
 const WORD_COLUMNS = `book, chapter, verse, heb_chapter AS hebChapter, heb_verse AS hebVerse, position,
@@ -200,6 +226,18 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     lexiconRow,
   );
 
+  const translationMetas = query(
+    'SELECT version, bracket_meaning AS bracketMeaning, has_notes AS hasNotes FROM translation_meta',
+    translationMetaRow,
+  );
+  // A row-value range on the primary key (version, book, chapter, verse) is an index range scan.
+  const translationRange = query(
+    `SELECT chapter, verse, native_ref AS nativeRef, text FROM translation_verses
+     WHERE version = ? AND book = ? AND (chapter, verse) BETWEEN (?, ?) AND (?, ?)
+     ORDER BY chapter, verse`,
+    translationVerseRow,
+  );
+
   const occurrenceQuery = (exact: boolean, scope: Scope, versification: Versification) => {
     const heb = versification === 'heb';
     const chapterCol = heb ? 'heb_chapter' : 'chapter';
@@ -220,6 +258,8 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
       occurrenceRow,
     );
   };
+
+  let translationList: readonly TranslationMeta[] | undefined;
 
   return {
     verseWords: (ref) =>
@@ -280,5 +320,17 @@ export const createBibleRepo = (db: DatabaseSync): BibleRepo => {
     },
     morphologyCode: (code) => morphologyByCode(code)[0] ?? null,
     tipnr: (dstrong) => tipnrByKey(dstrong)[0] ?? null,
+    translations: () => {
+      // The database is read-only, so the list is read once.
+      translationList ??= VERSIONS.flatMap((v) => {
+        const row = translationMetas().find((m) => m.version === v.id);
+        return row === undefined
+          ? []
+          : [{ ...v, bracketMeaning: row.bracketMeaning, hasNotes: row.hasNotes }];
+      });
+      return translationList;
+    },
+    translationVerses: (version, { book, start, end }) =>
+      translationRange(version, book.id, start.chapter, start.verse, end.chapter, end.verse),
   };
 };

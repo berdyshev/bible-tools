@@ -63,13 +63,14 @@ Errors come back as tool results with `isError` set and a hint on how to fix the
 
 ## Resources
 
-Hosts can attach data as context through two resource templates (plain text, the same
+Hosts can attach data as context through three resource templates (plain text, the same
 output as the matching tool). They are not listed, since there is nothing sensible to enumerate.
 
-| Template                  | Same as         | Example                         |
-| ------------------------- | --------------- | ------------------------------- |
-| `bible://original/{ref}` | `get_original`     | `bible://original/Ruth%201%3A1`, `bible://original/John.1.1` |
-| `bible://strong/{id}` | `lookup_strong` | `bible://strong/H7704G`, `bible://strong/G3056` |
+| Template                              | Same as           | Example                                                                    |
+| ------------------------------------- | ----------------- | -------------------------------------------------------------------------- |
+| `bible://original/{ref}`              | `get_original`    | `bible://original/Ruth%201%3A1`, `bible://original/John.1.1`               |
+| `bible://strong/{id}`                 | `lookup_strong`   | `bible://strong/H7704G`, `bible://strong/G3056`                            |
+| `bible://translation/{version}/{ref}` | `get_translation` | `bible://translation/kjv/Ruth%201%3A1`, `bible://translation/rst/John.1.1` |
 
 `ref` is URL-encoded; `Ruth.1.1` is accepted too. Invalid input is a JSON-RPC error with the
 same hint the tools give.

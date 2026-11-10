@@ -168,6 +168,7 @@ void test('resource templates are listed and not enumerated', async () => {
   assert.deepEqual(resourceTemplates.map((t) => t.uriTemplate).toSorted(), [
     'bible://original/{ref}',
     'bible://strong/{id}',
+    'bible://translation/{version}/{ref}',
   ]);
   for (const t of resourceTemplates) assert.equal(t.mimeType, 'text/plain', t.name);
   const original = resourceTemplates.find((t) => t.name === 'original');
@@ -185,6 +186,16 @@ void test('resources return the same text as the tools', async () => {
     { uri: 'bible://original/John%201%3A1', tool: 'get_original', arguments: { ref: 'John 1:1' } },
     { uri: 'bible://original/John.1.1', tool: 'get_original', arguments: { ref: 'John 1:1' } },
     { uri: 'bible://strong/G3056', tool: 'lookup_strong', arguments: { strong: 'G3056' } },
+    {
+      uri: 'bible://translation/kjv/Ruth%201%3A1',
+      tool: 'get_translation',
+      arguments: { ref: 'Ruth 1:1', version: 'kjv' },
+    },
+    {
+      uri: 'bible://translation/rst/Ruth.1.1',
+      tool: 'get_translation',
+      arguments: { ref: 'Ruth 1:1', version: 'rst' },
+    },
   ];
   for (const { uri, tool, arguments: args } of cases) {
     const { contents } = await client.readResource({ uri });
@@ -211,6 +222,14 @@ void test('invalid resource input is an error with the hint', async () => {
   await assert.rejects(
     client.readResource({ uri: 'bible://strong/H9999' }),
     /Strong's number "H9999" was not found/,
+  );
+  await assert.rejects(
+    client.readResource({ uri: 'bible://translation/niv/Ruth%201%3A1' }),
+    /version must be one of "kjv"/,
+  );
+  await assert.rejects(
+    client.readResource({ uri: 'bible://translation/kjv/Ruth%2099%3A1' }),
+    /Ruth has no chapter 99/,
   );
 });
 

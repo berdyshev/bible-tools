@@ -34,7 +34,7 @@ Provenance, quoted from each module's metadata:
 - **Names and licence** of each version live in `src/domain/versions.ts`; the database stores only what depends on the text (bracket meaning, whether notes occur, module sha256).
 - Other markup is removed: Strong's tags and paragraph marks with no text left, formatting and HTML tags with their content kept, RST's `^^` around psalm titles, Elberfelder's trailing ` -`.
 - **Storage.** The supplied modules are not committed: they are kept locally in `data/theword/original/` (git-ignored), identified by their sha256 in the manifest. A deterministic script, `scripts/normalize-theword.ts`, writes normalized modules to `data/theword/<id>.ont`, which are committed. `data/theword/MANIFEST.json` records, per version, the original and normalized files with their sha256, the original encoding (normalized modules are UTF-8 with a BOM), licence, bracket meaning and every normalization edit. `build-db.ts` fails on a sha256 mismatch or a module that is not 31,102 verse lines; a test re-runs the script and compares hashes when the originals are present.
-- The project is renamed `bible-tools` (package, server name and repository), as it is no longer STEPBible-only. Resource URIs use the `bible://` scheme (`bible://original/{ref}`, `bible://strong/{id}`), and the database path variable is `BIBLE_DB`.
+- The project is renamed `bible-tools` (package, server name and repository), as it is no longer STEPBible-only. Resource URIs use the `bible://` scheme (`bible://original/{ref}`, `bible://strong/{id}`, and `bible://translation/{version}/{ref}` for `get_translation`), and the database path variable is `BIBLE_DB`.
 
 ### Normalization
 

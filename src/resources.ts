@@ -1,7 +1,9 @@
 import { ProtocolError, ProtocolErrorCode, ResourceTemplate } from '@modelcontextprotocol/server';
 import type { CallToolResult, McpServer, ReadResourceResult, Variables } from '@modelcontextprotocol/server';
+import { z } from 'zod/v4';
 import type { BibleRepo } from './data/repo.ts';
 import { getOriginal } from './tools/get-original.ts';
+import { getTranslation, inputSchema as translationInput } from './tools/get-translation.ts';
 import { lookupStrong } from './tools/lookup-strong.ts';
 
 /** `Ruth.1.1` (OSIS style) is read as `Ruth 1:1`; anything else is passed on unchanged. */
@@ -57,5 +59,26 @@ export const registerResources = (server: McpServer, repo: BibleRepo): void => {
       mimeType: 'text/plain',
     },
     (uri, variables) => asRead(uri, lookupStrong.call({ strong: variable(variables, 'id') }, repo)),
+  );
+  server.registerResource(
+    'translation',
+    new ResourceTemplate('bible://translation/{version}/{ref}', { list: undefined }),
+    {
+      title: 'Translation of a passage',
+      description:
+        'One translation of a verse or passage in KJV numbering, as returned by get_translation. `version` is ' +
+        `${translationInput.shape.version.options.map((v) => `\`${v}\``).join(', ')}; \`ref\` is URL-encoded, e.g. ` +
+        '`bible://translation/kjv/Ruth%201%3A1` or `bible://translation/rst/John.1.1`.',
+      mimeType: 'text/plain',
+    },
+    (uri, variables) => {
+      const args = translationInput.safeParse({
+        ref: normalizeRef(variable(variables, 'ref')),
+        version: variable(variables, 'version'),
+      });
+      if (!args.success)
+        throw new ProtocolError(ProtocolErrorCode.InvalidParams, z.prettifyError(args.error));
+      return asRead(uri, getTranslation.call(args.data, repo));
+    },
   );
 };

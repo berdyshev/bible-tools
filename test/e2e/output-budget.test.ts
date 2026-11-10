@@ -53,6 +53,8 @@ const resourceUris = [
   'bible://strong/H7704G',
   'bible://original/John%201',
   'bible://strong/G3056',
+  'bible://translation/kjv/Ruth%201',
+  'bible://translation/rst/Ruth%201',
 ];
 
 const outputs = async (): Promise<{ label: string; text: string }[]> => {

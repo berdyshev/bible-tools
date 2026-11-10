@@ -35,7 +35,7 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 const start = async (extraEnv: Record<string, string> = {}): Promise<Running> => {
   const port = await freePort();
   const child = spawn('node', ['--disable-warning=ExperimentalWarning', HTTP], {
-    env: { ...process.env, PORT: String(port), STEPBIBLE_DB: dbPath, ...extraEnv },
+    env: { ...process.env, PORT: String(port), BIBLE_DB: dbPath, ...extraEnv },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   running.push(child);
@@ -77,7 +77,7 @@ const post = (base: string, headers: Record<string, string> = {}): Promise<Respo
 let main: Running;
 
 before(async () => {
-  dir = mkdtempSync(join(tmpdir(), 'stepbible-http-'));
+  dir = mkdtempSync(join(tmpdir(), 'bible-http-'));
   dbPath = buildFixtureDbFile(dir);
   main = await start();
 });

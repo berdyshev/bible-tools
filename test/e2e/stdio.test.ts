@@ -11,7 +11,7 @@ import { buildFixtureDbFile } from '../helpers/fixture-db.ts';
 const STDIO = fileURLToPath(new URL('../../src/stdio.ts', import.meta.url));
 // The same flag the entry point's shebang passes.
 const NODE_ARGS = ['--disable-warning=ExperimentalWarning', STDIO];
-const dir = mkdtempSync(join(tmpdir(), 'stepbible-stdio-'));
+const dir = mkdtempSync(join(tmpdir(), 'bible-stdio-'));
 after(() => {
   rmSync(dir, { recursive: true, force: true });
 });
@@ -19,7 +19,7 @@ after(() => {
 void test('a missing database ends with one stderr line, exit 1 and empty stdout', () => {
   const missing = join(dir, 'absent.sqlite');
   const run = spawnSync('node', NODE_ARGS, {
-    env: { ...process.env, STEPBIBLE_DB: missing },
+    env: { ...process.env, BIBLE_DB: missing },
     encoding: 'utf8',
   });
   assert.equal(run.status, 1);
@@ -34,7 +34,7 @@ const rpcLine = z.object({ jsonrpc: z.literal('2.0'), id: z.number(), result: z.
 
 void test('stdout carries only JSON-RPC and the server answers initialize', async () => {
   const child = spawn('node', NODE_ARGS, {
-    env: { ...process.env, STEPBIBLE_DB: buildFixtureDbFile(dir) },
+    env: { ...process.env, BIBLE_DB: buildFixtureDbFile(dir) },
     stdio: ['pipe', 'pipe', 'pipe'],
   });
   let stdout = '';

@@ -37,7 +37,7 @@ const tools: readonly Registrable[] = [
 
 export const createServer = ({ repo }: { readonly repo: BibleRepo }): McpServer => {
   const server = new McpServer(
-    { name: 'bible-sources', version: '0.0.0' },
+    { name: 'bible-tools', version: '0.0.0' },
     { instructions: instructions(repo), capabilities: { tools: {}, resources: {}, prompts: {} } },
   );
   for (const tool of tools) tool.register(server, repo);

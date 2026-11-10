@@ -31114,6 +31114,6 @@ creator=Costas Stergiou (root@theword.gr)
 about=German Darby Unrevidierte Elberfelder 1905,\
 <p>Copyright by R. Bockhaus Verlages\
 <p><p>Public Domain
-normalized.by=scripts/normalize-theword.ts (stepbible-mcp): one line per KJV verse, see MANIFEST.json
+normalized.by=scripts/normalize-theword.ts (bible-tools): one line per KJV verse, see MANIFEST.json
 normalized.from.sha256=123ae1a06a6a4fcabbf80ed9156cb5917ca16cf83ae4ccab0918f53d7a60909d
 normalized.edits=<WTHc:v> tags set from the Hebrew verse map (HEB_TO_KJV) where the module's disagreed or were missing in a tagged chapter, a leading tag wherever the line starts in a Hebrew verse other than its KJV number: Num 30:1, Deut 29:2-29, 1Sam 20:42, 2Kgs 12:1-21, 2Kgs 15:38, Job 40:1-41:8, Job 41:10-34, Ps 13:6, Eccl 6:12, Isa 7:25; Mark 16:9-20 and John 7:53-8:11: the <FI> opened at Mark 16:9 and closed at John 8:11 is set per verse; <FI> spans crossing verse lines closed at the line end and reopened on the next line: Mark 9:45-46, John 5:3-4, John 10:12-13, Acts 24:6-8; leading own number added where a line had only mid-line markers: 1Sam 20:42, 1Kgs 22:43, 3John 1:14

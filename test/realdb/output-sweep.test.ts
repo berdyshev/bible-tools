@@ -12,8 +12,7 @@ import { getTranslation } from '../../src/tools/get-translation.ts';
 import { MAX_CHARS } from '../../src/tools/passage.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
-const dbPath =
-  process.env['STEPBIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
+const dbPath = process.env['BIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
 const skip = existsSync(dbPath) ? false : `no database at ${dbPath}; run pnpm data:fetch && pnpm data:build`;
 const repo = skip === false ? createBibleRepo(openDb(dbPath)) : null;
 

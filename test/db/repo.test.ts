@@ -391,7 +391,7 @@ void test('searchLexicon treats the query as text, not as a pattern', () => {
   assert.equal(repo.lexiconEntry('H7704G')?.strong, 'H7704G');
 });
 
-const dir = mkdtempSync(join(tmpdir(), 'stepbible-repo-'));
+const dir = mkdtempSync(join(tmpdir(), 'bible-repo-'));
 after(() => {
   rmSync(dir, { recursive: true, force: true });
 });

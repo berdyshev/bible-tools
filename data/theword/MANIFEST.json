@@ -3,7 +3,7 @@
     {
       "version": "kjv",
       "file": "kjv.ont",
-      "sha256": "1454e5adc83cccbab32328a070ca725bd427453e2ad68c0526a74e0e8f4249a5",
+      "sha256": "b6e789ec739ca0c4231071a6c98629c8332ce5fc5263c05b473806ce6b211371",
       "original": {
         "file": "original/kjv.ont",
         "sha256": "f94d7f3572294d90f0a73d95d3972e6f413d39ac770cd14c6ea528d91574c1a8",
@@ -18,7 +18,7 @@
     {
       "version": "darby",
       "file": "darby.ont",
-      "sha256": "ac98bb63cf035ad8c4d4b5a2c25ff9533b004be64496bba8189f61b28c7306b7",
+      "sha256": "00cf065db0cd46827573b1f80a2e44094608bb5fa74775b9b5480d5a67134ca4",
       "original": {
         "file": "original/darby.ont",
         "sha256": "a8e3616ccc32adc6f6baf2a3acf227bf9bfec4655e3399a1c765bcf07de0e3dd",
@@ -35,7 +35,7 @@
     {
       "version": "elb1905",
       "file": "gerelb.ont",
-      "sha256": "0a97516c5639e5e809aab67414dabed62784412dacfa8b33d7f643d4812a00ec",
+      "sha256": "5b249e488f2133e4d4f3c5bc6a30bbef32804dde103006ede51770f98d1e8fe7",
       "original": {
         "file": "original/gerelb.ont",
         "sha256": "123ae1a06a6a4fcabbf80ed9156cb5917ca16cf83ae4ccab0918f53d7a60909d",
@@ -55,7 +55,7 @@
     {
       "version": "ohienko",
       "file": "ukrio.ont",
-      "sha256": "434bbc6f6ffe678fc513c7587621c022945d17b19cd6e41d3907428fea6d5685",
+      "sha256": "8b238e96398287df5ee64cd94ae5f1a35453cb9434c74bedbb64f8a7efa6e251",
       "original": {
         "file": "original/ukrio.ont",
         "sha256": "52ef01798b60a4c68edf650402698434db12ea2c58250c5bbcc3937a414d1f6f",
@@ -78,7 +78,7 @@
     {
       "version": "rst",
       "file": "rst.ont",
-      "sha256": "ac993832c93926c3eb2448714fb4aafb9a909d30d162dec10b9a739f2e8b0db7",
+      "sha256": "ece00f72ba03c7414bd8d54bbec1088dbfeb1a4b4fc889cb280ff679f556877b",
       "original": {
         "file": "original/rst.ont",
         "sha256": "1636b2b217156d9db30dce8db06200ec9cebaeb5bbf9a49aeab4c63d4084fdf3",

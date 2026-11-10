@@ -10,8 +10,7 @@ import { VERSION_IDS } from '../../src/domain/versions.ts';
 import { getTranslation } from '../../src/tools/get-translation.ts';
 import { textOf } from '../helpers/tool-text.ts';
 
-const dbPath =
-  process.env['STEPBIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
+const dbPath = process.env['BIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
 const skip = existsSync(dbPath) ? false : `no database at ${dbPath}; run pnpm data:fetch && pnpm data:build`;
 
 const full = skip === false ? openDb(dbPath) : null;

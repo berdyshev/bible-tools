@@ -981,7 +981,7 @@ export const normalizeAll = (): Output[] => {
     const { lines, edits } = results.get(spec.file) ?? { lines: [], edits: [] };
     const meta = [
       ...module.meta,
-      'normalized.by=scripts/normalize-theword.ts (stepbible-mcp): one line per KJV verse, see MANIFEST.json',
+      'normalized.by=scripts/normalize-theword.ts (bible-tools): one line per KJV verse, see MANIFEST.json',
       `normalized.from.sha256=${sha256(originalBytes)}`,
       `normalized.edits=${edits.length === 0 ? 'none' : edits.join('; ')}`,
     ];

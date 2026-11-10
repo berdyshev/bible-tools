@@ -1,11 +1,11 @@
-# stepbible-mcp
+# bible-tools
 
 A read-only [Model Context Protocol](https://modelcontextprotocol.io/) server over
 [STEPBible](https://www.stepbible.org/) open data: the Hebrew Old Testament and the Greek New
 Testament tagged with Strong's numbers and morphology, Hebrew and Greek lexicons, explanations of the
 morphology codes, and a database of proper names. Alongside them it serves the verse text of five
 public-domain or freely licensed translations (KJV, Darby, Elberfelder 1905, Ohienko, Russian Synodal) in KJV numbering.
-The server announces itself as `bible-sources`.
+The server announces itself as `bible-tools`.
 
 It is built for Bible translators, students of the original languages and people building
 agents that need grounded source-language data instead of guesses.
@@ -29,7 +29,7 @@ pnpm data:fetch   # downloads the STEPBible files at the pinned revision into da
 pnpm data:build   # builds data/bible.sqlite (about 127 MB, takes under a minute)
 ```
 
-The server reads `data/bible.sqlite` by default; set `STEPBIBLE_DB` to use another file.
+The server reads `data/bible.sqlite` by default; set `BIBLE_DB` to use another file.
 If the file is missing the server prints one line telling you which commands to run and exits.
 
 ## Tools
@@ -68,8 +68,8 @@ output as the matching tool). They are not listed, since there is nothing sensib
 
 | Template                  | Same as         | Example                         |
 | ------------------------- | --------------- | ------------------------------- |
-| `stepbible://verse/{ref}` | `get_original`     | `stepbible://verse/Ruth%201%3A1`, `stepbible://verse/John.1.1` |
-| `stepbible://strong/{id}` | `lookup_strong` | `stepbible://strong/H7704G`, `stepbible://strong/G3056` |
+| `bible://original/{ref}` | `get_original`     | `bible://original/Ruth%201%3A1`, `bible://original/John.1.1` |
+| `bible://strong/{id}` | `lookup_strong` | `bible://strong/H7704G`, `bible://strong/G3056` |
 
 `ref` is URL-encoded; `Ruth.1.1` is accepted too. Invalid input is a JSON-RPC error with the
 same hint the tools give.
@@ -89,13 +89,13 @@ the Node SQLite experimental warning.
 ```json
 {
   "mcpServers": {
-    "stepbible": {
+    "bible": {
       "command": "/absolute/path/to/node",
       "args": [
         "--disable-warning=ExperimentalWarning",
-        "/absolute/path/to/stepbible-mcp/src/stdio.ts"
+        "/absolute/path/to/bible-tools/src/stdio.ts"
       ],
-      "env": { "STEPBIBLE_DB": "/absolute/path/to/stepbible-mcp/data/bible.sqlite" }
+      "env": { "BIBLE_DB": "/absolute/path/to/bible-tools/data/bible.sqlite" }
     }
   }
 }
@@ -104,7 +104,7 @@ the Node SQLite experimental warning.
 For Claude Code:
 
 ```sh
-claude mcp add stepbible -- /absolute/path/to/node --disable-warning=ExperimentalWarning /absolute/path/to/stepbible-mcp/src/stdio.ts
+claude mcp add bible -- /absolute/path/to/node --disable-warning=ExperimentalWarning /absolute/path/to/bible-tools/src/stdio.ts
 ```
 
 `env` is optional when the database is at the default location. Find the `node` path with
@@ -129,7 +129,7 @@ fresh server instance and no session is kept.
 | Variable          | Default                     | Purpose                                        |
 | ----------------- | --------------------------- | ---------------------------------------------- |
 | `PORT`            | `3000`                      | Listening port on `0.0.0.0`                    |
-| `STEPBIBLE_DB`    | `data/bible.sqlite`         | Database file                                  |
+| `BIBLE_DB`        | `data/bible.sqlite`         | Database file (`STEPBIBLE_DB` is still read)   |
 | `ALLOWED_HOSTS`   | localhost, 127.0.0.1, [::1] | Comma-separated hostnames accepted in `Host`   |
 | `ALLOWED_ORIGINS` | localhost, 127.0.0.1, [::1] | Comma-separated hostnames accepted in `Origin` |
 | `RATE_LIMIT`      | `600`                       | Requests per minute to `/mcp`, for all clients |
@@ -145,8 +145,8 @@ proxy's, and every claude.ai connector calls from Anthropic's addresses anyway. 
 ## Docker
 
 ```sh
-docker build -t stepbible-mcp .
-docker run --rm -p 3000:3000 stepbible-mcp
+docker build -t bible-tools .
+docker run --rm -p 3000:3000 bible-tools
 curl http://localhost:3000/health
 ```
 
@@ -159,7 +159,7 @@ With the default `ALLOWED_HOSTS` only `localhost` is accepted in the `Host` head
 pass the hostname (comma-separated for several):
 
 ```sh
-docker run --rm -p 3000:3000 -e ALLOWED_HOSTS=mcp.example.com stepbible-mcp
+docker run --rm -p 3000:3000 -e ALLOWED_HOSTS=mcp.example.com bible-tools
 ```
 
 ## Deploy on Render
@@ -169,7 +169,7 @@ docker run --rm -p 3000:3000 -e ALLOWED_HOSTS=mcp.example.com stepbible-mcp
 1. Push the repository to GitHub, GitLab or Bitbucket.
 2. In the Render dashboard choose **New > Blueprint** and select the repository. Render reads
    `render.yaml`, builds the image and starts the service. A push to `main` deploys once CI has passed (`autoDeployTrigger: checksPass`).
-3. If the service name `stepbible-mcp` was already taken, Render appends a suffix. Then set
+3. If the service name `bible-tools` was already taken, Render appends a suffix. Then set
    `ALLOWED_HOSTS` to the real hostname of the service (`<service>.onrender.com`) in the service's
    environment settings; requests with another `Host` get `403`. `ALLOWED_ORIGINS` is set to `claude.ai`:
    a request that carries an `Origin` header is accepted only when the header's hostname is in that list,
@@ -192,7 +192,7 @@ https://<service>.onrender.com/mcp
 ```
 
 and choose no sign-in, as the server needs no account or key. The same URL works for
-`claude mcp add --transport http stepbible https://<service>.onrender.com/mcp` in Claude Code.
+`claude mcp add --transport http bible https://<service>.onrender.com/mcp` in Claude Code.
 
 ## MCP Inspector
 

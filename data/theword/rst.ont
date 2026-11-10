@@ -31111,6 +31111,6 @@ version.date=2009-06-15
 creator=Costas Stergiou (root@theword.gr)
 description=Russian Synodal Text 1876 
 about=1876 Russian Synodal Text
-normalized.by=scripts/normalize-theword.ts (stepbible-mcp): one line per KJV verse, see MANIFEST.json
+normalized.by=scripts/normalize-theword.ts (bible-tools): one line per KJV verse, see MANIFEST.json
 normalized.from.sha256=1636b2b217156d9db30dce8db06200ec9cebaeb5bbf9a49aeab4c63d4084fdf3
 normalized.edits=Song 1: the module lacks the title verse 1:1 and holds KJV 1:2-17 in lines 1:1-17 (1:17 split over two lines); moved up one line, KJV 1:1 left empty; Ps 90:1-6: lines hold Synodal 89:1-6 by number (title alone in 89:1, KJV 90:5-6 in 89:6); joined and split onto the KJV verses; Isa 3:19-26: KJV 3:19-20 in one line and 3:26 over two lines, the lines between shifted by one; re-slotted; leading own number added where a line had only mid-line markers: 1Sam 20:42, Ps 3:1, Ps 4:1, Ps 5:1, Ps 6:1, Ps 7:1, Ps 8:1, Ps 9:1, 3John 1:14

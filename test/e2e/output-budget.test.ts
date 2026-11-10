@@ -48,11 +48,11 @@ const toolCalls = [
 ];
 
 const resourceUris = [
-  'stepbible://verse/Ruth%201%3A1',
-  'stepbible://verse/Ruth%201',
-  'stepbible://strong/H7704G',
-  'stepbible://verse/John%201',
-  'stepbible://strong/G3056',
+  'bible://original/Ruth%201%3A1',
+  'bible://original/Ruth%201',
+  'bible://strong/H7704G',
+  'bible://original/John%201',
+  'bible://strong/G3056',
 ];
 
 const outputs = async (): Promise<{ label: string; text: string }[]> => {

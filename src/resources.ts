@@ -34,13 +34,13 @@ const asRead = (uri: URL, result: CallToolResult): ReadResourceResult => {
 
 export const registerResources = (server: McpServer, repo: BibleRepo): void => {
   server.registerResource(
-    'verse',
-    new ResourceTemplate('stepbible://verse/{ref}', { list: undefined }),
+    'original',
+    new ResourceTemplate('bible://original/{ref}', { list: undefined }),
     {
       title: 'Original-language words of a verse',
       description:
         'The Hebrew (Old Testament) or Greek (New Testament) words of one verse, as returned by get_original. `ref` is URL-encoded, e.g. ' +
-        '`stepbible://verse/Ruth%201%3A1` or `stepbible://verse/John%201%3A1`; `Ruth.1.1` is accepted too.',
+        '`bible://original/Ruth%201%3A1` or `bible://original/John%201%3A1`; `Ruth.1.1` is accepted too.',
       mimeType: 'text/plain',
     },
     (uri, variables) =>
@@ -48,12 +48,12 @@ export const registerResources = (server: McpServer, repo: BibleRepo): void => {
   );
   server.registerResource(
     'strong',
-    new ResourceTemplate('stepbible://strong/{id}', { list: undefined }),
+    new ResourceTemplate('bible://strong/{id}', { list: undefined }),
     {
       title: 'Lexicon entry',
       description:
         "The lexicon entry of one Hebrew or Greek Strong's number, as returned by lookup_strong, e.g. " +
-        '`stepbible://strong/H7704G` or `stepbible://strong/G3056`.',
+        '`bible://strong/H7704G` or `bible://strong/G3056`.',
       mimeType: 'text/plain',
     },
     (uri, variables) => asRead(uri, lookupStrong.call({ strong: variable(variables, 'id') }, repo)),

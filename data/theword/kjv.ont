@@ -31140,6 +31140,6 @@ about=This is the King James Version of the Holy Bible \
     (also known as the Authorized Version).  \
     This work is public domain, except in the United Kingdom, \
     where it is governed by Crown copyright.
-normalized.by=scripts/normalize-theword.ts (stepbible-mcp): one line per KJV verse, see MANIFEST.json
+normalized.by=scripts/normalize-theword.ts (bible-tools): one line per KJV verse, see MANIFEST.json
 normalized.from.sha256=f94d7f3572294d90f0a73d95d3972e6f413d39ac770cd14c6ea528d91574c1a8
 normalized.edits=none

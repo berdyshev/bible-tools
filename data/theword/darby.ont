@@ -31118,6 +31118,6 @@ about=A literal translation of the Old Testament (1890) and the New Testament  (
       <p><p>Printed copy available from, Bible Truth Publishers,\
             P.O. Box, 649, Addison, Illinois, 60101.\
       <p>Public Domain - Copy Freely
-normalized.by=scripts/normalize-theword.ts (stepbible-mcp): one line per KJV verse, see MANIFEST.json
+normalized.by=scripts/normalize-theword.ts (bible-tools): one line per KJV verse, see MANIFEST.json
 normalized.from.sha256=a8e3616ccc32adc6f6baf2a3acf227bf9bfec4655e3399a1c765bcf07de0e3dd
 normalized.edits=<FI> spans crossing verse lines closed at the line end and reopened on the next line, nested <FI> flattened: John 5:3-4, Acts 24:6-8, Rom 9:28

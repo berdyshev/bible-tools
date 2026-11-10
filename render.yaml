@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: stepbible-mcp
+    name: bible-tools
     runtime: docker
     plan: free
     healthCheckPath: /health
     autoDeployTrigger: checksPass
     envVars:
       - key: ALLOWED_HOSTS
-        value: stepbible-mcp.onrender.com,stepbible.way-truth-life.org
+        value: stepbible-mcp.onrender.com,stepbible.way-truth-life.org,bible-tools.way-truth-life.org
       - key: ALLOWED_ORIGINS
         value: claude.ai

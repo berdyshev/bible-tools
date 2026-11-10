@@ -7,8 +7,7 @@ import { HEB_CHAPTER_VERSES, hebrewToKjv } from '../../scripts/normalize-theword
 import { BOOKS } from '../../src/domain/books.ts';
 import { KJV_VERSES } from '../../src/domain/kjv.ts';
 
-const dbPath =
-  process.env['STEPBIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
+const dbPath = process.env['BIBLE_DB'] ?? fileURLToPath(new URL('../../data/bible.sqlite', import.meta.url));
 const skip = existsSync(dbPath) ? false : `no database at ${dbPath}; run pnpm data:fetch && pnpm data:build`;
 
 void test(
